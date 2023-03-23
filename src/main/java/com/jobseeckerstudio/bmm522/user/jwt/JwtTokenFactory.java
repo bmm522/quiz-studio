@@ -20,7 +20,7 @@ public class JwtTokenFactory {
     private JwtTokenFactory() {
     }
 
-    public JwtToken getJwtToken(User user) {
+    public JwtToken create(User user) {
         return JwtToken.builder()
                 .jwtToken(JwtProperties.TOKEN_PREFIX + JWT.create()
                         .withSubject(user.getUserKey())

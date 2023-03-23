@@ -3,13 +3,14 @@ package com.jobseeckerstudio.bmm522.user.oauth.info;
 import com.jobseeckerstudio.bmm522.user.entity.User;
 import com.jobseeckerstudio.bmm522.user.entity.Status;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 public class GoogleUserInfo implements SocialUserInfo{
 
-    private ConcurrentMap<String, Object> userInfoMap;
+    private Map<String, Object> userInfoMap;
 
-    public GoogleUserInfo(ConcurrentMap<String, Object> userInfoMap){
+    public GoogleUserInfo(Map<String, Object> userInfoMap){
         this.userInfoMap = userInfoMap;
 
     }

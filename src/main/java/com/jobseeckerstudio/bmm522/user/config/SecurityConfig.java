@@ -1,6 +1,9 @@
 package com.jobseeckerstudio.bmm522.user.config;
 
 
+import com.jobseeckerstudio.bmm522.user.auth.filter.LoginAuthenticationFilter;
+import com.jobseeckerstudio.bmm522.user.oauth.handler.SocialLoginSuccessHandler;
+import com.jobseeckerstudio.bmm522.user.oauth.principal.PrincipalSocialOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +17,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final PrincipalSocialOAuth2UserService principalSocialOAuth2UserService;
+
+    private final SocialLoginSuccessHandler socialLoginSuccessHandler;
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -21,11 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .addFilter(new LoginAuthenticationFilter(authenticationManager()))
                 .oauth2Login()
                 .userInfoEndpoint()
-                .userService()
+                .userService(principalSocialOAuth2UserService)
                 .and()
-                .successHandler();
-
+                .successHandler(socialLoginSuccessHandler);
     }
 }

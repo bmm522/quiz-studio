@@ -1,6 +1,7 @@
-package com.jobseeckerstudio.bmm522.user.auth;
+package com.jobseeckerstudio.bmm522.user.auth.filter;
 
 import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
+import com.jobseeckerstudio.bmm522.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.bmm522.user.entity.User;
 import com.jobseeckerstudio.bmm522.user.entity.mapper.UserMapper;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
@@ -41,7 +42,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = getPrincipalDetails(authResult);
 
-        JwtToken jwtToken = getJwtTokenFactory().getJwtToken(principalDetails.getUser());
+        JwtToken jwtToken = getJwtTokenFactory().create(principalDetails.getUser());
 
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
         response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());

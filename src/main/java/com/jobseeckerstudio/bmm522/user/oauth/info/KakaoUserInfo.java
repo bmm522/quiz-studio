@@ -8,9 +8,9 @@ import java.util.concurrent.ConcurrentMap;
 
 public class KakaoUserInfo implements SocialUserInfo{
 
-    private ConcurrentMap<String, Object> userInfoMap;
+    private Map<String, Object> userInfoMap;
 
-    public KakaoUserInfo(ConcurrentMap<String, Object> userInfoMap){
+    public KakaoUserInfo(Map<String, Object> userInfoMap){
         this.userInfoMap = userInfoMap;
     }
 
