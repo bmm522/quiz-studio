@@ -1,4 +1,4 @@
-package com.jobseecker.jobseeckerstudio.login.oauth;
+package com.jobseeckerstudio.bmm522.user.oauth;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 

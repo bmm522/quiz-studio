@@ -1,4 +1,4 @@
-package com.jobseecker.jobseeckerstudio.login.repository.entity;
+package com.jobseeckerstudio.bmm522.user.entity;
 
 public enum Status {
     Y("Y"), N("N");

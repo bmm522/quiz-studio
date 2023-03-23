@@ -1,6 +1,6 @@
-package com.jobseecker.jobseeckerstudio.login.oauth.info;
+package com.jobseeckerstudio.bmm522.user.oauth.info;
 
-import com.jobseecker.jobseeckerstudio.login.repository.User;
+import com.jobseeckerstudio.bmm522.user.entity.User;
 
 public interface SocialUserInfo {
 

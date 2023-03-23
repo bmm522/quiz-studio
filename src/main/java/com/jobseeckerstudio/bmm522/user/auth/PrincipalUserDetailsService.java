@@ -1,9 +1,9 @@
-package com.jobseecker.jobseeckerstudio.login.auth;
+package com.jobseeckerstudio.bmm522.user.auth;
 
-import com.jobseecker.jobseeckerstudio.login.repository.User;
-import com.jobseecker.jobseeckerstudio.login.repository.UserRepository;
+import com.jobseeckerstudio.bmm522.user.auth.mapper.AuthMapper;
+import com.jobseeckerstudio.bmm522.user.entity.User;
+import com.jobseeckerstudio.bmm522.user.repository.UserQueryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PrincipalUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserQueryRepository userQueryRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserKey(username);
-        return new PrincialDetails(user);
+        User user = userQueryRepository.findByUserKey(username);
+        return AuthMapper.toPrincipalDetailsWithOutUserInfo(user);
     }
 }

@@ -1,4 +1,4 @@
-package com.jobseecker.jobseeckerstudio;
+package com.jobseeckerstudio.bmm522;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

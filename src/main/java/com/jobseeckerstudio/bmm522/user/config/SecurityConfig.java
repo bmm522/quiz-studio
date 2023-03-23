@@ -1,4 +1,4 @@
-package com.jobseecker.jobseeckerstudio.login.config;
+package com.jobseeckerstudio.bmm522.user.config;
 
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService()
                 .and()
-                .successHandler()
+                .successHandler();
 
     }
 }

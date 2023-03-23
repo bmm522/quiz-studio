@@ -1,7 +1,6 @@
-package com.jobseecker.jobseeckerstudio.login.repository;
+package com.jobseeckerstudio.bmm522.user.entity;
 
-import com.jobseecker.jobseeckerstudio.global.entity.BaseTimeEntity;
-import com.jobseecker.jobseeckerstudio.login.repository.entity.Status;
+import com.jobseeckerstudio.bmm522.global.entity.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

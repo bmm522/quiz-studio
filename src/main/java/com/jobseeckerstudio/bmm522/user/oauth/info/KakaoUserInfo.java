@@ -1,10 +1,9 @@
-package com.jobseecker.jobseeckerstudio.login.oauth.info;
+package com.jobseeckerstudio.bmm522.user.oauth.info;
 
-import com.jobseecker.jobseeckerstudio.login.repository.User;
-import com.jobseecker.jobseeckerstudio.login.repository.entity.Status;
+import com.jobseeckerstudio.bmm522.user.entity.User;
+import com.jobseeckerstudio.bmm522.user.entity.Status;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentMap;
 
 public class KakaoUserInfo implements SocialUserInfo{

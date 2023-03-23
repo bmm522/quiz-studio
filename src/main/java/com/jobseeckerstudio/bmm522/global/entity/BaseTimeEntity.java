@@ -1,4 +1,4 @@
-package com.jobseecker.jobseeckerstudio.global.entity;
+package com.jobseeckerstudio.bmm522.global.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

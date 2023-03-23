@@ -1,25 +1,23 @@
-package com.jobseecker.jobseeckerstudio.login.auth;
+package com.jobseeckerstudio.bmm522.user.auth;
 
-import com.jobseecker.jobseeckerstudio.login.repository.User;
+import com.jobseeckerstudio.bmm522.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 
-public class PrincialDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails {
 
     private User user;
 
     private Map<String, Object> userInfoMap;
 
-    public PrincialDetails(User user){
+    public PrincipalDetails(User user){
         this.user = user;
     }
 
-    public PrincialDetails(User user, Map<String, Object> userInfoMap){
+    public PrincipalDetails(User user, Map<String, Object> userInfoMap){
         this.user = user;
         this.userInfoMap = userInfoMap;
     }
