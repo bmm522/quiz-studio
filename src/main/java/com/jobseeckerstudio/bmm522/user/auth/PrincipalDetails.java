@@ -1,12 +1,14 @@
 package com.jobseeckerstudio.bmm522.user.auth;
 
 import com.jobseeckerstudio.bmm522.user.entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Map;
 
+@Getter
 public class PrincipalDetails implements UserDetails {
 
     private User user;
