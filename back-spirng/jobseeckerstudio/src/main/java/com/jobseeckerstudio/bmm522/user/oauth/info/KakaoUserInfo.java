@@ -16,7 +16,7 @@ public class KakaoUserInfo implements SocialUserInfo{
 
     @Override
     public String getUserKey() {
-        return (String) userInfoMap.get("id");
+        return String.valueOf(userInfoMap.get("id"));
     }
 
     @Override
@@ -31,11 +31,11 @@ public class KakaoUserInfo implements SocialUserInfo{
 
     @Override
     public User toUserEntity() {
-        String email = (String)userInfoMap.get("id");
+
         return User.builder()
-                .userKey(Provider.Kakao.getProvider()+"_"+email)
+                .userKey(Provider.Kakao.getProvider()+"_"+String.valueOf(userInfoMap.get("id")))
                 .password("null")
-                .email(email)
+                .email((String)((Map)userInfoMap.get("kakao_account")).get("email"))
                 .status(Status.Y)
                 .build();
     }
