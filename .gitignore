@@ -1,0 +1,4 @@
+error.log
+node/node_modules/**
+*.idea
+node/dist/**
