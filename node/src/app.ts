@@ -29,6 +29,15 @@ export class App {
     }
   }
 
+  public async setDatabase(): Promise<void> {
+    try {
+      await createDatabaseConnection();
+    } catch (error) {
+      logger.error(error);
+      throw error;
+    }
+  }
+
   private setMiddlewares(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
