@@ -10,7 +10,13 @@ export class IndexController {
     @Get("")
     @Render("LoginPage.ejs")
     public async index(@Res() response: Response): Promise<void> {
-        console.log("요청들어옴");
+        console.log("로그인페이지 요청들어옴");
+    }
+
+    @Get("/menu")
+    @Render("MenuPage.ejs")
+    public async menuMove(@Res() response: Response): Promise<void> {
+        console.log("메뉴 요청들어옴");
     }
 
 

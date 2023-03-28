@@ -27,5 +27,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
         response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
+
+        response.sendRedirect("http://localhost:3000/api/v1/index/menu");
     }
 }
