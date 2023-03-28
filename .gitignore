@@ -2,3 +2,5 @@ error.log
 node/node_modules/**
 *.idea
 node/dist/**
+node/env/**
+node/env/.env.local
