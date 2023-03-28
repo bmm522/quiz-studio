@@ -8,7 +8,7 @@ export class IndexController {
     constructor() {}
 
     @Get("")
-    @Render("loginPage.ejs")
+    @Render("LoginPage.ejs")
     public async index(@Res() response: Response): Promise<void> {
         console.log("요청들어옴");
     }

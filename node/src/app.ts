@@ -3,8 +3,9 @@ import Container from "typedi";
 import { useContainer as routingUseContainer, useExpressServer } from "routing-controllers";
 import * as bodyParser from "body-parser";
 import path from "path";
-import {IndexController} from "./controller/IndexController";
+import {IndexController} from "./controller/index/IndexController";
 import {createDatabaseConnection} from "./config/database";
+import {QuestionController} from "./controller/question/QuestionController";
 
 export class App {
 
@@ -25,7 +26,7 @@ export class App {
       routingUseContainer(Container);
       useExpressServer(this.app, {
         routePrefix: "/api/v1",
-        controllers: [IndexController]
+        controllers: [IndexController, QuestionController]
       })
     }catch (error) {
       console.log(error);
