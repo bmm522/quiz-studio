@@ -4,6 +4,7 @@ import { useContainer as routingUseContainer, useExpressServer } from "routing-c
 import * as bodyParser from "body-parser";
 import path from "path";
 import {IndexController} from "./controller/IndexController";
+import {createDatabaseConnection} from "./config/database";
 
 export class App {
 
@@ -11,8 +12,10 @@ export class App {
 
   constructor() {
     this.app = express();
-    this.app.set('view', path.join(__dirname, '../view/ejs'));
+    this.app.set('views', path.join(__dirname, 'view/ejs'));
     this.app.set('view engine', 'ejs');
+
+    this.setExpress();
     this.setMiddlewares();
 
   }
@@ -33,7 +36,6 @@ export class App {
     try {
       await createDatabaseConnection();
     } catch (error) {
-      logger.error(error);
       throw error;
     }
   }
@@ -41,5 +43,19 @@ export class App {
   private setMiddlewares(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    // CSS 및 JavaScript 파일에 대한 경로 설정
+    this.app.use('/css', express.static(path.join(__dirname, 'view/ejs/css')));
+    this.app.use('/js', express.static(path.join(__dirname, 'view/ejs/js')));
+    this.app.use('/image', express.static(path.join(__dirname, 'view/ejs/image')));
+
+    // CSS 및 JavaScript 파일의 MIME 유형 설정
+    this.app.use('*.css', (req, res, next) => {
+      res.set('Content-Type', 'text/css');
+      next();
+    });
+    this.app.use('*.js', (req, res, next) => {
+      res.set('Content-Type', 'text/javascript');
+      next();
+    });
   }
 }

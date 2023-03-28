@@ -1,6 +1,8 @@
-import {Get, HttpCode, JsonController, Render, Res} from "routing-controllers";
+import {Controller, Get, HttpCode, JsonController, Render, Res} from "routing-controllers";
 import {Response} from "express";
+import {Service} from "typedi";
 @JsonController("/index")
+@Service()
 export class IndexController {
 
     constructor() {}
