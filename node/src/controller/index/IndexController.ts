@@ -16,6 +16,7 @@ export class IndexController {
     @Get("/menu")
     @Render("MenuPage.ejs")
     public async menuMove(@Res() response: Response): Promise<void> {
+        console.log(response.getHeader("Authorization"));
         console.log("메뉴 요청들어옴");
     }
 
