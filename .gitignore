@@ -4,3 +4,4 @@ node/node_modules/**
 node/dist/**
 node/env/**
 node/env/.env.local
+front/node_modules/**
