@@ -4,6 +4,7 @@ import com.jobseeckerstudio.bmm522.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.bmm522.user.auth.principal.mapper.PrincipalMapper;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
+import com.jobseeckerstudio.bmm522.user.oauth.cookie.CookieFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
         response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
 
+        CookieFactory.get().toCookie(response, jwtToken);
         response.sendRedirect("http://localhost:3001/menu");
     }
 }

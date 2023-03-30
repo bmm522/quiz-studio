@@ -9,8 +9,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @Slf4j
-public class TokenCookie {
+public class CookieFactory {
+    private static CookieFactory cookieFactory = new CookieFactory();
 
+    public static CookieFactory get() {return cookieFactory;}
+
+    private CookieFactory(){}
     public void toCookie(HttpServletResponse response, JwtToken jwtToken) throws UnsupportedEncodingException {
         String jwt = setEncode(jwtToken.getJwtToken());
         String refresh = setEncode(jwtToken.getRefreshToken());
