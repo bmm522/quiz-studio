@@ -12,8 +12,8 @@ window.onload = async function() {
 }
 
 async function setToken(){
-    localStorage.setItem("authorization", response.headers.get('Authorization'));
-    localStorage.setItem("refreshToken", response.headers.get('RefreshToken'));
+    localStorage.setItem("authorization", getCookieValue('Authorization').replace("+"," "));
+    localStorage.setItem("refreshToken", getCookieValue('RefreshToken').replace("+"," "));
 }
 
 async function getName() {
@@ -23,6 +23,7 @@ async function getName() {
     })
     .then((res) => res.json())
     .then(res => {
+        console.log('통신성공');
         document.getElementById('email-div').innerHTML += `${res.data.email} 접속`;
     })
 }

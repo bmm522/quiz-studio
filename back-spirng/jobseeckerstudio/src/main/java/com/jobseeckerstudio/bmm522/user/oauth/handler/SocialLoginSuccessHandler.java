@@ -26,10 +26,15 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         JwtToken jwtToken = getJwtTokenFactory().create(principalDetails.getUser());
 
-        response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
-        response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
+        addHeader(response, jwtToken);
 
         CookieFactory.get().toCookie(response, jwtToken);
+
         response.sendRedirect("http://localhost:3001/menu");
+    }
+
+    private void addHeader(HttpServletResponse response, JwtToken jwtToken) {
+        response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
+        response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
     }
 }

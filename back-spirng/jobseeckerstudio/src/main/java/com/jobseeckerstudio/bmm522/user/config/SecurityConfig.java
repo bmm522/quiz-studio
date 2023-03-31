@@ -1,6 +1,7 @@
 package com.jobseeckerstudio.bmm522.user.config;
 
 
+import com.jobseeckerstudio.bmm522.global.config.CorsConfig;
 import com.jobseeckerstudio.bmm522.user.auth.filter.LoginAuthenticationFilter;
 import com.jobseeckerstudio.bmm522.user.oauth.handler.SocialLoginSuccessHandler;
 import com.jobseeckerstudio.bmm522.user.oauth.principal.PrincipalSocialOAuth2UserService;
@@ -24,12 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PrincipalSocialOAuth2UserService principalSocialOAuth2UserService;
 
+    private final CorsConfig corsConfig;
     private final SocialLoginSuccessHandler socialLoginSuccessHandler;
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
+            .addFilter(corsConfig.corsFilter())
             .formLogin().disable()
             .httpBasic().disable()
             .addFilter(new LoginAuthenticationFilter(authenticationManager()))
