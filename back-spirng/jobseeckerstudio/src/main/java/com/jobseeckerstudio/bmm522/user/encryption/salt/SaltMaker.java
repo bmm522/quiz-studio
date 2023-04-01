@@ -1,12 +1,15 @@
 package com.jobseeckerstudio.bmm522.user.encryption.salt;
 
+import org.springframework.stereotype.Component;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+@Component
 public class SaltMaker {
 
-        public String actionOfMakeSalt() {
+        public String getSalt() {
             byte[] randomByte = makeRandomByteArray();
             return new String(Base64.getEncoder().encode(randomByte));
         }
@@ -23,9 +26,6 @@ public class SaltMaker {
             return randomByte;
         }
 
-        public String getSalt() {
-            return actionOfMakeSalt();
-        }
 
 
 }

@@ -1,6 +1,7 @@
 package com.jobseeckerstudio.bmm522.user.entity.salt;
 
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +22,18 @@ public class Salt {
 
     @Column(nullable = false)
     private String salt;
+
+    @Builder
+    public Salt(String salt){
+        this.salt = salt;
+    }
+
+    public void addUser(User user) {
+        this.user = user;
+        if(user.getSalt() != this){
+            user.addSalt(this);
+        }
+
+    }
 
 }

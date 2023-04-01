@@ -29,7 +29,7 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Salt salt;
 
     @Builder
@@ -39,5 +39,17 @@ public class User extends BaseTimeEntity {
         this.password = password;
         this.email = email;
         this.status = status;
+    }
+
+    public void addSalt(Salt salt){
+        this.salt = salt;
+        if(salt.getUser() != this){
+            salt.addUser(this);
+        }
+
+    }
+
+    public void setEmailWithEncryption(String emailWithEncryption) {
+        this.email = emailWithEncryption;
     }
 }

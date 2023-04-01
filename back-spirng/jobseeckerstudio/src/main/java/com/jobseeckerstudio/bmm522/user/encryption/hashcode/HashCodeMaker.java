@@ -1,16 +1,19 @@
 package com.jobseeckerstudio.bmm522.user.encryption.hashcode;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Component
 public class HashCodeMaker {
-    public String actionOfMakeHash(String salt, String email) {
-        return actionOfEncryption(plusStr(salt, email));
+    public String getHashCode(String salt, String email) {
+        return actionOfMakeHash(plusStr(salt, email));
     }
 
 
-    public String actionOfEncryption(String plusStr) {
+    public String actionOfMakeHash(String plusStr) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");

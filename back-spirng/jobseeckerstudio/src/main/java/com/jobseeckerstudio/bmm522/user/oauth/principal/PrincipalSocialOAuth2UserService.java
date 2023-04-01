@@ -2,6 +2,7 @@ package com.jobseeckerstudio.bmm522.user.oauth.principal;
 
 import com.jobseeckerstudio.bmm522.global.exception.NotFoundSocialInfoException;
 import com.jobseeckerstudio.bmm522.user.auth.principal.mapper.PrincipalMapper;
+import com.jobseeckerstudio.bmm522.user.encryption.salt.SaltMaker;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.oauth.info.GoogleUserInfo;
 import com.jobseeckerstudio.bmm522.user.oauth.info.KakaoUserInfo;
@@ -23,6 +24,9 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
     private final ReadUserService readUserService;
 
     private final CreateUserService createUserService;
+
+    private final SaltMaker saltMaker;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -48,7 +52,8 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
     private User getUser(SocialUserInfo socialUserInfo) {
         return readUserService.findByUserKeyWhenSocialLogin(socialUserInfo).orElseGet(()->{
-           return createUserService.saveWhenSocialLogin(socialUserInfo);
+            String salt = saltMaker.getSalt();
+           return createUserService.saveWhenSocialLogin(socialUserInfo, salt);
         });
     }
 }
