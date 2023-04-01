@@ -26,9 +26,6 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
     private final CreateUserService createUserService;
 
-    private final UserRepository userRepository;
-    private final UserQueryRepository userQueryRepository;
-
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
@@ -58,11 +55,5 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
         });
 
 
-//        return userQueryRepository.findByUserKey(socialUserInfo.getProvider()+"_"+ socialUserInfo.getUserKey())
-//            .orElseGet(() -> {
-//                User user = socialUserInfo.toUserEntity();
-//
-//                return userRepository.save(user);
-//            });
     }
 }
