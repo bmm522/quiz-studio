@@ -2,7 +2,7 @@ package com.jobseeckerstudio.bmm522.user.service.user.Impl;
 
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.oauth.info.SocialUserInfo;
-import com.jobseeckerstudio.bmm522.user.repository.UserQueryRepository;
+import com.jobseeckerstudio.bmm522.user.repository.user.UserQueryRepository;
 import com.jobseeckerstudio.bmm522.user.service.user.ReadUserService;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.bmm522.user.service.user.mapper.UserServiceMapper;

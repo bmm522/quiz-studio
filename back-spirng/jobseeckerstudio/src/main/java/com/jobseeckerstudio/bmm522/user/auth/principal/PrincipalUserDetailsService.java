@@ -3,7 +3,6 @@ package com.jobseeckerstudio.bmm522.user.auth.principal;
 import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
 import com.jobseeckerstudio.bmm522.user.auth.principal.mapper.PrincipalMapper;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
-import com.jobseeckerstudio.bmm522.user.repository.UserQueryRepository;
 import com.jobseeckerstudio.bmm522.user.service.user.ReadUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

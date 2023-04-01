@@ -1,6 +1,7 @@
 package com.jobseeckerstudio.bmm522.user.entity.user;
 
 import com.jobseeckerstudio.bmm522.global.entity.BaseTimeEntity;
+import com.jobseeckerstudio.bmm522.user.entity.salt.Salt;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "user")
+    private Salt salt;
 
     @Builder
     public User(long id, String userKey, String password, String email, Status status) {
