@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.bmm522.user.entity;
+package com.jobseeckerstudio.bmm522.user.entity.user;
 
 import com.jobseeckerstudio.bmm522.global.entity.BaseTimeEntity;
 import lombok.Builder;

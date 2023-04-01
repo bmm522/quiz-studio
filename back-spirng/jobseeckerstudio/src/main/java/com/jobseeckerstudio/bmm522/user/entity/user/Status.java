@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.bmm522.user.entity;
+package com.jobseeckerstudio.bmm522.user.entity.user;
 
 public enum Status {
     Y("Y"), N("N");

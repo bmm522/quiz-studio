@@ -2,8 +2,8 @@ package com.jobseeckerstudio.bmm522.user.auth.filter;
 
 import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
 import com.jobseeckerstudio.bmm522.user.auth.principal.PrincipalDetails;
-import com.jobseeckerstudio.bmm522.user.entity.User;
-import com.jobseeckerstudio.bmm522.user.entity.mapper.UserMapper;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
+import com.jobseeckerstudio.bmm522.user.entity.user.mapper.UserMapper;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;

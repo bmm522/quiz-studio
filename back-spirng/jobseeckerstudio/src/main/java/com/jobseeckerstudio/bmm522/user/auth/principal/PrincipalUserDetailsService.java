@@ -1,17 +1,13 @@
 package com.jobseeckerstudio.bmm522.user.auth.principal;
 
 import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
-import com.jobseeckerstudio.bmm522.global.exception.NotFoundSocialInfoException;
 import com.jobseeckerstudio.bmm522.user.auth.principal.mapper.PrincipalMapper;
-import com.jobseeckerstudio.bmm522.user.entity.User;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.repository.UserQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

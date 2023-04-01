@@ -19,7 +19,6 @@ public class LoginApiController {
 
     @GetMapping("/email")
     public void getEmail(@RequestHeader("Authorization")String authorization, @RequestHeader("RefreshToken")String refreshToken) {
-        System.out.println(authorization);
-        System.out.println(refreshToken);
+
     }
 }

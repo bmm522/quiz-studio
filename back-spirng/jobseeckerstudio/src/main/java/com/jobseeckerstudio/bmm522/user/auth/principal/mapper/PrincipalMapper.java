@@ -1,8 +1,7 @@
 package com.jobseeckerstudio.bmm522.user.auth.principal.mapper;
 
 import com.jobseeckerstudio.bmm522.user.auth.principal.PrincipalDetails;
-import com.jobseeckerstudio.bmm522.user.entity.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
 
 import java.util.Map;
 

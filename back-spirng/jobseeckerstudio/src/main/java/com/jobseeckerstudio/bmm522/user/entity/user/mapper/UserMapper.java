@@ -1,7 +1,7 @@
-package com.jobseeckerstudio.bmm522.user.entity.mapper;
+package com.jobseeckerstudio.bmm522.user.entity.user.mapper;
 
-import com.jobseeckerstudio.bmm522.user.entity.Status;
-import com.jobseeckerstudio.bmm522.user.entity.User;
+import com.jobseeckerstudio.bmm522.user.entity.user.Status;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.oauth.info.Provider;
 import com.jobseeckerstudio.bmm522.user.oauth.info.SocialUserInfo;
 

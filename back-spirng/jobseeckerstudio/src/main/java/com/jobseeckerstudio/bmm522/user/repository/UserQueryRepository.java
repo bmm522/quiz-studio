@@ -1,6 +1,6 @@
 package com.jobseeckerstudio.bmm522.user.repository;
 
-import com.jobseeckerstudio.bmm522.user.entity.User;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
