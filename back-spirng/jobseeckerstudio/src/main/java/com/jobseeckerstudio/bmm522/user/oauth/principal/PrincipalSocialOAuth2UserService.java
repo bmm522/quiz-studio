@@ -49,11 +49,8 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User getUser(SocialUserInfo socialUserInfo) {
-
         return readUserService.findByUserKeyWhenSocialLogin(socialUserInfo).orElseGet(()->{
            return createUserService.saveWhenSocialLogin(socialUserInfo);
         });
-
-
     }
 }

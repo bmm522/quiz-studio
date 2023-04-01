@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ReadUserService {
 
     public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo);
+
+    public Optional<User> findByUserKey(String username);
 }

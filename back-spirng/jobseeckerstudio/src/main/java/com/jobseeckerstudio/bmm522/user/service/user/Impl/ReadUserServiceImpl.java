@@ -22,4 +22,9 @@ public class ReadUserServiceImpl implements ReadUserService {
         FindUserWhenSocialLoginRequest dto = mapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
         return userQueryRepository.findByUserKey(dto.getUserKey());
     }
+
+    @Override
+    public Optional<User> findByUserKey(String userKey) {
+        return  userQueryRepository.findByUserKey(userKey);
+    }
 }
