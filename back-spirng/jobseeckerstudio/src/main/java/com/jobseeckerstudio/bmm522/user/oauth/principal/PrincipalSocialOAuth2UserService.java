@@ -25,7 +25,6 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
     private final CreateUserService createUserService;
 
-    private final SaltMaker saltMaker;
 
 
     @Override
@@ -52,8 +51,7 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
     private User getUser(SocialUserInfo socialUserInfo) {
         return readUserService.findByUserKeyWhenSocialLogin(socialUserInfo).orElseGet(()->{
-            String salt = saltMaker.getSalt();
-           return createUserService.saveWhenSocialLogin(socialUserInfo, salt);
+           return createUserService.saveWhenSocialLogin(socialUserInfo);
         });
     }
 }

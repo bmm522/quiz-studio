@@ -1,6 +1,7 @@
 package com.jobseeckerstudio.bmm522.user.service.user.Impl;
 
 import com.jobseeckerstudio.bmm522.user.encryption.hashcode.HashCodeMaker;
+import com.jobseeckerstudio.bmm522.user.encryption.salt.SaltMaker;
 import com.jobseeckerstudio.bmm522.user.entity.salt.Salt;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.entity.user.repository.UserRepository;
@@ -14,16 +15,23 @@ import org.springframework.stereotype.Service;
 public class CreateUserServiceImpl implements CreateUserService {
 
     private final UserRepository userRepository;
+
+    private final SaltMaker saltMaker;
+
     private final HashCodeMaker hashCodeMaker;
 
     @Override
-    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo, String salt) {
+    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
         User user = socialUserInfo.toUserEntity();
-        Salt saltEntity = Salt.builder().salt(salt).build();
-        System.out.println(user);
-        System.out.println(saltEntity);
-        user.addSalt(saltEntity);
-        user.setEmailWithEncryption(hashCodeMaker.getHashCode(salt,user.getEmail()));
+        Salt salt = getSaltEntity();
+        user.addSalt(salt);
+        user.setEmailWithEncryption(hashCodeMaker.getHashCode(salt.getSalt(),user.getEmail()));
         return userRepository.save(user);
     }
+
+    private Salt getSaltEntity() {
+        String salt = saltMaker.getSalt();
+        return Salt.builder().salt(salt).build();
+    }
+
 }
