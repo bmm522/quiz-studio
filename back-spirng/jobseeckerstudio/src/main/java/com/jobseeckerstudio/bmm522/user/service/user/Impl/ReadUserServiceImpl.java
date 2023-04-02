@@ -5,8 +5,10 @@ import com.jobseeckerstudio.bmm522.user.oauth.info.SocialUserInfo;
 import com.jobseeckerstudio.bmm522.user.repository.user.UserQueryRepository;
 import com.jobseeckerstudio.bmm522.user.service.user.ReadUserService;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.FindUserWhenSocialLoginRequest;
+import com.jobseeckerstudio.bmm522.user.service.user.dto.GetEmailRequest;
 import com.jobseeckerstudio.bmm522.user.service.user.mapper.UserServiceMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,5 +28,11 @@ public class ReadUserServiceImpl implements ReadUserService {
     @Override
     public Optional<User> findByUserKey(String userKey) {
         return  userQueryRepository.findByUserKey(userKey);
+    }
+
+    @Override
+    public ResponseEntity<?> getEmail(String authorization, String refreshToken) {
+        GetEmailRequest dto = mapper.toGetEmailRequest(authorization, refreshToken);
+
     }
 }

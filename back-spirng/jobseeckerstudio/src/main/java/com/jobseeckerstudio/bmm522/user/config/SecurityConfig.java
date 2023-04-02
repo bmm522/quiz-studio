@@ -3,6 +3,7 @@ package com.jobseeckerstudio.bmm522.user.config;
 
 import com.jobseeckerstudio.bmm522.global.config.CorsConfig;
 import com.jobseeckerstudio.bmm522.user.auth.filter.LoginAuthenticationFilter;
+import com.jobseeckerstudio.bmm522.user.jwt.filter.JwtAuthorizationFilter;
 import com.jobseeckerstudio.bmm522.user.oauth.handler.SocialLoginSuccessHandler;
 import com.jobseeckerstudio.bmm522.user.oauth.principal.PrincipalSocialOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilter(corsConfig.corsFilter())
             .formLogin().disable()
             .httpBasic().disable()
+            .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .addFilter(new LoginAuthenticationFilter(authenticationManager()))
             .oauth2Login()
             .userInfoEndpoint()

@@ -1,14 +1,17 @@
 package com.jobseeckerstudio.bmm522.user.controller;
 
+import com.jobseeckerstudio.bmm522.user.controller.dto.CommonResponse;
+import com.jobseeckerstudio.bmm522.user.service.user.ReadUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1")
 @Controller
+@RequiredArgsConstructor
 public class LoginApiController {
+
+    private final ReadUserService readUserService;
 
     @GetMapping("/login/{social}")
     public String moveSocialLoginForm(@PathVariable("social")String social){
@@ -18,7 +21,7 @@ public class LoginApiController {
 
 
     @GetMapping("/email")
-    public void getEmail(@RequestHeader("Authorization")String authorization, @RequestHeader("RefreshToken")String refreshToken) {
-
+    public @ResponseBody CommonResponse<?> getEmail(@RequestHeader("Authorization")String authorization, @RequestHeader("RefreshToken")String refreshToken) {
+         readUserService.getEmail(authorization, refreshToken);
     }
 }
