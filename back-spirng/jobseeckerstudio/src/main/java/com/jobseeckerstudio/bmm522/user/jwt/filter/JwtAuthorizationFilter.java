@@ -17,7 +17,8 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 
-    private final String socialUrl = "/social/login";
+    private final String googleUrl = "/api/v1/social/login/google";
+    private final String kakaoUrl = "/api/v1/social/login/kakao";
 
     private final JwtMapper mapper = JwtMapper.getJwtMapper();
 
@@ -28,27 +29,24 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = request.getRequestURI();
-        System.out.println(requestURI);
-        if (requestURI.equals("/api/v1/social/login/google") ) {
+
+        if (googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI)  ) {
             chain.doFilter(request, response);
-            System.out.println("여기필터들어옴");
             return;
         }
-        System.out.println("1111111111111111");
+
         JwtToken jwtToken = getJwtToken(request);
-        System.out.println("2222222222222");
-        System.out.println(jwtToken.getJwtToken());
-        System.out.println(jwtToken.getRefreshToken());
+
         if(jwtToken.checkValidateJwtToken()) {
             chain.doFilter(request, response);
             return;
         }
-        System.out.println("33333333333333");
+
         if(jwtToken.checkValidateRefreshToken()){
             chain.doFilter(request, response);
             return;
         };
-        System.out.println("필터탐");
+
         jwtToken.checkExpiredToken();
 
         chain.doFilter(request, response);
