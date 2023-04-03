@@ -32,12 +32,11 @@ public class JwtToken {
         try {
             Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
-                .parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""))
+                .parseClaimsJws(jwtToken)
                 .getBody();
         } catch (TokenExpiredException e) {
             throw new RuntimeException("토큰의 유효시간이 만료됐습니다.");
         }
-
-
     }
+
 }

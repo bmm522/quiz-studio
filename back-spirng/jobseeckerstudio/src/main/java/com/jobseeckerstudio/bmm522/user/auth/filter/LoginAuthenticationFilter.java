@@ -4,6 +4,7 @@ import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
 import com.jobseeckerstudio.bmm522.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.entity.user.mapper.UserMapper;
+import com.jobseeckerstudio.bmm522.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 
     private final AuthenticationManager authenticationManager;
 
+    private final JwtTokenFactory jwtTokenFactory;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
@@ -42,7 +45,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = getPrincipalDetails(authResult);
 
-        JwtToken jwtToken = getJwtTokenFactory().create(principalDetails.getUser());
+        JwtToken jwtToken = jwtTokenFactory.create(principalDetails.getUser());
 
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
         response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());

@@ -9,15 +9,15 @@ public class CommonResponse<T> {
 
     private HttpStatus status;
     private String msg;
-    private T body;
+    private T data;
     private String errorName;
 
     // 정상 요청
     @Builder
-    public CommonResponse(HttpStatus status, String msg, T body, String errorName ){
+    public CommonResponse(HttpStatus status, String msg, T data, String errorName ){
         this.status = status;
         this.msg = msg;
-        this.body = body;
+        this.data = data;
         this.errorName = errorName;
     }
 

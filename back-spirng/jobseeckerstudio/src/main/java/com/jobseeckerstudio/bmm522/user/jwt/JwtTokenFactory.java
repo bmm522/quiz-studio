@@ -5,20 +5,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtTokenFactory {
 
-    private static JwtTokenFactory jwtTokenFactory = new JwtTokenFactory();
-
-    public static JwtTokenFactory getJwtTokenFactory() {
-        return jwtTokenFactory;
-    }
-
-
-    private JwtTokenFactory() {
-    }
 
     public JwtToken create(User user) {
         return JwtToken.builder()
@@ -26,7 +19,7 @@ public class JwtTokenFactory {
                         .withSubject(user.getUserKey())
                         .withIssuer(JwtProperties.ISS)
                         .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
-                        .withClaim("email", user.getEmail())
+                        .withClaim("userKey", user.getUserKey())
                         .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
                 .refreshToken(JwtProperties.REFRESH_PREFIX + JWT.create()
                         .withSubject(user.getUserKey())

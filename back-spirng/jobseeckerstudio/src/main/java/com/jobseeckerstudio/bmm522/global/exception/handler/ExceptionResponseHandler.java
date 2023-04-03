@@ -1,9 +1,6 @@
 package com.jobseeckerstudio.bmm522.global.exception.handler;
 
-import com.jobseeckerstudio.bmm522.global.exception.ExpiredTokenException;
-import com.jobseeckerstudio.bmm522.global.exception.LoginFailException;
-import com.jobseeckerstudio.bmm522.global.exception.NotFoundSocialInfoException;
-import com.jobseeckerstudio.bmm522.global.exception.UnauthorizedException;
+import com.jobseeckerstudio.bmm522.global.exception.*;
 import com.jobseeckerstudio.bmm522.user.controller.dto.CommonResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,35 +13,37 @@ public class ExceptionResponseHandler {
 
     @ExceptionHandler(LoginFailException.class)
     public CommonResponse<?> handleLoginFailException(LoginFailException e){
-        return CommonResponse.builder()
-            .status(HttpStatus.UNAUTHORIZED)
-            .msg(e.getMessage())
-            .errorName(e.getClass().getName())
-            .build();
+        return errorHandler(e, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(NotFoundSocialInfoException.class)
     public CommonResponse<?> handleNotFoundSocialInfoException(NotFoundSocialInfoException e) {
-        return CommonResponse.builder()
-            .status(HttpStatus.BAD_REQUEST)
-            .msg(e.getMessage())
-            .errorName(e.getClass().getName())
-            .build();
+        return errorHandler(e, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public CommonResponse<?> handleUnauthorizedException(UnauthorizedException e) {
-        return CommonResponse.builder()
-            .status(HttpStatus.UNAUTHORIZED)
-            .msg(e.getMessage())
-            .errorName(e.getClass().getName())
-            .build();
+        return errorHandler(e, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ExpiredTokenException.class)
     public CommonResponse<?> handleExpiredTokenException(ExpiredTokenException e) {
+        return errorHandler(e, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NotFoundSaltException.class)
+    public CommonResponse<?> handleNotFoundHandler(NotFoundSaltException e) {
+        return errorHandler(e, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundUserException.class)
+    public CommonResponse<?> handleNotFoundUserException(NotFoundUserException e) {
+        return errorHandler(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private CommonResponse<?> errorHandler(Exception e, HttpStatus status) {
         return CommonResponse.builder()
-            .status(HttpStatus.UNAUTHORIZED)
+            .status(status)
             .msg(e.getMessage())
             .errorName(e.getClass().getName())
             .build();

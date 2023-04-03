@@ -41,7 +41,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         jwtToken.checkExpiredToken();
 
-        super.doFilterInternal(request, response, chain);
+        request.setAttribute("jwtToken", jwtToken);
+        chain.doFilter(request, response);
     }
 
     private JwtToken getJwtToken(HttpServletRequest request) {

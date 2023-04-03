@@ -8,12 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetEmailRequest {
 
-    private String authorization;
-    private String refreshToken;
+    private String userKey;
 
     @Builder
-    public GetEmailRequest(String authorization, String refreshToken){
-        this.authorization = authorization;
-        this.refreshToken = refreshToken;
+    public GetEmailRequest(String userKey){
+        this.userKey = userKey;
     }
 }
