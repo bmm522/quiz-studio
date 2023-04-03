@@ -2,11 +2,13 @@ package com.jobseeckerstudio.bmm522.user.service.user.mapper;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.bmm522.user.oauth.info.SocialUserInfo;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.GetEmailRequest;
+import com.jobseeckerstudio.bmm522.user.service.user.dto.GetEmailResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,8 +30,16 @@ public class UserServiceMapper {
     }
 
 
+    public GetEmailResponse toGetEmailResponse(String email) {
+        return GetEmailResponse.builder()
+            .email(email)
+            .build();
+    }
+
+
         private String parsingJwt(String jwtToken, String key) {
             return JWT.require(Algorithm.HMAC256(JwtProperties.SECRET)).build().verify(jwtToken).getClaim(key).asString();
     }
+
 
 }

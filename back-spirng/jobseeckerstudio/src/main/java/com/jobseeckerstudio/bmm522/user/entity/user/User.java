@@ -1,7 +1,6 @@
 package com.jobseeckerstudio.bmm522.user.entity.user;
 
 import com.jobseeckerstudio.bmm522.global.entity.BaseTimeEntity;
-import com.jobseeckerstudio.bmm522.user.entity.salt.Salt;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

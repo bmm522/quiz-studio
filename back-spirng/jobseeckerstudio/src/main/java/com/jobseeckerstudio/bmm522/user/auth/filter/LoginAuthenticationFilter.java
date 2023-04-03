@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.jobseeckerstudio.bmm522.user.jwt.JwtTokenFactory.getJwtTokenFactory;
 
 @RequiredArgsConstructor
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

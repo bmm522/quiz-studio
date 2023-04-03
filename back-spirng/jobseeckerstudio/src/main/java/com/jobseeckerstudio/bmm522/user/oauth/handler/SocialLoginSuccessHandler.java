@@ -39,6 +39,6 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private void addHeader(HttpServletResponse response, JwtToken jwtToken) {
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
-        response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
+        response.addHeader(JwtProperties.HEADER_REFRESHTOKEN_STRING, jwtToken.getRefreshToken());
     }
 }

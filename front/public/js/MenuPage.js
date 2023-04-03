@@ -5,6 +5,7 @@ const headers = {
 }
 
 window.onload = async function() {
+  
     console.log(getCookieValue('Authorization').replace("+"," "));
     console.log(getCookieValue('RefreshToken').replace("+"," "));
     await setToken();
@@ -23,7 +24,7 @@ async function getName() {
     })
     .then((res) => res.json())
     .then(res => {
-        console.log('통신성공');
+      console.log(res.data.email);
         document.getElementById('email-div').innerHTML += `${res.data.email} 접속`;
     })
 }

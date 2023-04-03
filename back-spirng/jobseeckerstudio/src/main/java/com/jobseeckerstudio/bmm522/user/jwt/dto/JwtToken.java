@@ -2,11 +2,15 @@ package com.jobseeckerstudio.bmm522.user.jwt.dto;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.jobseeckerstudio.bmm522.user.jwt.properties.JwtProperties;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Base64;
+import java.util.Date;
 
 @Getter
 public class JwtToken {
@@ -30,12 +34,15 @@ public class JwtToken {
 
     public void checkExpiredToken() {
         try {
-            Jwts.parser()
+            Jws<Claims> claims = Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
-                .parseClaimsJws(jwtToken)
-                .getBody();
-        } catch (TokenExpiredException e) {
-            throw new RuntimeException("토큰의 유효시간이 만료됐습니다.");
+                .parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""));
+
+            if (claims.getBody().getExpiration().before(new Date())) {
+                throw new RuntimeException("토큰의 유효시간이 만료됐습니다.");
+            }
+        } catch (JwtException e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
         }
     }
 

@@ -10,6 +10,7 @@ import com.jobseeckerstudio.bmm522.user.repository.user.UserQueryRepository;
 import com.jobseeckerstudio.bmm522.user.service.user.ReadUserService;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.bmm522.user.service.user.dto.GetEmailRequest;
+import com.jobseeckerstudio.bmm522.user.service.user.dto.GetEmailResponse;
 import com.jobseeckerstudio.bmm522.user.service.user.mapper.UserServiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +40,11 @@ public class ReadUserServiceImpl implements ReadUserService {
     }
 
     @Override
-    public String getEmail(JwtToken jwtToken) {
+    public GetEmailResponse getEmail(JwtToken jwtToken) {
         GetEmailRequest dto = mapper.toGetEmailRequest(jwtToken);
         User user = getUser(dto);
-        return encryptor.decrypt(user.getEmail());
+        String email = encryptor.decrypt(user.getEmail());
+        return mapper.toGetEmailResponse(email);
     }
 
     private User getUser(GetEmailRequest dto) {

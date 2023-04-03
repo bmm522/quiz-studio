@@ -17,12 +17,17 @@ public class Encryptor {
     public String encrypt(String str)  {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+
+            System.out.println("암호화 : 1111111111111111");
             Cipher cipher = Cipher.getInstance(ALGORITHM);
+            System.out.println("암호화 : 2222222222222");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            System.out.println("암호화 : 3333333333333333");
             byte[] encryptedBytes = cipher.doFinal(str.getBytes(StandardCharsets.UTF_8));
+            System.out.println("암호화 : 44444444444444");
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch(Exception e) {
-            throw  new RuntimeException("암호화 에러");
+            throw  new RuntimeException(e.getMessage());
         }
 
     }

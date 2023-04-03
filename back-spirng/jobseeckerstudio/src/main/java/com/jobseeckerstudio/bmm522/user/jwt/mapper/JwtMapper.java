@@ -17,10 +17,17 @@ public class JwtMapper {
         return jwtMapper;
     }
 
-    public Optional<JwtToken> toJwtToken(HttpServletRequest request) {
+    public Optional<JwtToken> toJwtTokenOptional(HttpServletRequest request) {
         return Optional.ofNullable(JwtToken.builder()
+            .jwtToken(request.getHeader("Authorization"))
+            .refreshToken(request.getHeader("RefreshToken"))
+            .build());
+    }
+
+    public JwtToken toJwtToken(HttpServletRequest request) {
+        return JwtToken.builder()
             .jwtToken(request.getHeader("Authorization").replace(JwtProperties.TOKEN_PREFIX, ""))
             .refreshToken(request.getHeader("RefreshToken").replace(JwtProperties.REFRESH_PREFIX, ""))
-            .build());
+            .build();
     }
 }
