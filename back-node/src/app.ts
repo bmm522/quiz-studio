@@ -3,17 +3,18 @@ import Container from "typedi";
 import { useContainer as routingUseContainer, useExpressServer } from "routing-controllers";
 import * as bodyParser from "body-parser";
 import {createDatabaseConnection} from "./config/database";
-import {QuestionController} from "./controller/question/QuestionController";
 import {ErrorHandler} from "./error/handler/ErrorHandler"
 import { JwtAuthorizationFilter } from './jwt/JwtAuthorizationFilter';
+import {QuizController} from "./controller/quiz/QuizController";
 export class App {
 
   public app;
 
   constructor() {
     this.app = express();
-    this.setExpress();
     this.setMiddlewares();
+    this.setExpress();
+
   }
 
   private setExpress(): void {
@@ -21,7 +22,7 @@ export class App {
       routingUseContainer(Container);
       useExpressServer(this.app, {
         routePrefix: "/api/v1",
-        controllers: [QuestionController]
+        controllers: [QuizController]
       })
     }catch (error) {
       console.log(error);

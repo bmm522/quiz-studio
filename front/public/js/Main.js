@@ -29,8 +29,8 @@ async function getName() {
 }
 
 const headers = {
-  Authorization:localStorage.getItem('authorization'),
-  RefreshToken:localStorage.getItem('refreshToken'),
+  authorization:localStorage.getItem('authorization'),
+  refreshToken:localStorage.getItem('refreshToken'),
 }
 
 const getCookieValue = (key) => {

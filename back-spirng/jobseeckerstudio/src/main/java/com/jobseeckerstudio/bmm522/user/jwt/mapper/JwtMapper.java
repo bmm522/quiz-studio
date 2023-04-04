@@ -19,15 +19,15 @@ public class JwtMapper {
 
     public Optional<JwtToken> toJwtTokenOptional(HttpServletRequest request) {
         return Optional.ofNullable(JwtToken.builder()
-            .jwtToken(request.getHeader("Authorization"))
-            .refreshToken(request.getHeader("RefreshToken"))
+            .jwtToken(request.getHeader("authorization"))
+            .refreshToken(request.getHeader("refreshToken"))
             .build());
     }
 
     public JwtToken toJwtToken(HttpServletRequest request) {
         return JwtToken.builder()
-            .jwtToken(request.getHeader("Authorization").replace(JwtProperties.TOKEN_PREFIX, ""))
-            .refreshToken(request.getHeader("RefreshToken").replace(JwtProperties.REFRESH_PREFIX, ""))
+            .jwtToken(request.getHeader("authorization").replace(JwtProperties.TOKEN_PREFIX, ""))
+            .refreshToken(request.getHeader("refreshToken").replace(JwtProperties.REFRESH_PREFIX, ""))
             .build();
     }
 }

@@ -12,16 +12,24 @@ export class JwtToken {
     this.refreshToken = refreshToken ?? undefined;
   }
 
+  getJwtToken(): string | undefined {
+    return this.jwtToken;
+}
+
+getRefreshToken(): string | undefined {
+    return this.refreshToken;
+}
+
 
   public async checkExpiredToken() {
 
     if (!this.jwtToken) {
       throw new UnauthorizedError('JWT 토큰이 존재하지 않습니다.');
     }
-  
+
     try {
       const decoded: JwtPayload = jwt.verify(
-        this.jwtToken.replace(envJwt.tokenPrefix, ''),
+        this.jwtToken.split(' ')[1],
         envJwt.secretKey
       ) as JwtPayload;
   
@@ -35,10 +43,10 @@ export class JwtToken {
 
   
   public async checkValidateJwtToken(): Promise<boolean> {
-    return !this.jwtToken || !this.jwtToken.startsWith(envJwt.tokenPrefix);
+    return this.jwtToken === undefined || !this.jwtToken.startsWith(envJwt.tokenPrefix);
   }
 
   public async checkValidateRefreshToken(): Promise<boolean> {
-    return !this.refreshToken || !this.refreshToken.startsWith(envJwt.refreshPrefix);
+    return this.refreshToken  === undefined|| !this.refreshToken.startsWith(envJwt.refreshPrefix);
   }
 }
