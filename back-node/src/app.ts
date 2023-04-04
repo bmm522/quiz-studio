@@ -1,11 +1,13 @@
-import express from 'express';
+import "reflect-metadata";
 import Container from "typedi";
 import { useContainer as routingUseContainer, useExpressServer } from "routing-controllers";
 import * as bodyParser from "body-parser";
 import {createDatabaseConnection} from "./config/database";
 import {ErrorHandler} from "./error/handler/ErrorHandler"
 import { JwtAuthorizationFilter } from './jwt/JwtAuthorizationFilter';
+import express = require("express");
 import {QuizController} from "./controller/quiz/QuizController";
+
 export class App {
 
   public app;
@@ -22,7 +24,7 @@ export class App {
       routingUseContainer(Container);
       useExpressServer(this.app, {
         routePrefix: "/api/v1",
-        controllers: [QuizController]
+        controllers: [QuizController],
       })
     }catch (error) {
       console.log(error);
@@ -40,7 +42,7 @@ export class App {
   private setMiddlewares(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
-    this.app.use(JwtAuthorizationFilter);
+   // this.app.use(JwtAuthorizationFilter);
     this.app.use(ErrorHandler);
   }
 }

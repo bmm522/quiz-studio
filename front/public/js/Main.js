@@ -16,13 +16,10 @@ async function setToken(){
   
     sessionStorage.setItem("authorization", getCookieValue('Authorization').replace("+"," "));
     sessionStorage.setItem("refreshToken", getCookieValue('RefreshToken').replace("+"," "));
-
-    console.log('setToken 실행');
 }
 
 async function getName() {
 
-  console.log("getName 할때 토큰값 : " + sessionStorage.getItem('authorization'));
     await fetch(`${loginHost}/api/v1/email`, {
         method:"GET",
         headers:{
@@ -35,7 +32,6 @@ async function getName() {
         document.getElementById('email-div').innerHTML += `${res.data.email}`;
     })
 
-    console.log('getName 실행');
 }
 
 const getCookieValue = (key) => {
