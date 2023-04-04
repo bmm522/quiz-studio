@@ -1,8 +1,6 @@
 const loginHost = "http://localhost:8081";
-const headers = {
-    Authorization:localStorage.getItem('authorization'),
-    RefreshToken:localStorage.getItem('refreshToken'),
-}
+const frontHost = "http://localhost:3001"
+
 
 window.onload = async function() {
   
@@ -11,6 +9,8 @@ window.onload = async function() {
     await setToken();
     await getName();
 }
+
+
 
 async function setToken(){
     localStorage.setItem("authorization", getCookieValue('Authorization').replace("+"," "));
@@ -24,9 +24,13 @@ async function getName() {
     })
     .then((res) => res.json())
     .then(res => {
-      console.log(res.data.email);
-        document.getElementById('email-div').innerHTML += `${res.data.email} 접속`;
+        document.getElementById('email-div').innerHTML += `${res.data.email}`;
     })
+}
+
+const headers = {
+  Authorization:localStorage.getItem('authorization'),
+  RefreshToken:localStorage.getItem('refreshToken'),
 }
 
 const getCookieValue = (key) => {
@@ -46,3 +50,7 @@ const getCookieValue = (key) => {
     }
     return result;
   }
+
+document.getElementById('move-question-div').addEventListener('click', function () {
+    location.href = `${frontHost}/question`;
+});

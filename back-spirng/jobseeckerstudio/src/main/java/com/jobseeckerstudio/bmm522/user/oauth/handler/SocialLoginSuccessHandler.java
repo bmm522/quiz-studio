@@ -34,7 +34,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         CookieFactory.get().toCookie(response, jwtToken);
 
-        response.sendRedirect("http://localhost:3001/menu");
+        response.sendRedirect("http://localhost:3001/main");
     }
 
     private void addHeader(HttpServletResponse response, JwtToken jwtToken) {

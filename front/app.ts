@@ -7,11 +7,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public',  'LoginPage.html'));
+    res.sendFile(path.join(__dirname, 'public',  'Login.html'));
   });
 
-app.get('/menu', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public',  'MenuPage.html'));
+app.get('/main', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public',  'Main.html'));
+  });
+
+app.get('/question', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public',  'Question.html'));
   });
 
 app.listen(3001, () => {
