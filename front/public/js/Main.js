@@ -3,7 +3,7 @@ const frontHost = "http://localhost:3001"
 
 
 window.onload = async function() {
-  
+
     console.log(getCookieValue('Authorization').replace("+"," "));
     console.log(getCookieValue('RefreshToken').replace("+"," "));
     await setToken();
@@ -13,24 +13,29 @@ window.onload = async function() {
 
 
 async function setToken(){
-    localStorage.setItem("authorization", getCookieValue('Authorization').replace("+"," "));
-    localStorage.setItem("refreshToken", getCookieValue('RefreshToken').replace("+"," "));
+  
+    sessionStorage.setItem("authorization", getCookieValue('Authorization').replace("+"," "));
+    sessionStorage.setItem("refreshToken", getCookieValue('RefreshToken').replace("+"," "));
+
+    console.log('setToken 실행');
 }
 
 async function getName() {
+
+  console.log("getName 할때 토큰값 : " + sessionStorage.getItem('authorization'));
     await fetch(`${loginHost}/api/v1/email`, {
         method:"GET",
-        headers:headers
+        headers:{
+          authorization:sessionStorage.getItem('authorization'),
+          refreshToken:sessionStorage.getItem('refreshToken')
+        }
     })
     .then((res) => res.json())
     .then(res => {
         document.getElementById('email-div').innerHTML += `${res.data.email}`;
     })
-}
 
-const headers = {
-  authorization:localStorage.getItem('authorization'),
-  refreshToken:localStorage.getItem('refreshToken'),
+    console.log('getName 실행');
 }
 
 const getCookieValue = (key) => {
@@ -54,3 +59,7 @@ const getCookieValue = (key) => {
 document.getElementById('move-question-div').addEventListener('click', function () {
     location.href = `${frontHost}/question`;
 });
+
+function deleteCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
