@@ -1,7 +1,7 @@
 import * as path from "path";
 
 const config = require("dotenv").config({
-    path: path.join(__dirname, "../../env/.env.local"),
+    path: path.join(__dirname, "../../env/.env"),
 });
 
 if (config.error) {
@@ -23,3 +23,9 @@ export const env = {
         dropSchema: process.env.TYPEORM_DROP_SCHEMA === "true"
     },
 };
+
+export const envJwt: { secretKey: string, tokenPrefix: string, refreshPrefix: string } = {
+    secretKey: process.env.SECRET_KEY!,
+    tokenPrefix: process.env.TOKEN_PREFIX!,
+    refreshPrefix: process.env.REFRESH_PREFIX!
+  };

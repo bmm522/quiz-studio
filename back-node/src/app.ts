@@ -4,7 +4,8 @@ import { useContainer as routingUseContainer, useExpressServer } from "routing-c
 import * as bodyParser from "body-parser";
 import {createDatabaseConnection} from "./config/database";
 import {QuestionController} from "./controller/question/QuestionController";
-
+import {ErrorHandler} from "./error/handler/ErrorHandler"
+import { JwtAuthorizationFilter } from './jwt/JwtAuthorizationFilter';
 export class App {
 
   public app;
@@ -38,5 +39,7 @@ export class App {
   private setMiddlewares(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(JwtAuthorizationFilter);
+    this.app.use(ErrorHandler);
   }
 }
