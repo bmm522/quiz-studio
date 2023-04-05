@@ -18,15 +18,16 @@ export class Quiz {
     @JoinColumn({ name: "category_id" })
     category: Category;
 
-    @OneToMany(() => QuizChoice, quizChoice => quizChoice.quiz, { eager: false })
-    quizChoices: QuizChoice[] | undefined;
+    @OneToMany(() => QuizChoice, quizChoice => quizChoice.quiz, { eager: false})
+    quizChoices: QuizChoice[];
 
     constructor(
         quizTitle: string,
         difficulty: string,
         category: Category,
+        quizChoices: QuizChoice[],
         quizId?: number,
-        quizChoices?: QuizChoice[]
+
     ) {
         this.quizId = quizId;
         this.quizTitle = quizTitle;
