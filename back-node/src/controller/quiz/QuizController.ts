@@ -1,17 +1,22 @@
 import {QueryParams, Get, HttpCode, JsonController, QueryParam} from "routing-controllers";
 import { Service } from "typedi";
-import {LevelRequest} from "./dto/LevelRequest";
+import {QuizParams} from "./dto/QuizParams";
+import {ReadQuizService} from "../../service/quiz/ReadQuizService";
 
 @JsonController("/quiz")
 @Service()
 export class QuizController {
 
-    constructor() {}
+    constructor(private readQuizServer: ReadQuizService) {}
 
     @HttpCode(200)
-    @Get("/test")
-    async test(@QueryParams()query: LevelRequest) {
-        console.log(query);
+    @Get("")
+    async getQuizList(@QueryParams() params: QuizParams) {
+        try {
+           await  this.readQuizServer.getQuizList(params);
+        } catch (error) {
+            throw  error;
+        }
     }
 
 }

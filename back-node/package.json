@@ -26,6 +26,7 @@
     "typedi": "^0.10.0",
     "typeorm": "^0.3.12",
     "typeorm-naming-strategies": "^4.1.0",
+    "typeorm-typedi-extensions": "^0.4.1",
     "winston": "^3.8.2"
   },
   "devDependencies": {

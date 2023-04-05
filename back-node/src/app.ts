@@ -16,12 +16,14 @@ export class App {
     this.app = express();
     this.setMiddlewares();
     this.setExpress();
+    this.setDatabase();
 
   }
 
   private setExpress(): void {
     try {
       routingUseContainer(Container);
+
       useExpressServer(this.app, {
         routePrefix: "/api/v1",
         controllers: [QuizController],

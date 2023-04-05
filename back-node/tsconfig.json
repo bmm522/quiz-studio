@@ -102,6 +102,7 @@
   },
   "include": [
     "src",
+    "src/entity",
     "env"
   ]
 }

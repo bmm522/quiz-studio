@@ -3,6 +3,9 @@ import Container from "typedi";
 import { ConnectionOptions, createConnection, getConnectionManager, useContainer } from "typeorm";
 import { ConstraintSnakeNamingStrategy } from "./ConstraintSnakeNamingStrategy";
 import {env} from "./env";
+import {Quiz} from "../entity/quiz/Quiz";
+import {QuizChoice} from "../entity/quizChoice/QuizChoice";
+import {Category} from "../entity/category/Category";
 
 export async function createDatabaseConnection(): Promise<void> {
     const connectionOption: ConnectionOptions = {
@@ -13,9 +16,11 @@ export async function createDatabaseConnection(): Promise<void> {
         password: env.database.password,
         database: env.database.database,
         entities: [
-            "src/entity/**/*.ts",
+            Quiz,
+            QuizChoice,
+            Category
         ],
-        synchronize: true,
+        synchronize: false,
         namingStrategy: new ConstraintSnakeNamingStrategy(),
     };
     useContainer(Container);
