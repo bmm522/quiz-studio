@@ -1,14 +1,14 @@
-language:      node_js
+language: node_js
 git:
-  depth:       3
+    depth: 3
 node_js:
-  - "node"
-install:       npm install
+    - "node"
+install: npm install
 script:
-  - npm test
-  - gulp
+    - npm test
+    - gulp
 cache:
-  directories:
-    - node_modules
+    directories:
+        - node_modules
 notifications:
-  email:       false
+    email: false
