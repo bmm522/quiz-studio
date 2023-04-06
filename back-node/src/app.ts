@@ -7,7 +7,7 @@ import {ErrorHandler} from "./error/handler/ErrorHandler"
 import { JwtAuthorizationFilter } from './jwt/JwtAuthorizationFilter';
 import express = require("express");
 import {QuizController} from "./controller/quiz/QuizController";
-
+import cors from 'cors';
 export class App {
 
   public app;
@@ -44,6 +44,7 @@ export class App {
   private setMiddlewares(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(cors());
    // this.app.use(JwtAuthorizationFilter);
     this.app.use(ErrorHandler);
   }

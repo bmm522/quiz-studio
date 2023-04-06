@@ -52,8 +52,11 @@ const getCookieValue = (key) => {
     return result;
   }
 
-document.getElementById('move-question-div').addEventListener('click', function () {
-    location.href = `${frontHost}/question`;
+
+document.getElementById('java-easy').addEventListener('click', function() {
+  localStorage.setItem('level', 'easy');
+  localStorage.setItem('category', 'java');
+  location.href = `${frontHost}/quiz`;
 });
 
 function deleteCookie(name) {

@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/quiz.css" rel="stylesheet">
 
 </head>
 
@@ -130,41 +131,9 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                          <h6 class="m-0 font-weight-bold text-primary">1번 문제</h6>
-                        </div>
-                        <div class="card-body">
-                          <!-- <h5 class="card-title">문제 1</h5> -->
-                          <p class="card-text">다음 중 정답은 무엇인가요?</p>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice1" value="option1">
-                            <label class="form-check-label" for="quiz1-choice1">
-                              선택지 1
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice2" value="option2">
-                            <label class="form-check-label" for="quiz1-choice2">
-                              선택지 2
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice3" value="option3">
-                            <label class="form-check-label" for="quiz1-choice3">
-                              선택지 3
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice4" value="option4">
-                            <label class="form-check-label" for="quiz1-choice4">
-                              선택지 4
-                            </label>
-                          </div>
-                          <button type="submit" class="btn btn-primary mt-3">제출</button>
-                        </div>
-                      </div>
+                <div class="container-fluid" id="quiz-container">
+                  
+                      
 
                     
                     <!-- Content Row -->
@@ -233,6 +202,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/quiz.js"></script>
     
 
 </body>
