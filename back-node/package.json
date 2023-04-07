@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.33",
+    "@types/mongodb": "^4.0.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
@@ -20,12 +21,13 @@
     "ejs": "^3.1.9",
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^3.7.3",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.10.2",
     "typedi": "^0.10.0",
-    "typeorm": "^0.3.12",
+    "typeorm": "^0.3.13",
     "typeorm-naming-strategies": "^4.1.0",
     "typeorm-typedi-extensions": "^0.4.1",
     "winston": "^3.8.2"

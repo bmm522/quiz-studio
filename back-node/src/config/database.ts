@@ -6,15 +6,15 @@ import {env} from "./env";
 import {Quiz} from "../entity/quiz/Quiz";
 import {QuizChoice} from "../entity/quizChoice/QuizChoice";
 import {Category} from "../entity/category/Category";
-
 export async function createDatabaseConnection(): Promise<void> {
-    const connectionOption: ConnectionOptions = {
+    const mysqlConnectionOption: ConnectionOptions = {
+        name: "default",
         type: "mysql",
-        host: env.database.host,
-        port: env.database.port,
-        username: env.database.username,
-        password: env.database.password,
-        database: env.database.database,
+        host: env.mysqlDatabase.host,
+        port: env.mysqlDatabase.port,
+        username: env.mysqlDatabase.username,
+        password: env.mysqlDatabase.password,
+        database: env.mysqlDatabase.database,
         entities: [
             Quiz,
             QuizChoice,
@@ -23,8 +23,25 @@ export async function createDatabaseConnection(): Promise<void> {
         synchronize: false,
         namingStrategy: new ConstraintSnakeNamingStrategy(),
     };
+
+    const mongoConnectionOption: ConnectionOptions = {
+        name: "mongodb",
+        type: "mongodb",
+        url: env.mongoDatabase.url,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        synchronize: false,
+        logging: true,
+        namingStrategy: new ConstraintSnakeNamingStrategy()
+    };
+
     useContainer(Container);
+
     if(!getConnectionManager().has("default")) {
-        await createConnection(connectionOption);
+        await createConnection(mysqlConnectionOption);
+    }
+
+    if(!getConnectionManager().has("mongodb")) {
+        await createConnection(mongoConnectionOption);
     }
 }

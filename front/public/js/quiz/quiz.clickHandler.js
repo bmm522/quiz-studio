@@ -1,5 +1,6 @@
 function handleSubmitQuiz() {
     const result = confirm("퀴즈를 제출하시겠습니까?");
+    const failQuizArray = [];
     if (result) {
         const cardBodys = document.getElementsByClassName("card-body");
         let numCorrect = 0;
@@ -18,6 +19,7 @@ function handleSubmitQuiz() {
                         isCorrect = true;
                         numCorrect++;
                     } else {
+                        failQuizArray.push(quizTitle);
                         choiceInput.parentNode.classList.add("bg-danger"); // 오답인 경우 배경색을 빨간색으로 변경
                     }
                 } else if (choiceInput.value === "true") {
@@ -33,8 +35,35 @@ function handleSubmitQuiz() {
         const submitBtn = document.getElementById("submit-btn");
         submitBtn.style.display = "none";
         createResultElement(numCorrect);
+
+
+        submitLogWhenSubmitQuiz(failQuizArray);
     }
 }
+
+function submitLogWhenSubmitQuiz(failQuizArray) {
+    fetch(`${nodeHost}/v1/quiz-log`, {
+        method: "POST",
+        headers: {
+            authorization:sessionStorage.getItem("authorization"),
+        },
+        body:JSON.stringify({
+            quizTitleArray: failQuizArray
+        })
+    })
+    .then((res) => res.json())
+    .then(res => {
+        console.log(res);
+    })
+}
+
+
+
+
+
+
+
+
 
 function createResultElement(numCorrect) {
     const navbar = document.getElementById("after");

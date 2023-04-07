@@ -1,12 +1,12 @@
 const loginHost = "http://localhost:8081";
-const nodeHost = "http://localhost:3000";
+const nodeHost = "http://localhost:3000/api";
 const frontHost = "http://localhost:3001";
 
 const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
 function getQuizData(level, category) {
-    const url = new URL(`${nodeHost}/api/v1/quiz`);
+    const url = new URL(`${nodeHost}/v1/quiz`);
     url.searchParams.set("level", level);
     url.searchParams.set("category", category);
     return fetch(url)
@@ -27,3 +27,5 @@ loadQuiz();
 document
     .getElementById("submit-btn")
     .addEventListener("click", handleSubmitQuiz);
+
+
