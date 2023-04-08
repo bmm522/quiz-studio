@@ -8,4 +8,11 @@ export class QuizRecordItems {
     this.quizRecordArray = quizRecordArray;
     this.userKey = userKey;
   }
+  getQuizRecordArray(): QuizRecord[] {
+    return this.quizRecordArray;
+  }
+
+  getUserKey(): string {
+    return this.userKey;
+  }
 }

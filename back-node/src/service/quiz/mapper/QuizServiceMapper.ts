@@ -2,6 +2,8 @@ import { QuizParams } from '../../../controller/quiz/dto/QuizParams';
 import { QuizListItem } from '../dto/QuizListItem';
 import { Quiz } from '../../../entity/quiz/Quiz';
 import { QuizResponse } from '../dto/QuizResponse';
+import { QuizRecordItems } from '../dto/QuizRecordItems';
+import { FailedQuizRecords } from '../../../entity/failedQuizRecords/FailedQuizRecords';
 
 export class QuizServiceMapper {
   static toQuizListRequest(params: QuizParams): QuizListItem {
@@ -16,5 +18,19 @@ export class QuizServiceMapper {
       return new QuizResponse(quiz.quizTitle, choices);
     });
     return result;
+  }
+
+  static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
+    const userKey = dto.getUserKey();
+    const quizRecordArray = dto.getQuizRecordArray();
+
+    const data = quizRecordArray.map(({ quizTitle, quizChoices }) => ({
+      userKey,
+      quizTitle,
+      quizChoiceContent: quizChoices.map(({ quizChoiceContent }) => quizChoiceContent),
+      quizChoiceIsAnswer: quizChoices.map(({ quizChoiceIsAnswer }) => quizChoiceIsAnswer),
+    }));
+
+    return await FailedQuizRecords.create(data);
   }
 }

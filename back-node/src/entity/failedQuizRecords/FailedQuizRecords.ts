@@ -1,6 +1,13 @@
-import * as mongoose from 'mongoose';
+import { Model, model, Document, Schema } from 'mongoose';
 
-const FailedQuizRecords = new mongoose.Schema({
+export interface FailedQuizRecords extends Document {
+  userKey: string;
+  quizTitle: string;
+  quizChoiceContent: string[];
+  quizChoiceIsAnswer: boolean[];
+}
+
+const failedQuizRecordsSchema = new Schema({
   userKey: {
     type: String,
     required: true,
@@ -12,12 +19,28 @@ const FailedQuizRecords = new mongoose.Schema({
   },
 
   quizChoiceContent: {
-    type: String,
+    type: [String],
     required: true,
   },
 
   quizChoiceIsAnswer: {
-    type: Boolean,
+    type: [Boolean],
     required: true,
   },
 });
+
+failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
+  userKey: string;
+  quizTitle: string;
+  quizChoiceContent: string[];
+  quizChoiceIsAnswer: boolean[];
+}): Promise<FailedQuizRecords> {
+  return new this(data);
+};
+
+const FailedQuizRecords: Model<FailedQuizRecords> = model<FailedQuizRecords>(
+  'FailedQuizRecords',
+  failedQuizRecordsSchema,
+);
+
+export { FailedQuizRecords };
