@@ -9,7 +9,12 @@ function getQuizData(level, category) {
     const url = new URL(`${nodeHost}/v1/quiz`);
     url.searchParams.set("level", level);
     url.searchParams.set("category", category);
-    return fetch(url)
+    console.log("퀴즈 : " + sessionStorage.getItem("authorization"));
+    const headers = new Headers();
+    headers.append("authorization",sessionStorage.getItem("authorization"));
+    headers.append("refreshToken",sessionStorage.getItem("refreshToken"));
+
+    return fetch(url, { headers })
         .then((response) => response.json())
         .then((data) => data.data)
         .catch((error) => console.error(error));
@@ -27,5 +32,3 @@ loadQuiz();
 document
     .getElementById("submit-btn")
     .addEventListener("click", handleSubmitQuiz);
-
-

@@ -4,7 +4,7 @@ import { useContainer as routingUseContainer, useExpressServer } from "routing-c
 import * as bodyParser from "body-parser";
 import {createDatabaseConnection} from "./config/database";
 import {ErrorHandler} from "./error/handler/ErrorHandler"
-import { JwtAuthorizationFilter } from './jwt/JwtAuthorizationFilter';
+import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
 import express = require("express");
 import {QuizController} from "./controller/quiz/QuizController";
 import cors from 'cors';
@@ -45,7 +45,7 @@ export class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(cors());
-   // this.app.use(JwtAuthorizationFilter);
+    this.app.use(JwtAuthorizationFilter);
     this.app.use(ErrorHandler);
   }
 }

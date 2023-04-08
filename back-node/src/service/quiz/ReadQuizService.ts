@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import {QuizParams} from "../../controller/quiz/dto/QuizParams";
 import {QuizServiceMapper} from "./mapper/QuizServiceMapper";
 import {InjectRepository} from "typeorm-typedi-extensions";
-import {QuizQueryRepository} from "../../repository/Quiz/QuizQueryRepository";
+import {QuizQueryMySQLRepository} from "../../repository/mysql/Quiz/QuizQueryMySQLRepository";
 import {Quiz} from "../../entity/quiz/Quiz";
 import {QuizListRequest} from "./dto/QuizListRequest";
 import {NotFoundEntityError} from "../../error/NotFoundEntityError";
@@ -11,7 +11,7 @@ import {QuizResponse} from "./dto/QuizResponse";
 @Service()
 export class ReadQuizService {
 
-    constructor(@InjectRepository() private quizQueryRepository: QuizQueryRepository) {
+    constructor(@InjectRepository() private quizQueryMySQLRepository: QuizQueryMySQLRepository) {
     }
     async getQuizList(params: QuizParams): Promise<QuizResponse[]> {
         const item  = await this.toRequest(params);
@@ -20,7 +20,7 @@ export class ReadQuizService {
     }
 
     private async getQuizRandomList(item: QuizListRequest) : Promise<Quiz[]>{
-        const quizList =  await this.quizQueryRepository.getQuizRandomList(item.getCategory(), item.getLevel());
+        const quizList =  await this.quizQueryMySQLRepository.getQuizRandomList(item.getCategory(), item.getLevel());
 
         if(!quizList) {
             throw new NotFoundEntityError('해당 퀴즈 랜덤 리스트를 찾을 수 없습니다.');
@@ -28,8 +28,6 @@ export class ReadQuizService {
 
         return quizList;
     }
-
-
 
     private async toRequest(params: QuizParams) : Promise<QuizListRequest> {
         return QuizServiceMapper.toQuizListRequest(params);

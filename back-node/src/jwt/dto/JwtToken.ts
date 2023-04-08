@@ -4,8 +4,8 @@ import { ExpiredTokenError } from '../../error/ExpiredTokenError';
 import { UnauthorizedError } from '../../error/UnauthorizedError';
 
 export class JwtToken {
-  private jwtToken: string |  undefined;
-  private refreshToken: string | undefined;
+  private readonly jwtToken: string |  undefined;
+  private readonly refreshToken: string | undefined;
 
   constructor(jwtToken: string | undefined , refreshToken: string | undefined) {
     this.jwtToken = jwtToken ?? undefined;
@@ -21,12 +21,12 @@ getRefreshToken(): string | undefined {
 }
 
 
-  public async checkExpiredToken() {
+  public async checkExpiredToken(): Promise<JwtPayload> {
     if (!this.jwtToken) {
       throw new UnauthorizedError('JWT 토큰이 존재하지 않습니다.');
     }
     try {
-      jwt.verify(
+      return jwt.verify(
         this.jwtToken.split(' ')[1],
         envJwt.secretKey
       ) as JwtPayload;
@@ -37,6 +37,12 @@ getRefreshToken(): string | undefined {
         throw new UnauthorizedError('토큰 파싱중에 에러발생');
       }
     }
+  }
+
+
+  public async getUserKeyFromJwtToken(): Promise<string>{
+    const decodeJwt = await this.checkExpiredToken();
+    return decodeJwt.userKey;
   }
 
   

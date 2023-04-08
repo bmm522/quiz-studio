@@ -1,11 +1,11 @@
 import {createQueryBuilder, EntityRepository} from "typeorm";
-import {Quiz} from "../../entity/quiz/Quiz";
-import {Category} from "../../entity/category/Category";
-import {CategoryEnum} from "../../global/enum/CategoryEnum";
-import {Level} from "../../global/enum/Level";
+import {Quiz} from "../../../entity/quiz/Quiz";
+import {Category} from "../../../entity/category/Category";
+import {CategoryEnum} from "../../../global/enum/CategoryEnum";
+import {Level} from "../../../global/enum/Level";
 
 @EntityRepository(Quiz)
-export class QuizQueryRepository {
+export class QuizQueryMySQLRepository {
     async getQuizRandomList(
         category: CategoryEnum,
         level: Level

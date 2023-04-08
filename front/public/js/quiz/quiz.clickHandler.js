@@ -1,9 +1,7 @@
-
-
 function handleSubmitQuiz() {
     const result = confirm("퀴즈를 제출하시겠습니까?");
-    const failQuizArray = []
-    
+    const failQuizArray = [];
+
     if (result) {
         const cardBodys = document.getElementsByClassName("card-body");
         let numCorrect = 0;
@@ -11,8 +9,8 @@ function handleSubmitQuiz() {
             const cardBody = cardBodys[i];
             const choiceInputs =
                 cardBody.getElementsByClassName("form-check-input");
-                const choicelabels =
-                cardBody.getElementsByClassName("form-check-label");    
+            const choicelabels =
+                cardBody.getElementsByClassName("form-check-label");
             const quizTitle = cardBody.getElementsByClassName("card-title")[0];
             let failRecord = {
                 quizTitle: "",
@@ -32,7 +30,6 @@ function handleSubmitQuiz() {
                         choiceInput.parentNode.classList.add("bg-danger"); // 오답인 경우 배경색을 빨간색으로 변경
                     }
                 } else if (choiceInput.value === "true") {
-
                     choiceInput.parentNode.classList.add("bg-warning"); // 선택하지 않았지만 정답인 경우 텍스트 색상을 노란색으로 변경
                 }
             }
@@ -41,8 +38,12 @@ function handleSubmitQuiz() {
             } else {
                 failRecord = {
                     quizTitle: quizTitle.outerText,
-                    quizChoiceContent:Array.from(choicelabels).map((label) => label.outerText),
-                    quizChoiceIsAnswer:Array.from(choiceInputs).map((choice) => choice.value),
+                    quizChoiceContent: Array.from(choicelabels).map(
+                        (label) => label.outerText,
+                    ),
+                    quizChoiceIsAnswer: Array.from(choiceInputs).map(
+                        (choice) => choice.value,
+                    ),
                 };
                 failQuizArray.push(failRecord);
                 quizTitle.classList.add("text-danger"); // 오답인 경우 제목의 텍스트 색상을 빨간색으로 변경
@@ -51,7 +52,6 @@ function handleSubmitQuiz() {
         const submitBtn = document.getElementById("submit-btn");
         submitBtn.style.display = "none";
         createResultElement(numCorrect);
-
 
         submitRecordWithFailQuiz(failQuizArray);
     }
@@ -62,26 +62,19 @@ function submitRecordWithFailQuiz(failQuizArray) {
     fetch(`${nodeHost}/v1/quiz/fail-records`, {
         method: "POST",
         headers: {
-        //    authorization:sessionStorage.getItem("authorization"),
-        "Content-Type":"application/json",    
+            authorization:sessionStorage.getItem("authorization"),
+            refreshToken:sessionStorage.getItem("refreshToken"),
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-            quizRecordTitleArray: failQuizArray
-        })
+        body: JSON.stringify({
+            quizRecordTitleArray: failQuizArray,
+        }),
     })
-    .then((res) => res.json())
-    .then(res => {
-        console.log(res);
-    })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+        });
 }
-
-
-
-
-
-
-
-
 
 function createResultElement(numCorrect) {
     const navbar = document.getElementById("after");

@@ -1,6 +1,10 @@
-import {Service} from "typedi";
-
-@Service()
-export class CreateQuizService {
-
-}
+// import {Service} from "typedi";
+// import {InjectRepository} from "typeorm-typedi-extensions";
+//
+// @Service()
+// export class CreateQuizService {
+//
+//     constructor(@InjectRepository() private quizMongoRepository: QuizMongoRepository) {
+//     }
+//
+// }

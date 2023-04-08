@@ -2,18 +2,23 @@ import {IsOptional} from "class-validator";
 
 export class QuizRecordRequest {
     @IsOptional()
-    quizRecordTitleArray: QuizRecordTitle[];
+    quizRecordTitleArray: QuizRecord[];
 
-    constructor(quizRecordTitleArray: QuizRecordTitle[]) {
-        this.quizRecordTitleArray = quizRecordTitleArray;
+    constructor(quizRecordTitleArray: QuizRecord[]) {
+        this.quizRecordTitleArray = quizRecordTitleArray ?? [];
     }
+
+}
+export class QuizRecord {
+    constructor(
+        public quizTitle: string,
+        public quizChoices: QuizChoices[]
+    ) {}
 }
 
-export class QuizRecordTitle {
-    quizTitle: string;
-    quizChoices: string[];
-    constructor(quizTitle: string, quizChoices: string[]) {
-        this.quizTitle = quizTitle;
-        this.quizChoices = quizChoices;
-    }
+export class QuizChoices {
+    constructor(
+        public quizChoiceContent: string,
+        public quizChoiceIsAnswer: boolean
+    ) {}
 }

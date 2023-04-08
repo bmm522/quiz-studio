@@ -1,9 +1,11 @@
-import {QueryParams, Get, HttpCode, JsonController, QueryParam, Res, Post, Body} from "routing-controllers";
+import {QueryParams, Get, HttpCode, JsonController, QueryParam, Res, Post, Body, Req} from "routing-controllers";
 import { Service } from "typedi";
 import {QuizParams} from "./dto/QuizParams";
 import {ReadQuizService} from "../../service/quiz/ReadQuizService";
 import {ResponseDto} from "../common/dto/ResponseDto";
 import {QuizRecordRequest} from "./dto/QuizRecordRequest";
+import {CustomRequest} from "../../jwt/dto/CustomRequest";
+
 
 @JsonController("/quiz")
 @Service()
@@ -24,8 +26,15 @@ export class QuizController {
 
     @HttpCode(201)
     @Post("/fail-records")
-    async saveFailRecords(@Body()failQuizTitleArray: QuizRecordRequest) {
-        console.log(failQuizTitleArray.quizRecordTitleArray[0]);
+    async saveFailRecords(@Body()dto: QuizRecordRequest, @Req() req:CustomRequest) {
+        console.log(req.userKey);
+        console.log(dto);
+        console.log(dto.quizRecordTitleArray[0]);
+
+
+        // try {
+        //     const result = await this.createQuizService.saveFailRecords(dto);
+        // }
     }
 
 }
