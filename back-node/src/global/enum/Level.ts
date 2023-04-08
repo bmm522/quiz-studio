@@ -1,4 +1,4 @@
 export enum Level {
-    EASY = 'easy',
-    HARD = 'hard',
+  EASY = 'easy',
+  HARD = 'hard',
 }

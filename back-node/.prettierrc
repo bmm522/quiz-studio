@@ -1,0 +1,22 @@
+{
+  "printWidth": 80,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 4,
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "options": {
+        "printWidth": 100,
+        "singleQuote": true,
+        "semi": true,
+        "tabWidth": 2,
+        "trailingComma": "all",
+        "useTabs": false,
+        "parser": "typescript",
+        "eslintIntegration": true
+      }
+    }
+  ]
+}

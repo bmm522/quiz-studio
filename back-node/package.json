@@ -26,6 +26,7 @@
     "mongoose": "^7.0.3",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
+    "prettierrc": "^0.0.0-5",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.10.2",
     "typedi": "^0.10.0",

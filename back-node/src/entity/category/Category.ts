@@ -1,15 +1,15 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {
-    @PrimaryGeneratedColumn()
-    categoryId: number | undefined;
+  @PrimaryGeneratedColumn()
+  categoryId: number | undefined;
 
-    @Column()
-    categoryName: string;
+  @Column()
+  categoryName: string;
 
-    constructor(categoryName: string, categoryId?: number ) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }
+  constructor(categoryName: string, categoryId?: number) {
+    this.categoryId = categoryId;
+    this.categoryName = categoryName;
+  }
 }

@@ -1,5 +1,5 @@
-import {Request} from "express";
+import { Request } from 'express';
 
 export interface CustomRequest extends Request {
-    userKey?: string;
+  userKey?: string;
 }

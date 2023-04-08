@@ -1,15 +1,14 @@
-import "reflect-metadata";
-import Container from "typedi";
-import { useContainer as routingUseContainer, useExpressServer } from "routing-controllers";
-import * as bodyParser from "body-parser";
-import {createDatabaseConnection} from "./config/database";
-import {ErrorHandler} from "./error/handler/ErrorHandler"
+import 'reflect-metadata';
+import Container from 'typedi';
+import { useContainer as routingUseContainer, useExpressServer } from 'routing-controllers';
+import * as bodyParser from 'body-parser';
+import { createDatabaseConnection } from './config/database';
+import { ErrorHandler } from './error/handler/ErrorHandler';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
-import express = require("express");
-import {QuizController} from "./controller/quiz/QuizController";
+import express = require('express');
+import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 export class App {
-
   public app;
 
   constructor() {
@@ -17,7 +16,6 @@ export class App {
     this.setMiddlewares();
     this.setExpress();
     this.setDatabase();
-
   }
 
   private setExpress(): void {
@@ -25,10 +23,10 @@ export class App {
       routingUseContainer(Container);
 
       useExpressServer(this.app, {
-        routePrefix: "/api/v1",
+        routePrefix: '/api/v1',
         controllers: [QuizController],
-      })
-    }catch (error) {
+      });
+    } catch (error) {
       console.log(error);
     }
   }

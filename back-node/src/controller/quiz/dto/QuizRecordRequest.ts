@@ -1,24 +1,11 @@
-import {IsOptional} from "class-validator";
+import { IsOptional } from 'class-validator';
+import { QuizRecord } from '../../../global/dto/QuizRecord';
 
 export class QuizRecordRequest {
-    @IsOptional()
-    quizRecordTitleArray: QuizRecord[];
+  @IsOptional()
+  quizRecordArray: QuizRecord[];
 
-    constructor(quizRecordTitleArray: QuizRecord[]) {
-        this.quizRecordTitleArray = quizRecordTitleArray ?? [];
-    }
-
-}
-export class QuizRecord {
-    constructor(
-        public quizTitle: string,
-        public quizChoices: QuizChoices[]
-    ) {}
-}
-
-export class QuizChoices {
-    constructor(
-        public quizChoiceContent: string,
-        public quizChoiceIsAnswer: boolean
-    ) {}
+  constructor(quizRecordArray: QuizRecord[]) {
+    this.quizRecordArray = quizRecordArray ?? [];
+  }
 }
