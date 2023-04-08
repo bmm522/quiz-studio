@@ -1,6 +1,9 @@
+
+
 function handleSubmitQuiz() {
     const result = confirm("퀴즈를 제출하시겠습니까?");
-    const failQuizArray = [];
+    const failQuizArray = []
+    
     if (result) {
         const cardBodys = document.getElementsByClassName("card-body");
         let numCorrect = 0;
@@ -8,7 +11,14 @@ function handleSubmitQuiz() {
             const cardBody = cardBodys[i];
             const choiceInputs =
                 cardBody.getElementsByClassName("form-check-input");
+                const choicelabels =
+                cardBody.getElementsByClassName("form-check-label");    
             const quizTitle = cardBody.getElementsByClassName("card-title")[0];
+            let failRecord = {
+                quizTitle: "",
+                quizChoiceContent: [],
+                quizChoiceIsAnswer: [],
+            };
             let isCorrect = false;
             for (let j = 0; j < choiceInputs.length; j++) {
                 const choiceInput = choiceInputs[j];
@@ -19,16 +29,22 @@ function handleSubmitQuiz() {
                         isCorrect = true;
                         numCorrect++;
                     } else {
-                        failQuizArray.push(quizTitle);
                         choiceInput.parentNode.classList.add("bg-danger"); // 오답인 경우 배경색을 빨간색으로 변경
                     }
                 } else if (choiceInput.value === "true") {
-                    choiceInput.parentNode.classList.add("bg-warning"); // 선택하지 않았지만 정답인 경우 텍스트 색상을 초록색으로 변경
+
+                    choiceInput.parentNode.classList.add("bg-warning"); // 선택하지 않았지만 정답인 경우 텍스트 색상을 노란색으로 변경
                 }
             }
             if (isCorrect) {
                 quizTitle.classList.add("text-success"); // 정답인 경우 제목의 텍스트 색상을 초록색으로 변경
             } else {
+                failRecord = {
+                    quizTitle: quizTitle.outerText,
+                    quizChoiceContent:Array.from(choicelabels).map((label) => label.outerText),
+                    quizChoiceIsAnswer:Array.from(choiceInputs).map((choice) => choice.value),
+                };
+                failQuizArray.push(failRecord);
                 quizTitle.classList.add("text-danger"); // 오답인 경우 제목의 텍스트 색상을 빨간색으로 변경
             }
         }
@@ -37,18 +53,20 @@ function handleSubmitQuiz() {
         createResultElement(numCorrect);
 
 
-        submitLogWhenSubmitQuiz(failQuizArray);
+        submitRecordWithFailQuiz(failQuizArray);
     }
 }
 
-function submitLogWhenSubmitQuiz(failQuizArray) {
-    fetch(`${nodeHost}/v1/quiz-log`, {
+function submitRecordWithFailQuiz(failQuizArray) {
+    console.log(failQuizArray);
+    fetch(`${nodeHost}/v1/quiz/fail-records`, {
         method: "POST",
         headers: {
-            authorization:sessionStorage.getItem("authorization"),
+        //    authorization:sessionStorage.getItem("authorization"),
+        "Content-Type":"application/json",    
         },
         body:JSON.stringify({
-            quizTitleArray: failQuizArray
+            quizRecordTitleArray: failQuizArray
         })
     })
     .then((res) => res.json())
