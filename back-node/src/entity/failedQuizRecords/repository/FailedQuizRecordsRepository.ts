@@ -5,21 +5,18 @@ import { FailedQuizRecords } from '../FailedQuizRecords';
 
 @Service()
 export class FailedQuizRecordsRepository {
-  async save(dataArray: FailedQuizRecords[]): Promise<FailedQuizRecordsSchema[]> {
-    const promises = [];
-    for (let data of dataArray) {
-      let userKey = data.getUserKey();
-      let quizTitle = data.getQuizTitle();
-      let quizChoiceContent = data.getQuizChoiceContent();
-      let quizChoiceIsAnswer = data.getQuizChoiceIsAnswer();
-      const failedQuizRecord = FailedQuizRecordsModel.create({
+  async save(dataArray: FailedQuizRecords[]): Promise<FailedQuizRecords[]> {
+    const promises = dataArray.map(data => {
+      const { userKey,quizTitle, quizIsAnswer,quizChoiceContent, quizChoiceIsAnswer } = data.create();
+      return FailedQuizRecordsModel.create({
         userKey,
         quizTitle,
+        quizIsAnswer,
         quizChoiceContent,
         quizChoiceIsAnswer,
       });
-      promises.push(failedQuizRecord);
-    }
-    return Promise.all(promises);
+    });
+    await Promise.all(promises);
+    return dataArray;
   }
 }

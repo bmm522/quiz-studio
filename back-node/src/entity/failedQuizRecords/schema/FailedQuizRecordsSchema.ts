@@ -2,6 +2,8 @@ import { Model, model, Document, Schema } from 'mongoose';
 export interface FailedQuizRecordsSchema extends Document {
   userKey: string;
   quizTitle: string;
+
+  quizIsAnswer: boolean;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 }
@@ -17,6 +19,10 @@ const failedQuizRecordsSchema = new Schema(
       type: String,
       required: true,
     },
+      quizIsAnswer: {
+          type: Boolean,
+          required: true,
+      },
 
     quizChoiceContent: {
       type: [String],
@@ -39,6 +45,7 @@ const failedQuizRecordsSchema = new Schema(
 failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
   userKey: string;
   quizTitle: string;
+  quizIsAnswer: boolean;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 }): Promise<FailedQuizRecordsSchema> {

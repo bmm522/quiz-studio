@@ -33,13 +33,10 @@ export async function createDatabaseConnection(): Promise<void> {
   useContainer(Container);
 
   if (!getConnectionManager().has('default')) {
-    console.log(mysqlConnectionOption.host);
     await createConnection(mysqlConnectionOption);
   }
 
   if (!getConnectionManager().has('mongodb')) {
-    console.log('여기들어옴');
-    console.log(mongoConnectionOption.url);
     await createConnection(mongoConnectionOption);
   }
 }
