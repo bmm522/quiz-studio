@@ -6,32 +6,35 @@ export interface FailedQuizRecordsSchema extends Document {
   quizChoiceIsAnswer: boolean[];
 }
 
-const failedQuizRecordsSchema = new Schema({
-  userKey: {
-    type: String,
-    required: true,
-  },
+const failedQuizRecordsSchema = new Schema(
+  {
+    userKey: {
+      type: String,
+      required: true,
+    },
 
-  quizTitle: {
-    type: String,
-    required: true,
-  },
+    quizTitle: {
+      type: String,
+      required: true,
+    },
 
-  quizChoiceContent: {
-    type: [String],
-    required: true,
-  },
+    quizChoiceContent: {
+      type: [String],
+      required: true,
+    },
 
-  quizChoiceIsAnswer: {
-    type: [Boolean],
-    required: true,
-  },
+    quizChoiceIsAnswer: {
+      type: [Boolean],
+      required: true,
+    },
 
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-}, { collection: 'failedQuizRecords' });
+  { collection: 'failedQuizRecords' },
+);
 
 failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
   userKey: string;
@@ -43,8 +46,8 @@ failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
 };
 
 const FailedQuizRecordsModel: Model<FailedQuizRecordsSchema> = model<FailedQuizRecordsSchema>(
-    'failedQuizRecords',
-    failedQuizRecordsSchema,
+  'failedQuizRecords',
+  failedQuizRecordsSchema,
 );
 
 export { FailedQuizRecordsModel };

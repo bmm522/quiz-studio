@@ -6,7 +6,7 @@ import { env } from './env';
 import { Quiz } from '../entity/quiz/Quiz';
 import { QuizChoice } from '../entity/quizChoice/QuizChoice';
 import { Category } from '../entity/category/Category';
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 export async function createDatabaseConnection(): Promise<void> {
   const mysqlConnectionOption: ConnectionOptions = {
     name: 'default',

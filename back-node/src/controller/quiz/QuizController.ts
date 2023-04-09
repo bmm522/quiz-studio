@@ -17,7 +17,7 @@ import { QuizRecordRequest } from './dto/QuizRecordRequest';
 import { CustomRequest } from '../../jwt/dto/CustomRequest';
 import { QuizRecordItems } from '../../service/quiz/dto/QuizRecordItems';
 import { QuizControllerMapper } from './mapper/QuizControllerMapper';
-import {CreateQuizService} from "../../service/quiz/CreateQuizService";
+import { CreateQuizService } from '../../service/quiz/CreateQuizService';
 
 @JsonController('/quiz')
 @Service()

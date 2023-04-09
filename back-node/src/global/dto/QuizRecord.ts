@@ -1,5 +1,9 @@
 export class QuizRecord {
-  constructor(public quizTitle: string, public quizChoiceContent: string[], public quizChoiceIsAnswer: boolean[] ) {}
+  constructor(
+    public quizTitle: string,
+    public quizChoiceContent: string[],
+    public quizChoiceIsAnswer: boolean[],
+  ) {}
 
   getQuizTitle(): string {
     return this.quizTitle;

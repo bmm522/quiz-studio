@@ -2,12 +2,11 @@ import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { QuizRecord } from '../../../global/dto/QuizRecord';
 
 export class QuizRecordItems {
-
   private readonly userKey: string;
 
   private readonly quizRecordArray: QuizRecord[];
 
-  constructor(userKey: string, quizRecordArray: QuizRecord[] ) {
+  constructor(userKey: string, quizRecordArray: QuizRecord[]) {
     this.userKey = userKey;
     this.quizRecordArray = quizRecordArray ?? [];
   }

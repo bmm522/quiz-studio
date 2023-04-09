@@ -4,8 +4,8 @@ import { Quiz } from '../../../entity/quiz/Quiz';
 import { QuizResponse } from '../dto/QuizResponse';
 import { QuizRecordItems } from '../dto/QuizRecordItems';
 import { FailedQuizRecordsSchema } from '../../../entity/failedQuizRecords/schema/FailedQuizRecordsSchema';
-import {QuizRecord} from "../../../global/dto/QuizRecord";
-import {FailedQuizRecords} from "../../../entity/failedQuizRecords/FailedQuizRecords";
+import { QuizRecord } from '../../../global/dto/QuizRecord';
+import { FailedQuizRecords } from '../../../entity/failedQuizRecords/FailedQuizRecords';
 
 export class QuizServiceMapper {
   static toQuizListRequest(params: QuizParams): QuizListItem {
@@ -22,21 +22,26 @@ export class QuizServiceMapper {
     return result;
   }
 
-    static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
-        const userKey = dto.getUserKey();
-        const quizRecordArray = dto.getQuizRecordArray();
+  static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
+    const userKey = dto.getUserKey();
+    const quizRecordArray = dto.getQuizRecordArray();
 
-        const failedQuizRecords: FailedQuizRecords[] = [];
+    const failedQuizRecords: FailedQuizRecords[] = [];
 
-        for (let quizRecord of quizRecordArray) {
-            const quizTitle = quizRecord.quizTitle;
-            const quizChoiceContent = quizRecord.quizChoiceContent;
-            const quizChoiceIsAnswer = quizRecord.quizChoiceIsAnswer;
+    for (let quizRecord of quizRecordArray) {
+      const quizTitle = quizRecord.quizTitle;
+      const quizChoiceContent = quizRecord.quizChoiceContent;
+      const quizChoiceIsAnswer = quizRecord.quizChoiceIsAnswer;
 
-            const failedQuizRecord = new FailedQuizRecords(userKey, quizTitle, quizChoiceContent, quizChoiceIsAnswer);
-            failedQuizRecords.push(failedQuizRecord);
-        }
-
-        return failedQuizRecords;
+      const failedQuizRecord = new FailedQuizRecords(
+        userKey,
+        quizTitle,
+        quizChoiceContent,
+        quizChoiceIsAnswer,
+      );
+      failedQuizRecords.push(failedQuizRecord);
     }
+
+    return failedQuizRecords;
+  }
 }
