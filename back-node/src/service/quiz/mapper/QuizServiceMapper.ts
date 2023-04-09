@@ -21,15 +21,21 @@ export class QuizServiceMapper {
     return result;
   }
 
-  static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
-    const userKey = dto.getUserKey();
-    const quizRecordArray = dto.getQuizRecordArray();
-    const promises = [];
+    static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
+        const userKey = dto.getUserKey();
+        const quizRecordArray = dto.getQuizRecordArray();
+        const promises = [];
 
-    for (const { quizTitle, quizChoiceContent, quizChoiceIsAnswer } of quizRecordArray) {
-      promises.push(FailedQuizRecords.create({ userKey, quizTitle, quizChoiceContent, quizChoiceIsAnswer }));
+        for (const { quizTitle, quizChoiceContent, quizChoiceIsAnswer } of quizRecordArray) {
+            const failedQuizRecord = FailedQuizRecords.create({
+                userKey,
+                quizTitle,
+                quizChoiceContent,
+                quizChoiceIsAnswer,
+            });
+            promises.push(failedQuizRecord);
+        }
+
+        return Promise.all(promises);
     }
-
-    return Promise.all(promises);
-  }
 }

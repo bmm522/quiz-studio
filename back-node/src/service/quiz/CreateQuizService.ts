@@ -22,7 +22,8 @@ export class CreateQuizService {
   }
 
   private async save(failedQuizRecords: FailedQuizRecords[]): Promise<FailedQuizRecords[]> {
-    await this.failedQuizRecordsRepository.save(failedQuizRecords[0]);
+    const result = await this.failedQuizRecordsRepository.save(failedQuizRecords);
+    console.log("결과값 : " + result);
     return failedQuizRecords;
 
   }
