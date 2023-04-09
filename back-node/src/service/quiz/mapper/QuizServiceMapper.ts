@@ -3,8 +3,9 @@ import { QuizListItem } from '../dto/QuizListItem';
 import { Quiz } from '../../../entity/quiz/Quiz';
 import { QuizResponse } from '../dto/QuizResponse';
 import { QuizRecordItems } from '../dto/QuizRecordItems';
-import { FailedQuizRecords } from '../../../entity/failedQuizRecords/FailedQuizRecords';
+import { FailedQuizRecordsSchema } from '../../../entity/failedQuizRecords/schema/FailedQuizRecordsSchema';
 import {QuizRecord} from "../../../global/dto/QuizRecord";
+import {FailedQuizRecords} from "../../../entity/failedQuizRecords/FailedQuizRecords";
 
 export class QuizServiceMapper {
   static toQuizListRequest(params: QuizParams): QuizListItem {
@@ -24,18 +25,18 @@ export class QuizServiceMapper {
     static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
         const userKey = dto.getUserKey();
         const quizRecordArray = dto.getQuizRecordArray();
-        const promises = [];
 
-        for (const { quizTitle, quizChoiceContent, quizChoiceIsAnswer } of quizRecordArray) {
-            const failedQuizRecord = FailedQuizRecords.create({
-                userKey,
-                quizTitle,
-                quizChoiceContent,
-                quizChoiceIsAnswer,
-            });
-            promises.push(failedQuizRecord);
+        const failedQuizRecords: FailedQuizRecords[] = [];
+
+        for (let quizRecord of quizRecordArray) {
+            const quizTitle = quizRecord.quizTitle;
+            const quizChoiceContent = quizRecord.quizChoiceContent;
+            const quizChoiceIsAnswer = quizRecord.quizChoiceIsAnswer;
+
+            const failedQuizRecord = new FailedQuizRecords(userKey, quizTitle, quizChoiceContent, quizChoiceIsAnswer);
+            failedQuizRecords.push(failedQuizRecord);
         }
 
-        return Promise.all(promises);
+        return failedQuizRecords;
     }
 }

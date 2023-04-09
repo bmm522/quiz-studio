@@ -6,7 +6,6 @@ import { env } from './env';
 import { Quiz } from '../entity/quiz/Quiz';
 import { QuizChoice } from '../entity/quizChoice/QuizChoice';
 import { Category } from '../entity/category/Category';
-import {FailedQuizRecords} from "../entity/failedQuizRecords/FailedQuizRecords";
 import * as mongoose from "mongoose";
 export async function createDatabaseConnection(): Promise<void> {
   const mysqlConnectionOption: ConnectionOptions = {
@@ -28,7 +27,6 @@ export async function createDatabaseConnection(): Promise<void> {
     url: env.mongoDatabase.url,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    entities: [FailedQuizRecords],
     database: 'job_seecker_studio',
   };
   mongoose.connect(env.mongoDatabase.url as string);

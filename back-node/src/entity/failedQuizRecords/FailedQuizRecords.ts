@@ -1,51 +1,29 @@
-import { Model, model, Document, Schema } from 'mongoose';
+export class FailedQuizRecords {
+    private readonly userKey: string;
+    private readonly quizTitle: string;
+    private readonly quizChoiceContent: string[];
+    private readonly quizChoiceIsAnswer: boolean[];
 
-export interface FailedQuizRecords extends Document {
-  userKey: string;
-  quizTitle: string;
-  quizChoiceContent: string[];
-  quizChoiceIsAnswer: boolean[];
+    constructor(userKey: string, quizTitle: string, quizChoiceContent: string[], quizChoiceIsAnswer: boolean[]) {
+        this.userKey = userKey;
+        this.quizTitle = quizTitle;
+        this.quizChoiceContent = quizChoiceContent;
+        this.quizChoiceIsAnswer = quizChoiceIsAnswer;
+    }
+
+    getUserKey(): string {
+        return this.userKey;
+    }
+
+    getQuizTitle(): string {
+        return this.quizTitle;
+    }
+
+    getQuizChoiceContent(): string[] {
+        return this.quizChoiceContent;
+    }
+
+    getQuizChoiceIsAnswer(): boolean[] {
+        return this.quizChoiceIsAnswer;
+    }
 }
-
-const failedQuizRecordsSchema = new Schema({
-  userKey: {
-    type: String,
-    required: true,
-  },
-
-  quizTitle: {
-    type: String,
-    required: true,
-  },
-
-  quizChoiceContent: {
-    type: [String],
-    required: true,
-  },
-
-  quizChoiceIsAnswer: {
-    type: [Boolean],
-    required: true,
-  },
-
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-}, { collection: 'failedQuizRecords' });
-
-failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
-  userKey: string;
-  quizTitle: string;
-  quizChoiceContent: string[];
-  quizChoiceIsAnswer: boolean[];
-}): Promise<FailedQuizRecords> {
-  return new this(data);
-};
-
-const FailedQuizRecords: Model<FailedQuizRecords> = model<FailedQuizRecords>(
-    'failedQuizRecords',
-    failedQuizRecordsSchema,
-);
-
-export { FailedQuizRecords };

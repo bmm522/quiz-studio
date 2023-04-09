@@ -8,4 +8,6 @@ export class QuizRecordRequest {
   constructor(quizRecordArray: QuizRecord[]) {
     this.quizRecordArray = quizRecordArray ?? [];
   }
+
+
 }
