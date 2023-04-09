@@ -11,8 +11,8 @@ function getQuizData(level, category) {
     url.searchParams.set("category", category);
     console.log("퀴즈 : " + sessionStorage.getItem("authorization"));
     const headers = new Headers();
-    headers.append("authorization",sessionStorage.getItem("authorization"));
-    headers.append("refreshToken",sessionStorage.getItem("refreshToken"));
+    headers.append("authorization", sessionStorage.getItem("authorization"));
+    headers.append("refreshToken", sessionStorage.getItem("refreshToken"));
 
     return fetch(url, { headers })
         .then((response) => response.json())

@@ -1,23 +1,15 @@
 export class QuizRecord {
-  constructor(public quizTitle: string, public quizChoices: QuizChoices[]) {}
+  constructor(public quizTitle: string, public quizChoiceContent: string[], public quizChoiceIsAnswer: boolean[] ) {}
 
   getQuizTitle(): string {
     return this.quizTitle;
   }
 
-  getQuizChoices(): QuizChoices[] {
-    return this.quizChoices;
-  }
-}
-
-export class QuizChoices {
-  constructor(public quizChoiceContent: string, public quizChoiceIsAnswer: boolean) {}
-
-  getQuizChoiceContent(): string {
+  getQuizChoicesContent(): string[] {
     return this.quizChoiceContent;
   }
 
-  getQuizChoiceIsAnswer(): boolean {
+  getQuizChoicesIsAnswer(): boolean[] {
     return this.quizChoiceIsAnswer;
   }
 }

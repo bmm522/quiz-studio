@@ -11,6 +11,7 @@ export class QuizControllerMapper {
     if (!req.userKey) {
       throw new UnauthorizedError('유저키가 없음');
     }
-    return new QuizRecordItems(dto.quizRecordArray, req.userKey);
+
+    return new QuizRecordItems(req.userKey, dto.quizRecordArray);
   }
 }

@@ -6,6 +6,8 @@ import { env } from './env';
 import { Quiz } from '../entity/quiz/Quiz';
 import { QuizChoice } from '../entity/quizChoice/QuizChoice';
 import { Category } from '../entity/category/Category';
+import {FailedQuizRecords} from "../entity/failedQuizRecords/FailedQuizRecords";
+import * as mongoose from "mongoose";
 export async function createDatabaseConnection(): Promise<void> {
   const mysqlConnectionOption: ConnectionOptions = {
     name: 'default',
@@ -26,18 +28,20 @@ export async function createDatabaseConnection(): Promise<void> {
     url: env.mongoDatabase.url,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    synchronize: false,
-    logging: true,
-    namingStrategy: new ConstraintSnakeNamingStrategy(),
+    entities: [FailedQuizRecords],
+    database: 'job_seecker_studio',
   };
-
+  mongoose.connect(env.mongoDatabase.url as string);
   useContainer(Container);
 
   if (!getConnectionManager().has('default')) {
+    console.log(mysqlConnectionOption.host);
     await createConnection(mysqlConnectionOption);
   }
 
   if (!getConnectionManager().has('mongodb')) {
+    console.log('여기들어옴');
+    console.log(mongoConnectionOption.url);
     await createConnection(mongoConnectionOption);
   }
 }

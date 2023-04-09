@@ -27,7 +27,12 @@ const failedQuizRecordsSchema = new Schema({
     type: [Boolean],
     required: true,
   },
-});
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+}, { collection: 'failedQuizRecords' });
 
 failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
   userKey: string;
@@ -39,8 +44,8 @@ failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
 };
 
 const FailedQuizRecords: Model<FailedQuizRecords> = model<FailedQuizRecords>(
-  'FailedQuizRecords',
-  failedQuizRecordsSchema,
+    'failedQuizRecords',
+    failedQuizRecordsSchema,
 );
 
 export { FailedQuizRecords };

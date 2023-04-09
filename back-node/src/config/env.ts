@@ -1,7 +1,7 @@
 import * as path from 'path';
 
 const config = require('dotenv').config({
-  path: path.join(__dirname, '../../env/.env'),
+  path: path.join(__dirname, `../../env/.env`),
 });
 
 if (config.error) {
@@ -23,7 +23,7 @@ export const env = {
     dropSchema: process.env.TYPEORM_DROP_SCHEMA === 'true',
   },
   mongoDatabase: {
-    url: process.env.TYPEORM_MONGO_HOST,
+    url: process.env.MONGO_URL,
   },
 };
 
