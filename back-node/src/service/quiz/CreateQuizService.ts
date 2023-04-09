@@ -12,7 +12,6 @@ export class CreateQuizService {
 
   async saveFailRecords(dto: QuizRecordItems) {
     const failedQuizRecords = await this.toFailedQuizRecords(dto);
-    console.log(dto);
 
     const savedData = await this.save(failedQuizRecords);
   }

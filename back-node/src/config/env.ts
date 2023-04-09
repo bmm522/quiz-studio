@@ -25,6 +25,12 @@ export const env = {
   mongoDatabase: {
     url: process.env.MONGO_URL,
   },
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD,
+  }
 };
 
 export const envJwt: { secretKey: string; tokenPrefix: string; refreshPrefix: string } = {
