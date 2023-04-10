@@ -1,9 +1,9 @@
 import { ResponseDtoBuilder } from './builder/ResponseDtoBuilder';
 
 export class ResponseDto {
-  private status: number;
-  private message = '';
-  private data: any | null;
+  private readonly status: number;
+  private readonly message: string;
+  private readonly data: any | null;
 
   constructor(status: number, message: string, data?: any) {
     this.status = status;

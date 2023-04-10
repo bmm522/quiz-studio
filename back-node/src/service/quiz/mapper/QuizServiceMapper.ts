@@ -25,8 +25,14 @@ export class QuizServiceMapper {
     const quizRecordArray = dto.getQuizRecordArray();
 
     return quizRecordArray.map(quizRecord => {
-      const { quizTitle, quizIsAnswer,quizChoiceContent, quizChoiceIsAnswer } = quizRecord;
-      return new FailedQuizRecords(userKey, quizTitle, quizIsAnswer ,quizChoiceContent, quizChoiceIsAnswer);
+      const { quizTitle, quizIsAnswer, quizChoiceContent, quizChoiceIsAnswer } = quizRecord;
+      return new FailedQuizRecords(
+        userKey,
+        quizTitle,
+        quizIsAnswer,
+        quizChoiceContent,
+        quizChoiceIsAnswer,
+      );
     });
   }
 }

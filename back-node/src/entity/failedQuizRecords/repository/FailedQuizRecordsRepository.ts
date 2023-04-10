@@ -7,7 +7,13 @@ import { FailedQuizRecords } from '../FailedQuizRecords';
 export class FailedQuizRecordsRepository {
   async save(dataArray: FailedQuizRecords[]): Promise<FailedQuizRecords[]> {
     const promises = dataArray.map(data => {
-      const { userKey,quizTitle, quizIsAnswer,quizChoiceContent, quizChoiceIsAnswer } = data.create();
+      const {
+        userKey,
+        quizTitle,
+        quizIsAnswer,
+        quizChoiceContent,
+        quizChoiceIsAnswer,
+      } = data.create();
       return FailedQuizRecordsModel.create({
         userKey,
         quizTitle,

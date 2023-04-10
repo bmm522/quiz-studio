@@ -10,6 +10,7 @@ import * as mongoose from 'mongoose';
 const redis = require('redis');
 
 export async function createDatabaseConnection(): Promise<void> {
+
   const mysqlConnectionOption: ConnectionOptions = {
     name: 'default',
     type: 'mysql',
@@ -32,19 +33,14 @@ export async function createDatabaseConnection(): Promise<void> {
     database: 'job_seecker_studio',
   };
 
-
   const redisClient = redis.createClient({
     url: `redis://${env.redis.username}:${env.redis.password}@${env.redis.host}:${env.redis.port}/0`,
     legacyMode: true,
   });
 
-
   useContainer(Container);
 
-
-
   mongoose.connect(env.mongoDatabase.url as string);
-
 
   redisClient.on('connect', () => {
     console.info('Redis connected!');

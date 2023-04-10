@@ -30,7 +30,7 @@ export const env = {
     port: process.env.REDIS_PORT,
     username: process.env.REDIS_USERNAME,
     password: process.env.REDIS_PASSWORD,
-  }
+  },
 };
 
 export const envJwt: { secretKey: string; tokenPrefix: string; refreshPrefix: string } = {

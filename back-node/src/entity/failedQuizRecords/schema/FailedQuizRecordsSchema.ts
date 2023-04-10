@@ -19,10 +19,10 @@ const failedQuizRecordsSchema = new Schema(
       type: String,
       required: true,
     },
-      quizIsAnswer: {
-          type: Boolean,
-          required: true,
-      },
+    quizIsAnswer: {
+      type: Boolean,
+      required: true,
+    },
 
     quizChoiceContent: {
       type: [String],

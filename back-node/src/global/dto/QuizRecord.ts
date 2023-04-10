@@ -6,5 +6,4 @@ export class QuizRecord {
     public quizChoiceContent: string[],
     public quizChoiceIsAnswer: boolean[],
   ) {}
-
 }
