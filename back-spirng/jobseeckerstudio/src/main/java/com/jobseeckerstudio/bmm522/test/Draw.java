@@ -12,13 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 public class Draw<T, R> {
-
     private T input;
-    private List<DrawingStep<?, ?>> steps;
 
     private Draw(T input) {
         this.input = input;
-        this.steps = new ArrayList<>();
     }
 
     public static <T, R> Draw<T, R> start(T input) {
@@ -26,19 +23,13 @@ public class Draw<T, R> {
     }
 
     public <V> Draw<V, R> drawing(Function<T, V> function) {
-        steps.add(new FunctionDrawingStep<>(function));
         V intermediateResult = function.apply(input);
         return new Draw<>(intermediateResult);
     }
 
     public R end(Function<T, R> function) {
-        Object currentInput = input;
-        for (DrawingStep<?, ?> step : steps) {
-            currentInput = step.apply(currentInput);
-        }
-        return function.apply((T) currentInput);
+        return function.apply(input);
     }
-
 }
 
 
