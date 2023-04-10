@@ -1,5 +1,6 @@
 package com.jobseeckerstudio.bmm522.user.controller;
 
+import com.jobseeckerstudio.bmm522.test.Draw;
 import com.jobseeckerstudio.bmm522.user.controller.dto.CommonResponse;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.bmm522.user.jwt.mapper.JwtMapper;
@@ -32,7 +33,16 @@ public class LoginApiController {
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
         JwtToken jwtToken = jwtMapper.toJwtToken(request);
         GetEmailResponse dto = readUserService.getEmail(jwtToken);
-         return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
+        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
+    }
+
+    @GetMapping("/email")
+    public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
+        return (CommonResponse<?>) Draw.start(request)
+            .drawing(req -> jwtMapper.toJwtToken(req))
+            .drawing(jwtToken -> readUserService.getEmail(jwtToken))
+            .end(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
+        
     }
 
 
@@ -43,5 +53,6 @@ public class LoginApiController {
             .data(data)
             .build();
     }
+
 
 }
