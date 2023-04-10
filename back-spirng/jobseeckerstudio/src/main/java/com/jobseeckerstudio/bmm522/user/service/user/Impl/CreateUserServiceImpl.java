@@ -18,8 +18,12 @@ public class CreateUserServiceImpl implements CreateUserService {
     @Override
     public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
         User user = socialUserInfo.toUserEntity();
-        user.setEmailWithEncryption(encryptor.encrypt(user.getEmail()));
+        setEmailWithEncryption(user);
         return userRepository.save(user);
+    }
+
+    private void setEmailWithEncryption(User user) {
+        user.setEmailWithEncryption(encryptor.encrypt(user.getEmail()));
     }
 
 }
