@@ -90,6 +90,7 @@ public class ReadUserServiceTest {
 
         when(mapper.toGetEmailRequest(jwtToken)).thenReturn(dto);
         when(userQueryRepository.findByUserKey(anyString())).thenReturn(Optional.of(user));
+
         when(encryptor.decrypt(user.getEmail())).thenReturn(email);
         when(mapper.toGetEmailResponse(email)).thenReturn(expectedResponse);
 
