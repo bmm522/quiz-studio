@@ -28,7 +28,7 @@ public class Draw<T, R> {
         return new Draw<>(intermediateResult);
     }
 
-    public R complete(Function<T, R> function) {
+    public R end(Function<T, R> function) {
         return function.apply(input);
     }
 }

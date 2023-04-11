@@ -41,7 +41,7 @@ public class LoginApiController {
         return (CommonResponse<?>) Draw.init(request)
             .process(jwtMapper::toJwtToken)
             .process(readUserService::getEmail)
-            .complete(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
+            .end(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
     }
 
 
