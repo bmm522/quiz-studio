@@ -1,5 +1,6 @@
 package com.jobseeckerstudio.bmm522.user.service.user.Impl;
 
+import com.jobseeckerstudio.bmm522.test.Draw;
 import com.jobseeckerstudio.bmm522.user.encryption.Encryptor;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.entity.user.repository.UserRepository;
@@ -25,5 +26,22 @@ public class CreateUserServiceImpl implements CreateUserService {
     private void setEmailWithEncryption(User user) {
         user.setEmailWithEncryption(encryptor.encrypt(user.getEmail()));
     }
+
+//    @Override
+//    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
+//        return Draw.start(socialUserInfo.toUserEntity())
+//            .drawing(u -> u.setEmailWithEncryption(socialUserInfo.getEmail()))
+//            .end(userRepository::save);
+//    }
+//
+//    @Override
+//    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
+//        Draw.drawing((socialUserInfo.toUserEntity()) => {
+//               user::setEmailWithEncryption;
+//        })
+//        .end(userRepository::save);
+//    }
+
+
 
 }

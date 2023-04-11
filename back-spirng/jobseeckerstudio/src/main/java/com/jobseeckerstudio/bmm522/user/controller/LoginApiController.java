@@ -38,11 +38,10 @@ public class LoginApiController {
 
     @GetMapping("/email")
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-        return (CommonResponse<?>) Draw.start(request)
-            .drawing(jwtMapper::toJwtToken)
-            .drawing(readUserService::getEmail)
-            .end(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
-
+        return (CommonResponse<?>) Draw.init(request)
+            .process(jwtMapper::toJwtToken)
+            .process(readUserService::getEmail)
+            .complete(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
     }
 
 

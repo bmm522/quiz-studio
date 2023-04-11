@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 public class Draw<T, R> {
     private T input;
@@ -18,18 +19,19 @@ public class Draw<T, R> {
         this.input = input;
     }
 
-    public static <T, R> Draw<T, R> start(T input) {
+    public static <T, R> Draw<T, R> init(T input) {
         return new Draw<>(input);
     }
 
-    public <V> Draw<V, R> drawing(Function<T, V> function) {
+    public <V> Draw<V, R> process(Function<T, V> function) {
         V intermediateResult = function.apply(input);
         return new Draw<>(intermediateResult);
     }
 
-    public R end(Function<T, R> function) {
+    public R complete(Function<T, R> function) {
         return function.apply(input);
     }
 }
+
 
 
