@@ -29,12 +29,12 @@ public class LoginApiController {
 
 
 
-    @GetMapping("/email")
-    public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-        JwtToken jwtToken = jwtMapper.toJwtToken(request);
-        GetEmailResponse dto = readUserService.getEmail(jwtToken);
-        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
-    }
+//    @GetMapping("/email")
+//    public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
+//        JwtToken jwtToken = jwtMapper.toJwtToken(request);
+//        GetEmailResponse dto = readUserService.getEmail(jwtToken);
+//        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
+//    }
 
     @GetMapping("/email")
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {

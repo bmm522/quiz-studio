@@ -33,5 +33,3 @@ public class Draw<T, R> {
     }
 }
 
-
-

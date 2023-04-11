@@ -1,5 +1,6 @@
 package com.jobseeckerstudio.bmm522.service.user;
 
+import com.jobseeckerstudio.bmm522.test.Draw;
 import com.jobseeckerstudio.bmm522.user.encryption.Encryptor;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.entity.user.repository.UserRepository;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,6 +29,9 @@ public class CreateUserServiceTest {
 
     @Mock
     private Encryptor encryptor;
+
+    @Mock
+    private Draw draw;
 
     private CreateUserServiceImpl createUserService;
 
@@ -44,7 +49,6 @@ public class CreateUserServiceTest {
         SocialUserInfo socialUserInfo = new GoogleUserInfo(userInfoMap);
         User user = User.builder().email("testEncryptedEmail").build();
 
-        when(encryptor.encrypt(any())).thenReturn("testEncryptedEmail");
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         // when
@@ -52,5 +56,20 @@ public class CreateUserServiceTest {
 
         // then
         assertEquals(savedUser.getEmail(), "testEncryptedEmail");
+    }
+
+    @Test
+    void saveWhenSocialLoginWithDrawTest() {
+        Map<String, Object> userInfoMap = new HashMap<>();
+        userInfoMap.put("sub", "test");
+        userInfoMap.put("email", "test@example.com");
+        SocialUserInfo socialUserInfo = new GoogleUserInfo(userInfoMap);
+        User user = User.builder().userKey("test").build();
+
+        when(userRepository.save(any())).thenReturn(user);
+
+        User savedUser = createUserService.saveWhenSocialLogin(socialUserInfo);
+        System.out.println(savedUser);
+        assertEquals(savedUser.getUserKey(), "test");
     }
 }
