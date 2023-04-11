@@ -28,10 +28,6 @@ public class CreateUserServiceImpl implements CreateUserService {
         return (User) Draw.init(socialUserInfo.toUserEntity())
             .process(this::setEmailWithEncryption)
             .end(userRepository::save);
-
-//        User user = socialUserInfo.toUserEntity();
-//        setEmailWithEncryption(user);
-//        return userRepository.save(user);
     }
 
     private User setEmailWithEncryption(User user) {
