@@ -23,32 +23,11 @@ public class CreateUserServiceImpl implements CreateUserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
-        return (User) Draw.init(socialUserInfo.toUserEntity())
-            .process(this::setEmailWithEncryption)
-            .end(userRepository::save);
-    }
-
     private User setEmailWithEncryption(User user) {
         user.setEmailWithEncryption(encryptor.encrypt(user.getEmail()));
         return user;
     }
 
-//    @Override
-//    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
-//        return Draw.start(socialUserInfo.toUserEntity())
-//            .drawing(u -> u.setEmailWithEncryption(socialUserInfo.getEmail()))
-//            .end(userRepository::save);
-//    }
-//
-//    @Override
-//    public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
-//        Draw.drawing((socialUserInfo.toUserEntity()) => {
-//               user::setEmailWithEncryption;
-//        })
-//        .end(userRepository::save);
-//    }
 
 
 

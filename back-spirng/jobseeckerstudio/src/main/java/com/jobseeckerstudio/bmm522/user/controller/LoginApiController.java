@@ -27,23 +27,12 @@ public class LoginApiController {
         return "redirect:/oauth2/authorization/"+social;
     }
 
-
-
-//    @GetMapping("/email")
-//    public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-//        JwtToken jwtToken = jwtMapper.toJwtToken(request);
-//        GetEmailResponse dto = readUserService.getEmail(jwtToken);
-//        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
-//    }
-
     @GetMapping("/email")
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-        return (CommonResponse<?>) Draw.init(request)
-            .process(jwtMapper::toJwtToken)
-            .process(readUserService::getEmail)
-            .end(dto -> responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto));
+        JwtToken jwtToken = jwtMapper.toJwtToken(request);
+        GetEmailResponse dto = readUserService.getEmail(jwtToken);
+        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
     }
-
 
     private CommonResponse<?> responseHandler(HttpStatus status, String msg, Object data){
         return CommonResponse.builder()
