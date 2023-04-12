@@ -37,7 +37,7 @@ public class CreateUserServiceTest {
 
     @BeforeEach
     void setUp() {
-        createUserService = new CreateUserServiceImpl(userRepository, encryptor);
+        createUserService = new CreateUserServiceImpl(userRepository);
     }
 
     @Test

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class CreateUserServiceImpl implements CreateUserService {
 
     private final UserRepository userRepository;
-    private final Encryptor encryptor;
 
     @Override
     public User saveWhenSocialLogin(SocialUserInfo socialUserInfo) {
@@ -24,7 +23,7 @@ public class CreateUserServiceImpl implements CreateUserService {
     }
 
     private User setEmailWithEncryption(User user) {
-        user.setEmailWithEncryption(encryptor.encrypt(user.getEmail()));
+        user.setEmailWithEncryption(Encryptor.encrypt(user.getEmail()));
         return user;
     }
 

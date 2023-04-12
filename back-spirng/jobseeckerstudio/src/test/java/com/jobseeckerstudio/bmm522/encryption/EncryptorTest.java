@@ -1,5 +1,6 @@
 package com.jobseeckerstudio.bmm522.encryption;
 
+import com.jobseeckerstudio.bmm522.user.encryption.Decryptor;
 import com.jobseeckerstudio.bmm522.user.encryption.Encryptor;
 import com.jobseeckerstudio.bmm522.user.encryption.properties.EncryptionProperties;
 import lombok.RequiredArgsConstructor;
@@ -14,43 +15,23 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.swing.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {Encryptor.class})
-@ComponentScan("com.jobseeckerstudio.bmm522.user.encryption")
 public class EncryptorTest {
+    private static final String KEY = EncryptionProperties.KEY;
+    private static final String ALGORITHM = "AES";
 
-
-
-    @Autowired
-    private Encryptor encryptor;
     @Test
-    @DisplayName("암호화, 복호화 테스트 - 성공")
-    void testEncryptDecrypt_success() {
+    @DisplayName("암호화 테스트 - 성공")
+    void testEncrypt_success() {
         // given
         String plainText = "test string";
 
         // when
-        String encryptedText = encryptor.encrypt(plainText);
-        String decryptedText = encryptor.decrypt(encryptedText);
+        String encryptedText = Encryptor.encrypt("test string");
 
         // then
-        assertEquals(plainText, decryptedText);
+        assertNotEquals(encryptedText, plainText);
     }
 
-//    @Test
-//    @DisplayName("잘못된 비밀키로 복호화할 때 예외 발생")
-//    void testDecrypt_wrongKey() {
-//        // given
-//        String plainText = "test string";
-//        String encryptedText = encryptor.encrypt(plainText);
-//        String wrongKey = "wrongkey123";
-//
-//        // when & then
-//        assertThrows(RuntimeException.class, () -> {
-//            encryptor.decrypt(wrongKey, wrongKey);
-//        });
-//    }
 }

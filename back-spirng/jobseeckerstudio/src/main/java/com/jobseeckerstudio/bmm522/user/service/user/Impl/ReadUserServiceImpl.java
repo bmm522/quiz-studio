@@ -2,6 +2,7 @@ package com.jobseeckerstudio.bmm522.user.service.user.Impl;
 
 import com.jobseeckerstudio.bmm522.global.exception.NotFoundSaltException;
 import com.jobseeckerstudio.bmm522.global.exception.NotFoundUserException;
+import com.jobseeckerstudio.bmm522.user.encryption.Decryptor;
 import com.jobseeckerstudio.bmm522.user.encryption.Encryptor;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
@@ -25,9 +26,6 @@ public class ReadUserServiceImpl implements ReadUserService {
     private final UserServiceMapper mapper;
     private final UserQueryRepository userQueryRepository;
 
-    private final Encryptor encryptor;
-
-
     @Override
     public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo) {
         FindUserWhenSocialLoginRequest dto = mapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
@@ -43,7 +41,7 @@ public class ReadUserServiceImpl implements ReadUserService {
     public GetEmailResponse getEmail(JwtToken jwtToken) {
         GetEmailRequest dto = mapper.toGetEmailRequest(jwtToken);
         User user = getUser(dto);
-        String email = encryptor.decrypt(user.getEmail());
+        String email = Decryptor.decrypt(user.getEmail());
         return mapper.toGetEmailResponse(email);
     }
 

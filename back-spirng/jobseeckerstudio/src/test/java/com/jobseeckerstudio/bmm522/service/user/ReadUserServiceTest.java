@@ -1,5 +1,6 @@
 package com.jobseeckerstudio.bmm522.service.user;
 
+import com.jobseeckerstudio.bmm522.user.encryption.Decryptor;
 import com.jobseeckerstudio.bmm522.user.encryption.Encryptor;
 import com.jobseeckerstudio.bmm522.user.entity.user.User;
 import com.jobseeckerstudio.bmm522.user.jwt.dto.JwtToken;
@@ -40,7 +41,7 @@ public class ReadUserServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        readUserService = new ReadUserServiceImpl(mapper, userQueryRepository, encryptor);
+        readUserService = new ReadUserServiceImpl(mapper, userQueryRepository);
     }
 
     @Test
@@ -91,7 +92,7 @@ public class ReadUserServiceTest {
         when(mapper.toGetEmailRequest(jwtToken)).thenReturn(dto);
         when(userQueryRepository.findByUserKey(anyString())).thenReturn(Optional.of(user));
 
-        when(encryptor.decrypt(user.getEmail())).thenReturn(email);
+        when(Decryptor.decrypt(user.getEmail())).thenReturn(email);
         when(mapper.toGetEmailResponse(email)).thenReturn(expectedResponse);
 
         // when

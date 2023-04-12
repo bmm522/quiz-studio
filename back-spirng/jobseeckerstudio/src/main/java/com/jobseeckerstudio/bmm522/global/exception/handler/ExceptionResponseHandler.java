@@ -41,6 +41,25 @@ public class ExceptionResponseHandler {
         return errorHandler(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(EncryptionException.class)
+    public CommonResponse<?> handleEncryptionException(EncryptionException e) {
+        return errorHandler(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DecryptionException.class)
+    public CommonResponse<?> handleDecryptionException(DecryptionException e) {
+        return errorHandler(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(CryptoException.class)
+    public CommonResponse<?> handleCryptoException(CryptoException e) {
+        return errorHandler(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+
+
+
     private CommonResponse<?> errorHandler(Exception e, HttpStatus status) {
         return CommonResponse.builder()
             .status(status)
