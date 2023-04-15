@@ -4,8 +4,10 @@ import com.jobseeckerstudio.bmm522.global.entity.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -27,6 +29,7 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
 
     @Builder
     public User(long id, String userKey, String password, String email, Status status) {
