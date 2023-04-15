@@ -1,13 +1,16 @@
-package com.jobseeckerstudio.user.quiz.entity.quiz;
+package quiz.model.quiz;
 
-import com.jobseeckerstudio.user.quiz.entity.category.Category;
-import com.jobseeckerstudio.user.quiz.entity.common.Difficulty;
-import com.jobseeckerstudio.user.quiz.entity.quizChoice.QuizChoice;
+
+import lombok.Getter;
+import quiz.model.category.Category;
+import quiz.model.common.Difficulty;
+import quiz.model.quizChoice.QuizChoice;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
 public class Quiz {
 
     @Id
@@ -15,18 +18,18 @@ public class Quiz {
     @Column(name = "quiz_id")
     private long quizId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "quiz_title")
     private String quizTitle;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="categoryId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private List<QuizChoice> quizChoices;
 
 }

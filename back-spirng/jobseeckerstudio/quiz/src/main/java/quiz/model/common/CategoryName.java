@@ -1,8 +1,8 @@
-package com.jobseeckerstudio.user.quiz.entity.common;
+package quiz.model.common;
 
 public enum CategoryName {
 
-    JAVA("java");
+    java("java");
 
     private final String category;
 

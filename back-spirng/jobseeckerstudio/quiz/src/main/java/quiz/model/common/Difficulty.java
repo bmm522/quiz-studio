@@ -1,8 +1,8 @@
-package com.jobseeckerstudio.user.quiz.entity.common;
+package quiz.model.common;
 
 public enum Difficulty {
 
-    EASY("easy"), HARD("hard");
+    easy("easy"), hard("hard");
 
     private final String difficulty;
 
