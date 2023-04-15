@@ -1,12 +1,12 @@
 package com.jobseeckerstudio.user.oauth2.handler;
 
-import com.jobseeckerstudio.user.user.auth.principal.PrincipalDetails;
-import com.jobseeckerstudio.user.user.entity.user.User;
-import com.jobseeckerstudio.user.user.jwt.JwtTokenFactory;
-import com.jobseeckerstudio.user.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.user.jwt.properties.JwtProperties;
-import com.jobseeckerstudio.user.user.oauth.cookie.CookieFactory;
-import com.jobseeckerstudio.user.user.oauth.handler.SocialLoginSuccessHandler;
+import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
+import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
+import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
+import com.jobseeckerstudio.user.oauth.cookie.CookieFactory;
+import com.jobseeckerstudio.user.oauth.handler.SocialLoginSuccessHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

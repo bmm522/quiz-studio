@@ -1,20 +1,9 @@
 package com.jobseeckerstudio.user.encryption;
 
-import com.jobseeckerstudio.user.global.exception.DecryptionException;
-import com.jobseeckerstudio.user.user.encryption.Decryptor;
-import com.jobseeckerstudio.user.user.encryption.Encryptor;
-import com.jobseeckerstudio.user.user.encryption.properties.EncryptionProperties;
-import lombok.RequiredArgsConstructor;
+import com.jobseeckerstudio.user.exception.DecryptionException;
+import com.jobseeckerstudio.user.encryption.properties.EncryptionProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,12 +1,11 @@
 package com.jobseeckerstudio.user.service.user;
 
 import com.jobseeckerstudio.user.test.Draw;
-import com.jobseeckerstudio.user.user.encryption.Encryptor;
-import com.jobseeckerstudio.user.user.entity.user.User;
-import com.jobseeckerstudio.user.user.entity.user.repository.UserRepository;
-import com.jobseeckerstudio.user.user.oauth.info.GoogleUserInfo;
-import com.jobseeckerstudio.user.user.oauth.info.SocialUserInfo;
-import com.jobseeckerstudio.user.user.service.user.Impl.CreateUserServiceImpl;
+import com.jobseeckerstudio.user.encryption.Encryptor;
+import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.entity.repository.UserRepository;
+import com.jobseeckerstudio.user.oauth.info.GoogleUserInfo;
+import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

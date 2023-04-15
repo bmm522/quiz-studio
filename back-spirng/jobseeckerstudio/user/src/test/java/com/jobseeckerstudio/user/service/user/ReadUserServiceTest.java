@@ -1,17 +1,17 @@
 package com.jobseeckerstudio.user.service.user;
 
-import com.jobseeckerstudio.user.user.encryption.Decryptor;
-import com.jobseeckerstudio.user.user.encryption.Encryptor;
-import com.jobseeckerstudio.user.user.entity.user.User;
-import com.jobseeckerstudio.user.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.user.oauth.info.GoogleUserInfo;
-import com.jobseeckerstudio.user.user.oauth.info.SocialUserInfo;
-import com.jobseeckerstudio.user.user.repository.user.UserQueryRepository;
-import com.jobseeckerstudio.user.user.service.user.Impl.ReadUserServiceImpl;
-import com.jobseeckerstudio.user.user.service.user.dto.FindUserWhenSocialLoginRequest;
-import com.jobseeckerstudio.user.user.service.user.dto.GetEmailRequest;
-import com.jobseeckerstudio.user.user.service.user.dto.GetEmailResponse;
-import com.jobseeckerstudio.user.user.service.user.mapper.UserServiceMapper;
+import com.jobseeckerstudio.user.encryption.Decryptor;
+import com.jobseeckerstudio.user.encryption.Encryptor;
+import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.oauth.info.GoogleUserInfo;
+import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
+import com.jobseeckerstudio.user.repository.UserQueryRepository;
+import com.jobseeckerstudio.user.service.ReadUserService;
+import com.jobseeckerstudio.user.service.dto.FindUserWhenSocialLoginRequest;
+import com.jobseeckerstudio.user.service.dto.GetEmailRequest;
+import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
+import com.jobseeckerstudio.user.service.mapper.UserServiceMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,12 +36,12 @@ public class ReadUserServiceTest {
     @Mock
     private Encryptor encryptor;
 
-    private ReadUserServiceImpl readUserService;
+    private ReadUserService readUserService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        readUserService = new ReadUserServiceImpl(mapper, userQueryRepository);
+        readUserService = new ReadUserService(mapper, userQueryRepository);
     }
 
     @Test
