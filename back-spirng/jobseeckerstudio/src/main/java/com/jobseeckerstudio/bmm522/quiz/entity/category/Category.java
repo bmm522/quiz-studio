@@ -1,7 +1,7 @@
-package com.jobseeckerstudio.bmm522.user.entity.category;
+package com.jobseeckerstudio.bmm522.quiz.entity.category;
 
-import com.jobseeckerstudio.bmm522.user.entity.common.CategoryName;
-import com.jobseeckerstudio.bmm522.user.entity.quiz.Quiz;
+import com.jobseeckerstudio.bmm522.quiz.entity.common.CategoryName;
+import com.jobseeckerstudio.bmm522.quiz.entity.quiz.Quiz;
 
 import javax.persistence.*;
 import java.util.List;

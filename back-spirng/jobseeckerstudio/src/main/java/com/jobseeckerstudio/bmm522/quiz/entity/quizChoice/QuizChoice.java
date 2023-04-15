@@ -1,7 +1,6 @@
-package com.jobseeckerstudio.bmm522.user.entity.quizChoice;
+package com.jobseeckerstudio.bmm522.quiz.entity.quizChoice;
 
-import com.jobseeckerstudio.bmm522.user.entity.quiz.Quiz;
-import lombok.NoArgsConstructor;
+import com.jobseeckerstudio.bmm522.quiz.entity.quiz.Quiz;
 
 import javax.persistence.*;
 

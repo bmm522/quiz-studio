@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.bmm522.user.entity.common;
+package com.jobseeckerstudio.bmm522.quiz.entity.common;
 
 public enum Difficulty {
 
