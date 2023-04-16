@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import Container from 'typedi';
 import { useContainer as routingUseContainer, useExpressServer } from 'routing-controllers';
 import * as bodyParser from 'body-parser';
-import { createDatabaseConnection } from './config/database';
+import {createMongoDBConnection, createMySQLConnection} from './config/database';
 import { ErrorHandler } from './error/handler/ErrorHandler';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
 import express = require('express');
@@ -33,7 +33,8 @@ export class App {
 
   public async setDatabase(): Promise<void> {
     try {
-      await createDatabaseConnection();
+      await createMySQLConnection();
+      await createMongoDBConnection();
     } catch (error) {
       throw error;
     }

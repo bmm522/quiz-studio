@@ -1,4 +1,4 @@
-import { Service } from 'typedi';
+import {Inject, Service} from 'typedi';
 import { QuizParams } from '../../controller/quiz/dto/QuizParams';
 import { QuizServiceMapper } from './mapper/QuizServiceMapper';
 import { InjectRepository } from 'typeorm-typedi-extensions';
@@ -7,10 +7,12 @@ import { Quiz } from '../../entity/quiz/Quiz';
 import { QuizListItem } from './dto/QuizListItem';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 import { QuizResponse } from './dto/QuizResponse';
+import {QuizRedisRepository} from "../../repository/redis/Quiz/QuizRedisRepository";
 
 @Service()
 export class ReadQuizService {
-  constructor(@InjectRepository() private quizQueryMySQLRepository: QuizQueryMySQLRepository) {}
+  constructor(@InjectRepository() private quizQueryMySQLRepository: QuizQueryMySQLRepository,
+  private quizRedisRepository: QuizRedisRepository) {}
   async getQuizList(params: QuizParams): Promise<QuizResponse[]> {
     const item = await this.toRequest(params);
     const quizRandomList = await this.getQuizRandomList(item);
@@ -18,9 +20,13 @@ export class ReadQuizService {
   }
 
   private async getQuizRandomList(item: QuizListItem): Promise<Quiz[]> {
+    await this.quizRedisRepository.findByCategoryNameAndDifficulty(
+      item.getCategory() as string,
+      item.getLevel() as string,
+    );
     const quizList = await this.quizQueryMySQLRepository.getQuizRandomList(
-      item.getCategory(),
-      item.getLevel(),
+        item.getCategory(),
+        item.getLevel(),
     );
 
     if (!quizList) {

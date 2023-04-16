@@ -1,6 +1,7 @@
 package quiz.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import quiz.model.quiz.Quiz;
 import quiz.model.quiz.repository.QuizMySqlRepositoryImpl;
@@ -21,54 +22,17 @@ public class Init {
     @Autowired
     private QuizMySqlRepositoryImpl quizMySqlRepository;
 
+    @Autowired
+    private RedisTemplate<byte[], byte[]> redisTemplate;
+
 
     public void initData() {
 
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
         List<QuizDto> quizDtoList = quizMySqlRepository.findQuizzes();
         List<RedisQuiz> redisQuizList = RedisMapper.toRedisQuiz(quizDtoList);
 
-        for(RedisQuiz redisQuiz : redisQuizList) {
-            System.out.println(redisQuiz.getId());
-        }
-//        quizRedisRepository.save();
-//        for(QuizDto dto : quizRandomList) {
-//            System.out.println(dto.getCategoryName());
-//        }
-//        List<RedisQuiz> redisQuizList = new ArrayList<>();
-//        for(QuizDto quiz : quizRandomList) {
-//            String categoryName = quiz.getCategoryName();
-//            System.out.println("----------------");
-//            System.out.println(categoryName);
-//            System.out.println("----------------");
-////            String difficulty = quiz.getDifficulty();
-//            String quizTitle = quiz.getQuizTitle();
-//
-//
-////            System.out.println(difficulty);
-//            System.out.println(quizTitle);
-//
-//            List<RedisQuiz.RedisQuizChoices> quizChoicesList = new ArrayList<>();
-////            for(String content : quiz.getChoiceContentList()) {
-////                String choiceContent = quizChoice.getChoiceContent();
-////                boolean choiceIsAnswer = quizChoice.getIsAnswer();
-////                RedisQuiz.RedisQuizChoices data = RedisQuiz.RedisQuizChoices.builder()
-////                    .choiceContent(choiceContent)
-////                    .isAnswer(choiceIsAnswer)
-////                    .build();
-////
-////                quizChoicesList.add(data);
-////            }
-//
-//            RedisQuiz data2 = RedisQuiz.builder()
-////                .id(categoryName+"_"+difficulty)
-//                .quizTitle(quizTitle)
-//                .quizChoicesList(quizChoicesList)
-//                .build();
-//
-//            redisQuizList.add(data2);
-//        }
-//
-//       quizRedisRepository.saveAll(redisQuizList);
+        quizRedisRepository.saveAll(redisQuizList);
 
     }
 }

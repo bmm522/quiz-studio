@@ -16,7 +16,7 @@ public class QuizMySqlCustomRepositoryImpl implements QuizMySqlCustomRepository{
 
     private final EntityManager entityManager;
     public List<QuizDto> findQuizzes() {
-        String jpql = "SELECT q FROM Quiz q";
+        String jpql = "SELECT q FROM Quiz q ORDER BY RAND()";
         TypedQuery<Quiz> query = entityManager.createQuery(jpql, Quiz.class);
         return QuizMapper.toQuizDto(query.getResultList());
 //        return query.getResultList();

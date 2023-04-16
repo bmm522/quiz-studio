@@ -7,10 +7,10 @@ import { Quiz } from '../entity/quiz/Quiz';
 import { QuizChoice } from '../entity/quizChoice/QuizChoice';
 import { Category } from '../entity/category/Category';
 import * as mongoose from 'mongoose';
-const redis = require('redis');
 
-export async function createDatabaseConnection(): Promise<void> {
 
+
+export async function createMySQLConnection(): Promise<void> {
   const mysqlConnectionOption: ConnectionOptions = {
     name: 'default',
     type: 'mysql',
@@ -24,6 +24,13 @@ export async function createDatabaseConnection(): Promise<void> {
     namingStrategy: new ConstraintSnakeNamingStrategy(),
   };
 
+  useContainer(Container);
+  if (!getConnectionManager().has('default')) {
+    await createConnection(mysqlConnectionOption);
+  }
+}
+
+export async function createMongoDBConnection(): Promise<void> {
   const mongoConnectionOption: ConnectionOptions = {
     name: 'mongodb',
     type: 'mongodb',
@@ -33,30 +40,13 @@ export async function createDatabaseConnection(): Promise<void> {
     database: 'job_seecker_studio',
   };
 
-  const redisClient = redis.createClient({
-    url: `redis://${env.redis.username}:${env.redis.password}@${env.redis.host}:${env.redis.port}/0`,
-    legacyMode: true,
-  });
-
   useContainer(Container);
-
-  mongoose.connect(env.mongoDatabase.url as string);
-
-  redisClient.on('connect', () => {
-    console.info('Redis connected!');
-  });
-  redisClient.on('error', (err: any) => {
-    console.error('Redis Client Error', err);
-  });
-
-  redisClient.connect().then();
-  const redisCli = redisClient.v4;
-
-  if (!getConnectionManager().has('default')) {
-    await createConnection(mysqlConnectionOption);
-  }
-
   if (!getConnectionManager().has('mongodb')) {
     await createConnection(mongoConnectionOption);
   }
 }
+
+
+
+
+
