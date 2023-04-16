@@ -26,6 +26,7 @@ public class QuizDto {
         this.choiceDtos = choiceDtos;
     }
 
+    @Getter
     public static class ChoiceDto {
 
         private String choiceContent;

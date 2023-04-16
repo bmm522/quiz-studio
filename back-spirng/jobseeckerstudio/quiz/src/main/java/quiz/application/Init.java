@@ -7,6 +7,7 @@ import quiz.model.quiz.repository.QuizMySqlRepositoryImpl;
 import quiz.model.quiz.repository.dto.QuizDto;
 import quiz.model.quizChoice.QuizChoice;
 import quiz.model.redisQuiz.RedisQuiz;
+import quiz.model.redisQuiz.mapper.RedisMapper;
 import quiz.model.redisQuiz.repository.QuizRedisRepository;
 
 import java.util.ArrayList;
@@ -23,10 +24,16 @@ public class Init {
 
     public void initData() {
 
-        List<QuizDto> quizRandomList = quizMySqlRepository.findQuizzes();
-        for(QuizDto dto : quizRandomList) {
-            System.out.println(dto.getCategoryName());
+        List<QuizDto> quizDtoList = quizMySqlRepository.findQuizzes();
+        List<RedisQuiz> redisQuizList = RedisMapper.toRedisQuiz(quizDtoList);
+
+        for(RedisQuiz redisQuiz : redisQuizList) {
+            System.out.println(redisQuiz.getId());
         }
+//        quizRedisRepository.save();
+//        for(QuizDto dto : quizRandomList) {
+//            System.out.println(dto.getCategoryName());
+//        }
 //        List<RedisQuiz> redisQuizList = new ArrayList<>();
 //        for(QuizDto quiz : quizRandomList) {
 //            String categoryName = quiz.getCategoryName();

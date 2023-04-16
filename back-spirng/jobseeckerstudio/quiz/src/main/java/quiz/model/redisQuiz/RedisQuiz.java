@@ -18,10 +18,10 @@ public class RedisQuiz {
     private List<RedisQuizChoices> quizChoices;
 
     @Builder
-    public RedisQuiz(String id, String quizTitle, List<RedisQuizChoices> quizChoicesList) {
+    public RedisQuiz(String id, String quizTitle, List<RedisQuizChoices> quizChoices) {
         this.id = id;
         this.quizTitle = quizTitle;
-        this.quizChoices = quizChoicesList;
+        this.quizChoices = quizChoices;
     }
     public static class RedisQuizChoices {
         private String choiceContent;
