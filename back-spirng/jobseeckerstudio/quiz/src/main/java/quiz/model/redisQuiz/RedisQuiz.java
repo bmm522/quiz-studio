@@ -12,17 +12,14 @@ public class RedisQuiz {
 
     @Id
     private String id;
-    private String difficulty;
-    private String categoryName;
 
     private String quizTitle;
 
     private List<RedisQuizChoices> quizChoices;
 
     @Builder
-    public RedisQuiz(String difficulty, String categoryName, String quizTitle, List<RedisQuizChoices> quizChoicesList) {
-        this.difficulty = difficulty;
-        this.categoryName = categoryName;
+    public RedisQuiz(String id, String quizTitle, List<RedisQuizChoices> quizChoicesList) {
+        this.id = id;
         this.quizTitle = quizTitle;
         this.quizChoices = quizChoicesList;
     }

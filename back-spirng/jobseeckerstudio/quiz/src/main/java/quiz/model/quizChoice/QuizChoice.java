@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "quiz_choice")
 public class QuizChoice {
 
     @Id

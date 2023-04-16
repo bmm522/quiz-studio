@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
 public class Quiz {
 
     @Id
@@ -32,4 +31,19 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private List<QuizChoice> quizChoices;
 
+    public String getCategoryName() {
+        return this.category.getCategoryName();
+    }
+
+    public String getQuizTitle() {
+        return this.quizTitle;
+    }
+
+    public String getDifficulty() {
+        return this.difficulty.get();
+    }
+
+    public List<QuizChoice> getQuizChoices() {
+        return this.quizChoices;
+    }
 }
