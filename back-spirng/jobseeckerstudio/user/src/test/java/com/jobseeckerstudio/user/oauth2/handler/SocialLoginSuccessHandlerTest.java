@@ -5,7 +5,7 @@ import com.jobseeckerstudio.user.entity.User;
 import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
-import com.jobseeckerstudio.user.oauth.cookie.CookieFactory;
+import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.handler.SocialLoginSuccessHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class SocialLoginSuccessHandlerTest {
     private Cookie cookie;
 
     @Mock
-    private CookieFactory cookieFactory;
+    private CookieMaker cookieMaker;
 
     @Mock
     private Authentication authentication;
