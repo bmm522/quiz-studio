@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class Runner implements CommandLineRunner {
 
-    private final Init init;
+    private final InitFactory initFacade;
     @Override
     public void run(String... args) throws Exception {
-        init.initData();
+        initFacade.initData();
     }
 }

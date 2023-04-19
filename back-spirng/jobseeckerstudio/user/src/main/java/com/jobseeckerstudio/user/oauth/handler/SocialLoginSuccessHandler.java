@@ -4,7 +4,6 @@ import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
-import com.jobseeckerstudio.user.oauth.cookie.CookieFactory;
 import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         addHeader(response, jwtToken);
 
-        TokenCookie tokenCookie = CookieFactory.INSTANCE.toCookie(jwtToken);
+        TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 
         addCookie(response, tokenCookie);
 

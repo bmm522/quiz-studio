@@ -1,33 +1,25 @@
 package com.jobseeckerstudio.user.oauth.cookie;
 
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-@Slf4j
-public class CookieMaker {
+public enum CookieMaker {
 
+    INSTANCE;
 
-    public static final CookieMaker instance = new CookieMaker();
-//    private static CookieMaker cookieMaker = new CookieMaker();
-//
-//    public static CookieMaker get() {return cookieMaker;}
-
-    private CookieMaker(){}
-    public void toCookie(HttpServletResponse response, JwtToken jwtToken) throws UnsupportedEncodingException {
+    public TokenCookie toCookie(JwtToken jwtToken) throws UnsupportedEncodingException {
         String jwt = setEncode(jwtToken.getJwtToken());
         String refresh = setEncode(jwtToken.getRefreshToken());
 
-        response.addCookie(getCookie("Authorization", jwt));
-        response.addCookie(getCookie("RefreshToken", refresh));
+        return TokenCookie.create(getCookie("Authorization", jwt), getCookie("RefreshToken", refresh));
+
     }
 
     private String setEncode(String token) throws UnsupportedEncodingException {
-            return URLEncoder.encode(token, "UTF-8");
+        return URLEncoder.encode(token, "UTF-8");
     }
 
 
