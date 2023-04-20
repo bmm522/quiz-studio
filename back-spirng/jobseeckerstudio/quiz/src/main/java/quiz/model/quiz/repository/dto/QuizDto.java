@@ -3,18 +3,17 @@ package quiz.model.quiz.repository.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import quiz.model.common.CategoryName;
-import quiz.model.common.Difficulty;
+
 
 import java.util.List;
 
 @Getter
 @Setter
 public class QuizDto {
-    private String categoryName;
-    private String difficulty;
-    private String quizTitle;
-    private List<ChoiceDto> choiceDtos;
+    private final String categoryName;
+    private final String difficulty;
+    private final String quizTitle;
+    private final List<ChoiceDto> choiceDtos;
 
 
 
@@ -29,8 +28,8 @@ public class QuizDto {
     @Getter
     public static class ChoiceDto {
 
-        private String choiceContent;
-        private boolean isAnswer;
+        private final String choiceContent;
+        private final boolean isAnswer;
 
         @Builder
         public ChoiceDto(String choiceContent, boolean isAnswer) {

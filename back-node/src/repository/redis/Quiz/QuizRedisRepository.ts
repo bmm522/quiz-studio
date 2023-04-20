@@ -20,18 +20,17 @@ export class QuizRedisRepository {
             username: env.redis.username as string,
             password: env.redis.password as string,
         });
-        console.log(categoryName);
-        console.log(difficulty);
         const redisKey = `${categoryName}_${difficulty}`;
         let redisValue;
-        let redisData;
+        let redisValue2;
 
         try {
             redisValue = await redisClient.keys('*');
-            redisData = await redisClient.hgetall('quiz');
+            redisValue2 = await redisClient.hgetall('quiz:java_easy7');
             console.log(redisValue.length);
             console.log(redisValue);
-            console.log("redisdata : " + redisData);
+            console.log(redisValue2);
+            // console.log("redisdata : " + redisData);
         } catch (err) {
             console.error(err);
         } finally {
