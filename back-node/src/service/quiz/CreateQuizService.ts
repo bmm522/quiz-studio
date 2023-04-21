@@ -1,10 +1,8 @@
 import { Service } from 'typedi';
-import { InjectRepository } from 'typeorm-typedi-extensions';
 import { QuizRecordItems } from './dto/QuizRecordItems';
-import { FailedQuizRecordsSchema } from '../../entity/failedQuizRecords/schema/FailedQuizRecordsSchema';
 import { QuizServiceMapper } from './mapper/QuizServiceMapper';
-import { FailedQuizRecordsRepository } from '../../entity/failedQuizRecords/repository/FailedQuizRecordsRepository';
-import { FailedQuizRecords } from '../../entity/failedQuizRecords/FailedQuizRecords';
+import { FailedQuizRecordsRepository } from '../../domain/failedQuizRecords/repository/FailedQuizRecordsRepository';
+import { FailedQuizRecords } from '../../domain/failedQuizRecords/FailedQuizRecords';
 
 @Service()
 export class CreateQuizService {

@@ -1,9 +1,9 @@
 import { QuizParams } from '../../../controller/quiz/dto/QuizParams';
 import { QuizListItem } from '../dto/QuizListItem';
-import { Quiz } from '../../../entity/quiz/Quiz';
+import { Quiz } from '../../../domain/quiz/Quiz';
 import { QuizResponse } from '../dto/QuizResponse';
 import { QuizRecordItems } from '../dto/QuizRecordItems';
-import { FailedQuizRecords } from '../../../entity/failedQuizRecords/FailedQuizRecords';
+import { FailedQuizRecords } from '../../../domain/failedQuizRecords/FailedQuizRecords';
 
 export class QuizServiceMapper {
   static toQuizListRequest(params: QuizParams): QuizListItem {

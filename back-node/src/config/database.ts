@@ -3,9 +3,9 @@ import Container from 'typedi';
 import { ConnectionOptions, createConnection, getConnectionManager, useContainer } from 'typeorm';
 import { ConstraintSnakeNamingStrategy } from './ConstraintSnakeNamingStrategy';
 import { env } from './env';
-import { Quiz } from '../entity/quiz/Quiz';
-import { QuizChoice } from '../entity/quizChoice/QuizChoice';
-import { Category } from '../entity/category/Category';
+import { Quiz } from '../domain/quiz/Quiz';
+import { QuizChoice } from '../domain/quizChoice/QuizChoice';
+import { Category } from '../domain/category/Category';
 import * as mongoose from 'mongoose';
 
 

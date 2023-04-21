@@ -1,6 +1,6 @@
 import { createQueryBuilder, EntityRepository } from 'typeorm';
-import { Quiz } from '../../../entity/quiz/Quiz';
-import { Category } from '../../../entity/category/Category';
+import { Quiz } from '../../../domain/quiz/Quiz';
+import { Category } from '../../../domain/category/Category';
 import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
 
