@@ -1,22 +1,19 @@
 package quiz.application;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import quiz.model.quiz.repository.dto.QuizDto;
-import quiz.model.redisQuiz.RedisQuiz;
-import quiz.model.redisQuiz.mapper.RedisMapper;
-import quiz.model.redisQuiz.repository.QuizRedisRepository;
+import quiz.model.quizCache.QuizCache;
+import quiz.model.quizCache.repository.QuizRedisRepository;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class QuizCacheRedisService implements QuizCache{
+public class QuizCacheRedisService implements quiz.application.QuizCache {
 
     private final QuizRedisRepository quizRedisRepository;
 
-    public void saveAll(List<RedisQuiz> quizList){
+    public void saveAll(List<QuizCache> quizList){
         quizRedisRepository.saveAll(quizList);
     }
 

@@ -1,4 +1,4 @@
-package quiz.model.redisQuiz;
+package quiz.model.quizCache;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,27 +8,27 @@ import java.util.List;
 
 @RedisHash("quiz")
 @Getter
-public class RedisQuiz {
+public class QuizCache {
 
     @Id
     private String id;
 
     private String quizTitle;
 
-    private List<RedisQuizChoices> quizChoices;
+    private List<QuizChoices> quizChoices;
 
     @Builder
-    public RedisQuiz(String id, String quizTitle, List<RedisQuizChoices> quizChoices) {
+    public QuizCache(String id, String quizTitle, List<QuizChoices> quizChoices) {
         this.id = id;
         this.quizTitle = quizTitle;
         this.quizChoices = quizChoices;
     }
-    public static class RedisQuizChoices {
+    public static class QuizChoices {
         private String choiceContent;
         private boolean isAnswer;
 
         @Builder
-        public RedisQuizChoices(String choiceContent, boolean isAnswer) {
+        public QuizChoices(String choiceContent, boolean isAnswer) {
             this.choiceContent = choiceContent;
             this.isAnswer = isAnswer;
         }

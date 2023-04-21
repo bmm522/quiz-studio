@@ -1,18 +1,18 @@
-package quiz.model.redisQuiz.mapper;
+package quiz.model.quizCache.mapper;
 
 import quiz.model.quiz.repository.dto.QuizDto;
-import quiz.model.redisQuiz.RedisQuiz;
+import quiz.model.quizCache.QuizCache;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class RedisMapper {
+public class QuizCacheTransformer {
 
-    public static List<RedisQuiz> toRedisQuiz(List<QuizDto> quizDtoList) {
+    public static List<QuizCache> toQuizCacheList(List<QuizDto> quizDtoList) {
         AtomicInteger i = new AtomicInteger();
         return quizDtoList.stream()
-            .map(quizDto -> toRedisQuiz(quizDto, i.getAndIncrement()))
+            .map(quizDto -> toQuizCache(quizDto, i.getAndIncrement()))
             .collect(Collectors.toList());
     }
 
@@ -20,19 +20,19 @@ public class RedisMapper {
         return quizDto.getCategoryName() + "_" + quizDto.getDifficulty() + index;
     }
 
-    private static RedisQuiz toRedisQuiz(QuizDto quizDto, int index) {
-        List<RedisQuiz.RedisQuizChoices> redisQuizChoicesList = toRedisQuizChoicesList(quizDto.getChoiceDtos());
+    private static QuizCache toQuizCache(QuizDto quizDto, int index) {
+        List<QuizCache.QuizChoices> redisQuizChoicesList = toRedisQuizChoicesList(quizDto.getChoiceDtos());
 
-        return RedisQuiz.builder()
+        return QuizCache.builder()
             .id(generateQuizId(quizDto, index))
             .quizTitle(quizDto.getQuizTitle())
             .quizChoices(redisQuizChoicesList)
             .build();
     }
 
-    private static List<RedisQuiz.RedisQuizChoices> toRedisQuizChoicesList(List<QuizDto.ChoiceDto> choiceDtoList) {
+    private static List<QuizCache.QuizChoices> toRedisQuizChoicesList(List<QuizDto.ChoiceDto> choiceDtoList) {
         return choiceDtoList.stream()
-            .map(choiceDto -> new RedisQuiz.RedisQuizChoices(choiceDto.getChoiceContent(), choiceDto.isAnswer()))
+            .map(choiceDto -> new QuizCache.QuizChoices(choiceDto.getChoiceContent(), choiceDto.isAnswer()))
             .collect(Collectors.toList());
     }
 }

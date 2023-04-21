@@ -1,7 +1,8 @@
 import { Service } from "typedi";
 import Redis from "ioredis";
 import { env } from "../../../config/env";
-
+import {QuizResponse} from "../../../service/quiz/dto/QuizResponse";
+import { once } from 'events';
 @Service()
 export class QuizRedisRepository {
 
@@ -9,32 +10,64 @@ export class QuizRedisRepository {
     key: string = "test";
     data: string = "ggg";
 
-    async findByCategoryNameAndDifficulty(
-
-        categoryName: string,
-        difficulty: string
-    ) {
+    async findByCategoryNameAndDifficulty(categoryName: string, difficulty: string): Promise<QuizResponse[]> {
         const redisClient = new Redis({
             host: env.redis.host as string,
             port: parseInt(env.redis.port as string),
             username: env.redis.username as string,
             password: env.redis.password as string,
         });
-        const redisKey = `${categoryName}_${difficulty}`;
-        let redisValue;
-        let redisValue2;
+
+        const redisKeyPattern = `quiz:${categoryName}_${difficulty}*`;
+        const randomQuizResponses: QuizResponse[] = [];
 
         try {
-            redisValue = await redisClient.keys('*');
-            redisValue2 = await redisClient.hgetall('quiz:java_easy7');
-            console.log(redisValue.length);
-            console.log(redisValue);
-            console.log(redisValue2);
-            // console.log("redisdata : " + redisData);
+            const stream = redisClient.scanStream({
+                match: redisKeyPattern,
+            });
+
+            const quizDataPromises: Promise<Record<string, string>>[] = [];
+
+            stream.on("data", function (keys: string[]) {
+                for (const key of keys) {
+                    quizDataPromises.push(redisClient.hgetall(key));
+                }
+            });
+
+            await once(stream, "end");
+
+            const quizDatas = await Promise.all(quizDataPromises);
+
+            const randomIndices = new Set<number>();
+            while (randomIndices.size < 10 && randomIndices.size < quizDatas.length) {
+                const index = Math.floor(Math.random() * quizDatas.length);
+                randomIndices.add(index);
+            }
+
+            for (const index of randomIndices) {
+                const quizData = quizDatas[index];
+
+                const quizChoices = [];
+                for (let i = 0; i < 4; i++) {
+                    quizChoices.push({
+                        content: quizData[`quizChoices.[${i}].choiceContent`],
+                        isAnswer: quizData[`quizChoices.[${i}].isAnswer`] === "1",
+                    });
+                }
+
+                // Shuffle quizChoices
+                quizChoices.sort(() => Math.random() - 0.5);
+
+                const quizResponse = new QuizResponse(quizData.quizTitle, quizChoices);
+                randomQuizResponses.push(quizResponse);
+            }
+
+            return randomQuizResponses;
         } catch (err) {
             console.error(err);
+            return [];
         } finally {
-            await redisClient.quit(); // Redis 클라이언트 명시적으로 닫아줌
+            await redisClient.quit();
         }
     }
 }

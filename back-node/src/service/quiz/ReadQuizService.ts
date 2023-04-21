@@ -16,7 +16,10 @@ export class ReadQuizService {
   async getQuizList(params: QuizParams): Promise<QuizResponse[]> {
     const item = await this.toRequest(params);
     const quizRandomList = await this.getQuizRandomList(item);
-    return await this.toResponse(quizRandomList);
+    return  await this.quizRedisRepository.findByCategoryNameAndDifficulty(
+        item.getCategory() as string,
+        item.getLevel() as string,
+    );
   }
 
   private async getQuizRandomList(item: QuizListItem): Promise<Quiz[]> {
