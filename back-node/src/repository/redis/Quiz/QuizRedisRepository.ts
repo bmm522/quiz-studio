@@ -14,8 +14,6 @@ export class QuizRedisRepository {
         const redisClient = new Redis({
             host: env.redis.host as string,
             port: parseInt(env.redis.port as string),
-            username: env.redis.username as string,
-            password: env.redis.password as string,
         });
 
         const redisKeyPattern = `quiz:${categoryName}_${difficulty}*`;
