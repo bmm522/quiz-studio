@@ -6,9 +6,11 @@ const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
 function getQuizData(level, category) {
+   
     const url = new URL(`${nodeHost}/v1/quiz`);
     url.searchParams.set("level", level);
     url.searchParams.set("category", category);
+    console.log(sessionStorage.getItem("refreshToken"));
     console.log("퀴즈 : " + sessionStorage.getItem("authorization"));
     const headers = new Headers();
     headers.append("authorization", sessionStorage.getItem("authorization"));
