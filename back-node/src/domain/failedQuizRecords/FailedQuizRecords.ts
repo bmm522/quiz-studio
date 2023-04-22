@@ -20,7 +20,7 @@ export class FailedQuizRecords {
     this.quizChoiceIsAnswer = quizChoiceIsAnswer;
   }
 
-  create(): {
+  toSchema(): {
     userKey: string;
     quizTitle: string;
     quizIsAnswer: boolean;
@@ -35,5 +35,4 @@ export class FailedQuizRecords {
       quizChoiceIsAnswer: this.quizChoiceIsAnswer,
     };
   }
-
 }

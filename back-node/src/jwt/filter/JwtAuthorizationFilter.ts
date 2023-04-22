@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { JwtMapper } from '../mapper/JwtMapper';
 import { UnauthorizedError } from '../../error/UnauthorizedError';
-import { CustomRequest } from '../dto/CustomRequest';
+import { UserKeyRequest } from '../dto/UserKeyRequest';
 
 export const JwtAuthorizationFilter = async (
-  req: CustomRequest,
+  req: UserKeyRequest,
   res: Response,
   next: NextFunction,
 ) => {

@@ -3,9 +3,10 @@ import { Quiz } from '../../../domain/quiz/Quiz';
 import { Category } from '../../../domain/category/Category';
 import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
+import {QuizQueryRDBMSRepository} from "./QuizQueryRDBMSRepository";
 
 @EntityRepository(Quiz)
-export class QuizQueryMySQLRepository {
+export class QuizQueryMySQLRepository implements QuizQueryRDBMSRepository{
   async getQuizRandomList(category: CategoryEnum, level: Level): Promise<Quiz[] | null> {
     const result = await createQueryBuilder()
       .select('quiz')

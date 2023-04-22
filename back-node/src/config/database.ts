@@ -65,13 +65,9 @@ export async function createMySQLConnection(): Promise<void> {
 }
 
 export async function createMongoDBConnection(): Promise<void> {
-  const mongoose = require("mongoose");
-  mongoose.connect(env.mongoDatabase.url)
-      .then( () => console.log("connected to DB."))
-      .catch( (err: any)  => console.log(err));
+  const mongoose = require('mongoose');
+  mongoose
+    .connect(env.mongoDatabase.url)
+    .then(() => console.log('connected to DB.'))
+    .catch((err: any) => console.log(err));
 }
-
-
-
-
-
