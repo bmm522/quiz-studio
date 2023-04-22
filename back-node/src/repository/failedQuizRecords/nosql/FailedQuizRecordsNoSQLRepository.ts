@@ -1,3 +1,1 @@
-export interface FailedQuizRecordsNoSQLRepository {
-
-}
+export interface FailedQuizRecordsNoSQLRepository {}

@@ -3,9 +3,9 @@ import Redis from 'ioredis';
 import { env } from '../../../config/env';
 import { QuizResponse } from '../../../service/quiz/dto/QuizResponse';
 import { once } from 'events';
-import {QuizQueryCacheRepository} from "./QuizQueryCacheRepository";
+import { QuizQueryCacheRepository } from './QuizQueryCacheRepository';
 @Service()
-export class QuizQueryRedisRepository implements QuizQueryCacheRepository{
+export class QuizQueryRedisRepository implements QuizQueryCacheRepository {
   key: string = 'test';
   data: string = 'ggg';
 

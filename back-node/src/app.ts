@@ -2,12 +2,13 @@ import 'reflect-metadata';
 import Container from 'typedi';
 import { useContainer as routingUseContainer, useExpressServer } from 'routing-controllers';
 import * as bodyParser from 'body-parser';
-import { createMongoDBConnection, createMySQLConnection } from './config/database';
+import { createMongoDBConnection} from './config/database';
 import { ErrorHandler } from './error/handler/ErrorHandler';
-import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
 import express = require('express');
+import { Express, Request, Response} from 'express';
 import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
+import {JwtAuthorizationFilter} from "./jwt/filter/JwtAuthorizationFilter";
 export class App {
   public app;
 
@@ -33,7 +34,7 @@ export class App {
 
   public async setDatabase(): Promise<void> {
     try {
-      await createMySQLConnection();
+      // await createMySQLConnection();
       await createMongoDBConnection();
     } catch (error) {
       throw error;

@@ -3,22 +3,18 @@ import { QuizServiceMapper } from './mapper/QuizServiceMapper';
 import { QuizListItem } from './dto/QuizListItem';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 import { QuizResponse } from './dto/QuizResponse';
-import { Service } from 'typedi';
-import {QuizQueryCacheRepository} from "../../repository/quiz/cache/QuizQueryCacheRepository";
-
+import {Inject, Service} from 'typedi';
+import { QuizQueryCacheRepository } from '../../repository/quiz/cache/QuizQueryCacheRepository';
+import {QuizQueryRedisRepository} from "../../repository/quiz/cache/QuizQueryRedisRepository";
 
 @Service()
 export class QuizCacheService {
-  constructor(
-    private quizQueryCacheRepository: QuizQueryCacheRepository,
-  ) {}
+  constructor(@Inject(() => QuizQueryRedisRepository)private readonly quizQueryCacheRepository: QuizQueryCacheRepository) {}
 
   async getQuizList(params: QuizParams): Promise<QuizResponse[]> {
     const item = await this.toQuizListRequest(params);
     return await this.getQuizRandomList(item);
   }
-
-
 
   private async getQuizRandomList(item: QuizListItem): Promise<QuizResponse[]> {
     const quizList = await this.quizQueryCacheRepository.findByCategoryNameAndDifficulty(
@@ -36,6 +32,4 @@ export class QuizCacheService {
   private async toQuizListRequest(params: QuizParams): Promise<QuizListItem> {
     return QuizServiceMapper.toQuizListRequest(params);
   }
-
-
 }

@@ -1,7 +1,5 @@
-import {FailedQuizRecordsNoSQLRepository} from "./FailedQuizRecordsNoSQLRepository";
-import {Service} from "typedi";
+import { FailedQuizRecordsNoSQLRepository } from './FailedQuizRecordsNoSQLRepository';
 
-@Service()
-export class FailedQuizRecordsQueryMongoDbRepository implements FailedQuizRecordsNoSQLRepository {
 
-}
+
+export class FailedQuizRecordsQueryMongoDbRepository implements FailedQuizRecordsNoSQLRepository {}

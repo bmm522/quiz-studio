@@ -55,20 +55,20 @@ export class QuizController {
     }
   }
 
-  @HttpCode(200)
-  @Get('/fail-records')
-  async getFailRecords(@Req() req: UserKeyRequest) {
-    try {
-      const result = await this.quizMongoDbService.getFailRecords(req.userKey);
-      return ResponseDto.builder()
-        .withStatus(200)
-        .withMessage('문제풀기 실패 기록 불러오기 성공')
-        .withData(result)
-        .build();
-    } catch (error) {
-      throw error;
-    }
-  }
+  // @HttpCode(200)
+  // @Get('/fail-records')
+  // async getFailRecords(@Req() req: UserKeyRequest) {
+  //   try {
+  //     const result = await this.quizMongoDbService.getFailRecords(req.userKey);
+  //     return ResponseDto.builder()
+  //       .withStatus(200)
+  //       .withMessage('문제풀기 실패 기록 불러오기 성공')
+  //       .withData(result)
+  //       .build();
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   private async toQuizRecordItems(
     dto: QuizRecordRequest,

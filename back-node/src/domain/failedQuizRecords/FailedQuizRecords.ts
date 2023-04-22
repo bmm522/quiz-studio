@@ -1,10 +1,10 @@
 export class FailedQuizRecords {
-  private readonly userKey: string;
-  private readonly quizTitle: string;
+  userKey: string;
+  quizTitle: string;
 
-  private readonly quizIsAnswer: boolean;
-  private readonly quizChoiceContent: string[];
-  private readonly quizChoiceIsAnswer: boolean[];
+  quizIsAnswer: boolean;
+  quizChoiceContent: string[];
+  quizChoiceIsAnswer: boolean[];
 
   constructor(
     userKey: string,

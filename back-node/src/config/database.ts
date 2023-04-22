@@ -44,25 +44,25 @@ import * as mongoose from 'mongoose';
 //   }
 // }
 
-export async function createMySQLConnection(): Promise<void> {
-  const mysqlConnectionOption: ConnectionOptions = {
-    name: 'default',
-    type: 'mysql',
-    host: env.mysqlDatabase.host,
-    port: env.mysqlDatabase.port,
-    username: env.mysqlDatabase.username,
-    password: env.mysqlDatabase.password,
-    database: env.mysqlDatabase.database,
-    entities: [Quiz, QuizChoice, Category],
-    synchronize: false,
-    namingStrategy: new ConstraintSnakeNamingStrategy(),
-  };
-
-  useContainer(Container);
-  if (!getConnectionManager().has('default')) {
-    await createConnection(mysqlConnectionOption);
-  }
-}
+// export async function createMySQLConnection(): Promise<void> {
+//   const mysqlConnectionOption: ConnectionOptions = {
+//     name: 'default',
+//     type: 'mysql',
+//     host: env.mysqlDatabase.host,
+//     port: env.mysqlDatabase.port,
+//     username: env.mysqlDatabase.username,
+//     password: env.mysqlDatabase.password,
+//     database: env.mysqlDatabase.database,
+//     entities: [Quiz, QuizChoice, Category],
+//     synchronize: false,
+//     namingStrategy: new ConstraintSnakeNamingStrategy(),
+//   };
+//
+//   useContainer(Container);
+//   if (!getConnectionManager().has('default')) {
+//     await createConnection(mysqlConnectionOption);
+//   }
+// }
 
 export async function createMongoDBConnection(): Promise<void> {
   const mongoose = require('mongoose');
