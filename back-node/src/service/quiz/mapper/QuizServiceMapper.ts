@@ -21,6 +21,7 @@ export class QuizServiceMapper {
   }
 
   static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
+
     const userKey = dto.getUserKey();
     const quizRecordArray = dto.getQuizRecordArray();
 

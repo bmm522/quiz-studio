@@ -7,8 +7,42 @@ import { Quiz } from '../domain/quiz/Quiz';
 import { QuizChoice } from '../domain/quizChoice/QuizChoice';
 import { Category } from '../domain/category/Category';
 import * as mongoose from 'mongoose';
-
-
+//
+// export async function createDatabaseConnection(): Promise<void> {
+//   const mysqlConnectionOption: ConnectionOptions = {
+//     name: 'default',
+//     type: 'mysql',
+//     host: env.mysqlDatabase.host,
+//     port: env.mysqlDatabase.port,
+//     username: env.mysqlDatabase.username,
+//     password: env.mysqlDatabase.password,
+//     database: env.mysqlDatabase.database,
+//     entities: [Quiz, QuizChoice, Category],
+//     synchronize: false,
+//     namingStrategy: new ConstraintSnakeNamingStrategy(),
+//   };
+//
+//   const mongoConnectionOption: ConnectionOptions = {
+//     name: 'mongodb',
+//     type: 'mongodb',
+//     url: env.mongoDatabase.url,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     synchronize: false,
+//     logging: true,
+//     namingStrategy: new ConstraintSnakeNamingStrategy(),
+//   };
+//
+//   useContainer(Container);
+//
+//   if (!getConnectionManager().has('default')) {
+//     await createConnection(mysqlConnectionOption);
+//   }
+//
+//   if (!getConnectionManager().has('mongodb')) {
+//     await createConnection(mongoConnectionOption);
+//   }
+// }
 
 export async function createMySQLConnection(): Promise<void> {
   const mysqlConnectionOption: ConnectionOptions = {
@@ -31,19 +65,10 @@ export async function createMySQLConnection(): Promise<void> {
 }
 
 export async function createMongoDBConnection(): Promise<void> {
-  const mongoConnectionOption: ConnectionOptions = {
-    name: 'mongodb',
-    type: 'mongodb',
-    url: env.mongoDatabase.url,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    database: 'job_seecker_studio',
-  };
-
-  useContainer(Container);
-  if (!getConnectionManager().has('mongodb')) {
-    await createConnection(mongoConnectionOption);
-  }
+  const mongoose = require("mongoose");
+  mongoose.connect(env.mongoDatabase.url)
+      .then( () => console.log("connected to DB."))
+      .catch( (err: any)  => console.log(err));
 }
 
 

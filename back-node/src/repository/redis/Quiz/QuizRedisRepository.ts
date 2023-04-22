@@ -53,7 +53,6 @@ export class QuizRedisRepository {
                     });
                 }
 
-                // Shuffle quizChoices
                 quizChoices.sort(() => Math.random() - 0.5);
 
                 const quizResponse = new QuizResponse(quizData.quizTitle, quizChoices);

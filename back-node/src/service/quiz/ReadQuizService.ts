@@ -1,13 +1,13 @@
-import {Inject, Service} from 'typedi';
+
 import { QuizParams } from '../../controller/quiz/dto/QuizParams';
 import { QuizServiceMapper } from './mapper/QuizServiceMapper';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { QuizQueryMySQLRepository } from '../../repository/mysql/Quiz/QuizQueryMySQLRepository';
-import { Quiz } from '../../domain/quiz/Quiz';
 import { QuizListItem } from './dto/QuizListItem';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 import { QuizResponse } from './dto/QuizResponse';
 import {QuizRedisRepository} from "../../repository/redis/Quiz/QuizRedisRepository";
+import {Service} from "typedi";
 
 @Service()
 export class ReadQuizService {

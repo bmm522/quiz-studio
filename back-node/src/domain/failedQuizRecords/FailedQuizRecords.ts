@@ -35,4 +35,5 @@ export class FailedQuizRecords {
       quizChoiceIsAnswer: this.quizChoiceIsAnswer,
     };
   }
+
 }
