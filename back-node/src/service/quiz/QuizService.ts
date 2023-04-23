@@ -8,7 +8,7 @@ import { QuizQueryCacheRepository } from '../../repository/quiz/cache/QuizQueryC
 import {QuizQueryRedisRepository} from "../../repository/quiz/cache/QuizQueryRedisRepository";
 
 @Service()
-export class QuizCacheService {
+export class QuizService {
   constructor(@Inject(() => QuizQueryRedisRepository)private readonly quizQueryCacheRepository: QuizQueryCacheRepository) {}
 
   async getQuizList(params: QuizParams): Promise<QuizResponse[]> {

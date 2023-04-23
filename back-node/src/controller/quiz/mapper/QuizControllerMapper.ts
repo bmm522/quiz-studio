@@ -1,5 +1,5 @@
 import { QuizRecordRequest } from '../dto/QuizRecordRequest';
-import { QuizRecordItems } from '../../../service/quiz/dto/QuizRecordItems';
+import { QuizRecordItems } from '../../../service/failedQuizRecords/dto/QuizRecordItems';
 import { UserKeyRequest } from '../../../jwt/dto/UserKeyRequest';
 import { UnauthorizedError } from '../../../error/UnauthorizedError';
 

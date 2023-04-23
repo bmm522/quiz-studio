@@ -2,7 +2,7 @@ import { QuizParams } from '../../../controller/quiz/dto/QuizParams';
 import { QuizListItem } from '../dto/QuizListItem';
 import { Quiz } from '../../../domain/quiz/Quiz';
 import { QuizResponse } from '../dto/QuizResponse';
-import { QuizRecordItems } from '../dto/QuizRecordItems';
+import { QuizRecordItems } from '../../failedQuizRecords/dto/QuizRecordItems';
 import { FailedQuizRecords } from '../../../domain/failedQuizRecords/FailedQuizRecords';
 
 export class QuizServiceMapper {

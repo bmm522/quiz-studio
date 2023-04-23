@@ -11,21 +11,21 @@ import {
 } from 'routing-controllers';
 import { Service } from 'typedi';
 import { QuizParams } from './dto/QuizParams';
-import { QuizCacheService } from '../../service/quiz/QuizCacheService';
+import { QuizService } from '../../service/quiz/QuizService';
 import { ResponseDto } from '../common/dto/ResponseDto';
 import { QuizRecordRequest } from './dto/QuizRecordRequest';
 import { UserKeyRequest } from '../../jwt/dto/UserKeyRequest';
-import { QuizRecordItems } from '../../service/quiz/dto/QuizRecordItems';
+import { QuizRecordItems } from '../../service/failedQuizRecords/dto/QuizRecordItems';
 import { QuizControllerMapper } from './mapper/QuizControllerMapper';
-import { QuizMongoDbService } from '../../service/quiz/QuizMongoDbService';
+import { FailedQuizRecordsService } from '../../service/failedQuizRecords/FailedQuizRecordsService';
 import {UnauthorizedError} from "../../error/UnauthorizedError";
 
 @JsonController('/quiz')
 @Service()
 export class QuizController {
   constructor(
-    private quizCacheService: QuizCacheService,
-    private quizMongoDbService: QuizMongoDbService,
+    private quizCacheService: QuizService,
+    private quizMongoDbService: FailedQuizRecordsService,
   ) {}
 
   @HttpCode(200)

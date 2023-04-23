@@ -1,6 +1,6 @@
 import {Inject, Service} from 'typedi';
 import { QuizRecordItems } from './dto/QuizRecordItems';
-import { QuizServiceMapper } from './mapper/QuizServiceMapper';
+import { QuizServiceMapper } from '../quiz/mapper/QuizServiceMapper';
 import { FailedQuizRecordsRepository } from '../../domain/failedQuizRecords/repository/FailedQuizRecordsRepository';
 import { FailedQuizRecords } from '../../domain/failedQuizRecords/FailedQuizRecords';
 import { FailedQuizRecordsNoSQLRepository } from '../../repository/failedQuizRecords/nosql/FailedQuizRecordsNoSQLRepository';
@@ -9,7 +9,7 @@ import {
 } from "../../repository/failedQuizRecords/nosql/FailedQuizRecordsQueryMongoDbRepository";
 
 @Service()
-export class QuizMongoDbService {
+export class FailedQuizRecordsService {
   constructor(
     private failedQuizRecordsRepository: FailedQuizRecordsRepository,
     @Inject(()=> FailedQuizRecordsQueryMongoDbRepository)private failedQuizRecordsNoSQLRepository: FailedQuizRecordsNoSQLRepository,
@@ -31,6 +31,10 @@ export class QuizMongoDbService {
   private async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
     return QuizServiceMapper.toFailedQuizRecords(dto);
   }
+
+
+
+
 
   private async save(dataArray: FailedQuizRecords[]): Promise<void> {
     await this.failedQuizRecordsRepository.save(dataArray);
