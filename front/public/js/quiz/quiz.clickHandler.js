@@ -38,6 +38,8 @@ function handleSubmitQuiz() {
                 record = {
                     quizTitle: quizTitle.outerText,
                     quizIsAnswer: true,
+                    category: localStorage.getItem('category'),
+                    level: localStorage.getItem("level"),
                     quizChoiceContent: Array.from(choicelabels).map(
                         (label) => label.outerText,
                     ),
@@ -51,6 +53,8 @@ function handleSubmitQuiz() {
                 record = {
                     quizTitle: quizTitle.outerText,
                     quizIsAnswer: false,
+                    category: localStorage.getItem('category'),
+                    level: localStorage.getItem("level"),
                     quizChoiceContent: Array.from(choicelabels).map(
                         (label) => label.outerText,
                     ),
@@ -72,7 +76,7 @@ function handleSubmitQuiz() {
 
 function submitRecordWithFailQuiz(quizRecordArray) {
     console.log(quizRecordArray);
-    fetch(`${nodeHost}/v1/fail-records`, {
+    fetch(`${nodeHost}/v1/records`, {
         method: "POST",
         headers: {
             authorization: sessionStorage.getItem("authorization"),

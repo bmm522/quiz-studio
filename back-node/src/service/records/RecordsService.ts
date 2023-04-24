@@ -1,28 +1,30 @@
 import { Inject, Service } from 'typedi';
 import { RecordItems } from './dto/RecordItems';
-import { FailedQuizRecordsNoSQLRepository } from '../../repository/records/RecordsQueryRepository';
 import { RecordsQueryMongoDbRepository } from '../../repository/records/RecordsQueryMongoDbRepository';
 import { RecordsServiceMapper } from './mapper/RecordsServiceMapper';
 import {Records} from "../../domain/records/records";
+import {RecordsMongoDbRepository} from "../../domain/records/repository/RecordsMongoDbRepository";
+import {RecordsQueryRepository} from "../../repository/records/RecordsQueryRepository";
 import {RecordsRepository} from "../../domain/records/repository/RecordsRepository";
 
 @Service()
 export class RecordsService {
   constructor(
-    private failedQuizRecordsRepository: RecordsRepository,
+      @Inject(() => RecordsMongoDbRepository)
+    private recordsRepository: RecordsRepository,
     @Inject(() => RecordsQueryMongoDbRepository)
-    private failedQuizRecordsNoSQLRepository: FailedQuizRecordsNoSQLRepository,
+    private recordsQueryRepository: RecordsQueryRepository,
   ) {}
 
-  // 실패기록 저장
-  async saveFailRecords(dto: RecordItems) {
+  // 기록 저장
+  async saveRecords(dto: RecordItems) {
     const failedQuizRecords = await this.toFailedQuizRecords(dto);
     await this.save(failedQuizRecords);
   }
 
-  // 실패기록 불러오기
-  async getFailRecords(userKey: string) {
-    const savedData = await this.failedQuizRecordsNoSQLRepository.findByUserKey(userKey);
+  // 기록 불러오기
+  async getRecords(userKey: string) {
+    const savedData = await this.recordsQueryRepository.findByUserKey(userKey);
     return RecordsServiceMapper.toResponse(savedData);
   }
 
@@ -31,6 +33,6 @@ export class RecordsService {
   }
 
   private async save(dataArray: Records[]): Promise<void> {
-    await this.failedQuizRecordsRepository.save(dataArray);
+    await this.recordsRepository.save(dataArray);
   }
 }

@@ -14,10 +14,10 @@ export class RecordsController {
 
   @HttpCode(201)
   @Post('')
-  async saveFailRecords(@Body() dto: QuizRecordRequest, @Req() req: UserKeyRequest) {
+  async saveRecords(@Body() dto: QuizRecordRequest, @Req() req: UserKeyRequest) {
     try {
-      const items = await this.toQuizRecordItems(dto, req);
-      const result = await this.recordsService.saveFailRecords(items);
+      const items = await this.toRecordItems(dto, req);
+      const result = await this.recordsService.saveRecords(items);
       return ResponseDto.builder()
         .withStatus(201)
         .withMessage('문제풀기 기록 저장 성공');
@@ -28,10 +28,10 @@ export class RecordsController {
 
   @HttpCode(200)
   @Get('')
-  async getFailRecords(@Req() req: UserKeyRequest) {
+  async getRecords(@Req() req: UserKeyRequest) {
     try {
       if (req.userKey) {
-        const result = await this.recordsService.getFailRecords(req.userKey);
+        const result = await this.recordsService.getRecords(req.userKey);
         return ResponseDto.builder()
           .withStatus(200)
           .withMessage('문제풀기 기록 불러오기 성공')
@@ -43,7 +43,7 @@ export class RecordsController {
     }
   }
 
-  private async toQuizRecordItems(
+  private async toRecordItems(
     dto: QuizRecordRequest,
     req: UserKeyRequest,
   ): Promise<RecordItems> {

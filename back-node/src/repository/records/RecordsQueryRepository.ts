@@ -1,5 +1,6 @@
-import { Records } from '../../domain/failedQuizRecords/records';
+import {Records} from "../../domain/records/records";
 
-export interface FailedQuizRecordsNoSQLRepository {
+
+export interface RecordsQueryRepository {
   findByUserKey(userKey: string): Promise<Records[]>;
 }

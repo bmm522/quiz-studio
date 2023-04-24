@@ -25,6 +25,19 @@
     .problem-description {
       display: none;
     }
+
+  .btn-custom {
+    background-color: #f39c12;
+    color: #ffffff;
+    /* text-shadow: 1px 1px #747474; */
+    box-shadow: 2px 2px #bbbbbb;
+    border-radius: 5px;
+    border: none;
+  }
+  .btn-custom:hover {
+    background-color: #e67e22;
+  }
+
   </style>
 <body id="page-top">
 
@@ -53,9 +66,9 @@
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>지난 기록 보기</span></a>
+                    <span id="record-page">지난 기록 보기</span></a>
             </li>
 
             <!-- Divider -->
@@ -152,7 +165,7 @@
                         </div>
                     </div> -->
                    
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" >
                         <thead>
                           <tr>
                             <th>제목</th>
@@ -168,14 +181,35 @@
                             </th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr data-status="resolved">
+                        <tbody id="problemList">
+                          <!-- <tr data-status="resolved">
                             <td><a href="#" onclick="toggleProblemDescription(0)">행렬 곱셈 순서</a></td>
                             <td>2023-04-22</td>
                             <td><span class="badge badge-success">해결됨</span></td>
                           </tr>
                           <tr class="problem-description" id="problemDescription0" style="display:none;">
-                            <td colspan="3">행렬 곱셈 순서 문제 설명</td>
+                            <td colspan="3">
+                              <div class="card-body">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice1" value="false">
+                                  <label class="form-check-label" for="quiz1-choice1">객체 간의 상호작용을 담당하는 개념입니다.</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice2" value="false">
+                                  <label class="form-check-label" for="quiz1-choice2">상속 관계에 있는 클래스 간의 형변환을 가능하게 하는 개념입니다.</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice3" value="false">
+                                  <label class="form-check-label" for="quiz1-choice3">하나의 객체가 여러 가지 타입을 가질 수 있도록 하는 개념입니다.</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice4" value="true">
+                                  <label class="form-check-label" for="quiz1-choice4">동일한 기능을 다양한 방법으로 수행할 수 있도록 하는 개념입니다.</label>
+                                </div>
+                                <button class="btn btn-custom mt-3">제출</button>
+                              </div>
+                             
+                            </td>
                           </tr>
                           <tr data-status="resolved">
                             <td><a href="#" onclick="toggleProblemDescription(1)">숨바꼭질</a></td>
@@ -183,7 +217,25 @@
                             <td><span class="badge badge-success">해결됨</span></td>
                           </tr>
                           <tr class="problem-description" id="problemDescription1" style="display:none;">
-                            <td colspan="3">숨바꼭질 문제 설명</td>
+                            <td colspan="3"> <div class="card-body">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice1" value="false">
+                                <label class="form-check-label" for="quiz1-choice1">객체 간의 상호작용을 담당하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice2" value="false">
+                                <label class="form-check-label" for="quiz1-choice2">상속 관계에 있는 클래스 간의 형변환을 가능하게 하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice3" value="false">
+                                <label class="form-check-label" for="quiz1-choice3">하나의 객체가 여러 가지 타입을 가질 수 있도록 하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice4" value="true">
+                                <label class="form-check-label" for="quiz1-choice4">동일한 기능을 다양한 방법으로 수행할 수 있도록 하는 개념입니다.</label>
+                              </div>
+                              <button class="btn btn-custom mt-3">제출</button>
+                            </div></td>
                           </tr>
                           <tr data-status="unresolved">
                             <td><a href="#" onclick="toggleProblemDescription(2)">사다리 게임</a></td>
@@ -191,8 +243,26 @@
                             <td><span class="badge badge-warning">해결 중</span></td>
                           </tr>
                           <tr class="problem-description" id="problemDescription2" style="display:none;">
-                            <td colspan="3">사다리 게임 문제 설명</td>
-                          </tr>
+                            <td colspan="3"> <div class="card-body">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice1" value="false">
+                                <label class="form-check-label" for="quiz1-choice1">객체 간의 상호작용을 담당하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice2" value="false">
+                                <label class="form-check-label" for="quiz1-choice2">상속 관계에 있는 클래스 간의 형변환을 가능하게 하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice3" value="false">
+                                <label class="form-check-label" for="quiz1-choice3">하나의 객체가 여러 가지 타입을 가질 수 있도록 하는 개념입니다.</label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="quiz1" id="quiz1-choice4" value="true">
+                                <label class="form-check-label" for="quiz1-choice4">동일한 기능을 다양한 방법으로 수행할 수 있도록 하는 개념입니다.</label>
+                              </div>
+                              <button class="btn btn-custom mt-3">제출</button>
+                            </div></td>
+                          </tr> -->
                         </tbody>
                       </table>
                       
@@ -259,8 +329,9 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="js/global.js"></script>
     <script src="js/record/record.js"></script>
-    <!-- <script src="js/global.js"></script> -->
+  
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>

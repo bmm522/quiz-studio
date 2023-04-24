@@ -4,11 +4,15 @@ export interface RecordsSchema extends Document {
   quizTitle: string;
 
   quizIsAnswer: boolean;
+
+  category: string;
+
+  level: string;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 }
 
-const failedQuizRecordsSchema = new Schema(
+const RecordsSchema = new Schema(
   {
     userKey: {
       type: String,
@@ -23,6 +27,16 @@ const failedQuizRecordsSchema = new Schema(
       type: Boolean,
       required: true,
     },
+
+      category: {
+        type:String,
+          required: true,
+      },
+
+      level: {
+        type:String,
+          required: true,
+      },
 
     quizChoiceContent: {
       type: [String],
@@ -42,19 +56,21 @@ const failedQuizRecordsSchema = new Schema(
   { collection: 'Records' },
 );
 
-failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
+RecordsSchema.statics.createFailedQuizRecords = async function(data: {
   userKey: string;
   quizTitle: string;
   quizIsAnswer: boolean;
+  category: string;
+  level: string;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 }): Promise<RecordsSchema> {
   return new this(data);
 };
 
-const FailedQuizRecordsModel: Model<RecordsSchema> = model<RecordsSchema>(
+const RecordsModel: Model<RecordsSchema> = model<RecordsSchema>(
   'Records',
-  failedQuizRecordsSchema,
+  RecordsSchema,
 );
 
-export { FailedQuizRecordsModel };
+export { RecordsModel };
