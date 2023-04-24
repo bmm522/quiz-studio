@@ -1,13 +1,17 @@
 export class QuizResponse {
-  private quizTitle: string;
-  private quizChoice: { content: string; isAnswer: boolean }[];
+  private readonly _quizTitle: string;
+  private readonly _quizChoice: { content: string; isAnswer: boolean }[];
 
-  constructor(quizTitle: string, quizChoice: { content: string; isAnswer: boolean }[]) {
-    this.quizTitle = quizTitle;
-    this.quizChoice = quizChoice;
+  private constructor(quizTitle: string, quizChoice: { content: string; isAnswer: boolean }[]) {
+    this._quizTitle = quizTitle;
+    this._quizChoice = quizChoice;
   }
 
-  getQuizTitle(): string {
-    return this.quizTitle;
+  static create(quizTitle: string, quizChoice: { content: string; isAnswer: boolean }[]) {
+    return new QuizResponse(quizTitle, quizChoice);
+  }
+
+  get quizTitle(): string {
+    return this._quizTitle;
   }
 }

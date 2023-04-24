@@ -73,7 +73,7 @@ function handleSubmitQuiz() {
 
 function submitRecordWithFailQuiz(quizRecordArray) {
     console.log(quizRecordArray);
-    fetch(`${nodeHost}/v1/quiz/fail-records`, {
+    fetch(`${nodeHost}/v1/fail-records`, {
         method: "POST",
         headers: {
             authorization: sessionStorage.getItem("authorization"),

@@ -9,6 +9,7 @@ import { Express, Request, Response } from 'express';
 import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
+import { FailedQuizRecordsController } from './controller/failedQuizRecords/FailedQuizRecordsController';
 export class App {
   public app;
 
@@ -25,7 +26,7 @@ export class App {
 
       useExpressServer(this.app, {
         routePrefix: '/api/v1',
-        controllers: [QuizController],
+        controllers: [QuizController, FailedQuizRecordsController],
       });
     } catch (error) {
       console.log(error);

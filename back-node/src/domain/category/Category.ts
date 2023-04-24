@@ -3,10 +3,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Category {
   @PrimaryGeneratedColumn()
-  categoryId: number | undefined;
+  private readonly categoryId: number | undefined;
 
   @Column()
-  categoryName: string;
+  private readonly categoryName: string;
 
   constructor(categoryName: string, categoryId?: number) {
     this.categoryId = categoryId;

@@ -2,8 +2,8 @@ import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
 
 export class QuizListItem {
-  private _category: CategoryEnum;
-  private _level: Level;
+  private readonly _category: CategoryEnum;
+  private readonly _level: Level;
 
   private constructor(category: CategoryEnum, level: Level) {
     this._category = category;

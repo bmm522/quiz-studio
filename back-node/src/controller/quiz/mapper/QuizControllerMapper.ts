@@ -12,6 +12,6 @@ export class QuizControllerMapper {
       throw new UnauthorizedError('유저키가 없음');
     }
 
-    return new QuizRecordItems(req.userKey, dto.quizRecordArray);
+    return QuizRecordItems.create(req.userKey, dto.quizRecordArray);
   }
 }

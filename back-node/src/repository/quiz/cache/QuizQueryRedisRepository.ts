@@ -57,7 +57,7 @@ export class QuizQueryRedisRepository implements QuizQueryCacheRepository {
 
         quizChoices.sort(() => Math.random() - 0.5);
 
-        const quizResponse = new QuizResponse(quizData.quizTitle, quizChoices);
+        const quizResponse = QuizResponse.create(quizData.quizTitle, quizChoices);
         randomQuizResponses.push(quizResponse);
       }
 

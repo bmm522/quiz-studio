@@ -4,8 +4,8 @@ import { FailedQuizRecordsResponse } from '../dto/FailedQuizRecordsResponse';
 
 export class FailedQuizRecordsServiceMapper {
   static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
-    const userKey = dto.getUserKey();
-    const quizRecordArray = dto.getQuizRecordArray();
+    const userKey = dto.userKey;
+    const quizRecordArray = dto.quizRecordArray;
 
     return quizRecordArray.map(quizRecord => {
       const { quizTitle, quizIsAnswer, quizChoiceContent, quizChoiceIsAnswer } = quizRecord;
