@@ -1,6 +1,3 @@
-const loginHost = "http://localhost:8081";
-const frontHost = "http://localhost:3001";
-
 window.onload = async function () {
     console.log(getCookieValue("Authorization").replace("+", " "));
     console.log(getCookieValue("RefreshToken").replace("+", " "));
@@ -18,22 +15,21 @@ async function setToken() {
         getCookieValue("RefreshToken").replace("+", " "),
     );
 }
-
-async function getName() {
-    await fetch(`${loginHost}/api/v1/email`, {
-        method: "GET",
-        headers: {
-            authorization: sessionStorage.getItem("authorization"),
-            refreshToken: sessionStorage.getItem("refreshToken"),
-        },
-    })
-        .then((res) => res.json())
-        .then((res) => {
-            document.getElementById(
-                "email-div",
-            ).innerHTML += `${res.data.email}`;
-        });
-}
+// async function getName() {
+//     await fetch(`${loginHost}/api/v1/email`, {
+//         method: "GET",
+//         headers: {
+//             authorization: sessionStorage.getItem("authorization"),
+//             refreshToken: sessionStorage.getItem("refreshToken"),
+//         },
+//     })
+//         .then((res) => res.json())
+//         .then((res) => {
+//             document.getElementById(
+//                 "email-div",
+//             ).innerHTML += `${res.data.email}`;
+//         });
+// }
 
 const getCookieValue = (key) => {
     let cookieKey = key + "=";

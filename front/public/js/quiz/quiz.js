@@ -1,12 +1,10 @@
-const loginHost = "http://localhost:8081";
-const nodeHost = "http://localhost:3000/api";
-const frontHost = "http://localhost:3001";
-
 const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
+getName();
+
 function getQuizData(level, category) {
-   
+    console.log("실행됨");
     const url = new URL(`${nodeHost}/v1/quiz`);
     url.searchParams.set("level", level);
     url.searchParams.set("category", category);

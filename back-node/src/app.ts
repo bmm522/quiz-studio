@@ -5,7 +5,6 @@ import * as bodyParser from 'body-parser';
 import { createMongoDBConnection } from './config/database';
 import { ErrorHandler } from './error/handler/ErrorHandler';
 import express = require('express');
-import { Express, Request, Response } from 'express';
 import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';

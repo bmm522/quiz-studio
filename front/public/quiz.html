@@ -44,15 +44,15 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>문제풀기</span></a>
+                    <span id="main-page">문제풀기</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>지난 기록 보기</span></a>
+                    <span id="record-page">지난 기록 보기</span></a>
             </li>
 
             <!-- Divider -->
@@ -111,7 +111,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">rlawldls11@gmail.com</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><div id="email-div"></div></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -196,10 +196,14 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/global.js"></script>
+
     <script src="js/quiz/quiz.clickHandler.js"></script>
     <script src="js/quiz/quiz.createElement.js"></script>
     <script src="js/quiz/quiz.js"></script>
+   
     
+    <!-- <script src="js/Main.js"></script> -->
     
 
 </body>

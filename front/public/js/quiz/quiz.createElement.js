@@ -18,10 +18,10 @@ function createQuizElements(quizData) {
 
         const questionTitle = document.createElement("h5");
         questionTitle.className = "card-title";
-        questionTitle.textContent = quiz.quizTitle;
+        questionTitle.textContent = quiz._quizTitle;
         cardBodyDiv.appendChild(questionTitle);
 
-        quiz.quizChoice.forEach((choice, j) => {
+        quiz._quizChoice.forEach((choice, j) => {
             const choiceDiv = document.createElement("div");
             choiceDiv.className = "form-check";
 

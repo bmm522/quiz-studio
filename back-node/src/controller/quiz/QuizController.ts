@@ -14,6 +14,7 @@ export class QuizController {
   async getQuizList(@QueryParams() params: QuizParams, @Res() res: Response) {
     try {
       const result = await this.quizService.getQuizList(params);
+      console.log(result);
       return ResponseDto.builder()
         .withStatus(200)
         .withMessage('퀴즈 목록 불러오기 성공')

@@ -17,7 +17,6 @@ function handleSubmitQuiz() {
                 quizIsAnswer: false,
                 quizChoiceContent: [],
                 quizChoiceIsAnswer: [],
-
             };
             let isCorrect = false;
             for (let j = 0; j < choiceInputs.length; j++) {
