@@ -2,62 +2,65 @@ window.onload = function () {
 getRecords();
 }
 
-
 function getRecords() {
-    const problemList = document.querySelector('#problemList');
-    const url = new URL(`${nodeHost}/v1/records`);
-    const headers = new Headers();
-    headers.append("authorization", sessionStorage.getItem("authorization"));
-    headers.append("refreshToken", sessionStorage.getItem("refreshToken"));
-  
-    fetch(url, { headers })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.data);
-        let html = '';
-  
-        data.data.forEach((problem, index) => {
-          const { _quizTitle, _quizChoiceContent, _quizIsAnswer } = problem;
-          const id = index;
-  
-          html += `
-            <tr data-status="${_quizIsAnswer !== null ? 'resolved' : 'unresolved'}">
-              <td><a href="#" onclick="toggleProblemDescription(${id})">${_quizTitle}</a></td>
-              <td>${problem.createdAt.slice(0, 10)}</td>
-              <td><span class="badge badge-${_quizIsAnswer !== null ? 'success' : 'warning'}">${_quizIsAnswer !== null ? '해결됨' : '해결 중'}</span></td>
-            </tr>
-            <tr class="problem-description" id="problemDescription${id}" style="display:none;">
-              <td colspan="3">
-                <div class="card-body">
-                  <form>
-                    ${_quizChoiceContent.map((choice, index) => `
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="quiz${id}" id="quiz${id}-choice${index}" value="${index === _quizIsAnswer ? 'true' : 'false'}">
-                        <label class="form-check-label" for="quiz${id}-choice${index}">${choice}</label>
-                      </div>
-                    `).join('')}
-                    <button class="btn btn-custom mt-3" onclick="submitAnswer(${id})">제출</button>
-                    <div class="result" id="result${id}" style="display:none;"></div>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          `;
-        });
-  
-        problemList.innerHTML = html;
-      })
-      .catch(error => console.error(error));
-  }
+  const problemList = document.querySelector('#problemList');
+  const url = new URL(`${nodeHost}/v1/records`);
+  const headers = new Headers();
+  headers.append("authorization", sessionStorage.getItem("authorization"));
+  headers.append("refreshToken", sessionStorage.getItem("refreshToken"));
+
+  fetch(url, { headers })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.data);
+      let html = '';
+
+      data.data.forEach((problem, index) => {
+        const { _quizTitle, _category, _level, _quizChoiceContent, _quizIsAnswer, _quizChoiceIsAnswer } = problem;
+        const id = index;
+
+        html += `
+          <tr data-status="${_quizIsAnswer !== false ? 'resolved' : 'unresolved'}">
+            <td><div onclick="toggleProblemDescription(${id})">${_quizTitle}</div></td>
+            <td>${_category}</td>
+            <td>${_level}</td>
+            <td><span class="badge badge-${_quizIsAnswer !== false ? 'success' : 'warning'}">${_quizIsAnswer !== false ? '해결됨' : '해결 못함'}</span></td>
+          </tr>
+          <tr class="problem-description" id="problemDescription${id}" style="display:none;">
+            <td colspan="3">
+              <div class="card-body">
+
+                  ${_quizChoiceContent.map((choice, index) => `
+                    <div class="form-check">
+             
+                      <label class="form-check-label ${_quizChoiceIsAnswer[index] === true ? 'text-success font-weight-bold' : ''}"> ${choice}</label>
+                    </div>
+                  `).join('')}
+                  <div class="result" id="result${id}" style="display:none;"></div>
+
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      problemList.innerHTML = html;
+    })
+    .catch(error => console.error(error));
+}
   
   function submitAnswer(id) {
-    const form = document.querySelector(`#problemDescription${id} form`);
-    const radios = form.elements[`quiz${id}`];
+    const radios = document.querySelectorAll(`#problemDescription${id} input[type="radio"]`);
     let userChoice = null;
   
     for (let i = 0; i < radios.length; i++) {
       if (radios[i].checked) {
-        userChoice = radios[i].value === 'true';
+        userChoice = radios[i].value == true || radios[i].value == 'true';
+        if (userChoice) {
+          radios[i].parentNode.classList.add('text-success');
+        } else {
+          radios[i].parentNode.classList.add('text-danger');
+        }
         break;
       }
     }
