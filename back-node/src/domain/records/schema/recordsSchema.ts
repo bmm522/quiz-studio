@@ -1,5 +1,5 @@
 import { Model, model, Document, Schema } from 'mongoose';
-export interface FailedQuizRecordsSchema extends Document {
+export interface RecordsSchema extends Document {
   userKey: string;
   quizTitle: string;
 
@@ -39,7 +39,7 @@ const failedQuizRecordsSchema = new Schema(
       default: Date.now,
     },
   },
-  { collection: 'failedQuizRecords' },
+  { collection: 'Records' },
 );
 
 failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
@@ -48,12 +48,12 @@ failedQuizRecordsSchema.statics.createFailedQuizRecords = async function(data: {
   quizIsAnswer: boolean;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
-}): Promise<FailedQuizRecordsSchema> {
+}): Promise<RecordsSchema> {
   return new this(data);
 };
 
-const FailedQuizRecordsModel: Model<FailedQuizRecordsSchema> = model<FailedQuizRecordsSchema>(
-  'failedQuizRecords',
+const FailedQuizRecordsModel: Model<RecordsSchema> = model<RecordsSchema>(
+  'Records',
   failedQuizRecordsSchema,
 );
 

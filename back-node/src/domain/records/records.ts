@@ -1,4 +1,4 @@
-export class FailedQuizRecords {
+export class Records {
   userKey: string;
   quizTitle: string;
 

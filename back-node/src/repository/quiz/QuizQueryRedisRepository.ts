@@ -1,11 +1,11 @@
 import { Service } from 'typedi';
 import Redis from 'ioredis';
-import { env } from '../../../config/env';
-import { QuizResponse } from '../../../service/quiz/dto/QuizResponse';
+import { env } from '../../config/env';
+import { QuizResponse } from '../../service/quiz/dto/QuizResponse';
 import { once } from 'events';
-import { QuizQueryCacheRepository } from './QuizQueryCacheRepository';
+import { QuizQueryRepository } from './QuizQueryRepository';
 @Service()
-export class QuizQueryRedisRepository implements QuizQueryCacheRepository {
+export class QuizQueryRedisRepository implements QuizQueryRepository {
   key: string = 'test';
   data: string = 'ggg';
 

@@ -4,14 +4,14 @@ import { QuizListItem } from './dto/QuizListItem';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 import { QuizResponse } from './dto/QuizResponse';
 import { Inject, Service } from 'typedi';
-import { QuizQueryCacheRepository } from '../../repository/quiz/cache/QuizQueryCacheRepository';
-import { QuizQueryRedisRepository } from '../../repository/quiz/cache/QuizQueryRedisRepository';
+import { QuizQueryRepository } from '../../repository/quiz/QuizQueryRepository';
+import { QuizQueryRedisRepository } from '../../repository/quiz/QuizQueryRedisRepository';
 
 @Service()
 export class QuizService {
   constructor(
     @Inject(() => QuizQueryRedisRepository)
-    private readonly quizQueryCacheRepository: QuizQueryCacheRepository,
+    private readonly quizQueryCacheRepository: QuizQueryRepository,
   ) {}
 
   async getQuizList(params: QuizParams): Promise<QuizResponse[]> {

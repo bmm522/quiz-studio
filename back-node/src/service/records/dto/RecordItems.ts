@@ -2,7 +2,7 @@ import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { QuizRecord } from '../../../global/dto/QuizRecord';
 import { QuizListItem } from '../../quiz/dto/QuizListItem';
 
-export class QuizRecordItems {
+export class RecordItems {
   private readonly _userKey: string;
 
   private readonly _quizRecordArray: QuizRecord[];
@@ -13,7 +13,7 @@ export class QuizRecordItems {
   }
 
   static create(userKey: string, quizRecordArray: QuizRecord[]) {
-    return new QuizRecordItems(userKey, quizRecordArray);
+    return new RecordItems(userKey, quizRecordArray);
   }
 
   get userKey(): string {

@@ -1,4 +1,4 @@
-export class FailedQuizRecordsResponse {
+export class RecordsResponse {
   private readonly _quizTitle: string;
   private readonly _quizChoiceContent: string[];
   private readonly _quizChoiceIsAnswer: boolean[];
@@ -14,7 +14,7 @@ export class FailedQuizRecordsResponse {
   }
 
   static create(quizTitle: string, quizChoiceContent: string[], quizChoiceIsAnswer: boolean[]) {
-    return new FailedQuizRecordsResponse(quizTitle, quizChoiceContent, quizChoiceIsAnswer);
+    return new RecordsResponse(quizTitle, quizChoiceContent, quizChoiceIsAnswer);
   }
 
   get quizTitle(): string {

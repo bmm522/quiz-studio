@@ -1,6 +1,6 @@
-import { QuizResponse } from '../../../service/quiz/dto/QuizResponse';
+import { QuizResponse } from '../../service/quiz/dto/QuizResponse';
 
-export interface QuizQueryCacheRepository {
+export interface QuizQueryRepository {
   findByCategoryNameAndDifficulty(
     categoryName: string,
     difficulty: string,

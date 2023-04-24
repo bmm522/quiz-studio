@@ -1,5 +1,5 @@
 import { QuizRecordRequest } from '../dto/QuizRecordRequest';
-import { QuizRecordItems } from '../../../service/failedQuizRecords/dto/QuizRecordItems';
+import { RecordItems } from '../../../service/records/dto/RecordItems';
 import { UserKeyRequest } from '../../../jwt/dto/UserKeyRequest';
 import { UnauthorizedError } from '../../../error/UnauthorizedError';
 
@@ -7,11 +7,11 @@ export class QuizControllerMapper {
   static async toQuizRecordItems(
     dto: QuizRecordRequest,
     req: UserKeyRequest,
-  ): Promise<QuizRecordItems> {
+  ): Promise<RecordItems> {
     if (!req.userKey) {
       throw new UnauthorizedError('유저키가 없음');
     }
 
-    return QuizRecordItems.create(req.userKey, dto.quizRecordArray);
+    return RecordItems.create(req.userKey, dto.quizRecordArray);
   }
 }
