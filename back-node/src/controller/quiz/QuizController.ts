@@ -18,7 +18,7 @@ import { UserKeyRequest } from '../../jwt/dto/UserKeyRequest';
 import { QuizRecordItems } from '../../service/failedQuizRecords/dto/QuizRecordItems';
 import { QuizControllerMapper } from './mapper/QuizControllerMapper';
 import { FailedQuizRecordsService } from '../../service/failedQuizRecords/FailedQuizRecordsService';
-import {UnauthorizedError} from "../../error/UnauthorizedError";
+import { UnauthorizedError } from '../../error/UnauthorizedError';
 
 @JsonController('/quiz')
 @Service()
@@ -61,13 +61,13 @@ export class QuizController {
   async getFailRecords(@Req() req: UserKeyRequest) {
     try {
       console.log('요청들어옴');
-      if(req.userKey) {
+      if (req.userKey) {
         const result = await this.quizMongoDbService.getFailRecords(req.userKey);
         return ResponseDto.builder()
-            .withStatus(200)
-            .withMessage('문제풀기 실패 기록 불러오기 성공')
-            .withData(result)
-            .build();
+          .withStatus(200)
+          .withMessage('문제풀기 실패 기록 불러오기 성공')
+          .withData(result)
+          .build();
       }
     } catch (error) {
       throw error;

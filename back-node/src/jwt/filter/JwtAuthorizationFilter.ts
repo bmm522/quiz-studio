@@ -1,8 +1,7 @@
-import {UserKeyRequest} from "../dto/UserKeyRequest";
-import {NextFunction, Response, Request} from "express";
-import {JwtMapper} from "../mapper/JwtMapper";
-import {UnauthorizedError} from "../../error/UnauthorizedError";
-
+import { UserKeyRequest } from '../dto/UserKeyRequest';
+import { NextFunction, Response, Request } from 'express';
+import { JwtMapper } from '../mapper/JwtMapper';
+import { UnauthorizedError } from '../../error/UnauthorizedError';
 
 export const JwtAuthorizationFilter = async (
   req: UserKeyRequest,

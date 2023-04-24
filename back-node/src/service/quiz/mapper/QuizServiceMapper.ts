@@ -7,32 +7,16 @@ import { FailedQuizRecords } from '../../../domain/failedQuizRecords/FailedQuizR
 
 export class QuizServiceMapper {
   static toQuizListRequest(params: QuizParams): QuizListItem {
-    return new QuizListItem(params.category, params.level);
+    return QuizListItem.create(params.category, params.level);
   }
 
-  static async toQuizResponse(data: Quiz[]): Promise<QuizResponse[]> {
-    const result: QuizResponse[] = data.map(quiz => {
-      const choices = quiz.quizChoices.map(choice => {
-        return { content: choice.choiceContent, isAnswer: choice.isAnswer };
-      });
-      return new QuizResponse(quiz.quizTitle, choices);
-    });
-    return result;
-  }
-
-  static async toFailedQuizRecords(dto: QuizRecordItems): Promise<FailedQuizRecords[]> {
-    const userKey = dto.getUserKey();
-    const quizRecordArray = dto.getQuizRecordArray();
-
-    return quizRecordArray.map(quizRecord => {
-      const { quizTitle, quizIsAnswer, quizChoiceContent, quizChoiceIsAnswer } = quizRecord;
-      return new FailedQuizRecords(
-        userKey,
-        quizTitle,
-        quizIsAnswer,
-        quizChoiceContent,
-        quizChoiceIsAnswer,
-      );
-    });
-  }
+  // static async toQuizResponse(data: Quiz[]): Promise<QuizResponse[]> {
+  //   const result: QuizResponse[] = data.map(quiz => {
+  //     const choices = quiz.quizChoices.map(choice => {
+  //       return { content: choice.choiceContent, isAnswer: choice.isAnswer };
+  //     });
+  //     return new QuizResponse(quiz.quizTitle, choices);
+  //   });
+  //   return result;
+  // }
 }

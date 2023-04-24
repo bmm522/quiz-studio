@@ -2,19 +2,23 @@ import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
 
 export class QuizListItem {
-  private category: CategoryEnum;
-  private level: Level;
+  private _category: CategoryEnum;
+  private _level: Level;
 
-  constructor(category: CategoryEnum, level: Level) {
-    this.category = category;
-    this.level = level;
+  private constructor(category: CategoryEnum, level: Level) {
+    this._category = category;
+    this._level = level;
   }
 
-  getCategory(): CategoryEnum {
-    return this.category;
+  static create(category: CategoryEnum, level: Level) {
+    return new QuizListItem(category, level);
   }
 
-  getLevel(): Level {
-    return this.level;
+  get category(): CategoryEnum {
+    return this._category;
+  }
+
+  get level(): Level {
+    return this._level;
   }
 }
