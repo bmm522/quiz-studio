@@ -22,6 +22,17 @@
 
 </head>
 <style>
+    #retryBtn {
+  background-color: #ff2200;
+  color: #ffffff;
+  border-color: #ff2c07;
+}
+
+#retryBtn:hover {
+  background-color: #e7a0a0;
+  border-color: #000000;
+  color: #000000;
+}
     .problem-description {
       display: none;
     }
@@ -37,6 +48,19 @@
   .btn-custom:hover {
     background-color: #e67e22;
   }
+  #deleteRecordModal .modal-body {
+  padding-bottom: 0;
+}
+
+#deleteRecordModal .form-check-label {
+  font-size: 14px;
+}
+
+#deleteRecordModal .modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
   </style>
 <body id="page-top">
@@ -92,11 +116,38 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-         
+                    <button class="btn btn-primary btn-sm mr-2" id="retryBtn" data-toggle="modal" data-target="#deleteRecordModal">기록 삭제</button>
+
+                    <!-- Delete Record Modal -->
+                    <div class="modal fade" id="deleteRecordModal" tabindex="-1" role="dialog" aria-labelledby="deleteRecordModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-body text-center">
+                              <p class="mb-4">어떤 문제를 삭제하시겠습니까?</p>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="deleteOption" id="deleteOptionAll" value="all" checked>
+                                <label class="form-check-label" for="deleteOptionAll">
+                                  전체 문제 삭제
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="deleteOption" id="deleteOptionUnresolved" value="unresolved">
+                                <label class="form-check-label" for="deleteOptionUnresolved">
+                                  해결되지 않은 문제만 삭제
+                                </label>
+                              </div>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                              <button type="button" class="btn btn-danger ml-2" id="confirmDeleteBtn">삭제</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                      
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -122,14 +173,15 @@
                         </li>
 
                        
-                    
+                     
 
                     
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
+                        <div class="topbar-divider d-none d-sm-block">    </div>
+                    
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
+                         
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><div id="email-div"></div></span>
@@ -205,7 +257,9 @@
 
             </div>
         </div>
-
+        <div class="modal fade" id="deleteRecordModal" tabindex="-1" role="dialog" aria-labelledby="deleteRecordModalLabel"
+        aria-hidden="true">
+        
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>

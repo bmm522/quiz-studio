@@ -3,6 +3,8 @@ getRecords();
 getName();
 }
 
+
+
 function getRecords() {
   const problemList = document.querySelector('#problemList');
   const url = new URL(`${nodeHost}/v1/records`);
@@ -13,7 +15,6 @@ function getRecords() {
   fetch(url, { headers })
       .then(response => response.json())
       .then(data => {
-          console.log(data.data);
           let html = '';
 
           data.data.forEach((problem, index) => {
@@ -82,7 +83,6 @@ function submitAnswer(id) {
 
 function toggleProblemDescription(index) {
     const descriptionRow = document.getElementById(`problemDescription${index}`);
-    console.log(descriptionRow.style.display);
     
     if (descriptionRow.style.display === 'none') {
       descriptionRow.style.display = 'table-row';
@@ -126,10 +126,22 @@ function toggleProblemDescription(index) {
     }
   }
 
-
-
-
-
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
+    const deleteOption = document.querySelector('input[name="deleteOption"]:checked').value;
+    const url = new URL(`${nodeHost}/v1/records`);
+    url.searchParams.set("deleteOption", deleteOption);
+    const headers = new Headers();
+    headers.append("authorization", sessionStorage.getItem("authorization"));
+    headers.append("refreshToken", sessionStorage.getItem("refreshToken"));
+    
+    fetch(url, {
+      method: "DELETE",
+      headers: headers
+    }).then(() => {
+      alert('삭제되었습니다.');
+      window.location.reload();
+    });
+  });
 // const status = row.getAttribute('data-status');
 // if (showUnresolved && status === 'unresolved') {
 // row.style.display = 'table-row';
