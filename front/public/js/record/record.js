@@ -19,7 +19,6 @@ function getRecords() {
           data.data.forEach((problem, index) => {
               const { _quizTitle, _category, _level, _quizChoiceContent, _quizIsAnswer, _quizChoiceIsAnswer } = problem;
               const id = index;
-
               html += `
                   <tr class= "title-tr" data-status="${_quizIsAnswer !== false ? 'resolved' : 'unresolved'}">
                       <td><div onclick="toggleProblemDescription(${id})">${_quizTitle}</div></td>
@@ -30,16 +29,14 @@ function getRecords() {
                   <tr class="problem-description" id="problemDescription${id}" style="display:none;">
                       <td colspan="3">
                           <div class="card-body">
-                              ${_quizChoiceContent.map((choice, index) => `
-                                  <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="problem${id}" id="problem${id}${index}" value="${_quizChoiceIsAnswer[index]}">
-                                      <label class="form-check-label" for="problem${id}${index}">
-                                          ${choice}
-                                      </label>
-                                  </div>
-                              `).join('')}
-                              <button class="btn btn-custom mt-3" onclick="submitAnswer(${id})">제출</button>
-                              <div class="result" id="result${id}" style="display:none;"></div>
+                          ${_quizChoiceContent.map((choice, index) => `
+                          <div class="form-check">
+                            <label class="form-check-label ${_quizChoiceIsAnswer[index] === true ? 'text-success' : ''}" for="problem${id}${index}">
+                              ${choice}
+                            </label>
+                          </div>
+                        `).join('')}
+                      
                           </div>
                       </td>
                   </tr>
@@ -50,7 +47,35 @@ function getRecords() {
       })
       .catch(error => console.error(error));
 }
-  
+
+function submitAnswer(id) {
+  const radios = document.querySelectorAll(`#problemDescription${id} input[type="radio"]`);
+  let userChoice = null;
+
+  for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      userChoice = radios[i].value == true || radios[i].value == 'true';
+      if (userChoice) {
+        radios[i].parentNode.classList.add('text-success');
+        radios[i].parentNode.classList.remove('text-danger');
+      } else {
+        radios[i].parentNode.classList.add('text-danger');
+        radios[i].parentNode.classList.remove('text-success');
+      }
+      break;
+    }
+  }
+
+  if (userChoice === null) {
+    return;
+  }
+
+  const resultElement = document.querySelector(`#result${id}`);
+  const resultMessage = userChoice ? '정답입니다!' : '오답입니다.';
+
+  resultElement.innerHTML = resultMessage;
+  resultElement.style.display = 'block';
+}
 // function filterProblems() {
  
 // }
