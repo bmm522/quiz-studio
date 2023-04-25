@@ -1,17 +1,26 @@
-import { RecordItems } from '../dto/RecordItems';
+import { ServiceSaveRecordRequest } from '../dto/ServiceSaveRecordRequest';
 
-import { RecordsResponse } from '../dto/RecordsResponse';
-import {Records} from "../../../domain/records/records";
-import {CategoryEnum} from "../../../global/enum/CategoryEnum";
-import {Level} from "../../../global/enum/Level";
+import { ServiceRecordsResponse } from '../dto/ServiceRecordsResponse';
+import { Records } from '../../../domain/records/records';
+import { CategoryEnum } from '../../../global/enum/CategoryEnum';
+import { Level } from '../../../global/enum/Level';
+import { ServiceDeleteRecordRequest } from '../dto/ServiceDeleteRecordRequest';
+import { RepositoryDeleteRecordRequest } from '../../../domain/records/repository/dto/RepositoryDeleteRecordRequest';
 
 export class RecordsServiceMapper {
-  static async toFailedQuizRecords(dto: RecordItems): Promise<Records[]> {
+  static async toEntities(dto: ServiceSaveRecordRequest): Promise<Records[]> {
     const userKey = dto.userKey;
     const quizRecordArray = dto.quizRecordArray;
 
     return quizRecordArray.map(quizRecord => {
-      const { quizTitle, quizIsAnswer, category,level,quizChoiceContent, quizChoiceIsAnswer } = quizRecord;
+      const {
+        quizTitle,
+        quizIsAnswer,
+        category,
+        level,
+        quizChoiceContent,
+        quizChoiceIsAnswer,
+      } = quizRecord;
       return new Records(
         userKey,
         quizTitle,
@@ -24,7 +33,7 @@ export class RecordsServiceMapper {
     });
   }
 
-  static async toResponse(savedData: Records[]): Promise<RecordsResponse[]> {
+  static async toResponse(savedData: Records[]): Promise<ServiceRecordsResponse[]> {
     let level;
     let category;
     return savedData.map(record => {
@@ -46,7 +55,7 @@ export class RecordsServiceMapper {
         default:
           category = '';
       }
-      return RecordsResponse.create(
+      return ServiceRecordsResponse.create(
         record.quizTitle,
         record.quizIsAnswer,
         category,
@@ -55,5 +64,9 @@ export class RecordsServiceMapper {
         record.quizChoiceIsAnswer,
       );
     });
+  }
+
+  static toDeleteRequest(dto: ServiceDeleteRecordRequest) {
+    return RepositoryDeleteRecordRequest.create(dto.userKey, dto.deleteOption);
   }
 }

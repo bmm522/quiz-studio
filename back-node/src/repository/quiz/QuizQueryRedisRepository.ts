@@ -1,9 +1,10 @@
 import { Service } from 'typedi';
 import Redis from 'ioredis';
 import { env } from '../../config/env';
-import { QuizResponse } from '../../service/quiz/dto/QuizResponse';
+import { ServiceGetQuizResponse } from '../../service/quiz/dto/ServiceGetQuizResponse';
 import { once } from 'events';
 import { QuizQueryRepository } from './QuizQueryRepository';
+import {NotFoundEntityError} from "../../error/NotFoundEntityError";
 @Service()
 export class QuizQueryRedisRepository implements QuizQueryRepository {
   key: string = 'test';
@@ -12,14 +13,14 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
   async findByCategoryNameAndDifficulty(
     categoryName: string,
     difficulty: string,
-  ): Promise<QuizResponse[]> {
+  ): Promise<ServiceGetQuizResponse[]> {
     const redisClient = new Redis({
       host: env.redis.host as string,
       port: parseInt(env.redis.port as string),
     });
 
     const redisKeyPattern = `quiz:${categoryName}_${difficulty}*`;
-    const randomQuizResponses: QuizResponse[] = [];
+    const randomQuizResponses: ServiceGetQuizResponse[] = [];
 
     try {
       const stream = redisClient.scanStream({
@@ -57,10 +58,13 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
 
         quizChoices.sort(() => Math.random() - 0.5);
 
-        const quizResponse = QuizResponse.create(quizData.quizTitle, quizChoices);
+        const quizResponse = ServiceGetQuizResponse.create(quizData.quizTitle, quizChoices);
         randomQuizResponses.push(quizResponse);
       }
 
+      if (randomQuizResponses.length === 0) {
+        throw new NotFoundEntityError('해당 퀴즈 랜덤 리스트를 찾을 수 없습니다.');
+      }
       return randomQuizResponses;
     } catch (err) {
       console.error(err);

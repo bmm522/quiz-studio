@@ -1,4 +1,4 @@
-export class QuizResponse {
+export class ServiceGetQuizResponse {
   private readonly _quizTitle: string;
   private readonly _quizChoice: { content: string; isAnswer: boolean }[];
 
@@ -8,7 +8,7 @@ export class QuizResponse {
   }
 
   static create(quizTitle: string, quizChoice: { content: string; isAnswer: boolean }[]) {
-    return new QuizResponse(quizTitle, quizChoice);
+    return new ServiceGetQuizResponse(quizTitle, quizChoice);
   }
 
   get quizTitle(): string {

@@ -1,8 +1,8 @@
-import { QuizResponse } from '../../service/quiz/dto/QuizResponse';
+import { ServiceGetQuizResponse } from '../../service/quiz/dto/ServiceGetQuizResponse';
 
 export interface QuizQueryRepository {
   findByCategoryNameAndDifficulty(
     categoryName: string,
     difficulty: string,
-  ): Promise<QuizResponse[]>;
+  ): Promise<ServiceGetQuizResponse[]>;
 }

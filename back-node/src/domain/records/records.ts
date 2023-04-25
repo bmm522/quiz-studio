@@ -1,6 +1,6 @@
-import {CategoryEnum} from "../../global/enum/CategoryEnum";
-import {Level} from "../../global/enum/Level";
-import {Category} from "../category/Category";
+import { CategoryEnum } from '../../global/enum/CategoryEnum';
+import { Level } from '../../global/enum/Level';
+import { Category } from '../category/Category';
 
 export class Records {
   userKey: string;
@@ -8,9 +8,9 @@ export class Records {
 
   quizIsAnswer: boolean;
 
-  category:CategoryEnum;
+  category: CategoryEnum;
 
-  level:Level;
+  level: Level;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 
@@ -27,19 +27,18 @@ export class Records {
     this.userKey = userKey;
     this.quizTitle = quizTitle;
     this.quizIsAnswer = quizIsAnswer;
-    this.category= category;
+    this.category = category;
     this.level = level;
     this.quizChoiceContent = quizChoiceContent;
     this.quizChoiceIsAnswer = quizChoiceIsAnswer;
   }
 
-
   toSchema(): {
     userKey: string;
     quizTitle: string;
     quizIsAnswer: boolean;
-    category:string;
-    level:string;
+    category: string;
+    level: string;
     quizChoiceContent: string[];
     quizChoiceIsAnswer: boolean[];
   } {

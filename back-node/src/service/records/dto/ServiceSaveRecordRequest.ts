@@ -1,8 +1,6 @@
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { QuizRecord } from '../../../global/dto/QuizRecord';
-import { QuizListItem } from '../../quiz/dto/QuizListItem';
 
-export class RecordItems {
+export class ServiceSaveRecordRequest {
   private readonly _userKey: string;
 
   private readonly _quizRecordArray: QuizRecord[];
@@ -13,7 +11,7 @@ export class RecordItems {
   }
 
   static create(userKey: string, quizRecordArray: QuizRecord[]) {
-    return new RecordItems(userKey, quizRecordArray);
+    return new ServiceSaveRecordRequest(userKey, quizRecordArray);
   }
 
   get userKey(): string {

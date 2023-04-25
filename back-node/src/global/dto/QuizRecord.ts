@@ -2,7 +2,6 @@ export class QuizRecord {
   constructor(
     public quizTitle: string,
 
-
     public quizIsAnswer: boolean,
 
     public category: string,

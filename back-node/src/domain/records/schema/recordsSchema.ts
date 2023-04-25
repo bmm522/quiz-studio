@@ -28,15 +28,15 @@ const RecordsSchema = new Schema(
       required: true,
     },
 
-      category: {
-        type:String,
-          required: true,
-      },
+    category: {
+      type: String,
+      required: true,
+    },
 
-      level: {
-        type:String,
-          required: true,
-      },
+    level: {
+      type: String,
+      required: true,
+    },
 
     quizChoiceContent: {
       type: [String],
@@ -68,9 +68,6 @@ RecordsSchema.statics.createFailedQuizRecords = async function(data: {
   return new this(data);
 };
 
-const RecordsModel: Model<RecordsSchema> = model<RecordsSchema>(
-  'Records',
-  RecordsSchema,
-);
+const RecordsModel: Model<RecordsSchema> = model<RecordsSchema>('Records', RecordsSchema);
 
 export { RecordsModel };

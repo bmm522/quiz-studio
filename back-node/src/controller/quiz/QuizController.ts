@@ -1,6 +1,6 @@
 import { QueryParams, Get, HttpCode, JsonController, Res } from 'routing-controllers';
 import { Service } from 'typedi';
-import { QuizParams } from './dto/QuizParams';
+import { ControllerGetQuizRequest } from './dto/ControllerGetQuizRequest';
 import { QuizService } from '../../service/quiz/QuizService';
 import { ResponseDto } from '../common/dto/ResponseDto';
 
@@ -11,10 +11,9 @@ export class QuizController {
 
   @HttpCode(200)
   @Get('')
-  async getQuizList(@QueryParams() params: QuizParams, @Res() res: Response) {
+  async getQuizList(@QueryParams() params: ControllerGetQuizRequest, @Res() res: Response) {
     try {
       const result = await this.quizService.getQuizList(params);
-      console.log(result);
       return ResponseDto.builder()
         .withStatus(200)
         .withMessage('퀴즈 목록 불러오기 성공')

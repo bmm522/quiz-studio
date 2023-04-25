@@ -1,4 +1,4 @@
-export class RecordsResponse {
+export class ServiceRecordsResponse {
   private readonly _quizTitle: string;
   private readonly _quizIsAnswer: boolean;
 
@@ -24,13 +24,21 @@ export class RecordsResponse {
     this._quizChoiceIsAnswer = quizChoiceIsAnswer;
   }
 
-  static create( quizTitle: string,
-                 quizIsAnswer: boolean,
-                 category: string,
-                 level: string,
-                 quizChoiceContent: string[],
-                 quizChoiceIsAnswer: boolean[]) {
-    return new RecordsResponse(quizTitle, quizIsAnswer, category,level,quizChoiceContent, quizChoiceIsAnswer);
+  static create(
+    quizTitle: string,
+    quizIsAnswer: boolean,
+    category: string,
+    level: string,
+    quizChoiceContent: string[],
+    quizChoiceIsAnswer: boolean[],
+  ) {
+    return new ServiceRecordsResponse(
+      quizTitle,
+      quizIsAnswer,
+      category,
+      level,
+      quizChoiceContent,
+      quizChoiceIsAnswer,
+    );
   }
-
 }

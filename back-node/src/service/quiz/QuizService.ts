@@ -1,8 +1,8 @@
-import { QuizParams } from '../../controller/quiz/dto/QuizParams';
+import { ControllerGetQuizRequest } from '../../controller/quiz/dto/ControllerGetQuizRequest';
 import { QuizServiceMapper } from './mapper/QuizServiceMapper';
-import { QuizListItem } from './dto/QuizListItem';
+import { ServiceGetQuizRequest } from './dto/ServiceGetQuizRequest';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
-import { QuizResponse } from './dto/QuizResponse';
+import { ServiceGetQuizResponse } from './dto/ServiceGetQuizResponse';
 import { Inject, Service } from 'typedi';
 import { QuizQueryRepository } from '../../repository/quiz/QuizQueryRepository';
 import { QuizQueryRedisRepository } from '../../repository/quiz/QuizQueryRedisRepository';
@@ -11,28 +11,15 @@ import { QuizQueryRedisRepository } from '../../repository/quiz/QuizQueryRedisRe
 export class QuizService {
   constructor(
     @Inject(() => QuizQueryRedisRepository)
-    private readonly quizQueryCacheRepository: QuizQueryRepository,
+    private readonly quizQueryRepository: QuizQueryRepository,
   ) {}
 
-  async getQuizList(params: QuizParams): Promise<QuizResponse[]> {
-    const item = await this.toQuizListRequest(params);
-    return await this.getQuizRandomList(item);
-  }
-
-  private async getQuizRandomList(item: QuizListItem): Promise<QuizResponse[]> {
-    const quizList = await this.quizQueryCacheRepository.findByCategoryNameAndDifficulty(
-      item.category as string,
-      item.level as string,
+  async getQuizList(dto: ControllerGetQuizRequest): Promise<ServiceGetQuizResponse[]> {
+    const item = await QuizServiceMapper.toGetRequest(dto);
+    return await this.quizQueryRepository.findByCategoryNameAndDifficulty(
+        item.category as string,
+        item.level as string,
     );
-
-    if (quizList.length === 0) {
-      throw new NotFoundEntityError('해당 퀴즈 랜덤 리스트를 찾을 수 없습니다.');
-    }
-
-    return quizList;
   }
 
-  private async toQuizListRequest(params: QuizParams): Promise<QuizListItem> {
-    return QuizServiceMapper.toQuizListRequest(params);
-  }
 }

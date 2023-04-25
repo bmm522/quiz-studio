@@ -3,7 +3,7 @@ import { QueryParam, QueryParams } from 'routing-controllers';
 import { Level } from '../../../global/enum/Level';
 import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 
-export class QuizParams {
+export class ControllerGetQuizRequest {
   @IsEnum(CategoryEnum)
   category: CategoryEnum;
 

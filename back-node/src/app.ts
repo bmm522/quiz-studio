@@ -8,7 +8,7 @@ import express = require('express');
 import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
-import {RecordsController} from "./controller/records/RecordsController";
+import { RecordsController } from './controller/records/RecordsController';
 
 export class App {
   public app;

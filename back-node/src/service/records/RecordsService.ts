@@ -1,38 +1,38 @@
 import { Inject, Service } from 'typedi';
-import { RecordItems } from './dto/RecordItems';
+import { ServiceSaveRecordRequest } from './dto/ServiceSaveRecordRequest';
 import { RecordsQueryMongoDbRepository } from '../../repository/records/RecordsQueryMongoDbRepository';
 import { RecordsServiceMapper } from './mapper/RecordsServiceMapper';
-import {Records} from "../../domain/records/records";
-import {RecordsMongoDbRepository} from "../../domain/records/repository/RecordsMongoDbRepository";
-import {RecordsQueryRepository} from "../../repository/records/RecordsQueryRepository";
-import {RecordsRepository} from "../../domain/records/repository/RecordsRepository";
+import { RecordsMongoDbRepository } from '../../domain/records/repository/RecordsMongoDbRepository';
+import { RecordsQueryRepository } from '../../repository/records/RecordsQueryRepository';
+import { RecordsRepository } from '../../domain/records/repository/RecordsRepository';
+import { ServiceDeleteRecordRequest } from './dto/ServiceDeleteRecordRequest';
+import {ServiceRecordsResponse} from "./dto/ServiceRecordsResponse";
 
 @Service()
 export class RecordsService {
   constructor(
-      @Inject(() => RecordsMongoDbRepository)
+    @Inject(() => RecordsMongoDbRepository)
     private recordsRepository: RecordsRepository,
     @Inject(() => RecordsQueryMongoDbRepository)
     private recordsQueryRepository: RecordsQueryRepository,
   ) {}
 
   // 기록 저장
-  async saveRecords(dto: RecordItems) {
-    const failedQuizRecords = await this.toFailedQuizRecords(dto);
-    await this.save(failedQuizRecords);
+  async saveRecords(dto: ServiceSaveRecordRequest) : Promise<void> {
+    const item = await RecordsServiceMapper.toEntities(dto);
+    await this.recordsRepository.save(item);
   }
 
   // 기록 불러오기
-  async getRecords(userKey: string) {
+  async getRecords(userKey: string): Promise<ServiceRecordsResponse[]> {
     const savedData = await this.recordsQueryRepository.findByUserKey(userKey);
     return RecordsServiceMapper.toResponse(savedData);
   }
 
-  private async toFailedQuizRecords(dto: RecordItems): Promise<Records[]> {
-    return RecordsServiceMapper.toFailedQuizRecords(dto);
+  // 기록 삭제
+  async deleteRecords(dto: ServiceDeleteRecordRequest) : Promise<void> {
+    const item = await RecordsServiceMapper.toDeleteRequest(dto);
+    await this.recordsRepository.deleteByOptional(item);
   }
 
-  private async save(dataArray: Records[]): Promise<void> {
-    await this.recordsRepository.save(dataArray);
-  }
 }

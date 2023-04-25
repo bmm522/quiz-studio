@@ -1,11 +1,21 @@
-import { Body, Get, HttpCode, JsonController, Post, Req } from 'routing-controllers';
+import {
+  Body,
+  Delete,
+  Get,
+  HttpCode,
+  JsonController,
+  Post,
+  QueryParams,
+  Req,
+} from 'routing-controllers';
 import { Service } from 'typedi';
-import { QuizRecordRequest } from '../quiz/dto/QuizRecordRequest';
+import { ControllerSaveRecordRequest } from './dto/ControllerSaveRecordRequest';
 import { UserKeyRequest } from '../../jwt/dto/UserKeyRequest';
 import { ResponseDto } from '../common/dto/ResponseDto';
 import { RecordsService } from '../../service/records/RecordsService';
-import { RecordItems } from '../../service/records/dto/RecordItems';
-import { QuizControllerMapper } from '../quiz/mapper/QuizControllerMapper';
+import { ServiceSaveRecordRequest } from '../../service/records/dto/ServiceSaveRecordRequest';
+import { RecordsControllerMapper } from './mapper/RecordsControllerMapper';
+import { ControllerDeleteRecordRequest } from './dto/ControllerDeleteRecordRequest';
 
 @JsonController('/records')
 @Service()
@@ -14,7 +24,7 @@ export class RecordsController {
 
   @HttpCode(201)
   @Post('')
-  async saveRecords(@Body() dto: QuizRecordRequest, @Req() req: UserKeyRequest) {
+  async saveRecords(@Body() dto: ControllerSaveRecordRequest, @Req() req: UserKeyRequest) {
     try {
       const items = await this.toRecordItems(dto, req);
       const result = await this.recordsService.saveRecords(items);
@@ -43,10 +53,25 @@ export class RecordsController {
     }
   }
 
-  private async toRecordItems(
-    dto: QuizRecordRequest,
-    req: UserKeyRequest,
-  ): Promise<RecordItems> {
-    return QuizControllerMapper.toQuizRecordItems(dto, req);
+  @HttpCode(200)
+  @Delete('')
+  async deleteRecords(@QueryParams() params: ControllerDeleteRecordRequest, @Req() req: UserKeyRequest) {
+    try {
+      const items = await this.toDeleteRecordItems(params, req);
+      const result = await this.recordsService.deleteRecords(items);
+      return ResponseDto.builder()
+        .withStatus(201)
+        .withMessage('문제풀기 기록 삭제 성공');
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private async toRecordItems(dto: ControllerSaveRecordRequest, req: UserKeyRequest): Promise<ServiceSaveRecordRequest> {
+    return RecordsControllerMapper.toSaveRecordItems(dto, req);
+  }
+
+  private async toDeleteRecordItems(params: ControllerDeleteRecordRequest, req: UserKeyRequest) {
+    return RecordsControllerMapper.toDeleteRecordItems(params, req);
   }
 }
