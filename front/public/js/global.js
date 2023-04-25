@@ -23,5 +23,6 @@ document.getElementById("record-page").addEventListener("click", function () {
 });
 
 document.getElementById("main-page").addEventListener("click", function () {
+    console.log('click');
     location.href = `${frontHost}/main`;
 });
