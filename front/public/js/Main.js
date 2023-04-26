@@ -54,6 +54,11 @@ document.getElementById("java-easy").addEventListener("click", function () {
     localStorage.setItem("category", "java");
     location.href = `${frontHost}/quiz`;
 });
+document.getElementById("data-structure-easy").addEventListener("click", function () {
+    localStorage.setItem("level", "easy");
+    localStorage.setItem("category", "datastructure");
+    location.href = `${frontHost}/quiz`;
+});
 
 function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";

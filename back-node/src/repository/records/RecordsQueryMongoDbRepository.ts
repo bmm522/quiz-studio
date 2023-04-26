@@ -8,18 +8,18 @@ import { Level } from '../../global/enum/Level';
 @Service()
 export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
   async findByUserKey(userKey: string): Promise<Records[]> {
-    const records = await RecordsModel.find({ userKey }).exec();
+    const records = await RecordsModel.find({ userKey }).sort({ createdAt: -1 }).exec();
     return records.map(
-      record =>
-        new Records(
-          record.userKey,
-          record.quizTitle,
-          record.quizIsAnswer,
-          record.category as CategoryEnum,
-          record.level as Level,
-          record.quizChoiceContent,
-          record.quizChoiceIsAnswer,
-        ),
+        record =>
+            new Records(
+                record.userKey,
+                record.quizTitle,
+                record.quizIsAnswer,
+                record.category as CategoryEnum,
+                record.level as Level,
+                record.quizChoiceContent,
+                record.quizChoiceIsAnswer,
+            ),
     );
   }
 }

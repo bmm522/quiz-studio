@@ -16,6 +16,7 @@ import { RecordsService } from '../../service/records/RecordsService';
 import { ServiceSaveRecordRequest } from '../../service/records/dto/ServiceSaveRecordRequest';
 import { RecordsControllerMapper } from './mapper/RecordsControllerMapper';
 import { ControllerDeleteRecordRequest } from './dto/ControllerDeleteRecordRequest';
+import {ControllerGetRecordRequest} from "./dto/ControllerGetRecordRequest";
 
 @JsonController('/records')
 @Service()
@@ -38,8 +39,12 @@ export class RecordsController {
 
   @HttpCode(200)
   @Get('')
-  async getRecords(@Req() req: UserKeyRequest) {
+  async getRecords(@QueryParams() params: ControllerGetRecordRequest, @Req() req: UserKeyRequest) {
     try {
+      console.log(params.page);
+      console.log(params.unresolved);
+      console.log(params.category);
+      console.log(params.level);
       if (req.userKey) {
         const result = await this.recordsService.getRecords(req.userKey);
         return ResponseDto.builder()

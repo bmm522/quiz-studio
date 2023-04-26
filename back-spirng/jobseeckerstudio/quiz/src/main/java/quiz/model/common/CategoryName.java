@@ -2,7 +2,8 @@ package quiz.model.common;
 
 public enum CategoryName {
 
-    java("java");
+    java("java"),
+    datastructure("datastructure");
 
     private final String category;
 

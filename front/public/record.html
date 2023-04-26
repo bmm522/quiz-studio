@@ -211,7 +211,7 @@
                               
                               <div class="form-check form-check-inline">
                                 <div>
-                                  <input class="form-check-input" type="checkbox" id="chkUnresolved" onchange="filterProblems()">
+                                  <input class="form-check-input" type="checkbox" id="checkUnresolved" onchange="checkSolved()">
                                 
                                   <label class="form-check-label" for="chkUnresolved">미해결 문제만 보기</label>   
                                 </div>
@@ -224,19 +224,20 @@
                             </th>
                             <th>
                             
-                              <select class="form-control" id="categorySelect" onchange="filterProblems()" style="width: 130px;">
-                                <option value="">전체</option>
-                                <option value="자바">자바</option>
+                              <select class="form-control" id="categorySelect" style="width: 130px;" onchange="checkSolved()">
+                                <option value="all">전체</option>
+                                <option value="java">자바</option>
+                                <option value="datastructure">자료구조</option>
                                 <!-- 다른 카테고리 옵션 추가 -->
                               </select>
                           
                             </th>
                             <th>
                             
-                              <select class="form-control" id="levelSelect" onchange="filterProblems()" style="width: 100px;">
-                                <option value="">전체</option>
-                                <option value="쉬움">쉬움</option>
-                                <option value="어려움">어려움</option>
+                              <select class="form-control" id="levelSelect" style="width: 100px;" onchange="checkSolved()">
+                                <option value="all">전체</option>
+                                <option value="easy">쉬움</option>
+                                <option value="hard">어려움</option>
                                 <!-- 다른 카테고리 옵션 추가 -->
                               </select>
                           
@@ -247,7 +248,10 @@
                         <tbody id="problemList">
                         
                         </tbody>
-                      </table>
+                        
+                      </table><div id="pagination" class="d-flex justify-content-center mt-3">
+                        asfdasfdasdfasdfasdfasdf</div>
+                      
                     
 
                         </div>

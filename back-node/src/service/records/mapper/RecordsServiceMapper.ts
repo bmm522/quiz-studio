@@ -52,6 +52,9 @@ export class RecordsServiceMapper {
         case CategoryEnum.JAVA:
           category = '자바';
           break;
+        case CategoryEnum.DATASTRUCTURE:
+          category = '자료구조';
+          break;
         default:
           category = '';
       }

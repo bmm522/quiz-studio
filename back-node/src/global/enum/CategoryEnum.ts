@@ -1,3 +1,3 @@
 export enum CategoryEnum {
-  JAVA = 'java',
+  JAVA = 'java', DATASTRUCTURE = 'datastructure'
 }
