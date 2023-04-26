@@ -6,8 +6,8 @@ async function getName() {
     await fetch(`${loginHost}/api/v1/email`, {
         method: "GET",
         headers: {
-            authorization: sessionStorage.getItem("authorization"),
-            refreshToken: sessionStorage.getItem("refreshToken"),
+            authorization: localStorage.getItem("authorization"),
+            refreshToken: localStorage.getItem("refreshToken"),
         },
     })
         .then((res) => res.json())
@@ -17,12 +17,22 @@ async function getName() {
             ).innerHTML += `${res.data.email}`;
         });
 }
-
-document.getElementById("record-page").addEventListener("click", function () {
-    location.href = `${frontHost}/record`;
+document.querySelector(".main-button").addEventListener("click", function(event) {
+    event.stopPropagation(); // 이벤트 버블링 중지
+      event.preventDefault(); // 기본 동작 중지
+      window.location.href = `${frontHost}/main`;
 });
 
-document.getElementById("main-page").addEventListener("click", function () {
-    console.log('click');
-    location.href = `${frontHost}/main`;
+document.querySelector(".record-button").addEventListener("click", function(event) {
+    event.stopPropagation(); // 이벤트 버블링 중지
+      event.preventDefault(); // 기본 동작 중지
+      window.location.href = `${frontHost}/record`;
 });
+
+// document.getElementById("record-page").addEventListener("click", async function (event) {
+//      location.href = `${frontHost}/record`;
+// });
+
+// document.getElementById("main-page").addEventListener("click", async function (event) {
+//     location.href = `${frontHost}/main`;
+// });

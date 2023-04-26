@@ -6,11 +6,11 @@ window.onload = async function () {
 };
 
 async function setToken() {
-    sessionStorage.setItem(
+    localStorage.setItem(
         "authorization",
         getCookieValue("Authorization").replace("+", " "),
     );
-    sessionStorage.setItem(
+    localStorage.setItem(
         "refreshToken",
         getCookieValue("RefreshToken").replace("+", " "),
     );

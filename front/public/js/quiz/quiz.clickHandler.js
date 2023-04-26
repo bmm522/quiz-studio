@@ -79,8 +79,8 @@ function submitRecordWithFailQuiz(quizRecordArray) {
     fetch(`${nodeHost}/v1/records`, {
         method: "POST",
         headers: {
-            authorization: sessionStorage.getItem("authorization"),
-            refreshToken: sessionStorage.getItem("refreshToken"),
+            authorization: localStorage.getItem("authorization"),
+            refreshToken: localStorage.getItem("refreshToken"),
             "Content-Type": "application/json",
         },
         body: JSON.stringify({

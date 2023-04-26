@@ -84,15 +84,15 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <div class="nav-link main-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span id="main-page">문제풀기</span></a>
+                    <span id="main-page">문제풀기</span></div>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+              <div class="nav-link record-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-table"></i>
-                    <span id="record-page">지난 기록 보기</span></a>
+                    <span id="record-page">지난 기록 보기</span></div>
             </li>
 
             <!-- Divider -->
@@ -233,7 +233,7 @@
                             </th>
                             <th>
                             
-                              <select class="form-control" id="levelSelect" onchange="filterProblems()" style="width: 80px;">
+                              <select class="form-control" id="levelSelect" onchange="filterProblems()" style="width: 100px;">
                                 <option value="">전체</option>
                                 <option value="쉬움">쉬움</option>
                                 <option value="어려움">어려움</option>
