@@ -12,7 +12,6 @@ import java.util.List;
 public class InitFactory {
 
 
-
     @Autowired
     private QuizMysqlService quizMysqlService;
 

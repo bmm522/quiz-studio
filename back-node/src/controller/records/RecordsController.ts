@@ -55,7 +55,10 @@ export class RecordsController {
 
   @HttpCode(200)
   @Delete('')
-  async deleteRecords(@QueryParams() params: ControllerDeleteRecordRequest, @Req() req: UserKeyRequest) {
+  async deleteRecords(
+    @QueryParams() params: ControllerDeleteRecordRequest,
+    @Req() req: UserKeyRequest,
+  ) {
     try {
       const items = await this.toDeleteRecordItems(params, req);
       const result = await this.recordsService.deleteRecords(items);
@@ -67,7 +70,10 @@ export class RecordsController {
     }
   }
 
-  private async toRecordItems(dto: ControllerSaveRecordRequest, req: UserKeyRequest): Promise<ServiceSaveRecordRequest> {
+  private async toRecordItems(
+    dto: ControllerSaveRecordRequest,
+    req: UserKeyRequest,
+  ): Promise<ServiceSaveRecordRequest> {
     return RecordsControllerMapper.toSaveRecordItems(dto, req);
   }
 

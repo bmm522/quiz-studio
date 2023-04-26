@@ -17,9 +17,8 @@ export class QuizService {
   async getQuizList(dto: ControllerGetQuizRequest): Promise<ServiceGetQuizResponse[]> {
     const item = await QuizServiceMapper.toGetRequest(dto);
     return await this.quizQueryRepository.findByCategoryNameAndDifficulty(
-        item.category as string,
-        item.level as string,
+      item.category as string,
+      item.level as string,
     );
   }
-
 }

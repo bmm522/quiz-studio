@@ -6,7 +6,7 @@ import { RecordsMongoDbRepository } from '../../domain/records/repository/Record
 import { RecordsQueryRepository } from '../../repository/records/RecordsQueryRepository';
 import { RecordsRepository } from '../../domain/records/repository/RecordsRepository';
 import { ServiceDeleteRecordRequest } from './dto/ServiceDeleteRecordRequest';
-import {ServiceRecordsResponse} from "./dto/ServiceRecordsResponse";
+import { ServiceRecordsResponse } from './dto/ServiceRecordsResponse';
 
 @Service()
 export class RecordsService {
@@ -18,7 +18,7 @@ export class RecordsService {
   ) {}
 
   // 기록 저장
-  async saveRecords(dto: ServiceSaveRecordRequest) : Promise<void> {
+  async saveRecords(dto: ServiceSaveRecordRequest): Promise<void> {
     const item = await RecordsServiceMapper.toEntities(dto);
     await this.recordsRepository.save(item);
   }
@@ -26,13 +26,12 @@ export class RecordsService {
   // 기록 불러오기
   async getRecords(userKey: string): Promise<ServiceRecordsResponse[]> {
     const savedData = await this.recordsQueryRepository.findByUserKey(userKey);
-    return RecordsServiceMapper.toResponse(savedData);
+    return await RecordsServiceMapper.toResponse(savedData);
   }
 
   // 기록 삭제
-  async deleteRecords(dto: ServiceDeleteRecordRequest) : Promise<void> {
+  async deleteRecords(dto: ServiceDeleteRecordRequest): Promise<void> {
     const item = await RecordsServiceMapper.toDeleteRequest(dto);
     await this.recordsRepository.deleteByOptional(item);
   }
-
 }
