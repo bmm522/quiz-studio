@@ -1,11 +1,11 @@
 import { IsOptional } from 'class-validator';
-import { QuizRecord } from '../../../global/dto/QuizRecord';
+import { RecordDto } from '../../../global/dto/RecordDto';
 
 export class ControllerSaveRecordRequest {
   @IsOptional()
-  quizRecordArray: QuizRecord[];
+  quizRecordArray: RecordDto[];
 
-  constructor(quizRecordArray: QuizRecord[]) {
+  constructor(quizRecordArray: RecordDto[]) {
     this.quizRecordArray = quizRecordArray ?? [];
   }
 }

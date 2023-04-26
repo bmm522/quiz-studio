@@ -1,11 +1,15 @@
 import { ServiceSaveRecordRequest } from '../dto/ServiceSaveRecordRequest';
 
-import { ServiceRecordsResponse } from '../dto/ServiceRecordsResponse';
+import { ServiceGetRecordsResponse } from '../dto/ServiceGetRecordsResponse';
 import { Records } from '../../../domain/records/records';
 import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
 import { ServiceDeleteRecordRequest } from '../dto/ServiceDeleteRecordRequest';
 import { RepositoryDeleteRecordRequest } from '../../../domain/records/repository/dto/RepositoryDeleteRecordRequest';
+import {ServiceGetRecordRequest} from "../dto/ServiceGetRecordRequest";
+import {RepositoryGetRecordRequest} from "../../../repository/records/dto/RepositoryGetRecordRequest";
+import {RepositoryGetRecordResponse} from "../../../repository/records/dto/RepositoryGetRecordResponse";
+import {RecordDto} from "../../../global/dto/RecordDto";
 
 export class RecordsServiceMapper {
   static async toEntities(dto: ServiceSaveRecordRequest): Promise<Records[]> {
@@ -33,43 +37,24 @@ export class RecordsServiceMapper {
     });
   }
 
-  static async toResponse(savedData: Records[]): Promise<ServiceRecordsResponse[]> {
-    let level;
-    let category;
-    return savedData.map(record => {
-      switch (record.level) {
-        case Level.EASY:
-          level = '쉬움';
-          break;
-        case Level.HARD:
-          level = '어려움';
-          break;
-        default:
-          level = '';
-      }
+  static async toGetResponse(response: RepositoryGetRecordResponse): Promise<ServiceGetRecordsResponse> {
+    const records = await Promise.all(response.records.map(async record => {
+      await record.setCategory();
+      await record.setLevel();
+      return record;
+    }));
 
-      switch (record.category) {
-        case CategoryEnum.JAVA:
-          category = '자바';
-          break;
-        case CategoryEnum.DATASTRUCTURE:
-          category = '자료구조';
-          break;
-        default:
-          category = '';
-      }
-      return ServiceRecordsResponse.create(
-        record.quizTitle,
-        record.quizIsAnswer,
-        category,
-        level,
-        record.quizChoiceContent,
-        record.quizChoiceIsAnswer,
-      );
-    });
+    return ServiceGetRecordsResponse.create(records, response.totalPage);
   }
 
   static toDeleteRequest(dto: ServiceDeleteRecordRequest) {
     return RepositoryDeleteRecordRequest.create(dto.userKey, dto.deleteOption);
+  }
+
+  static async toGetRequest(dto: ServiceGetRecordRequest) {
+    if(dto.category) {
+
+    }
+    return RepositoryGetRecordRequest.create(dto.userKey, dto.page, dto.unresolved, dto.category, dto.level);
   }
 }
