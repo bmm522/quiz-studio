@@ -18,6 +18,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final String googleUrl = "/api/v1/social/login/google";
     private final String kakaoUrl = "/api/v1/social/login/kakao";
 
+    private final String newToken = "/api/v1/new-token";
     private final JwtMapper mapper = JwtMapper.getJwtMapper();
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -28,7 +29,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = request.getRequestURI();
 
-        if (googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI)  ) {
+        if (googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(requestURI)  ) {
             chain.doFilter(request, response);
             return;
         }

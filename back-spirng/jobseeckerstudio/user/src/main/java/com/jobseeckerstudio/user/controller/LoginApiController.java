@@ -33,6 +33,8 @@ public class LoginApiController {
         return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
     }
 
+
+
     private CommonResponse<?> responseHandler(HttpStatus status, String msg, Object data){
         return CommonResponse.builder()
             .status(status)
