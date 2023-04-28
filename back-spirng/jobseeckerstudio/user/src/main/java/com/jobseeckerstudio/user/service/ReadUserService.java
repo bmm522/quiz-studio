@@ -2,10 +2,10 @@ package com.jobseeckerstudio.user.service;
 
 import com.jobseeckerstudio.user.exception.NotFoundUserException;
 import com.jobseeckerstudio.user.encryption.Decryptor;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
-import com.jobseeckerstudio.user.repository.UserQueryRepository;
+import com.jobseeckerstudio.user.repository.user.UserRepository;
 import com.jobseeckerstudio.user.service.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
@@ -20,17 +20,17 @@ import java.util.Optional;
 public class ReadUserService  {
 
     private final UserServiceMapper mapper;
-    private final UserQueryRepository userQueryRepository;
+    private final UserRepository userRepository;
 
 
     public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo) {
         FindUserWhenSocialLoginRequest dto = mapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
-        return userQueryRepository.findByUserKey(dto.getUserKey());
+        return userRepository.findByUserKey(dto.getUserKey());
     }
 
 
     public Optional<User> findByUserKey(String userKey) {
-        return  userQueryRepository.findByUserKey(userKey);
+        return  userRepository.findByUserKey(userKey);
     }
 
 
@@ -42,7 +42,7 @@ public class ReadUserService  {
     }
 
     private User getUser(GetEmailRequest dto) {
-        return userQueryRepository.findByUserKey(dto.getUserKey())
+        return userRepository.findByUserKey(dto.getUserKey())
             .orElseThrow(() -> new NotFoundUserException("userKey에 해당하는 유저 정보가 없습니다."));
     }
 }

@@ -1,7 +1,7 @@
 package com.jobseeckerstudio.user.oauth2.handler;
 
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;

@@ -1,5 +1,8 @@
-package com.jobseeckerstudio.user.entity;
+package com.jobseeckerstudio.user.domain.user;
 
+import com.jobseeckerstudio.user.domain.BaseTimeEntity;
+import com.jobseeckerstudio.user.domain.Status;
+import com.jobseeckerstudio.user.encryption.Encryptor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +30,8 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(nullable = false)
+    private String salt;
 
     @Builder
     public User(long id, String userKey, String password, String email, Status status) {
@@ -37,7 +42,10 @@ public class User extends BaseTimeEntity {
         this.status = status;
     }
 
-    public void setEmailWithEncryption(String emailWithEncryption) {
-        this.email = emailWithEncryption;
+    public void setSalt(String refreshToken) {
+        this.salt = refreshToken;
+    }
+    public void setEmailWithEncryption() {
+        this.email = Encryptor.encrypt(this.email);
     }
 }

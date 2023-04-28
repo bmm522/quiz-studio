@@ -1,6 +1,6 @@
 package com.jobseeckerstudio.user.oauth.info;
 
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 
 public interface SocialUserInfo {
 

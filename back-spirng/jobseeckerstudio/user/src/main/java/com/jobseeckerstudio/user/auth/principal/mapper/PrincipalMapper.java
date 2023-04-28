@@ -1,7 +1,7 @@
 package com.jobseeckerstudio.user.auth.principal.mapper;
 
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 
 import java.util.Map;
 

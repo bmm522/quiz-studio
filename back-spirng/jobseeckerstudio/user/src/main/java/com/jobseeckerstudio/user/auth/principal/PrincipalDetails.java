@@ -1,6 +1,6 @@
 package com.jobseeckerstudio.user.auth.principal;
 
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
-package com.jobseeckerstudio.user.entity.mapper;
+package com.jobseeckerstudio.user.domain.user.mapper;
 
-import com.jobseeckerstudio.user.entity.Status;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.Status;
+import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.oauth.info.Provider;
 import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
 

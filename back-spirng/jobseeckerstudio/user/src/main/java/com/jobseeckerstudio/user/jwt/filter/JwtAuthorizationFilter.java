@@ -19,7 +19,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final String kakaoUrl = "/api/v1/social/login/kakao";
 
     private final String newToken = "/api/v1/new-token";
-    private final JwtMapper mapper = JwtMapper.getJwtMapper();
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -52,7 +51,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private JwtToken getJwtToken(HttpServletRequest request) {
-        return  mapper.toJwtTokenOptional(request)
+        return  JwtMapper.toJwtTokenOptional(request)
             .orElseThrow(() -> new UnauthorizedException("JwtToken이 null 입니다. "));
     }
 

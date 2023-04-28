@@ -2,8 +2,8 @@ package com.jobseeckerstudio.user.auth.filter;
 
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.user.exception.LoginFailException;
-import com.jobseeckerstudio.user.entity.User;
-import com.jobseeckerstudio.user.entity.mapper.UserMapper;
+import com.jobseeckerstudio.user.domain.user.User;
+import com.jobseeckerstudio.user.domain.user.mapper.UserMapper;
 import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;

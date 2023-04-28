@@ -2,7 +2,7 @@ package com.jobseeckerstudio.user.auth.principal;
 
 import com.jobseeckerstudio.user.exception.LoginFailException;
 import com.jobseeckerstudio.user.auth.principal.mapper.PrincipalMapper;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

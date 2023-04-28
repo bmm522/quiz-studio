@@ -3,6 +3,7 @@ package com.jobseeckerstudio.user.controller;
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
+import com.jobseeckerstudio.user.service.salt.SaltService;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RequestMapping("/api/v1")
 @Controller
@@ -19,7 +21,7 @@ public class LoginApiController {
 
     private final ReadUserService readUserService;
 
-    private final JwtMapper jwtMapper = JwtMapper.getJwtMapper();
+    private final SaltService saltService;
 
     @GetMapping("social/login/{social}")
     public String moveSocialLoginForm(@PathVariable("social")String social){
@@ -28,9 +30,16 @@ public class LoginApiController {
 
     @GetMapping("/email")
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-        JwtToken jwtToken = jwtMapper.toJwtToken(request);
+        JwtToken jwtToken = JwtMapper.toJwtToken(request);
         GetEmailResponse dto = readUserService.getEmail(jwtToken);
         return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
+    }
+
+    @GetMapping("re-token")
+    public @ResponseBody CommonResponse<?> reNewToken(HttpServletRequest request, HttpServletResponse response) {
+        JwtToken jwtToken = JwtMapper.toJwtToken(request);
+        JwtToken newToken = saltService.reNewToken(jwtToken);
+        return responseHandler(HttpStatus.OK, "새로운 토큰 발급 성공", newToken);
     }
 
 

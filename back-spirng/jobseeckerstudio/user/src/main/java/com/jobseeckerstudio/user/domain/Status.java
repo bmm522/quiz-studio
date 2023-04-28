@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.user.entity;
+package com.jobseeckerstudio.user.domain;
 
 public enum Status {
     Y("Y"), N("N");

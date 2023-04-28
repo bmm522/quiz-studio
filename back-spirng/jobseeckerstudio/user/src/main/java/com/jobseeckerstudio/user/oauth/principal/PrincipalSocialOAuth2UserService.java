@@ -2,12 +2,11 @@ package com.jobseeckerstudio.user.oauth.principal;
 
 import com.jobseeckerstudio.user.exception.NotFoundSocialInfoException;
 import com.jobseeckerstudio.user.auth.principal.mapper.PrincipalMapper;
-import com.jobseeckerstudio.user.entity.User;
+import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.oauth.info.GoogleUserInfo;
 import com.jobseeckerstudio.user.oauth.info.KakaoUserInfo;
 import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
-import com.jobseeckerstudio.user.service.CreateUserService;
-import com.jobseeckerstudio.user.service.ReadUserService;
+import com.jobseeckerstudio.user.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -19,13 +18,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
-
-    private final ReadUserService readUserService;
-
-    private final CreateUserService createUserService;
-
-
-
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
@@ -33,9 +25,9 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
         SocialUserInfo socialUserInfo = getSocialUserInfo(userRequest, oAuth2User);
 
-        User user = getUser(socialUserInfo);
+//        User user = getUser(socialUserInfo);
 
-        return PrincipalMapper.toPrincipalDetailsWithUserInfo(user, oAuth2User.getAttributes());
+        return PrincipalMapper.toPrincipalDetailsWithUserInfo(socialUserInfo.toUserEntity(), oAuth2User.getAttributes());
     }
 
 
@@ -48,9 +40,9 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
         }
     }
 
-    private User getUser(SocialUserInfo socialUserInfo) {
-        return readUserService.findByUserKeyWhenSocialLogin(socialUserInfo).orElseGet(()->{
-           return createUserService.saveWhenSocialLogin(socialUserInfo);
-        });
-    }
+//    private User getUser(SocialUserInfo socialUserInfo) {
+//        User user = socialUserInfo.toUserEntity();
+//        user.setEmailWithEncryption();
+//        return userRepository.save(user);
+//    }
 }
