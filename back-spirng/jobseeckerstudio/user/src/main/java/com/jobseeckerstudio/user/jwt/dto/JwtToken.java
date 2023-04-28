@@ -1,10 +1,8 @@
 package com.jobseeckerstudio.user.jwt.dto;
 
+import com.jobseeckerstudio.user.exception.ExpiredTokenException;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -38,11 +36,27 @@ public class JwtToken {
                 .parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""));
 
             if (claims.getBody().getExpiration().before(new Date())) {
-                throw new RuntimeException("토큰의 유효시간이 만료됐습니다.");
+                throw new ExpiredTokenException("토큰의 유효시간이 만료됐습니다.");
             }
         } catch (JwtException e) {
             throw new RuntimeException("유효하지 않은 토큰입니다.");
         }
+    }
+
+    public boolean checkExpiredRefreshToken() {
+        try {
+            Jws<Claims> claims = Jwts.parser()
+                .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
+                .parseClaimsJws(refreshToken.replace(JwtProperties.REFRESH_PREFIX, ""));
+
+            if (claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
+        } catch (JwtException e) {
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
+        }
+
+        return true;
     }
 
 }

@@ -45,7 +45,7 @@ public class SocialLoginSuccessHandlerTest {
 
     @BeforeEach
     void setUp() {
-        successHandler = new SocialLoginSuccessHandler(jwtTokenFactory);
+        successHandler = new SocialLoginSuccessHandler();
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SocialLoginSuccessHandlerTest {
 
         when(authentication.getPrincipal()).thenReturn(principalDetails);
         when(principalDetails.getUser()).thenReturn(new User());
-        when(jwtTokenFactory.create(any(User.class))).thenReturn(jwtToken);
+        when(JwtTokenFactory.create(any(User.class))).thenReturn(jwtToken);
 
         // when
         successHandler.onAuthenticationSuccess(null, response, authentication);

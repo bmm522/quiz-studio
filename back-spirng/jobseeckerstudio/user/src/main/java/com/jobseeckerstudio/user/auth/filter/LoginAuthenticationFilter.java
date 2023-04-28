@@ -26,7 +26,6 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 
     private final AuthenticationManager authenticationManager;
 
-    private final JwtTokenFactory jwtTokenFactory;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -44,7 +43,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = getPrincipalDetails(authResult);
 
-        JwtToken jwtToken = jwtTokenFactory.create(principalDetails.getUser());
+        JwtToken jwtToken = JwtTokenFactory.create(principalDetails.getUser());
 
         response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
         response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());

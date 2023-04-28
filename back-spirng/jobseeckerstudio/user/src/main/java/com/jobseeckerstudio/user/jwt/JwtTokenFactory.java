@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
 public class JwtTokenFactory {
 
 
-    public JwtToken create(User user) {
+    public static JwtToken create(User user) {
         return JwtToken.builder()
                 .jwtToken(JwtProperties.TOKEN_PREFIX + JWT.create()
                         .withSubject(user.getUserKey())

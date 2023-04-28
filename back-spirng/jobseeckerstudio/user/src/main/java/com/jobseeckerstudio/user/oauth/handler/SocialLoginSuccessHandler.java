@@ -5,7 +5,6 @@ import com.jobseeckerstudio.user.domain.user.User;
 
 import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
@@ -24,9 +23,6 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
-
-    private final JwtTokenFactory jwtTokenFactory;
-
     private final UserRepository userRepository;
 
 
@@ -37,7 +33,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
         PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
 
         User user = principalDetails.getUser();
-        JwtToken jwtToken = jwtTokenFactory.create(user);
+        JwtToken jwtToken = JwtTokenFactory.create(user);
         settingUser(user, jwtToken.getRefreshToken());
 //        addHeader(response, jwtToken);
 
@@ -65,5 +61,6 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
             user.setSalt(refreshToekn);
             userRepository.save(user);
         }
+
     }
 }
