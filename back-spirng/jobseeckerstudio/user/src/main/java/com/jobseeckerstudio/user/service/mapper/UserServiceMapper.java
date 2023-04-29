@@ -24,7 +24,7 @@ public class UserServiceMapper {
 
     public GetEmailRequest toGetEmailRequest(JwtToken jwtToken) {
         return GetEmailRequest.builder()
-            .userKey(parsingJwt(jwtToken.getJwtToken(), userKey))
+            .userKey(parsingJwt(jwtToken.getJwtToken().replace(JwtProperties.TOKEN_PREFIX, ""), userKey))
             .build();
     }
 

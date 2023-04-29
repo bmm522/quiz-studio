@@ -18,7 +18,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final String googleUrl = "/api/v1/social/login/google";
     private final String kakaoUrl = "/api/v1/social/login/kakao";
 
-    private final String newToken = "/api/v1/new-token";
+    private final String newToken = "/api/v1/check-expired-jwt";
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -29,10 +29,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String requestURI = request.getRequestURI();
 
         if (googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(requestURI)  ) {
+            System.out.println("newToken 안에들어옴");
             chain.doFilter(request, response);
             return;
         }
-
+        System.out.println("필터탐");
         JwtToken jwtToken = getJwtToken(request);
 
         if(jwtToken.checkValidateJwtToken()) {
@@ -44,8 +45,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         };
-
-        jwtToken.checkExpiredToken();
+//        jwtToken.checkExpiredToken();
 
         chain.doFilter(request, response);
     }

@@ -2,7 +2,7 @@ package com.jobseeckerstudio.user.config;
 
 
 import com.jobseeckerstudio.user.auth.filter.LoginAuthenticationFilter;
-import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
+import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.filter.JwtAuthorizationFilter;
 import com.jobseeckerstudio.user.oauth.handler.SocialLoginSuccessHandler;
 import com.jobseeckerstudio.user.oauth.principal.PrincipalSocialOAuth2UserService;
@@ -24,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SocialLoginSuccessHandler socialLoginSuccessHandler;
 
-    private final JwtTokenFactory jwtTokenFactory;
+
+
 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -35,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilter(corsConfig.corsFilter())
             .formLogin().disable()
             .httpBasic().disable()
-            .addFilter(new LoginAuthenticationFilter(authenticationManager(), jwtTokenFactory))
+            .addFilter(new LoginAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .oauth2Login()
             .userInfoEndpoint()

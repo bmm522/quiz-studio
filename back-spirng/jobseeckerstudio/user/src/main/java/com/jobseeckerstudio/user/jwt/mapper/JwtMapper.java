@@ -17,8 +17,8 @@ public class JwtMapper {
 
     public static JwtToken toJwtToken(HttpServletRequest request) {
         return JwtToken.builder()
-            .jwtToken(request.getHeader("authorization").replace(JwtProperties.TOKEN_PREFIX, ""))
-            .refreshToken(request.getHeader("refreshToken").replace(JwtProperties.REFRESH_PREFIX, ""))
+            .jwtToken(request.getHeader("authorization"))
+            .refreshToken(request.getHeader("refreshToken"))
             .build();
     }
 }

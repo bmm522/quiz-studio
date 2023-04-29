@@ -5,11 +5,13 @@ import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import io.jsonwebtoken.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Base64;
 import java.util.Date;
 
 @Getter
+@Setter
 public class JwtToken {
 
     private String jwtToken;
@@ -21,6 +23,7 @@ public class JwtToken {
         this.refreshToken = refreshToken;
     }
 
+
     public boolean checkValidateJwtToken() {
         return jwtToken == null || !jwtToken.startsWith(JwtProperties.TOKEN_PREFIX);
     }
@@ -29,18 +32,19 @@ public class JwtToken {
         return refreshToken == null || !refreshToken.startsWith(JwtProperties.REFRESH_PREFIX);
     }
 
-    public void checkExpiredToken() {
+    public boolean checkExpiredToken() {
         try {
             Jws<Claims> claims = Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
                 .parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""));
 
             if (claims.getBody().getExpiration().before(new Date())) {
-                throw new ExpiredTokenException("토큰의 유효시간이 만료됐습니다.");
+                return false;
             }
         } catch (JwtException e) {
-            throw new RuntimeException("유효하지 않은 토큰입니다.");
+            return false;
         }
+        return true;
     }
 
     public boolean checkExpiredRefreshToken() {
@@ -53,7 +57,7 @@ public class JwtToken {
                 return false;
             }
         } catch (JwtException e) {
-            throw new RuntimeException("유효하지 않은 토큰입니다.");
+            return false;
         }
 
         return true;

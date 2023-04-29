@@ -1,8 +1,11 @@
 const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
-getName();
 
+window.onload = async function () {
+    await getName();
+    await loadQuiz();
+}
 function getQuizData(level, category) {
     console.log("실행됨");
     const url = new URL(`${nodeHost}/v1/quiz`);
@@ -18,14 +21,14 @@ function getQuizData(level, category) {
         .catch((error) => console.error(error));
 }
 
-function loadQuiz() {
+async function loadQuiz() {
     getQuizData(level, category).then((quizData) => {
         const quizElements = createQuizElements(quizData);
         quizContainer.append(...quizElements);
     });
 }
 
-loadQuiz();
+
 
 document
     .getElementById("submit-btn")

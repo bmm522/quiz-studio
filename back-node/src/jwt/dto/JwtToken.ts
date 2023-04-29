@@ -41,10 +41,12 @@ export class JwtToken {
   }
 
   public async checkValidateJwtToken(): Promise<boolean> {
+    console.log('jwtToken : '+ this.jwtToken );
     return this.jwtToken === undefined || !this.jwtToken.startsWith(envJwt.tokenPrefix);
   }
 
   public async checkValidateRefreshToken(): Promise<boolean> {
+    console.log('refreshToken : ' + this.refreshToken);
     return this.refreshToken === undefined || !this.refreshToken.startsWith(envJwt.refreshPrefix);
   }
 }

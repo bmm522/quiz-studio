@@ -3,6 +3,11 @@ const nodeHost = "http://localhost:3000/api";
 const frontHost = "http://localhost:3001";
 
 async function getName() {
+await checkToken();
+await getEmail();
+}
+
+async function getEmail() {
     await fetch(`${loginHost}/api/v1/email`, {
         method: "GET",
         headers: {
@@ -28,6 +33,27 @@ document.querySelector(".record-button").addEventListener("click", function(even
       event.preventDefault(); // 기본 동작 중지
       window.location.href = `${frontHost}/record`;
 });
+
+
+async function checkToken() {
+
+    await fetch(`${loginHost}/api/v1/check-expired-jwt`, {
+        method:"GET",
+        headers: {
+                    authorization: localStorage.getItem("authorization"),
+                    refreshToken: localStorage.getItem("refreshToken"),
+                },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log( res.data.jwtToken);
+        console.log(res.data.refreshToken);
+        localStorage.setItem("authorization", res.data.jwtToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
+        
+    })
+
+}
 
 // document.getElementById("record-page").addEventListener("click", async function (event) {
 //      location.href = `${frontHost}/record`;

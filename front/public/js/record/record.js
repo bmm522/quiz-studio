@@ -1,16 +1,22 @@
 const ITEMS_PER_PAGE = 5; // 한 페이지당 표시할 문제 수
 let currentPage = 1; // 현재 페이지 번호
 
-window.onload = function () {
-getRecords(currentPage);
-getName();
+window.onload = async function () {
+await getName();
+  await getRecords(currentPage);
+
 }
 
-function checkSolved() {
-  getRecords(currentPage);
+async function checkSolved() {
+  await getRecords(currentPage);
 }
 
-function getRecords(page) {
+async function getRecords(page) {
+  await checkToken();
+  await getRecordsAction(page);
+}
+
+async function getRecordsAction(page) {
   const chkUnresolved =document.getElementById('checkUnresolved').checked;
   const categorySelect = document.getElementById('categorySelect').value;
   const levelSelect = document.getElementById('levelSelect').value;
@@ -25,7 +31,7 @@ function getRecords(page) {
   headers.append("authorization", localStorage.getItem("authorization"));
   headers.append("refreshToken", localStorage.getItem("refreshToken"));
 
-  fetch(url, { headers })
+  await fetch(url, { headers })
       .then(response => response.json())
       .then(data => {
       
@@ -64,6 +70,7 @@ function getRecords(page) {
           problemList.innerHTML = html;
       })
       .catch(error => console.error(error));
+
 }
 function updatePagination(totalPages, currentPage) {
 
@@ -81,9 +88,9 @@ function updatePagination(totalPages, currentPage) {
   paginationElement.innerHTML = paginationHtml;
 }
 
-function goToPage(page) {
+async function goToPage(page) {
   currentPage = page;
-  getRecords(page);
+  await getRecords(page);
   // filterProblems();
 }
 

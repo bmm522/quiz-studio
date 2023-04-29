@@ -2,7 +2,7 @@ package com.jobseeckerstudio.user.oauth2.handler;
 
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.user.domain.user.User;
-import com.jobseeckerstudio.user.jwt.JwtTokenFactory;
+import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 public class SocialLoginSuccessHandlerTest {
 
     @Mock
-    private JwtTokenFactory jwtTokenFactory;
+    private JwtMaker jwtMaker;
 
     @Mock
     private PrincipalDetails principalDetails;
@@ -58,13 +58,13 @@ public class SocialLoginSuccessHandlerTest {
 
         when(authentication.getPrincipal()).thenReturn(principalDetails);
         when(principalDetails.getUser()).thenReturn(new User());
-        when(JwtTokenFactory.create(any(User.class))).thenReturn(jwtToken);
+        when(JwtMaker.create(any(User.class))).thenReturn(jwtToken);
 
         // when
         successHandler.onAuthenticationSuccess(null, response, authentication);
 
         // then
-        verify(jwtTokenFactory).create(any(User.class));
+        verify(jwtMaker).create(any(User.class));
         verify(response).addHeader(eq(JwtProperties.HEADER_JWT_STRING), eq("testToken"));
         verify(response).addHeader(eq(JwtProperties.HEADER_REFRESHTOKEN_STRING), eq("testRefreshToken"));
 
