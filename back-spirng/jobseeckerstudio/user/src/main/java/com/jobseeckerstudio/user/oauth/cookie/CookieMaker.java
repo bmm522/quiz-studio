@@ -30,7 +30,7 @@ public enum CookieMaker {
 
     private Cookie setCookie(Cookie cookie){
         cookie.setPath("/");
-        cookie.setMaxAge(10); // 3분
+        cookie.setMaxAge(60*3); // 3분
         return cookie;
     }
 }
