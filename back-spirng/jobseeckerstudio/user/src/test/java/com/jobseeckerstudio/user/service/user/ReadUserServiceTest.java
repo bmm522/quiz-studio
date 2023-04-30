@@ -41,7 +41,7 @@ public class ReadUserServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        readUserService = new ReadUserService(mapper, userRepository);
+        readUserService = new ReadUserService(userRepository);
     }
 
     @Test
