@@ -19,12 +19,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReadUserService  {
 
-    private final UserServiceMapper mapper;
     private final UserRepository userRepository;
 
 
     public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo) {
-        FindUserWhenSocialLoginRequest dto = mapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
+        FindUserWhenSocialLoginRequest dto = UserServiceMapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
         return userRepository.findByUserKey(dto.getUserKey());
     }
 
@@ -35,10 +34,10 @@ public class ReadUserService  {
 
 
     public GetEmailResponse getEmail(JwtToken jwtToken) {
-        GetEmailRequest dto = mapper.toGetEmailRequest(jwtToken);
+        GetEmailRequest dto = UserServiceMapper.toGetEmailRequest(jwtToken);
         User user = getUser(dto);
         String email = Decryptor.decrypt(user.getEmail());
-        return mapper.toGetEmailResponse(email);
+        return UserServiceMapper.toGetEmailResponse(email);
     }
 
     private User getUser(GetEmailRequest dto) {
