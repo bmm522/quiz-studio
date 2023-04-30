@@ -14,15 +14,15 @@ jobs:
       jasypt_encryptor_password: ${{secrets.JASYPT_ENCRYPTOR_PASSWORD}}
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
-#       MYSQL_DATABASE: jobseeckerstudio
-#       MYSQL_USER: root
-#       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
-#     services:
-#       mysql:
-#         image: mysql:8.0
-#         env:
-#           MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
-#           MYSQL_DATABASE: jobseeckerstudio
+      MYSQL_DATABASE: jobseeckerstudio
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
+          MYSQL_DATABASE: jobseeckerstudio
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -31,13 +31,13 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Set up MYSQL
-        uses: samin/mysql-action@v1
-        with:
-          character set server: 'utf8'
-          mysql database: 'jobseeckerstudio'
-          mysql user: 'jobseeckerstudio'
-          mysql password: ${{secrets.MYSQL_PASSWORD}}
+#       - name: Set up MYSQL
+#         uses: samin/mysql-action@v1
+#         with:
+#           character set server: 'utf8'
+#           mysql database: 'jobseeckerstudio'
+#           mysql user: 'jobseeckerstudio'
+#           mysql password: ${{secrets.MYSQL_PASSWORD}}
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
