@@ -15,7 +15,7 @@ jobs:
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
       MYSQL_DATABASE: jobseeckerstudio
-      MYSQL_USER: root
+      MYSQL_USER: jobseeckerstudio
       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
 #     services:
 #       mysql:
