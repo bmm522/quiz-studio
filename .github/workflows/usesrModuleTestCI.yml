@@ -13,7 +13,7 @@ jobs:
     env:
       jasypt_encryptor_password: ${{secrets.JASYPT_ENCRYPTOR_PASSWORD}}
       MYSQL_HOST: 127.0.0.1
-      MYSQL_PORT: 3306
+      MYSQL_PORT: 3307
       MYSQL_DATABASE: jobseeckerstudio
       MYSQL_USER: root
       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
