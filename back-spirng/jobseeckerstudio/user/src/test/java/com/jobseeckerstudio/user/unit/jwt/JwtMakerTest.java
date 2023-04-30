@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 
@@ -17,6 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("JwtMaker 클래스")
 class JwtMakerTest {
 
+    @Value("${jwt.token_prefix}")
+    private String TOKEN_PREFIX;
+
+    @Value("${jwt.refresh_prefix}")
+    private String REFRESH_PREFIX;
+    @Value("${jwt.secret}")
+    private String SECRET;
     @Test
     @DisplayName("create 메소드는 주어진 User 객체를 바탕으로 JwtToken 객체를 생성한다.")
     void createTest() {
@@ -28,8 +36,8 @@ class JwtMakerTest {
 
         // Then
         assertNotNull(jwtToken);
-        assertEquals(JwtProperties.TOKEN_PREFIX, jwtToken.getJwtToken().substring(0, 7));
-        assertEquals(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken().substring(0, 13));
+        assertEquals(TOKEN_PREFIX, jwtToken.getJwtToken().substring(0, 7));
+        assertEquals(REFRESH_PREFIX, jwtToken.getRefreshToken().substring(0, 13));
     }
 
     @Test
@@ -43,11 +51,11 @@ class JwtMakerTest {
 
         // Then
         assertNotNull(accessToken);
-        assertTrue(accessToken.startsWith(JwtProperties.TOKEN_PREFIX));
+        assertTrue(accessToken.startsWith(TOKEN_PREFIX));
         assertDoesNotThrow(() -> {
             Jws<Claims> claims = Jwts.parser()
-                .setSigningKey(JwtProperties.SECRET.getBytes())
-                .parseClaimsJws(accessToken.substring(JwtProperties.TOKEN_PREFIX.length()));
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(accessToken.substring(TOKEN_PREFIX.length()));
             assertEquals(user.getUserKey(), claims.getBody().getSubject());
             assertEquals(user.getUserKey(), claims.getBody().get("userKey"));
         });
@@ -61,11 +69,11 @@ class JwtMakerTest {
 
         // Then
         assertNotNull(refreshToken);
-        assertTrue(refreshToken.startsWith(JwtProperties.REFRESH_PREFIX));
+        assertTrue(refreshToken.startsWith(REFRESH_PREFIX));
         assertDoesNotThrow(() -> {
             Jws<Claims> claims = Jwts.parser()
-                .setSigningKey(JwtProperties.SECRET.getBytes())
-                .parseClaimsJws(refreshToken.substring(JwtProperties.REFRESH_PREFIX.length()));
+                .setSigningKey(SECRET.getBytes())
+                .parseClaimsJws(refreshToken.substring(REFRESH_PREFIX.length()));
             assertEquals("refreshToken", claims.getBody().getSubject());
             assertTrue(claims.getBody().getExpiration().after(new Date(System.currentTimeMillis())));
         });

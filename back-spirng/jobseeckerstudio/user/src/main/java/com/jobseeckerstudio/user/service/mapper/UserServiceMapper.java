@@ -3,14 +3,18 @@ package com.jobseeckerstudio.user.service.mapper;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
 import com.jobseeckerstudio.user.service.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
+import org.springframework.beans.factory.annotation.Value;
 
 public class UserServiceMapper {
 
+    @Value("${jwt.secret}")
+    private static String SECRET;
+    @Value("${jwt.token_prefix}")
+    private static String TOKEN_PREFIX;
 
     private static final String userKey  = "userKey";
 
@@ -22,7 +26,7 @@ public class UserServiceMapper {
 
     public static GetEmailRequest toGetEmailRequest(JwtToken jwtToken) {
         return GetEmailRequest.builder()
-            .userKey(parsingJwt(jwtToken.getJwtToken().replace(JwtProperties.TOKEN_PREFIX, ""), userKey))
+            .userKey(parsingJwt(jwtToken.getJwtToken().replace(TOKEN_PREFIX, ""), userKey))
             .build();
     }
 
@@ -35,7 +39,7 @@ public class UserServiceMapper {
 
 
         private static String parsingJwt(String jwtToken, String key) {
-            return JWT.require(Algorithm.HMAC256(JwtProperties.SECRET)).build().verify(jwtToken).getClaim(key).asString();
+            return JWT.require(Algorithm.HMAC256(SECRET)).build().verify(jwtToken).getClaim(key).asString();
     }
 
 

@@ -3,17 +3,13 @@ package com.jobseeckerstudio.user.oauth.handler;
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.user.domain.user.User;
 
-import com.jobseeckerstudio.user.exception.ExpiredTokenException;
+
 import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

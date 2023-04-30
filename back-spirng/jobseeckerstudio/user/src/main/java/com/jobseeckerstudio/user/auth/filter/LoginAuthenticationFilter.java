@@ -6,8 +6,8 @@ import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.domain.user.mapper.UserMapper;
 import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +24,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    @Value("${jwt.header_jwt}")
+    private String HEADER_JWT;
+
+    @Value("${jwt.header_refresh}")
+    private String HEADER_REFRESH;
     private final AuthenticationManager authenticationManager;
 
 
@@ -46,8 +51,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 
         JwtToken jwtToken = JwtMaker.create(principalDetails.getUser());
 
-        response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
-        response.addHeader(JwtProperties.REFRESH_PREFIX, jwtToken.getRefreshToken());
+        response.addHeader(HEADER_JWT, jwtToken.getJwtToken());
+        response.addHeader(HEADER_REFRESH, jwtToken.getRefreshToken());
 
     }
 
