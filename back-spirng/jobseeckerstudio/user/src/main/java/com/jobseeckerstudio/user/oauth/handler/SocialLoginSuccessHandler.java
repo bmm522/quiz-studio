@@ -41,10 +41,8 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         User user = principalDetails.getUser();
         JwtToken jwtToken = JwtMaker.create(user);
-        String refreshToken = settingUserAndGetRefreshToken(user, jwtToken.getRefreshToken());
+        settingUserAndGetRefreshToken(user, jwtToken);
 //        addHeader(response, jwtToken);
-        jwtToken.setRefreshToken(refreshToken);
-        System.out.println("핸들러 : " + refreshToken);
         TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 
         addCookie(response, tokenCookie);
@@ -62,39 +60,31 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 //        response.addHeader(JwtProperties.HEADER_REFRESHTOKEN_STRING, jwtToken.getRefreshToken());
 //    }
 
-    private String settingUserAndGetRefreshToken(User user, String refreshToekn) {
+    private void settingUserAndGetRefreshToken(User user, JwtToken jwtToken) {
         Optional<User> userOptional = userRepository.findByUserKey(user.getUserKey());
         if(userOptional.isEmpty()) {
-            user.setEmailWithEncryption();
-            user.setSalt(refreshToekn);
-            userRepository.save(user);
-            return refreshToekn;
+            setUserSaltAndSave(user, jwtToken.getRefreshToken());
         } else  {
-            User savedUser = userOptional.get();
-            String salt = savedUser.getSalt();
-            if(!checkExpiredRefreshToekn(salt)) {
-                String newRefreshToken = JwtMaker.makeRefreshToken();
-                user.setSalt(newRefreshToken);
-                userRepository.save(user);
-                return newRefreshToken;
-            }
-            return salt;
+            updateUserSaltAndRefreshTokenIfNotExpired(userOptional.get(), jwtToken);
         }
     }
 
-    private boolean checkExpiredRefreshToekn(String refreshToken) {
-        try {
-            Jws<Claims> claims = Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
-                .parseClaimsJws(refreshToken.replace(JwtProperties.REFRESH_PREFIX, ""));
-
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-        } catch (JwtException e) {
-            throw new ExpiredTokenException("유효하지 않은 토큰입니다.");
-        }
-
-        return true;
+    private void setUserSaltAndSave(User user, String refreshToken) {
+        user.setEmailWithEncryption();
+        user.setSalt(refreshToken);
+        userRepository.save(user);
     }
+
+
+
+    private void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
+        if(!jwtToken.checkExpiredRefreshToken()) {
+            String newRefreshToken = JwtMaker.makeRefreshToken();
+            savedUser.setSalt(newRefreshToken);
+            jwtToken.setRefreshToken(newRefreshToken);
+            userRepository.save(savedUser);
+        }
+    }
+
+
 }

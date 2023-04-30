@@ -33,7 +33,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        System.out.println("필터탐");
         JwtToken jwtToken = getJwtToken(request);
 
         if(jwtToken.checkValidateJwtToken()) {
@@ -45,7 +44,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         };
-//        jwtToken.checkExpiredToken();
 
         chain.doFilter(request, response);
     }
@@ -57,5 +55,3 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 
 }
-
-//|| requestURI.equals("/favicon.ico")

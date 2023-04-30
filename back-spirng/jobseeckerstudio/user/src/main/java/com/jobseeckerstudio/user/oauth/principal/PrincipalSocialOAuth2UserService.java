@@ -25,8 +25,6 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
         SocialUserInfo socialUserInfo = getSocialUserInfo(userRequest, oAuth2User);
 
-//        User user = getUser(socialUserInfo);
-
         return PrincipalMapper.toPrincipalDetailsWithUserInfo(socialUserInfo.toUserEntity(), oAuth2User.getAttributes());
     }
 
@@ -40,9 +38,4 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
         }
     }
 
-//    private User getUser(SocialUserInfo socialUserInfo) {
-//        User user = socialUserInfo.toUserEntity();
-//        user.setEmailWithEncryption();
-//        return userRepository.save(user);
-//    }
 }

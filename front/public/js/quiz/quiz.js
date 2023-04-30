@@ -3,10 +3,11 @@ const category = localStorage.getItem("category");
 
 
 window.onload = async function () {
-    await getName();
+    await checkToken();
+  await getEmail();
     await loadQuiz();
 }
-function getQuizData(level, category) {
+async function getQuizData(level, category) {
     console.log("실행됨");
     const url = new URL(`${nodeHost}/v1/quiz`);
     url.searchParams.set("level", level);
@@ -15,7 +16,7 @@ function getQuizData(level, category) {
     headers.append("authorization", localStorage.getItem("authorization"));
     headers.append("refreshToken", localStorage.getItem("refreshToken"));
 
-    return fetch(url, { headers })
+    return await fetch(url, { headers })
         .then((response) => response.json())
         .then((data) => data.data)
         .catch((error) => console.error(error));

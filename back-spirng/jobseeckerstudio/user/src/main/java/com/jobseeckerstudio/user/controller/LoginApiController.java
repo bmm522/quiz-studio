@@ -37,18 +37,11 @@ public class LoginApiController {
 
     @GetMapping("/check-expired-jwt")
     public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request) {
-        System.out.println("요청들어옴");
         JwtToken jwtToken = JwtMapper.toJwtToken(request);
         String accessToken = jwtExpiredChecker.check(jwtToken);
         jwtToken.setJwtToken(accessToken);
         return responseHandler(HttpStatus.OK, "jwt 체크완료", jwtToken);
     }
-//    @GetMapping("re-token")
-//    public @ResponseBody CommonResponse<?> reNewToken(HttpServletRequest request, HttpServletResponse response) {
-//        JwtToken jwtToken = JwtMapper.toJwtToken(request);
-//        JwtToken newToken = reNewService.reNewToken(jwtToken);
-//        return responseHandler(HttpStatus.OK, "새로운 토큰 발급 성공", newToken);
-//    }
 
 
 

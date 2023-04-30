@@ -2,12 +2,14 @@ const ITEMS_PER_PAGE = 5; // 한 페이지당 표시할 문제 수
 let currentPage = 1; // 현재 페이지 번호
 
 window.onload = async function () {
-await getName();
+await checkToken();
+  await getEmail();
   await getRecords(currentPage);
 
 }
 
 async function checkSolved() {
+  await checkToken();
   await getRecords(currentPage);
 }
 

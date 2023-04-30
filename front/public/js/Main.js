@@ -1,7 +1,12 @@
 window.onload = async function () {
-    console.log(getCookieValue("Authorization").replace("+", " "));
-    console.log(getCookieValue("RefreshToken").replace("+", " "));
-    await setToken();
+    console.log(getCookieValue("Authorization"));
+    if(getCookieValue("Authorization") !== ''){
+        
+        await setToken();
+    }
+    // console.log(getCookieValue("Authorization").replace("+", " "));
+    // console.log(getCookieValue("RefreshToken").replace("+", " "));
+    
     await getName();
 };
 
