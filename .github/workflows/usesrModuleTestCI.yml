@@ -19,7 +19,7 @@ jobs:
       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
     services:
       mysql:
-        image: mysql:5.9
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
           MYSQL_DATABASE: jobseeckerstudio
