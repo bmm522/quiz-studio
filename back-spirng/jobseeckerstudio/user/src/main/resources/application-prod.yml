@@ -1,0 +1,28 @@
+server:
+  port: 8081
+  servlet:
+    encoding:
+      charset: utf-8
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://localhost:3306/jobseeckerstudio?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.jdbc.Driver
+    username: jobseeckerstudio
+    password: ENC(j5p3V15tUxWo0vb1yvPHkA==)
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging:
+  level:
+    '[org.springframework.boot.web]': INFO
+
+
