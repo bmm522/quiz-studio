@@ -16,5 +16,5 @@ jobs:
           submodules: 'recursive'
       - name: Build and test user module
         run: |
-          cd ../JobSeeckerStudio
-          ls
+          cd ../JobSeeckerStudio/back-spring/jobseeckerstudio/user
+          ./mvnw clean verify
