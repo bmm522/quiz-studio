@@ -19,15 +19,10 @@ jobs:
       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.9
         env:
           MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
           MYSQL_DATABASE: jobseeckerstudio
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
