@@ -3,7 +3,6 @@ package com.jobseeckerstudio.user.unit.jwt;
 import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.dto.JwtToken;
-import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
