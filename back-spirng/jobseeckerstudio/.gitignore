@@ -148,13 +148,13 @@ hs_err_pid*
 
 *.orig
 *.yml
-*.properties
+# *.properties
 .gradle
 .idea
 *.gradle
 *.idea
-
-properties/**
-properties/
+.mvn
+# properties/**
+# properties/
 
 
