@@ -1,7 +1,8 @@
 package com.jobseeckerstudio.user.encryption;
 
 import com.jobseeckerstudio.user.exception.CryptoException;
-import com.jobseeckerstudio.user.encryption.properties.EncryptionProperties;
+
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,7 +11,9 @@ public class Crypto {
 
 
     protected static final String ALGORITHM = "AES";
-    protected static final String KEY = EncryptionProperties.KEY; // 대칭키
+
+    @Value("${encryption.secret}")
+    protected static String KEY;
 
     protected static Cipher getCipher(String algorithm,int mode) {
         try {

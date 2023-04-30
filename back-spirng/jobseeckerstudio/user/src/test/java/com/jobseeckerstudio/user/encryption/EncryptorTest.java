@@ -1,14 +1,16 @@
 package com.jobseeckerstudio.user.encryption;
 
 import com.jobseeckerstudio.user.exception.DecryptionException;
-import com.jobseeckerstudio.user.encryption.properties.EncryptionProperties;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EncryptorTest {
-    private static final String KEY = EncryptionProperties.KEY;
+    @Value("${encryption.secret}")
+    protected static String KEY;
     private static final String ALGORITHM = "AES";
 
     @Test
