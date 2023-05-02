@@ -12,6 +12,7 @@ import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
 import com.jobseeckerstudio.user.service.mapper.UserServiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,10 +23,10 @@ public class ReadUserService  {
     private final UserRepository userRepository;
 
 
-    public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo) {
-        FindUserWhenSocialLoginRequest dto = UserServiceMapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
-        return userRepository.findByUserKey(dto.getUserKey());
-    }
+//    public Optional<User> findByUserKeyWhenSocialLogin(SocialUserInfo socialUserInfo) {
+//        FindUserWhenSocialLoginRequest dto = UserServiceMapper.toFindUserWhenSocialLoginRequest(socialUserInfo);
+//        return userRepository.findByUserKey(dto.getUserKey());
+//    }
 
 
     public Optional<User> findByUserKey(String userKey) {
@@ -33,6 +34,7 @@ public class ReadUserService  {
     }
 
 
+    @Transactional(rollbackFor = RuntimeException.class)
     public GetEmailResponse getEmail(JwtToken jwtToken) {
         GetEmailRequest dto = UserServiceMapper.toGetEmailRequest(jwtToken);
         User user = getUser(dto);
@@ -40,7 +42,7 @@ public class ReadUserService  {
         return UserServiceMapper.toGetEmailResponse(email);
     }
 
-    private User getUser(GetEmailRequest dto) {
+    public User getUser(GetEmailRequest dto) {
         return userRepository.findByUserKey(dto.getUserKey())
             .orElseThrow(() -> new NotFoundUserException("userKey에 해당하는 유저 정보가 없습니다."));
     }

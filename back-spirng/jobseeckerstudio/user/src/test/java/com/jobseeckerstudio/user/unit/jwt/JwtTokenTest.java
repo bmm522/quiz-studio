@@ -42,35 +42,19 @@ public class JwtTokenTest {
 
     private JwtToken notHavePrefixJwtToken;
 
-
-    private final String TOKEN_PREFIX = "Bearer ";
-
-
-    private final String REFRESH_PREFIX = "RefreshToken ";
-
-
-    private final String HEADER_JWT = "test";
-
-
-    private final String HEADER_REFRESH = "test";
-
-
-    private final String ISS = "test";
-
-
     @BeforeEach
     public void setup() throws ExpiredJwtException {
         User user = User.builder().userKey("testUser").build();
         jwtToken = JwtToken.builder()
             .jwtToken(JwtProperties.TOKEN_PREFIX+ JWT.create()
                 .withSubject(user.getUserKey())
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .withClaim("userKey", user.getUserKey())
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .refreshToken(JwtProperties.REFRESH_PREFIX +JWT.create()
                 .withSubject("refreshToken")
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis() +  REFRESHTOKEN_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .build();
@@ -78,13 +62,13 @@ public class JwtTokenTest {
         invalidJwtToken = JwtToken.builder()
             .jwtToken(JwtProperties.TOKEN_PREFIX + JWT.create()
                 .withSubject(user.getUserKey())
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis()  - 1000000))
                 .withClaim("userKey", user.getUserKey())
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .refreshToken(JwtProperties.REFRESH_PREFIX +JWT.create()
                 .withSubject("refreshToken")
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis()  - 1000000))
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .build();
@@ -92,13 +76,13 @@ public class JwtTokenTest {
         notHavePrefixJwtToken = JwtToken.builder()
             .jwtToken(JWT.create()
                 .withSubject(user.getUserKey())
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .withClaim("userKey", user.getUserKey())
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .refreshToken(JWT.create()
                 .withSubject("refreshToken")
-                .withIssuer(ISS)
+                .withIssuer(JwtProperties.ISS)
                 .withExpiresAt(new Date(System.currentTimeMillis() +  REFRESHTOKEN_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(JwtProperties.SECRET)))
             .build();
