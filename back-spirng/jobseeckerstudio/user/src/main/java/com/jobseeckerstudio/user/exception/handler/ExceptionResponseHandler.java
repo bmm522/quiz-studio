@@ -2,11 +2,13 @@ package com.jobseeckerstudio.user.exception.handler;
 
 import com.jobseeckerstudio.user.exception.*;
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class ExceptionResponseHandler {
 
 
@@ -60,6 +62,7 @@ public class ExceptionResponseHandler {
 
 
     private CommonResponse<?> errorHandler(Exception e, HttpStatus status) {
+        log.error(e.getMessage());
         return CommonResponse.builder()
             .status(status)
             .msg(e.getMessage())

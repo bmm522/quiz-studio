@@ -23,8 +23,8 @@ public class LoginApiController {
     private final JwtExpiredChecker jwtExpiredChecker;
 
     @GetMapping("social/login/{social}")
-    public String moveSocialLoginForm(@PathVariable("social")String social){
-        return "redirect:/oauth2/authorization/"+social;
+    public String moveSocialLoginForm(@PathVariable("social") String social) {
+        return "redirect:/oauth2/authorization/" + social;
     }
 
     @GetMapping("/email")
@@ -39,17 +39,13 @@ public class LoginApiController {
         JwtToken jwtToken = JwtMapper.toJwtToken(request);
         String accessToken = jwtExpiredChecker.check(jwtToken);
         jwtToken.setJwtToken(accessToken);
+
         return responseHandler(HttpStatus.OK, "jwt 체크완료", jwtToken);
     }
 
 
-
-    private CommonResponse<?> responseHandler(HttpStatus status, String msg, Object data){
-        return CommonResponse.builder()
-            .status(status)
-            .msg(msg)
-            .data(data)
-            .build();
+    private CommonResponse<?> responseHandler(HttpStatus status, String msg, Object data) {
+        return CommonResponse.builder().status(status).msg(msg).data(data).build();
     }
 
 

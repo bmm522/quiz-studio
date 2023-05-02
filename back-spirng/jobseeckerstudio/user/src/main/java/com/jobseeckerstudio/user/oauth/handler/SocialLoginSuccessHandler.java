@@ -29,18 +29,12 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
-
-        PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
-
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
         JwtToken jwtToken = JwtMaker.create(user);
         settingUserAndGetRefreshToken(user, jwtToken);
-//        addHeader(response, jwtToken);
         TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
-
         addCookie(response, tokenCookie);
-
         response.sendRedirect("http://localhost:3001/main");
     }
 
@@ -49,16 +43,12 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addCookie(tokenCookie.getAuthorizationCookie());
         response.addCookie(tokenCookie.getRefreshTokenCookie());
     }
-//    private void addHeader(HttpServletResponse response, JwtToken jwtToken) {
-//        response.addHeader(JwtProperties.HEADER_JWT_STRING, jwtToken.getJwtToken());
-//        response.addHeader(JwtProperties.HEADER_REFRESHTOKEN_STRING, jwtToken.getRefreshToken());
-//    }
 
-    public void settingUserAndGetRefreshToken(User user, JwtToken jwtToken) {
+    private void settingUserAndGetRefreshToken(User user, JwtToken jwtToken) {
         Optional<User> userOptional = userRepository.findByUserKey(user.getUserKey());
-        if(userOptional.isEmpty()) {
+        if (userOptional.isEmpty()) {
             setUserSaltAndSave(user, jwtToken.getRefreshToken());
-        } else  {
+        } else {
             updateUserSaltAndRefreshTokenIfNotExpired(userOptional.get(), jwtToken);
         }
     }
@@ -70,9 +60,8 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
 
-
     public void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
-        if(!jwtToken.checkExpiredRefreshToken()) {
+        if (!jwtToken.checkExpiredRefreshToken()) {
             String newRefreshToken = JwtMaker.makeRefreshToken();
             savedUser.setSalt(newRefreshToken);
             jwtToken.setRefreshToken(newRefreshToken);
