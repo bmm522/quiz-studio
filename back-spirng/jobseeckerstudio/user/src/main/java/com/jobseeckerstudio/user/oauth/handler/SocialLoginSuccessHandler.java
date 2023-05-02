@@ -54,7 +54,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 //        response.addHeader(JwtProperties.HEADER_REFRESHTOKEN_STRING, jwtToken.getRefreshToken());
 //    }
 
-    private void settingUserAndGetRefreshToken(User user, JwtToken jwtToken) {
+    public void settingUserAndGetRefreshToken(User user, JwtToken jwtToken) {
         Optional<User> userOptional = userRepository.findByUserKey(user.getUserKey());
         if(userOptional.isEmpty()) {
             setUserSaltAndSave(user, jwtToken.getRefreshToken());
@@ -63,7 +63,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
         }
     }
 
-    private void setUserSaltAndSave(User user, String refreshToken) {
+    public void setUserSaltAndSave(User user, String refreshToken) {
         user.setEmailWithEncryption();
         user.setSalt(refreshToken);
         userRepository.save(user);
@@ -71,7 +71,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
 
-    private void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
+    public void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
         if(!jwtToken.checkExpiredRefreshToken()) {
             String newRefreshToken = JwtMaker.makeRefreshToken();
             savedUser.setSalt(newRefreshToken);

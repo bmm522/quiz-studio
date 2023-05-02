@@ -23,7 +23,6 @@ public class JwtMaker {
     }
 
     public static String makeAccessToken(User user) {
-        System.out.println(JwtProperties.SECRET);
         return JwtProperties.TOKEN_PREFIX+JWT.create()
             .withSubject(user.getUserKey())
             .withIssuer(JwtProperties.ISS)
