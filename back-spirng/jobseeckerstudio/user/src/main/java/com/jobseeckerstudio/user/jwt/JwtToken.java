@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.user.jwt.dto;
+package com.jobseeckerstudio.user.jwt;
 
 import com.jobseeckerstudio.user.exception.ExpiredTokenException;
 

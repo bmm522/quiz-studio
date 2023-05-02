@@ -12,8 +12,6 @@ public class Crypto {
 
     protected static final String ALGORITHM = "AES";
 
-
-
     protected static Cipher getCipher(String algorithm,int mode) {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(EncryptionProperties.KEY.getBytes(), ALGORITHM);

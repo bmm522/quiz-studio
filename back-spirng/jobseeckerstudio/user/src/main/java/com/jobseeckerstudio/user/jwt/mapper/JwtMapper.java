@@ -1,6 +1,6 @@
 package com.jobseeckerstudio.user.jwt.mapper;
 
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;

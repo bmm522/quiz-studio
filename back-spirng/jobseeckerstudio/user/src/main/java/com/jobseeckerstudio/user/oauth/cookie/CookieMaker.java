@@ -1,6 +1,6 @@
 package com.jobseeckerstudio.user.oauth.cookie;
 
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 
 import javax.servlet.http.Cookie;
 import java.io.UnsupportedEncodingException;

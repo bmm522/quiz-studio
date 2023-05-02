@@ -1,7 +1,7 @@
 package com.jobseeckerstudio.user.controller;
 
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RequestMapping("/api/v1")
 @Controller

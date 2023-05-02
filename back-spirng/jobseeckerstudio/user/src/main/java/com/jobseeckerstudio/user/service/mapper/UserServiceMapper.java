@@ -2,13 +2,12 @@ package com.jobseeckerstudio.user.service.mapper;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
 import com.jobseeckerstudio.user.service.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
-import org.springframework.beans.factory.annotation.Value;
 
 public class UserServiceMapper {
 

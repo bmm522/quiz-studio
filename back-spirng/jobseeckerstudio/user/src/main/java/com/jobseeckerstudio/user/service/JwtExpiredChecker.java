@@ -3,7 +3,7 @@ package com.jobseeckerstudio.user.service;
 import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.exception.NotFoundSaltException;
 import com.jobseeckerstudio.user.jwt.JwtMaker;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 
 import com.jobseeckerstudio.user.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;

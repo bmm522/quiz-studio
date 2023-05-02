@@ -5,7 +5,7 @@ import com.jobseeckerstudio.user.domain.user.User;
 
 
 import com.jobseeckerstudio.user.jwt.JwtMaker;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
@@ -19,8 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.Date;
 import java.util.Optional;
 
 

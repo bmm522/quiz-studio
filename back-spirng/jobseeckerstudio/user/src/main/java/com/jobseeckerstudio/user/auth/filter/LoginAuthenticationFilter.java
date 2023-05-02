@@ -5,7 +5,7 @@ import com.jobseeckerstudio.user.exception.LoginFailException;
 import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.domain.user.mapper.UserMapper;
 import com.jobseeckerstudio.user.jwt.JwtMaker;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;

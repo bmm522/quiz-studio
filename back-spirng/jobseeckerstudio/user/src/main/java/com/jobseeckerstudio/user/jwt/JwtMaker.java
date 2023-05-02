@@ -3,22 +3,9 @@ package com.jobseeckerstudio.user.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.jobseeckerstudio.user.domain.user.User;
-import com.jobseeckerstudio.user.exception.ExpiredTokenException;
-import com.jobseeckerstudio.user.exception.NotFoundUserException;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
-import com.jobseeckerstudio.user.repository.user.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
-import java.util.Optional;
 
 
 public class JwtMaker {

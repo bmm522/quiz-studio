@@ -1,7 +1,7 @@
 package com.jobseeckerstudio.user.jwt.filter;
 
 import com.jobseeckerstudio.user.exception.UnauthorizedException;
-import com.jobseeckerstudio.user.jwt.dto.JwtToken;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -25,11 +25,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = request.getRequestURI();
 
-        if (googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(requestURI)  ) {
-            System.out.println("newToken 안에들어옴");
+        if (shouldSkipFilter(request)) {
             chain.doFilter(request, response);
             return;
         }
@@ -46,6 +45,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         };
 
         chain.doFilter(request, response);
+    }
+
+    public boolean shouldSkipFilter(HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(requestURI);
     }
 
     private JwtToken getJwtToken(HttpServletRequest request) {
