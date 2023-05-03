@@ -3,7 +3,7 @@ package com.jobseeckerstudio.user.exception.handler;
 import com.jobseeckerstudio.user.exception.*;
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -57,16 +57,25 @@ public class ExceptionResponseHandler {
         return errorHandler(e, 500);
     }
 
+    @ExceptionHandler(NotFoundTokenFromHeaderException.class)
+    public CommonResponse<?> handleNotFoundTokenException(
+        NotFoundTokenFromHeaderException e) {
+        System.out.println("여기들옴");
+        return errorHandler(e, 401);
+    }
 
-
-
+    @ExceptionHandler(InvalidTokenException.class)
+    public CommonResponse<?> handleInvalidTokenException(InvalidTokenException e) {
+        System.out.println("여기들어옴");
+        return errorHandler(e, 401);
+    }
 
     private CommonResponse<?> errorHandler(Exception e, Integer status) {
         log.error(e.getMessage());
         return CommonResponse.builder()
             .status(status)
             .msg(e.getMessage())
-            .errorName(e.getClass().getName())
+            .errorName(e.getClass().getSimpleName())
             .build();
     }
 

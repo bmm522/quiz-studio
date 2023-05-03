@@ -2,6 +2,8 @@ package com.jobseeckerstudio.user.unit.jwt;
 
 import com.jobseeckerstudio.user.exception.UnauthorizedException;
 import com.jobseeckerstudio.user.jwt.filter.JwtAuthorizationFilter;
+import com.jobseeckerstudio.user.service.JwtExpiredChecker;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,7 @@ import static org.mockito.Mockito.*;
 public class JwtFilterTest {
 
     private JwtAuthorizationFilter jwtAuthorizationFilter;
+
 
     @BeforeEach
     void setUp() {

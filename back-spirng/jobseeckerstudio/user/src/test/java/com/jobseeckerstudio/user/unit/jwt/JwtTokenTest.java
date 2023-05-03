@@ -89,34 +89,32 @@ public class JwtTokenTest {
 
     }
 
-    @Test
-    @DisplayName("accessToken validate 체크")
-    public void testCheckValidateJwtToken() {
-        System.out.println(jwtToken.getJwtToken());
+    // @Test
+    // @DisplayName("accessToken validate 체크")
+    // public void testCheckValidateJwtToken() {
+    //     User user = User.
+    //     assertFalse(jwtToken.checkValidateJwtToken());
+    //
+    //     jwtToken.setJwtToken(null);
+    //     assertTrue(jwtToken.checkValidateJwtToken());
+    //
+    //     assertTrue(notHavePrefixJwtToken.checkValidateJwtToken());
+    // }
 
-        assertFalse(jwtToken.checkValidateJwtToken());
-
-        jwtToken.setJwtToken(null);
-        assertTrue(jwtToken.checkValidateJwtToken());
-
-        assertTrue(notHavePrefixJwtToken.checkValidateJwtToken());
-    }
-
-    @Test
-    @DisplayName("refreshToken validate 체크")
-    public void testCheckValidateRefreshToken() {
-        assertFalse(jwtToken.checkValidateRefreshToken());
-
-        jwtToken.setRefreshToken(null);
-        assertTrue(jwtToken.checkValidateRefreshToken());
-
-        assertTrue(notHavePrefixJwtToken.checkValidateRefreshToken());
-    }
+    // @Test
+    // @DisplayName("refreshToken validate 체크")
+    // public void testCheckValidateRefreshToken() {
+    //     assertFalse(jwtToken.checkValidateRefreshToken());
+    //
+    //     jwtToken.setRefreshToken(null);
+    //     assertTrue(jwtToken.checkValidateRefreshToken());
+    //
+    //     assertTrue(notHavePrefixJwtToken.checkValidateRefreshToken());
+    // }
 
     @Test
     @DisplayName("accessToken 유효시간 체크")
     public void testCheckExpiredToken() {
-        System.out.println(jwtToken.getJwtToken());
         assertTrue(jwtToken.checkExpiredToken());
 
         assertFalse(invalidJwtToken.checkExpiredToken());

@@ -2,6 +2,7 @@ package com.jobseeckerstudio.user.jwt;
 
 import com.jobseeckerstudio.user.exception.ExpiredTokenException;
 
+import com.jobseeckerstudio.user.exception.InvalidTokenException;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import io.jsonwebtoken.*;
 import lombok.Builder;
@@ -26,12 +27,16 @@ public class JwtToken {
     }
 
 
-    public boolean checkValidateJwtToken() {
-        return jwtToken == null || !jwtToken.startsWith(JwtProperties.TOKEN_PREFIX);
+    public void checkValidateJwtToken() {
+        if(jwtToken == null ||jwtToken.isEmpty() || !jwtToken.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            throw  new InvalidTokenException("잘못된 토큰 정보입니다.");
+        }
     }
 
-    public boolean checkValidateRefreshToken() {
-        return refreshToken == null || !refreshToken.startsWith(JwtProperties.REFRESH_PREFIX);
+    public void checkValidateRefreshToken() {
+        if(refreshToken == null || refreshToken.isEmpty()||!refreshToken.startsWith(JwtProperties.REFRESH_PREFIX)){
+            throw  new InvalidTokenException("잘못된 토큰 정보입니다.");
+        }
     }
 
     public boolean checkExpiredToken() {

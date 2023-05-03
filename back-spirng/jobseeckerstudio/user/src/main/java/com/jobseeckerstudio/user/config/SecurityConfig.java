@@ -6,6 +6,8 @@ import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.filter.JwtAuthorizationFilter;
 import com.jobseeckerstudio.user.oauth.handler.SocialLoginSuccessHandler;
 import com.jobseeckerstudio.user.oauth.principal.PrincipalSocialOAuth2UserService;
+import com.jobseeckerstudio.user.service.JwtExpiredChecker;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CorsConfig corsConfig;
 
     private final SocialLoginSuccessHandler socialLoginSuccessHandler;
-
 
 
 

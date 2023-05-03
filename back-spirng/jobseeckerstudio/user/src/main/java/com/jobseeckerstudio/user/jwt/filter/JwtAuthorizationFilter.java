@@ -1,8 +1,12 @@
 package com.jobseeckerstudio.user.jwt.filter;
 
+import com.jobseeckerstudio.user.exception.InvalidTokenException;
 import com.jobseeckerstudio.user.exception.UnauthorizedException;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
+import com.jobseeckerstudio.user.service.JwtExpiredChecker;
+
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -11,9 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import lombok.RequiredArgsConstructor;
+
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-
 
     private final String googleUrl = "/api/v1/social/login/google";
     private final String kakaoUrl = "/api/v1/social/login/kakao";
@@ -26,25 +33,29 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String requestURI = request.getRequestURI();
-
-        if (shouldSkipFilter(request)) {
+        try {
+            if (shouldSkipFilter(request)) {
+                chain.doFilter(request, response);
+                return;
+            }
+            JwtToken jwtToken = JwtMapper.toJwtToken(request);
+            jwtToken.checkValidateJwtToken();
+            jwtToken.checkValidateRefreshToken();;
             chain.doFilter(request, response);
-            return;
+        } catch (Exception e) {
+            handleException(response, e, 401);
         }
-        JwtToken jwtToken = getJwtToken(request);
+    }
 
-        if(jwtToken.checkValidateJwtToken()) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if(jwtToken.checkValidateRefreshToken()){
-            chain.doFilter(request, response);
-            return;
-        };
-
-        chain.doFilter(request, response);
+    private void handleException(HttpServletResponse response, Exception e, Integer status) throws IOException {
+        response.setStatus(status);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        String errorName = e.getClass().getSimpleName();
+        String message = e.getMessage();
+        response.getWriter().write(String.format("{\"status\": %d, \"errorName\": \"%s\", \"msg\": \"%s\"}", status, errorName, message));
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 
     public boolean shouldSkipFilter(HttpServletRequest request) {
@@ -52,10 +63,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(requestURI);
     }
 
-    private JwtToken getJwtToken(HttpServletRequest request) {
-        return  JwtMapper.toJwtTokenOptional(request)
-            .orElseThrow(() -> new UnauthorizedException("JwtToken이 null 입니다. "));
-    }
 
 
 }

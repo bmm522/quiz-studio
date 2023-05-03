@@ -58,6 +58,7 @@ public class GetEmailE2eTest {
         headers.set(JwtProperties.HEADER_REFRESH, jwtToken.getRefreshToken());
 
         ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
         DocumentContext dc = JsonPath.parse(response.getBody());
         Integer status = dc.read("$.status");
         String msg = dc.read("$.msg");
@@ -66,5 +67,107 @@ public class GetEmailE2eTest {
         assertThat(msg).isEqualTo("이메일 불러오기 성공");
         assertThat(email).isEqualTo("test_email@test.com");
     }
+
+    @Test
+    @DisplayName("AccessToken 없이 요청")
+    public void getEmailTestWhenNotHaveJwtToken() {
+        String encryptedEmail = Encryptor.encrypt("test_email@test.com");
+        User user = User.builder().userKey("test_user").email(encryptedEmail).build();
+        JwtToken jwtToken = JwtMaker.create(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(JwtProperties.HEADER_JWT,  null);
+        headers.set(JwtProperties.HEADER_REFRESH, jwtToken.getRefreshToken());
+
+        ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+        System.out.println(response.getBody());
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer status = dc.read("$.status");
+        String errorName = dc.read("$.errorName");
+        assertThat(status).isEqualTo(401);
+        assertThat(errorName).isEqualTo("NotFoundTokenFromHeaderException");
+    }
+
+    @Test
+    @DisplayName("RefreshToken 없이 요청")
+    public void getEmailTestWhenNotHaveRefreshToken() {
+        String encryptedEmail = Encryptor.encrypt("test_email@test.com");
+        User user = User.builder().userKey("test_user").email(encryptedEmail).build();
+        JwtToken jwtToken = JwtMaker.create(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(JwtProperties.HEADER_JWT,  jwtToken.getJwtToken());
+        headers.set(JwtProperties.HEADER_REFRESH, null);
+
+        ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer status = dc.read("$.status");
+        String errorName = dc.read("$.errorName");
+        assertThat(status).isEqualTo(401);
+        assertThat(errorName).isEqualTo("NotFoundTokenFromHeaderException");
+    }
+
+    @Test
+    @DisplayName("등록되지 않은 유저 요청")
+    public void getEmailTestWhenUnregisteredUser() {
+        String encryptedEmail = Encryptor.encrypt("test_email@test.com");
+        User user = User.builder().userKey("rrrr").email(encryptedEmail).build();
+        JwtToken jwtToken = JwtMaker.create(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(JwtProperties.HEADER_JWT,  jwtToken.getJwtToken());
+        headers.set(JwtProperties.HEADER_REFRESH, jwtToken.getRefreshToken());
+
+        ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer status = dc.read("$.status");
+        String msg = dc.read("$.msg");
+        String errorName = dc.read("$.errorName");
+        assertThat(status).isEqualTo(500);
+        assertThat(msg).isEqualTo("userKey에 해당하는 유저 정보가 없습니다.");
+        assertThat(errorName).isEqualTo("NotFoundUserException");
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 accessToken으로 요청")
+    public void getEmailTestWhenInvalidAccessToken() {
+        String encryptedEmail = Encryptor.encrypt("test_email@test.com");
+        User user = User.builder().userKey("test_user").email(encryptedEmail).build();
+        JwtToken jwtToken = JwtMaker.create(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(JwtProperties.HEADER_JWT,  "testToken");
+        headers.set(JwtProperties.HEADER_REFRESH, jwtToken.getRefreshToken());
+
+        ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+        System.out.println(response.getBody());
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer status = dc.read("$.status");
+        String msg = dc.read("$.msg");
+        String errorName = dc.read("$.errorName");
+        assertThat(status).isEqualTo(401);
+        assertThat(msg).isEqualTo("잘못된 토큰 정보입니다.");
+        assertThat(errorName).isEqualTo("InvalidTokenException");
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 refreshToken으로 요청")
+    public void getEmailTestWhenInvalidRefreshToken() {
+        String encryptedEmail = Encryptor.encrypt("test_email@test.com");
+        User user = User.builder().userKey("test_user").email(encryptedEmail).build();
+        JwtToken jwtToken = JwtMaker.create(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(JwtProperties.HEADER_JWT,  jwtToken.getRefreshToken());
+        headers.set(JwtProperties.HEADER_REFRESH,"test");
+
+        ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer status = dc.read("$.status");
+        String msg = dc.read("$.msg");
+        String errorName = dc.read("$.errorName");
+        assertThat(status).isEqualTo(401);
+        assertThat(msg).isEqualTo("잘못된 토큰 정보입니다.");
+        assertThat(errorName).isEqualTo("InvalidTokenException");
+    }
+
 
 }
