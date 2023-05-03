@@ -6,7 +6,9 @@ import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,7 @@ public class LoginApiController {
     public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
         JwtToken jwtToken = JwtMapper.toJwtToken(request);
         GetEmailResponse dto = readUserService.getEmail(jwtToken);
-        return responseHandler(HttpStatus.OK, "이메일 불러오기 성공", dto);
+        return responseHandler(200, "이메일 불러오기 성공", dto);
     }
 
     @GetMapping("/check-expired-jwt")
@@ -39,14 +41,11 @@ public class LoginApiController {
         JwtToken jwtToken = JwtMapper.toJwtToken(request);
         String accessToken = jwtExpiredChecker.check(jwtToken);
         jwtToken.setJwtToken(accessToken);
-
-        return responseHandler(HttpStatus.OK, "jwt 체크완료", jwtToken);
+        return responseHandler(200, "jwt 체크완료", jwtToken);
     }
 
-
-    private CommonResponse<?> responseHandler(HttpStatus status, String msg, Object data) {
+    private CommonResponse<?> responseHandler(Integer status, String msg, Object data) {
         return CommonResponse.builder().status(status).msg(msg).data(data).build();
     }
-
 
 }
