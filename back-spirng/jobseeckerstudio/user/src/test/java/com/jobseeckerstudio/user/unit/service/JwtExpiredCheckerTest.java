@@ -66,10 +66,10 @@ class JwtExpiredCheckerTest {
         when(userRepository.findBySalt(jwtToken.getRefreshToken())).thenReturn(Optional.of(user));
 
         // When
-        String result = jwtExpiredChecker.check(jwtToken);
+        JwtToken result = jwtExpiredChecker.check(jwtToken);
 
         // Then
-        assertEquals(jwtToken.getJwtToken(), result);
+        assertEquals(jwtToken.getJwtToken(), result.getJwtToken());
         verify(userRepository).findBySalt(jwtToken.getRefreshToken());
     }
 

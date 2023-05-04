@@ -2,7 +2,7 @@ package com.jobseeckerstudio.user.unit.service;
 
 
 import com.jobseeckerstudio.user.domain.user.User;
-import com.jobseeckerstudio.user.encryption.Encryptor;
+import com.jobseeckerstudio.user.encrypt.Encryptor;
 import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.repository.user.UserRepository;

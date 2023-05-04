@@ -39,9 +39,9 @@ public class LoginApiController {
     @GetMapping("/check-expired-jwt")
     public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request) {
         JwtToken jwtToken = JwtMapper.toJwtToken(request);
-        String accessToken = jwtExpiredChecker.check(jwtToken);
-        jwtToken.setJwtToken(accessToken);
-        return responseHandler(200, "jwt 체크완료", jwtToken);
+        JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
+
+        return responseHandler(200, "jwt 체크완료", checkedToken);
     }
 
     private CommonResponse<?> responseHandler(Integer status, String msg, Object data) {

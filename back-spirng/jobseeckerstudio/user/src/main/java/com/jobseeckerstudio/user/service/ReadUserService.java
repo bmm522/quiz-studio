@@ -1,12 +1,10 @@
 package com.jobseeckerstudio.user.service;
 
 import com.jobseeckerstudio.user.exception.NotFoundUserException;
-import com.jobseeckerstudio.user.encryption.Decryptor;
+import com.jobseeckerstudio.user.encrypt.Decryptor;
 import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.jwt.JwtToken;
-import com.jobseeckerstudio.user.oauth.info.SocialUserInfo;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
-import com.jobseeckerstudio.user.service.dto.FindUserWhenSocialLoginRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailRequest;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
 import com.jobseeckerstudio.user.service.mapper.UserServiceMapper;

@@ -1,6 +1,6 @@
-package com.jobseeckerstudio.user.encryption;
+package com.jobseeckerstudio.user.encrypt;
 
-import com.jobseeckerstudio.user.encryption.properties.EncryptionProperties;
+import com.jobseeckerstudio.user.encrypt.properties.EncryptionProperties;
 import com.jobseeckerstudio.user.exception.CryptoException;
 
 

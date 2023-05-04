@@ -2,7 +2,7 @@ package com.jobseeckerstudio.user.domain.user;
 
 import com.jobseeckerstudio.user.domain.BaseTimeEntity;
 import com.jobseeckerstudio.user.domain.Status;
-import com.jobseeckerstudio.user.encryption.Encryptor;
+import com.jobseeckerstudio.user.encrypt.Encryptor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.user.encryption;
+package com.jobseeckerstudio.user.encrypt;
 
 import com.jobseeckerstudio.user.exception.EncryptionException;
 import lombok.extern.slf4j.Slf4j;

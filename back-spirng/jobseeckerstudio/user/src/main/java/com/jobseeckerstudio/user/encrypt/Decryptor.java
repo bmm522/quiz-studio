@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.user.encryption;
+package com.jobseeckerstudio.user.encrypt;
 
 import com.jobseeckerstudio.user.exception.DecryptionException;
 
