@@ -60,13 +60,11 @@ public class ExceptionResponseHandler {
     @ExceptionHandler(NotFoundTokenFromHeaderException.class)
     public CommonResponse<?> handleNotFoundTokenException(
         NotFoundTokenFromHeaderException e) {
-        System.out.println("여기들옴");
         return errorHandler(e, 401);
     }
 
     @ExceptionHandler(InvalidTokenException.class)
     public CommonResponse<?> handleInvalidTokenException(InvalidTokenException e) {
-        System.out.println("여기들어옴");
         return errorHandler(e, 401);
     }
 

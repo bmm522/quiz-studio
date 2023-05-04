@@ -2,6 +2,7 @@ package com.jobseeckerstudio.user.service.mapper;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.jobseeckerstudio.user.exception.InvalidTokenException;
 import com.jobseeckerstudio.user.exception.UnauthorizedException;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
@@ -34,11 +35,11 @@ public class UserServiceMapper {
     }
 
 
-    public static String parsingJwt(String jwtToken, String key) {
+    private static String parsingJwt(String jwtToken, String key) {
         try {
             return  JWT.require(Algorithm.HMAC256(JwtProperties.SECRET)).build().verify(jwtToken).getClaim(key).asString();
         } catch (Exception e) {
-            throw new UnauthorizedException("잘못된 토큰 정보입니다.");
+            throw new InvalidTokenException("잘못된 토큰 정보입니다.");
         }
 
     }
