@@ -1,5 +1,5 @@
-import {CategoryEnum} from "../enum/CategoryEnum";
-import {Level} from "../enum/Level";
+import { CategoryEnum } from '../enum/CategoryEnum';
+import { Level } from '../enum/Level';
 
 export class RecordDto {
   constructor(

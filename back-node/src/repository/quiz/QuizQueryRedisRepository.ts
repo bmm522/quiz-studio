@@ -23,21 +23,20 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
 
       return randomQuizResponses;
     } catch (err) {
-      console.error(err);
-      return [];
+      throw err;
     } finally {
       await redisClient.quit();
     }
   }
 
-  private createRedisClient(): Redis {
+  public createRedisClient(): Redis {
     return new Redis({
       host: env.redis.host as string,
       port: parseInt(env.redis.port as string),
     });
   }
 
-  private async getQuizData(
+  public async getQuizData(
     redisClient: Redis,
     categoryName: string,
     difficulty: string,
@@ -59,7 +58,7 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     return await Promise.all(quizDataPromises);
   }
 
-  private createRandomQuizResponses(quizDatas: Record<string, string>[]): ServiceGetQuizResponse[] {
+  public createRandomQuizResponses(quizDatas: Record<string, string>[]): ServiceGetQuizResponse[] {
     const randomQuizResponses: ServiceGetQuizResponse[] = [];
     const randomIndices = new Set<number>();
 
@@ -78,7 +77,7 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     return randomQuizResponses;
   }
 
-  private createQuizChoices(quizData: Record<string, string>): any[] {
+  public createQuizChoices(quizData: Record<string, string>): any[] {
     const quizChoices = [];
 
     for (let i = 0; i < 4; i++) {

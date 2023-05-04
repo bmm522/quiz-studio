@@ -6,10 +6,10 @@ import { CategoryEnum } from '../../../global/enum/CategoryEnum';
 import { Level } from '../../../global/enum/Level';
 import { ServiceDeleteRecordRequest } from '../dto/ServiceDeleteRecordRequest';
 import { RepositoryDeleteRecordRequest } from '../../../domain/records/repository/dto/RepositoryDeleteRecordRequest';
-import {ServiceGetRecordRequest} from "../dto/ServiceGetRecordRequest";
-import {RepositoryGetRecordRequest} from "../../../repository/records/dto/RepositoryGetRecordRequest";
-import {RepositoryGetRecordResponse} from "../../../repository/records/dto/RepositoryGetRecordResponse";
-import {RecordDto} from "../../../global/dto/RecordDto";
+import { ServiceGetRecordRequest } from '../dto/ServiceGetRecordRequest';
+import { RepositoryGetRecordRequest } from '../../../repository/records/dto/RepositoryGetRecordRequest';
+import { RepositoryGetRecordResponse } from '../../../repository/records/dto/RepositoryGetRecordResponse';
+import { RecordDto } from '../../../global/dto/RecordDto';
 
 export class RecordsServiceMapper {
   static async toEntities(dto: ServiceSaveRecordRequest): Promise<Records[]> {
@@ -37,12 +37,16 @@ export class RecordsServiceMapper {
     });
   }
 
-  static async toGetResponse(response: RepositoryGetRecordResponse): Promise<ServiceGetRecordsResponse> {
-    const records = await Promise.all(response.records.map(async record => {
-      await record.setCategory();
-      await record.setLevel();
-      return record;
-    }));
+  static async toGetResponse(
+    response: RepositoryGetRecordResponse,
+  ): Promise<ServiceGetRecordsResponse> {
+    const records = await Promise.all(
+      response.records.map(async record => {
+        await record.setCategory();
+        await record.setLevel();
+        return record;
+      }),
+    );
 
     return ServiceGetRecordsResponse.create(records, response.totalPage);
   }
@@ -52,9 +56,14 @@ export class RecordsServiceMapper {
   }
 
   static async toGetRequest(dto: ServiceGetRecordRequest) {
-    if(dto.category) {
-
+    if (dto.category) {
     }
-    return RepositoryGetRecordRequest.create(dto.userKey, dto.page, dto.unresolved, dto.category, dto.level);
+    return RepositoryGetRecordRequest.create(
+      dto.userKey,
+      dto.page,
+      dto.unresolved,
+      dto.category,
+      dto.level,
+    );
   }
 }

@@ -16,7 +16,7 @@ import { RecordsService } from '../../service/records/RecordsService';
 import { ServiceSaveRecordRequest } from '../../service/records/dto/ServiceSaveRecordRequest';
 import { RecordsControllerMapper } from './mapper/RecordsControllerMapper';
 import { ControllerDeleteRecordRequest } from './dto/ControllerDeleteRecordRequest';
-import {ControllerGetRecordRequest} from "./dto/ControllerGetRecordRequest";
+import { ControllerGetRecordRequest } from './dto/ControllerGetRecordRequest';
 
 @JsonController('/records')
 @Service()
