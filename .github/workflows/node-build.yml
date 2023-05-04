@@ -1,0 +1,54 @@
+name: node-build
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'back-node/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    services: 
+      redis:
+        image: redis
+        ports:
+          -  ${{ secrets.REDIS_HOST }}:${{ secrets.REDIS_HOST }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: node Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Generate Environment Variables File for Production
+        run: |
+          cd back-node
+          mkdir env
+          cd env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "TOKEN_PREFIX=$TOKEN_PREFIX" >> .env
+          echo "SECRET_KEY=$REFRESH_PREFIX" >> .env
+          echo "REDIS_HOST=$REDIS_HOST" >> .env
+          echo "REDIS_PORT=$REDIS_PORT" >> .env
+          echo "REDIS_USERNAME=$REDIS_USERNAME" >> .env
+          echo "REDIS_PASSWORD=$REDIS_PASSWORD " >> .env
+          echo "MONGO_URL=$MONGO_URL " >> .env
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          TOKEN_PREFIX: ${{ secrets.TOKEN_PREFIX }}
+          REFRESH_PREFIX: ${{ secrets.REFRESH_PREFIX }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
+      - name: Install Dependencies and Surge
+        run: |
+          cd back-node
+          npm install
+      - name: Run Test
+        run: |
+          cd back-node
+          npm run test
