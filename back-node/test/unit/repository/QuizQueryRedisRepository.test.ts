@@ -40,18 +40,19 @@ describe('QuizQueryRedisRepository Function Test', () => {
 
   beforeEach(() => {
     queryRedisRepository = new QuizQueryRedisRepository();
-    redisClient = new Redis({
-      host: env.redis.host as string,
-      port: parseInt(env.redis.port as string),
-    });
+    // redisClient = new Redis({
+    //   host: env.redis.host as string,
+    //   port: parseInt(env.redis.port as string),
+    // });
   });
 
-  afterEach(async () => {
-    await redisClient.quit();
-  });
+  // afterEach(async () => {
+  //   await redisClient.quit();
+  // });
 
   describe('getQuizData Test', () => {
     it('성공 케이스', async () => {
+      redisClient = await queryRedisRepository.createRedisClient();
       const result = await queryRedisRepository.getQuizData(
         redisClient,
         CategoryEnum.JAVA as string,
@@ -67,11 +68,13 @@ describe('QuizQueryRedisRepository Function Test', () => {
       result.forEach(quizData => {
         expect(quizData.id).toContain(`${CategoryEnum.JAVA}_${Level.EASY}`);
       });
+      await redisClient.quit();
     });
   });
 
   describe(' createRandomQuizResponses Test', () => {
     it('성공 케이스', async () => {
+      redisClient = await queryRedisRepository.createRedisClient();
       const quizDatas = await queryRedisRepository.getQuizData(
         redisClient,
         CategoryEnum.JAVA as string,
@@ -91,11 +94,13 @@ describe('QuizQueryRedisRepository Function Test', () => {
         const quizData = quizDatas.find(quiz => quiz.quizTitle === quizResponse.quizTitle);
         expect(quizData).toBeDefined();
       });
+      await redisClient.quit();
     });
   });
 
   describe('createQuizChoices Test', () => {
     it('성공 케이스', async () => {
+      redisClient = await queryRedisRepository.createRedisClient();
       const quizDatas = await queryRedisRepository.getQuizData(
         redisClient,
         CategoryEnum.JAVA as string,
@@ -110,6 +115,7 @@ describe('QuizQueryRedisRepository Function Test', () => {
         expect(choice).toHaveProperty('content');
         expect(choice).toHaveProperty('isAnswer');
       });
+      await redisClient.quit()
     });
   });
 });
