@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'back-node/**'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +13,7 @@ jobs:
       redis:
         image: redis
         ports:
-          -  ${{ secrets.REDIS_HOST }}:${{ secrets.REDIS_HOST }}
+          -  6387:6387
     
     steps:
       - name: Checkout repository
