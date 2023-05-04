@@ -4,8 +4,8 @@ import { ControllerGetQuizRequest } from "../../../src/controller/quiz/dto/Contr
 import { QuizServiceMapper } from "../../../src/service/quiz/mapper/QuizServiceMapper";
 import { ServiceGetQuizRequest } from "../../../src/service/quiz/dto/ServiceGetQuizRequest";
 
-describe('QuizServiceMapper', () => {
-    it('should correctly map ControllerGetQuizRequest to ServiceGetQuizRequest', () => {
+describe('QuizServiceMapperTest', () => {
+    it('toGetRequest Test', () => {
         // Arrange
         const category: CategoryEnum = CategoryEnum.JAVA;
         const level: Level = Level.EASY;
