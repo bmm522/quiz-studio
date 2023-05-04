@@ -1,8 +1,9 @@
-import * as path from 'path';
 
-const config = require('dotenv').config({
-  path: path.join(__dirname, `../../env/.env`),
-});
+const path = require('path');
+const dotenv = require('dotenv');
+
+const envPath = path.resolve(__dirname, '../../env/.env');
+const config = dotenv.config({ path: envPath });
 
 if (config.error) {
   throw config.error;
@@ -12,16 +13,16 @@ if (config.error) {
  * 환경 변수
  */
 export const env = {
-  mysqlDatabase: {
-    host: process.env.TYPEORM_MYSQL_HOST,
-    port: Number(process.env.TYPEORM_MYSQL_PORT),
-    username: process.env.TYPEORM_MYSQL_USERNAME,
-    password: process.env.TYPEORM_MYSQL_PASSWORD,
-    database: process.env.TYPEORM_MYSQL_DATABASE,
-    synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
-    logging: process.env.TYPEORM_LOGGING === 'true',
-    dropSchema: process.env.TYPEORM_DROP_SCHEMA === 'true',
-  },
+  // mysqlDatabase: {
+  //   host: process.env.TYPEORM_MYSQL_HOST,
+  //   port: Number(process.env.TYPEORM_MYSQL_PORT),
+  //   username: process.env.TYPEORM_MYSQL_USERNAME,
+  //   password: process.env.TYPEORM_MYSQL_PASSWORD,
+  //   database: process.env.TYPEORM_MYSQL_DATABASE,
+  //   synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
+  //   logging: process.env.TYPEORM_LOGGING === 'true',
+  //   dropSchema: process.env.TYPEORM_DROP_SCHEMA === 'true',
+  // },
   mongoDatabase: {
     url: process.env.MONGO_URL,
   },
