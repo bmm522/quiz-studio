@@ -1,0 +1,58 @@
+name: node-build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: node Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "TOKEN_PREFIX=$TOKEN_PREFIX" >> .env
+          echo "SECRET_KEY=$REFRESH_PREFIX" >> .env
+          echo "REDIS_HOST=$REDIS_HOST" >> .env
+          echo "REDIS_PORT=$REDIS_PORT" >> .env
+          echo "REDIS_USERNAME=$REDIS_USERNAME" >> .env
+          echo "REDIS_PASSWORD=$REDIS_PASSWORD " >> .env
+          echo "MONGO_URL=$MONGO_URL " >> .env
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          TOKEN_PREFIX: ${{ secrets.TOKEN_PREFIX }}
+          REFRESH_PREFIX: ${{ secrets.REFRESH_PREFIX }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
+      - name: Install Dependencies and Surge
+        run: |
+          npm install
+      - name: Run Module
+        run: |
+          npm run dev
+# jobs:
+#   sonarcloud:
+#     name: SonarCloud
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - name: Install dependencies
+#         run: yarn
+#       - name: Test and coverage
+#         run: yarn jest --coverage
+#       - name: SonarCloud Scan
+#         uses: SonarSource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
