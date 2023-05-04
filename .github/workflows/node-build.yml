@@ -35,9 +35,11 @@ jobs:
           MONGO_URL: ${{ secrets.MONGO_URL }}
       - name: Install Dependencies and Surge
         run: |
+          cd back-node
           npm install
       - name: Run Module
         run: |
+          cd back-node
           npm run dev
 # jobs:
 #   sonarcloud:
