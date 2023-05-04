@@ -34,11 +34,11 @@ public class UserServiceMapper {
     }
 
 
-        private static String parsingJwt(String jwtToken, String key) {
-            try {
-                return  JWT.require(Algorithm.HMAC256(JwtProperties.SECRET)).build().verify(jwtToken).getClaim(key).asString();
-            } catch (Exception e) {
-                throw new UnauthorizedException("잘못된 토큰 정보입니다.");
+    public static String parsingJwt(String jwtToken, String key) {
+        try {
+            return  JWT.require(Algorithm.HMAC256(JwtProperties.SECRET)).build().verify(jwtToken).getClaim(key).asString();
+        } catch (Exception e) {
+            throw new UnauthorizedException("잘못된 토큰 정보입니다.");
         }
 
     }

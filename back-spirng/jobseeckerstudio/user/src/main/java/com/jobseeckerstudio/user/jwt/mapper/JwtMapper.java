@@ -8,12 +8,12 @@ import java.util.Optional;
 
 public class JwtMapper {
 
-    public static Optional<JwtToken> toJwtTokenOptional(HttpServletRequest request) {
-        return Optional.ofNullable(JwtToken.builder()
-            .jwtToken(request.getHeader("authorization"))
-            .refreshToken(request.getHeader("refreshToken"))
-            .build());
-    }
+    // public static Optional<JwtToken> toJwtTokenOptional(HttpServletRequest request) {
+    //     return Optional.ofNullable(JwtToken.builder()
+    //         .jwtToken(request.getHeader("authorization"))
+    //         .refreshToken(request.getHeader("refreshToken"))
+    //         .build());
+    // }
 
     public static JwtToken toJwtToken(HttpServletRequest request) {
         String jwtToken = getHeaderValue(request, "authorization");
