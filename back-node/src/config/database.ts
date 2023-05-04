@@ -65,6 +65,7 @@ import * as mongoose from 'mongoose';
 // }
 
 export async function createMongoDBConnection(): Promise<void> {
+  console.log(env.mongoDatabase.url);
   const mongoose = require('mongoose');
   mongoose
     .connect(env.mongoDatabase.url)
