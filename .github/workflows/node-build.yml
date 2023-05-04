@@ -16,6 +16,9 @@ jobs:
           node-version: '18'
       - name: Generate Environment Variables File for Production
         run: |
+          cd back-node
+          mkdir env
+          cd env
           echo "SECRET_KEY=$SECRET_KEY" >> .env
           echo "TOKEN_PREFIX=$TOKEN_PREFIX" >> .env
           echo "SECRET_KEY=$REFRESH_PREFIX" >> .env
