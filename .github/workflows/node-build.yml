@@ -13,7 +13,7 @@ jobs:
       redis:
         image: redis
         ports:
-          -  6387:6387
+          -  6379:6379
     
     steps:
       - name: Checkout repository
