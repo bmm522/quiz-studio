@@ -1,8 +1,11 @@
+const path = require('path');
+const rootDir = path.join(__dirname, '/');
+
 module.exports = {
     moduleFileExtensions: ["js", "json", "ts"],
     testPathIgnorePatterns: ["<rootDir>/node_modules/"],
     testMatch: [
-        "<rootDir>\\test\\unit\\mapper\\*.test.(ts|js)",
+        path.join(rootDir, "test/unit/mapper/*.test.(ts|js)"),
         // "<rootDir>\\test\\*.test.(ts|js)",
     ],
     transform: {
