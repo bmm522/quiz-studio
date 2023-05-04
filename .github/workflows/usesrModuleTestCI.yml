@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'back-spring/jobseeckerstudio/user/**
+      - 'back-spring/jobseeckerstudio/user/**'
 
 jobs:
   build:
