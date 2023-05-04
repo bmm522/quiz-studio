@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - back-node/**
 jobs:
   build:
     runs-on: ubuntu-latest
