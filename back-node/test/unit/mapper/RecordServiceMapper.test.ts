@@ -4,6 +4,8 @@ import { Level } from '../../../src/global/enum/Level';
 import { Records } from '../../../src/domain/records/records';
 import { ServiceSaveRecordRequest } from '../../../src/service/records/dto/ServiceSaveRecordRequest';
 import { RecordsServiceMapper } from '../../../src/service/records/mapper/RecordsServiceMapper';
+import { RepositoryGetRecordResponse } from "../../../src/repository/records/dto/RepositoryGetRecordResponse";
+import { ServiceGetRecordsResponse } from "../../../src/service/records/dto/ServiceGetRecordsResponse";
 
 describe('RecordServiceMapperTest', () => {
   it('toEntities Test', async () => {
@@ -51,5 +53,33 @@ describe('RecordServiceMapperTest', () => {
     expect(result[1].quizTitle).toEqual(quizRecordArray[1].quizTitle);
     expect(result[1].category).toEqual('자료구조');
     expect(result[1].level).toEqual('어려움');
+  });
+  it('toGetResponse Test', async () => {
+    const quizRecordArray: RecordDto[] = [
+      new RecordDto(
+          '퀴즈 1',
+          true,
+          CategoryEnum.JAVA,
+          Level.EASY,
+          ['선택1', '선택2', '선택3', '선택4'],
+          [true, false, false, false],
+      ),
+      new RecordDto(
+          '퀴즈 2',
+          false,
+          CategoryEnum.DATASTRUCTURE,
+          Level.HARD,
+          ['선택1', '선택2', '선택3', '선택4'],
+          [false, true, false, false],
+      ),
+    ];
+
+    const totalPage = 1;
+
+    const repositoryGetRecordResponse = RepositoryGetRecordResponse.create(quizRecordArray, totalPage);
+
+    const result = await RecordsServiceMapper.toGetResponse(repositoryGetRecordResponse);
+
+    expect(result).toBeInstanceOf(ServiceGetRecordsResponse);
   });
 });

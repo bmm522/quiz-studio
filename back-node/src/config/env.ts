@@ -12,6 +12,10 @@ if (config.error) {
  * 환경 변수
  */
 export const env = {
+  nodeEnv: {
+    testEnv: process.env.TEST_ENV
+  },
+
   // mysqlDatabase: {
   //   host: process.env.TYPEORM_MYSQL_HOST,
   //   port: Number(process.env.TYPEORM_MYSQL_PORT),
