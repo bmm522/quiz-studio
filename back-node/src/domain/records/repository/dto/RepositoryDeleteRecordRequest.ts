@@ -16,7 +16,7 @@ export class RepositoryDeleteRecordRequest {
     }
   }
 
-  static create(userKey: string, deleteOption: string) {
+  static create(userKey: string, deleteOption: string): RepositoryDeleteRecordRequest {
     return new RepositoryDeleteRecordRequest(userKey, deleteOption);
   }
 

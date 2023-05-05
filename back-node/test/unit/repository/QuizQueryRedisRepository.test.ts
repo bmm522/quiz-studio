@@ -25,6 +25,7 @@ import { NotFoundEntityError } from '../../../src/error/NotFoundEntityError';
           CategoryEnum.JAVA,
           Level.EASY,
       );
+
       expect(result.length).toBeGreaterThan(0);
 
       result.forEach(quizResponse => {

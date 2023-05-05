@@ -5,7 +5,7 @@ import { RecordsModel } from '../../domain/records/schema/recordsSchema';
 import { CategoryEnum } from '../../global/enum/CategoryEnum';
 import { Level } from '../../global/enum/Level';
 import { RepositoryGetRecordRequest } from './dto/RepositoryGetRecordRequest';
-import { RepositoryMapper } from './mapper/RepositoryMapper';
+import { RecordsRepositoryMapper } from './mapper/RecordsRepositoryMapper';
 import { RepositoryGetRecordResponse } from './dto/RepositoryGetRecordResponse';
 import { RecordDto } from '../../global/dto/RecordDto';
 
@@ -61,7 +61,7 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
     );
 
     const recordObjects = await Promise.all(recordPromises);
-    return RepositoryMapper.toGetResponse(recordObjects, totalPage);
+    return RecordsRepositoryMapper.toGetResponse(recordObjects, totalPage);
   }
 }
 interface QueryObject {

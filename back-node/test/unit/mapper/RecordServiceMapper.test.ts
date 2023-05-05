@@ -6,6 +6,13 @@ import { ServiceSaveRecordRequest } from '../../../src/service/records/dto/Servi
 import { RecordsServiceMapper } from '../../../src/service/records/mapper/RecordsServiceMapper';
 import { RepositoryGetRecordResponse } from "../../../src/repository/records/dto/RepositoryGetRecordResponse";
 import { ServiceGetRecordsResponse } from "../../../src/service/records/dto/ServiceGetRecordsResponse";
+import { ServiceDeleteRecordRequest } from "../../../src/service/records/dto/ServiceDeleteRecordRequest";
+import {
+  RepositoryDeleteRecordRequest
+} from "../../../src/domain/records/repository/dto/RepositoryDeleteRecordRequest";
+import exp = require("constants");
+import { ServiceGetRecordRequest } from "../../../src/service/records/dto/ServiceGetRecordRequest";
+import { RepositoryGetRecordRequest } from "../../../src/repository/records/dto/RepositoryGetRecordRequest";
 
 describe('RecordServiceMapperTest', () => {
   it('toEntities Test', async () => {
@@ -81,5 +88,35 @@ describe('RecordServiceMapperTest', () => {
     const result = await RecordsServiceMapper.toGetResponse(repositoryGetRecordResponse);
 
     expect(result).toBeInstanceOf(ServiceGetRecordsResponse);
+  });
+
+  it('toDeleteRequest Test', async () => {
+    const request = ServiceDeleteRecordRequest.create('all', 'test');
+
+    const result = await RecordsServiceMapper.toDeleteRequest(request);
+
+    expect(result).toBeInstanceOf(RepositoryDeleteRecordRequest);
+    expect(result.isAnswerOption).toEqual(undefined);
+
+  });
+  it('toGetRequest Test', async () => {
+    const userKey = 'user-key';
+    const page = 1;
+    const unresolved = true;
+    const category = CategoryEnum.JAVA;
+    const level = Level.EASY;
+
+    const serviceRequest = ServiceGetRecordRequest.create(userKey, page, unresolved, category, level);
+
+    const repositoryRequest = await RecordsServiceMapper.toGetRequest(serviceRequest);
+
+
+    expect(repositoryRequest).toBeInstanceOf(RepositoryGetRecordRequest);
+    expect(repositoryRequest.userKey).toEqual(userKey);
+    expect(repositoryRequest.page).toEqual(page);
+    expect(repositoryRequest.unresolved).toEqual(unresolved);
+    expect(repositoryRequest.category).toEqual(category);
+    expect(repositoryRequest.level).toEqual(level);
+
   });
 });
