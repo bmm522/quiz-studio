@@ -62,6 +62,7 @@ export class RecordsController {
     @Req() req: UserKeyRequest,
   ) {
     try {
+
       const dto = RecordsControllerMapper.toServiceDeleteRequest(params, req);
       const result = await this.recordsService.deleteRecords(dto);
       return ResponseDto.builder()

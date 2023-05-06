@@ -9,15 +9,16 @@ import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
 import { RecordsController } from './controller/records/RecordsController';
+import * as mongoose from "mongoose";
 
 export class App {
   public app;
 
-  constructor() {
+  constructor(uri?: string) {
     this.app = express();
     this.setMiddlewares();
     this.setExpress();
-    this.setDatabase();
+    this.setDatabase(uri);
   }
 
   private setExpress(): void {
@@ -33,10 +34,10 @@ export class App {
     }
   }
 
-  public async setDatabase(): Promise<void> {
+  public async setDatabase(uri?: string): Promise<void> {
     try {
       // await createMySQLConnection();
-      await createMongoDBConnection();
+      await createMongoDBConnection(uri);
     } catch (error) {
       throw error;
     }

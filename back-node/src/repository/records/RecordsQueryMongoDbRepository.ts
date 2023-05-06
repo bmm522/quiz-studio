@@ -25,9 +25,9 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
     };
 
     // 필요한 조건 추가
-    if (unresolved) {
-      query['quizIsAnswer'] = false;
-    }
+    // if (unresolved) {
+    //   query['quizIsAnswer'] = false;
+    // }
 
     if (category) {
       query['category'] = category;

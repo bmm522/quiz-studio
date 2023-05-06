@@ -9,7 +9,9 @@ module.exports = {
         path.join(rootDir, "test/unit/repository/*.test.(ts|js)"),
         path.join(rootDir, "test/unit/dto/*.test.(ts|js)"),
         path.join(rootDir, "test/unit/jwt/*.test.(ts|js)"),
-        // "<rootDir>\\test\\*.test.(ts|js)",
+        // path.join(rootDir, "test/unit/service/*.test.(ts|js)"),
+        // path.join(rootDir, "test/e2e/*.test.(ts|js)"),
+
     ],
     transform: {
         "^.+\\.(t|j)s$": "ts-jest",

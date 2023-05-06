@@ -64,11 +64,13 @@ import * as mongoose from 'mongoose';
 //   }
 // }
 
-export async function createMongoDBConnection(): Promise<void> {
-  console.log(env.mongoDatabase.url);
+export async function createMongoDBConnection(uri?: string): Promise<void> {
   const mongoose = require('mongoose');
+  // if (mongoose.connection.readyState !== 0) {
+  //   await mongoose.disconnect();
+  // }
   mongoose
-    .connect(env.mongoDatabase.url)
+    .connect(uri || env.mongoDatabase.url)
     .then(() => console.log('connected to DB.'))
     .catch((err: any) => console.log(err));
 }
