@@ -8,6 +8,7 @@ import { RecordsRepository } from '../../domain/records/repository/RecordsReposi
 import { ServiceDeleteRecordRequest } from './dto/ServiceDeleteRecordRequest';
 import { ServiceGetRecordsResponse } from './dto/ServiceGetRecordsResponse';
 import { ServiceGetRecordRequest } from './dto/ServiceGetRecordRequest';
+import { Records } from "../../domain/records/records";
 
 @Service()
 export class RecordsService {
@@ -19,9 +20,9 @@ export class RecordsService {
   ) {}
 
   // 기록 저장
-  async saveRecords(dto: ServiceSaveRecordRequest): Promise<void> {
+  async saveRecords(dto: ServiceSaveRecordRequest): Promise<Records[]> {
     const item = await RecordsServiceMapper.toEntities(dto);
-    await this.recordsRepository.save(item);
+    return await this.recordsRepository.save(item);
   }
 
   // 기록 불러오기

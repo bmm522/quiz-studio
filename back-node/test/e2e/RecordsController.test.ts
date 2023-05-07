@@ -1,27 +1,36 @@
-import { Express } from "express";
+import express , {  NextFunction } from "express";
+import "reflect-metadata"
 import { App } from "../../src/app";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import * as http from "http";
 import { envJwt } from "../../src/config/env";
 import { RecordsModel } from "../../src/domain/records/schema/recordsSchema";
 import * as mongoose from "mongoose";
-import request from 'supertest';
 import { JwtToken } from "../../src/jwt/dto/JwtToken";
 import { JwtMapper } from "../../src/jwt/mapper/JwtMapper";
-describe('RecordsController', () => {
+import { RecordsController } from "../../src/controller/records/RecordsController";
+import request from 'supertest';
+import { JwtAuthorizationFilter } from "../../src/jwt/filter/JwtAuthorizationFilter";
+import { UserKeyRequest } from "../../src/jwt/dto/UserKeyRequest";
 
-    let app: Express;
+jest.mock('../../src/jwt/filter/JwtAuthorizationFilter');
+
+describe('RecordsController', () => {
+    let app: express.Application;
     let server: http.Server;
     let mongoDb: MongoMemoryServer
-    const jwtTokenValue = `${envJwt.tokenPrefix} user1`;
-    const refreshTokenValue = `${envJwt.refreshPrefix} sample_refresh_token`;
 
     beforeAll(async () => {
         mongoDb = await MongoMemoryServer.create();
-        const uri = mongoDb.getUri();
+        const uri = await mongoDb.getUri();
         app = new App(uri).app;
+        (JwtAuthorizationFilter as jest.Mock).mockImplementation(
+            (req: UserKeyRequest, res: Response, next: NextFunction) => {
+                req.userKey = 'user1';
+                next();
+            },
+        );
         server = app.listen(3000);
-
         const testData = {
                 userKey: "user1",
                 quizTitle: "Sample Quiz",
@@ -33,28 +42,80 @@ describe('RecordsController', () => {
             };
 
             await RecordsModel.create(testData);
+        const testData2 = {
+            userKey: "user1",
+            quizTitle: "Sample Quiz",
+            quizIsAnswer: false,
+            category: "java",
+            level: "easy",
+            quizChoiceContent: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+            quizChoiceIsAnswer: [true, false, false, false],
+        };
+
+        await RecordsModel.create(testData);
+        const testData3 = {
+            userKey: "user1",
+            quizTitle: "Sample Quiz",
+            quizIsAnswer: false,
+            category: "java",
+            level: "easy",
+            quizChoiceContent: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+            quizChoiceIsAnswer: [true, false, false, false],
+        };
+
+        await RecordsModel.create(testData);
+        await RecordsModel.create(testData2);
+        await RecordsModel.create(testData3);
     });
 
         afterAll(async () => {
-
-        await mongoose.disconnect();
-        await server.close();
+            await mongoose.disconnect();
+            await server.close();
 
     });
 
-    it("test", async () => {
-        const jwtToken = new JwtToken(jwtTokenValue, refreshTokenValue);
-            JwtMapper.toJwtToken = jest.fn().mockResolvedValue(jwtToken);
-            jwtToken.checkExpiredToken = jest.fn().mockResolvedValue({});
-            jwtToken.getUserKeyFromJwtToken = jest.fn().mockResolvedValue('user1');
-        const response = await request(server)
-                .delete('/records')
-                .set(`authorization`, jwtTokenValue)
-                .set(`${envJwt.refreshPrefix}`,refreshTokenValue)
-                .query({ 'deleteOption': 'all' })
-;
+    it("save test", async () => {
+        const testData2 = {
+            quizTitle: "Sample Quiz2",
+            category: "java",
+            level: "easy",
+            quizChoiceContent: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+            quizChoiceIsAnswer: [true, false, false, false],
+        };
 
-        console.log(response.body);
-        console.log(response.status);
+        const testData3 = {
+            quizTitle: "Sample Quiz3",
+            category: "gggg",
+            level: "easy",
+            quizChoiceContent: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+            quizChoiceIsAnswer: [true, false, false, false],
+        };
+
+        const recordDtos = {
+            quizRecordArray: [testData2, testData3],
+        };
+
+        const response = await request(app)
+            .post('/api/v1/records')
+            .send( recordDtos )
+        ;
+        // console.log(response.error);
+        expect(response.status).toBe(201);
+        expect(response.body.message).toBe('문제풀기 기록 저장 성공');
+        expect(response.body.data).toHaveLength(2);
     });
+
+    it("delete test", async () => {
+
+        const response = await request(app)
+                .delete('/api/v1/records')
+                .query({ 'page':1,'deleteOption': 'all' });
+
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('문제풀기 기록 삭제 성공 option:all');
+    });
+
+
 });
+

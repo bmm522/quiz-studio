@@ -5,7 +5,7 @@ import { UnauthorizedError } from "routing-controllers";
 import jwt from 'jsonwebtoken';
 import { ExpiredTokenError } from "../../../src/error/ExpiredTokenError";
 
-describe('JwtToken', () => {
+describe('JwtToken Test', () => {
     const jwtToken = `${envJwt.tokenPrefix} token`;
     const refreshToken = `${envJwt.refreshPrefix} token`;
     const userKey = 'user_key_example';

@@ -38,9 +38,9 @@ async function getRecordsAction(page) {
       .then(data => {
       
           let html = '';
-
+          console.log(data.data);
           data.data._quizRecords.forEach((problem, index) => {
-
+             
               const { quizTitle, category, level, quizChoiceContent, quizIsAnswer, quizChoiceIsAnswer } = problem;
               const id = index;
               html += `

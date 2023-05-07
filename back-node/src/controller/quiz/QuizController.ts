@@ -3,7 +3,7 @@ import { Service } from 'typedi';
 import { ControllerGetQuizRequest } from './dto/ControllerGetQuizRequest';
 import { QuizService } from '../../service/quiz/QuizService';
 import { ResponseDto } from '../common/dto/ResponseDto';
-
+import Response from "express"
 @JsonController('/quiz')
 @Service()
 export class QuizController {
@@ -18,6 +18,7 @@ export class QuizController {
         .withStatus(200)
         .withMessage('퀴즈 목록 불러오기 성공')
         .withData(result);
+
     } catch (error) {
       throw error;
     }

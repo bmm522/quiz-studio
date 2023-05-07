@@ -10,7 +10,7 @@ export const JwtAuthorizationFilter = async (
 ) => {
   try {
     const jwtToken = await JwtMapper.toJwtToken(req);
-
+    console.log('필터탐');
     const [isJwtTokenValid, isRefreshTokenValid] = await Promise.all([
       jwtToken.checkValidateJwtToken(),
       jwtToken.checkValidateRefreshToken(),

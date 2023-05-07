@@ -17,7 +17,7 @@ import { ServiceSaveRecordRequest } from '../../service/records/dto/ServiceSaveR
 import { RecordsControllerMapper } from './mapper/RecordsControllerMapper';
 import { ControllerDeleteRecordRequest } from './dto/ControllerDeleteRecordRequest';
 import { ControllerGetRecordRequest } from './dto/ControllerGetRecordRequest';
-
+import { Request } from 'express';
 @JsonController('/records')
 @Service()
 export class RecordsController {
@@ -28,10 +28,12 @@ export class RecordsController {
   async saveRecords(@Body() dto: ControllerSaveRecordRequest, @Req() req: UserKeyRequest) {
     try {
       const items = await RecordsControllerMapper.toServiceSaveRequest(dto, req);
+
       const result = await this.recordsService.saveRecords(items);
       return ResponseDto.builder()
         .withStatus(201)
-        .withMessage('문제풀기 기록 저장 성공');
+        .withMessage('문제풀기 기록 저장 성공')
+          .withData(result);
     } catch (error) {
       throw error;
     }
@@ -41,15 +43,14 @@ export class RecordsController {
   @Get('')
   async getRecords(@QueryParams() params: ControllerGetRecordRequest, @Req() req: UserKeyRequest) {
     try {
-      if (req.userKey) {
-        const dto = RecordsControllerMapper.toServiceGetRequest(params, req);
+        const dto = await RecordsControllerMapper.toServiceGetRequest(params, req);
         const result = await this.recordsService.getRecords(dto);
         return ResponseDto.builder()
           .withStatus(200)
           .withMessage('문제풀기 기록 불러오기 성공')
           .withData(result)
           .build();
-      }
+
     } catch (error) {
       throw error;
     }
@@ -63,11 +64,11 @@ export class RecordsController {
   ) {
     try {
 
-      const dto = RecordsControllerMapper.toServiceDeleteRequest(params, req);
+      const dto = await RecordsControllerMapper.toServiceDeleteRequest(params, req);
       const result = await this.recordsService.deleteRecords(dto);
       return ResponseDto.builder()
-        .withStatus(201)
-        .withMessage('문제풀기 기록 삭제 성공');
+        .withStatus(200)
+        .withMessage(`문제풀기 기록 삭제 성공 option:${dto.deleteOption}`);
     } catch (error) {
       throw error;
     }

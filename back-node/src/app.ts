@@ -9,7 +9,6 @@ import { QuizController } from './controller/quiz/QuizController';
 import cors from 'cors';
 import { JwtAuthorizationFilter } from './jwt/filter/JwtAuthorizationFilter';
 import { RecordsController } from './controller/records/RecordsController';
-import * as mongoose from "mongoose";
 
 export class App {
   public app;
@@ -21,22 +20,23 @@ export class App {
     this.setDatabase(uri);
   }
 
-  private setExpress(): void {
+  public setExpress(): void {
     try {
       routingUseContainer(Container);
 
       useExpressServer(this.app, {
         routePrefix: '/api/v1',
-        controllers: [QuizController, RecordsController],
+        controllers: [QuizController,RecordsController],
+
+
       });
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
   public async setDatabase(uri?: string): Promise<void> {
     try {
-      // await createMySQLConnection();
       await createMongoDBConnection(uri);
     } catch (error) {
       throw error;
