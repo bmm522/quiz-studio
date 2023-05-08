@@ -22,7 +22,7 @@ describe('RecordsController', () => {
 
     beforeAll(async () => {
         mongoDb = await MongoMemoryServer.create();
-        const uri = await mongoDb.getUri();
+        const uri = mongoDb.getUri();
         app = new App(uri).app;
         (JwtAuthorizationFilter as jest.Mock).mockImplementation(
             (req: UserKeyRequest, res: Response, next: NextFunction) => {
@@ -30,10 +30,10 @@ describe('RecordsController', () => {
                 next();
             },
         );
-        server = app.listen(3000);
+        // server = app.listen(0);
         const testData = {
                 userKey: "user1",
-                quizTitle: "Sample Quiz",
+                quizTitle: "Sample Quiz11",
                 quizIsAnswer: false,
                 category: "java",
                 level: "easy",
@@ -44,7 +44,7 @@ describe('RecordsController', () => {
             await RecordsModel.create(testData);
         const testData2 = {
             userKey: "user1",
-            quizTitle: "Sample Quiz",
+            quizTitle: "Sample Quiz22",
             quizIsAnswer: false,
             category: "java",
             level: "easy",
@@ -52,16 +52,16 @@ describe('RecordsController', () => {
             quizChoiceIsAnswer: [true, false, false, false],
         };
 
-        await RecordsModel.create(testData);
         const testData3 = {
             userKey: "user1",
-            quizTitle: "Sample Quiz",
+            quizTitle: "Sample Quiz33",
             quizIsAnswer: false,
             category: "java",
             level: "easy",
             quizChoiceContent: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
             quizChoiceIsAnswer: [true, false, false, false],
         };
+
 
         await RecordsModel.create(testData);
         await RecordsModel.create(testData2);
@@ -69,8 +69,8 @@ describe('RecordsController', () => {
     });
 
         afterAll(async () => {
-            await mongoose.disconnect();
-            await server.close();
+            // await server.close();
+            await mongoDb.stop();
 
     });
 
@@ -103,7 +103,17 @@ describe('RecordsController', () => {
         expect(response.status).toBe(201);
         expect(response.body.message).toBe('문제풀기 기록 저장 성공');
         expect(response.body.data).toHaveLength(2);
-    });
+    }, 10000);
+
+    it("get test", async () => {
+
+        const response = await request(app)
+            .get('/api/v1/records')
+            .query({'page':1, 'unresolved':false, 'category':'java', 'level':'easy'})
+
+        expect(response.body.data._quizRecords).toHaveLength(5);
+        expect(response.body.status).toBe(200);
+    }, 10000);
 
     it("delete test", async () => {
 
@@ -111,10 +121,9 @@ describe('RecordsController', () => {
                 .delete('/api/v1/records')
                 .query({ 'page':1,'deleteOption': 'all' });
 
-
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('문제풀기 기록 삭제 성공 option:all');
-    });
+    }, 10000);
 
 
 });

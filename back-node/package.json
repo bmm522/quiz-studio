@@ -7,7 +7,7 @@
     "start": "node dist/app.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc -p .",
-    "test": "jest --config jest.config.js --detectOpenHandles"
+    "test": "jest --config jest.config.js --forceExit --runInBand --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
