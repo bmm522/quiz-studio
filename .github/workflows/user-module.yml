@@ -45,8 +45,8 @@ jobs:
         with:
           character set server: 'utf8'
           mysql database: 'jobseeckerstudio'
-          mysql user: 'jobseeckerstudio'
-          mysql password: ${{secrets.MYSQL_PASSWORD}}
+          mysql user: ${{secrets.MYSQL_USER}}
+          mysql password: ${{secrets.LOCAL_MYSQL_PASSWORD}}
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
