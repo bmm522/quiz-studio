@@ -56,7 +56,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
-          ./mvn clean package
+          mvn clean package
       - name: Run tests
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
