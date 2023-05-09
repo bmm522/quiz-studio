@@ -55,3 +55,20 @@ jobs:
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/quiz
           mvn clean package
+      - name: Build Docker image
+        run: |
+          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:${{ github.sha }} \
+            --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
+            --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
+            --build-arg MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
+            --build-arg MYSQL_HOST=${{secrets.MYSQL_HOST}} \
+            --build-arg MYSQL_PORT=${{secrets.MYSQL_PORT}} \
+            --build-arg MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
+            --build-arg REDIS_HOST=${{secrets.REDIS_HOST}} \
+            --build-arg REDIS_PORT=${{secrets.REDIS_PORT}} \
+            .
+      - name: Push Docker image
+        run: |
+          docker images
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:${{ github.sha }}
