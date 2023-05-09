@@ -61,17 +61,20 @@ jobs:
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
           mvn -B test
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: back-spring/jobseeckerstudio/user
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
-          build-args: |
-            JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}
-            MYSQL_USER=${{ secrets.MYSQL_USER }}
-            MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
-            MYSQL_HOST=${{ secrets.MYSQL_HOST }}
-            MYSQL_PORT=${{ secrets.MYSQL_PORT }}
-            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
+      - name: Build Docker image
+        run: |
+          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
+#         with:
+#           context: back-spring/jobseeckerstudio/user
+#           push: true
+#           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
+#           build-args: |
+#             JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}
+#             MYSQL_USER=${{ secrets.MYSQL_USER }}
+#             MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
+#             MYSQL_HOST=${{ secrets.MYSQL_HOST }}
+#             MYSQL_PORT=${{ secrets.MYSQL_PORT }}
+#             MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
       
