@@ -1,7 +1,7 @@
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: userModuleCi
+name: user-module
 
 on:
   push:
@@ -28,11 +28,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set up MYSQL
         uses: samin/mysql-action@v1
         with:
@@ -49,8 +56,16 @@ jobs:
       - name: Build with Maven
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
-          mvn -B clean install
+          ./mvn clean package
       - name: Run tests
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
           mvn -B test
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
+      
+      
