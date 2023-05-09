@@ -18,7 +18,7 @@ jobs:
       MYSQL_PORT: 3306
       MYSQL_DATABASE: jobseeckerstudio
       MYSQL_USER: ${{secrets.MYSQL_USER}}
-      MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
+      MYSQL_PASSWORD: ${{secrets.LOCAL_MYSQL_PASSWORD}}
 #     services:
 #       mysql:
 #         image: mysql:5.7
