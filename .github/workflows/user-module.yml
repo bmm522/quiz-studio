@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       jasypt_encryptor_password: ${{secrets.JASYPT_ENCRYPTOR_PASSWORD}}
-      MYSQL_HOST: 127.0.0.1
-      MYSQL_PORT: 3306
+      MYSQL_HOST: ${{secrets.MYSQL_HOST}}
+      MYSQL_PORT: ${{secrets.MYSQL_PORT}}
       MYSQL_DATABASE: jobseeckerstudio
-      MYSQL_USER: ${{secrets.LOCAL_MYSQL_USER}}
-      MYSQL_PASSWORD: ${{secrets.LOCAL_MYSQL_PASSWORD}}
+      MYSQL_USER: ${{secrets.MYSQL_USER}}
+      MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
 #     services:
 #       mysql:
 #         image: mysql:5.7
@@ -65,6 +65,9 @@ jobs:
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }} .
+      - name: Push Docker image
+        run: |
+          docker images
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
 #         with:
 #           context: back-spring/jobseeckerstudio/user
