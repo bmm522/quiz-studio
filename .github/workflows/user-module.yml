@@ -56,7 +56,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
-          mvn -B clean install
+          mvn clean package -Djasypt_encryptor_password=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} -DMYSQL_USER=${{secrets.LOCAL_MYSQL_USER}} -DMYSQL_PASSWORD=${{secrets.LOCAL_MYSQL_PASSWORD}} -DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=jobseeckerstudio
       - name: Run tests
         run: |
           cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
