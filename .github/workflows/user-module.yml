@@ -17,7 +17,7 @@ jobs:
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
       MYSQL_DATABASE: jobseeckerstudio
-      MYSQL_USER: ${{secrets.MYSQL_USER}}
+      MYSQL_USER: ${{secrets.LOCAL_MYSQL_USER}}
       MYSQL_PASSWORD: ${{secrets.LOCAL_MYSQL_PASSWORD}}
 #     services:
 #       mysql:
@@ -45,7 +45,7 @@ jobs:
         with:
           character set server: 'utf8'
           mysql database: 'jobseeckerstudio'
-          mysql user: ${{secrets.MYSQL_USER}}
+          mysql user: ${{secrets.LOCAL_MYSQL_USER}}
           mysql password: ${{secrets.LOCAL_MYSQL_PASSWORD}}
       - name: Cache Maven packages
         uses: actions/cache@v2
