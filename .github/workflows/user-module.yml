@@ -6,8 +6,8 @@ name: user-module
 on:
   push:
     branches: [ "main" ]
-#     paths:
-#       - 'back-spring/jobseeckerstudio/user/**'
+    paths:
+      - 'back-spring/jobseeckerstudio/user/**'
 
 jobs:
   build:
