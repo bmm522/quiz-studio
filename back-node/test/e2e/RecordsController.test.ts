@@ -3,11 +3,7 @@ import "reflect-metadata"
 import { App } from "../../src/app";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import * as http from "http";
-import { envJwt } from "../../src/config/env";
 import { RecordsModel } from "../../src/domain/records/schema/recordsSchema";
-import * as mongoose from "mongoose";
-import { JwtToken } from "../../src/jwt/dto/JwtToken";
-import { JwtMapper } from "../../src/jwt/mapper/JwtMapper";
 import { RecordsController } from "../../src/controller/records/RecordsController";
 import request from 'supertest';
 import { JwtAuthorizationFilter } from "../../src/jwt/filter/JwtAuthorizationFilter";
@@ -99,7 +95,7 @@ describe('RecordsController', () => {
             .post('/api/v1/records')
             .send( recordDtos )
         ;
-        // console.log(response.error);
+
         expect(response.status).toBe(201);
         expect(response.body.message).toBe('문제풀기 기록 저장 성공');
         expect(response.body.data).toHaveLength(2);
