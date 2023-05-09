@@ -6,8 +6,8 @@ name: user-module
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - 'back-spring/jobseeckerstudio/user/**'
+#     paths:
+#       - 'back-spring/jobseeckerstudio/user/**'
 
 jobs:
   build:
@@ -64,7 +64,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: back-spring/jobseeckerstudio/user
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
           build-args: |
