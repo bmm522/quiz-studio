@@ -53,5 +53,5 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: |
-          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/quiz
           mvn clean package
