@@ -1,0 +1,27 @@
+server:
+    port: 8082
+    servlet:
+        encoding:
+            charset: utf-8
+
+spring:
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+    datasource:
+        url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+        driver-class-name: com.mysql.jdbc.Driver
+        username: ${MYSQL_USER}
+        password: ${MYSQL_PASSWORD}
+
+    jpa:
+        open-in-view: true
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging:
+    level:
+        '[org.springframework.boot.web]': INFO
+        '[org.hibernate]': DEBUG
