@@ -17,7 +17,7 @@ jobs:
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
       MYSQL_DATABASE: jobseeckerstudio
-      MYSQL_USER: jobseeckerstudio
+      MYSQL_USER: ${{secrets.MYSQL_USER}}
       MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
 #     services:
 #       mysql:
@@ -67,5 +67,11 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
-      
+          build-args: |
+            JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}
+            MYSQL_USER=${{ secrets.MYSQL_USER }}
+            MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
+            MYSQL_HOST=${{ secrets.MYSQL_HOST }}
+            MYSQL_PORT=${{ secrets.MYSQL_PORT }}
+            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
       
