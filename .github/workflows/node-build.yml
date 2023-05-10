@@ -30,7 +30,7 @@ jobs:
           cd env
           echo "SECRET_KEY=$SECRET_KEY" >> .env
           echo "TOKEN_PREFIX=$TOKEN_PREFIX" >> .env
-          echo "SECRET_KEY=$REFRESH_PREFIX" >> .env
+          echo "REFRESH_PREFIX=$REFRESH_PREFIX" >> .env
           echo "REDIS_HOST=$REDIS_HOST" >> .env
           echo "REDIS_PORT=$REDIS_PORT" >> .env
           echo "REDIS_USERNAME=$REDIS_USERNAME" >> .env
