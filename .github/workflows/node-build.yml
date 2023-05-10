@@ -23,6 +23,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Generate Environment Variables File for Production
         run: |
           cd back-node
@@ -30,7 +37,7 @@ jobs:
           cd env
           echo "SECRET_KEY=$SECRET_KEY" >> .env
           echo "TOKEN_PREFIX=$TOKEN_PREFIX" >> .env
-          echo "SECRET_KEY=$REFRESH_PREFIX" >> .env
+          echo "REFRESH_PREFIX=$REFRESH_PREFIX" >> .env
           echo "REDIS_HOST=$REDIS_HOST" >> .env
           echo "REDIS_PORT=$REDIS_PORT" >> .env
           echo "REDIS_USERNAME=$REDIS_USERNAME" >> .env
@@ -53,3 +60,20 @@ jobs:
         run: |
           cd back-node
           npm run test
+      - name: Build Docker image
+        run: |
+          cd back-node
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:${{ github.sha }} \
+            --build-arg SECRET_KEY=$SECRET_KEY \
+            --build-arg TOKEN_PREFIX=$TOKEN_PREFIX \
+            --build-arg REFRESH_PREFIX=$REFRESH_PREFIX \
+            --build-arg REDIS_HOST=$REDIS_HOST \
+            --build-arg REDIS_PORT=$REDIS_PORT \
+            --build-arg REDIS_USERNAME=$REDIS_USERNAME \
+            --build-arg REDIS_PASSWORD=$REDIS_PASSWORD \
+            --build-arg MONGO_URL=$MONGO_URL \
+            .
+      - name: Push Docker image
+        run: |
+          docker images
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:${{ github.sha }}
