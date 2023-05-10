@@ -3,8 +3,8 @@ name: quiz-module
 on:
   push:
     branches: [ "main" ]
-#     paths:
-#       - 'back-spring/jobseeckerstudio/quiz/**'
+    paths:
+      - 'back-spring/jobseeckerstudio/quiz/**'
 
 jobs:
   build:
