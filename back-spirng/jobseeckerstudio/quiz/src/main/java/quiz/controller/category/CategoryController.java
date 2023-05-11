@@ -1,6 +1,7 @@
 package quiz.controller.category;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import quiz.controller.category.mapper.C_CategoryMapper;
 
 import quiz.controller.dto.ResponseHandler;
 import quiz.service.category.CategoryService;
+import quiz.service.category.dto.S_CategoryGetResponse;
 import quiz.service.category.dto.S_CategorySaveResponse;
 
 @RestController
@@ -25,8 +27,16 @@ public class CategoryController {
 
     @PostMapping("/category")
     public CommonResponse<?> saveCategory(@RequestAttribute("userKey")String userKey, @RequestBody C_CategorySaveRequest request) {
-        S_CategorySaveResponse result = categoryService.save(C_CategoryMapper.toSaveRequest(userKey, request));
-        return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공", result);
+        S_CategorySaveResponse response = categoryService.save(C_CategoryMapper.toSaveRequest(userKey, request));
+        return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공", response);
     }
+
+    @GetMapping("/category")
+    public CommonResponse<?> getCategories(@RequestAttribute("userKey")String userKey){
+        S_CategoryGetResponse response = categoryService.get(userKey);
+        return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공", response);
+    }
+
+
 
 }

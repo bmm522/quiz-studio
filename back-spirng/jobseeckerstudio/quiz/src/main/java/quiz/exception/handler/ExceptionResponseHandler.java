@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import lombok.extern.slf4j.Slf4j;
 import quiz.controller.dto.CommonResponse;
+import quiz.exception.DuplicateTitleException;
 import quiz.exception.ExpiredTokenException;
 import quiz.exception.InvalidParameterFromDtoException;
 import quiz.exception.InvalidTokenException;
@@ -31,6 +32,11 @@ public class ExceptionResponseHandler {
 
     @ExceptionHandler(InvalidParameterFromDtoException.class)
     public CommonResponse<?> handleInvalidParameterFromDtoException(InvalidParameterFromDtoException e) {
+        return errorHandler(e, 400);
+    }
+
+    @ExceptionHandler(DuplicateTitleException.class)
+    public CommonResponse<?> handleDuplicateTitleException(DuplicateTitleException e) {
         return errorHandler(e, 400);
     }
 

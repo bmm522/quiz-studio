@@ -4,27 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import quiz.controller.category.CategoryController;
 import quiz.controller.category.dto.C_CategorySaveRequest;
-import quiz.controller.category.mapper.C_CategoryMapper;
 import quiz.controller.dto.CommonResponse;
 import quiz.exception.InvalidParameterFromDtoException;
 import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategorySaveReqeust;
 import quiz.service.category.dto.S_CategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class CategoryControllerTest {
+@DisplayName("Save Category 테스트")
+public class SaveCategoryControllerTest {
 
     private CategoryService categoryService;
 
@@ -37,7 +32,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    @DisplayName("정상적인 요청")
+    @DisplayName("save 정상적인 요청")
     void saveCategoryTest() {
 
         C_CategorySaveRequest request = C_CategorySaveRequest.builder()
@@ -59,14 +54,9 @@ public class CategoryControllerTest {
         assertThat(result.getStatus()).isEqualTo(201);
         assertThat(result.getMsg()).isEqualTo("카테고리 저장 성공");
         assertThat(result.getData()).isEqualTo(response);
-
-
-
-
     }
-
     @Test
-    @DisplayName("파라미터 title 안들어왔을때")
+    @DisplayName("save 파라미터 title 안들어왔을때")
     void saveCategoryWhenNotHaveTitleParameterRequest() {
         CategoryService categoryService = mock(CategoryService.class);
         C_CategorySaveRequest request = C_CategorySaveRequest.builder()
@@ -81,7 +71,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    @DisplayName("파라미터 description 안들어왔을때")
+    @DisplayName("save 파라미터 description 안들어왔을때")
     void saveCategoryWhenNotHaveDescriptionParameterRequest() {
         CategoryService categoryService = mock(CategoryService.class);
         C_CategorySaveRequest request = C_CategorySaveRequest.builder()
