@@ -8,7 +8,7 @@ import quiz.service.category.dto.S_CategorySaveResponse;
 @Service
 public class CategoryService {
 
-    public S_CategorySaveResponse save(S_CategorySaveReqeust toSaveRequest) {
-        return S_CategorySaveResponse.builder().build();
+    public S_CategorySaveResponse save(S_CategorySaveReqeust reqeust) {
+        return null;
     }
 }

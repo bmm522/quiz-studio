@@ -2,8 +2,8 @@ package quiz.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import quiz.model.quizCache.QuizCache;
-import quiz.model.quizCache.repository.QuizRedisRepository;
+import quiz.domain.quizCache.QuizCache;
+import quiz.domain.quizCache.repository.QuizRedisRepository;
 
 import java.util.List;
 

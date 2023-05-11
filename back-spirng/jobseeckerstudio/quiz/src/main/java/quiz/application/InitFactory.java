@@ -2,9 +2,9 @@ package quiz.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import quiz.model.quiz.repository.dto.QuizDto;
-import quiz.model.quizCache.QuizCache;
-import quiz.model.quizCache.mapper.QuizCacheTransformer;
+import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quizCache.QuizCache;
+import quiz.domain.quizCache.mapper.QuizCacheTransformer;
 
 
 import java.util.List;

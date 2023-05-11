@@ -2,8 +2,8 @@ package quiz.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import quiz.model.quiz.repository.QuizMySqlRepository;
-import quiz.model.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.QuizMySqlRepository;
+import quiz.domain.quiz.repository.dto.QuizDto;
 
 import java.util.List;
 
