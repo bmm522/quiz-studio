@@ -18,16 +18,14 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
     let level = dto.level;
     let page = dto.page;
     let pageSize = 10; // 페이지당 레코드 수
-
     // 쿼리 객체 생성
     let query: QueryObject = {
       userKey,
     };
-
     // 필요한 조건 추가
-    // if (unresolved) {
-    //   query['quizIsAnswer'] = false;
-    // }
+    if (unresolved) {
+      query['quizIsAnswer'] = false;
+    }
 
     if (category) {
       query['category'] = category;

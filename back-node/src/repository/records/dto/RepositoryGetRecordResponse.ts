@@ -21,5 +21,4 @@ export class RepositoryGetRecordResponse {
   get totalPage(): number {
     return this._totalPage;
   }
-
 }

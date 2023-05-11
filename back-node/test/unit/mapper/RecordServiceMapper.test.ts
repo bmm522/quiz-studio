@@ -4,15 +4,13 @@ import { Level } from '../../../src/global/enum/Level';
 import { Records } from '../../../src/domain/records/records';
 import { ServiceSaveRecordRequest } from '../../../src/service/records/dto/ServiceSaveRecordRequest';
 import { RecordsServiceMapper } from '../../../src/service/records/mapper/RecordsServiceMapper';
-import { RepositoryGetRecordResponse } from "../../../src/repository/records/dto/RepositoryGetRecordResponse";
-import { ServiceGetRecordsResponse } from "../../../src/service/records/dto/ServiceGetRecordsResponse";
-import { ServiceDeleteRecordRequest } from "../../../src/service/records/dto/ServiceDeleteRecordRequest";
-import {
-  RepositoryDeleteRecordRequest
-} from "../../../src/domain/records/repository/dto/RepositoryDeleteRecordRequest";
-import exp = require("constants");
-import { ServiceGetRecordRequest } from "../../../src/service/records/dto/ServiceGetRecordRequest";
-import { RepositoryGetRecordRequest } from "../../../src/repository/records/dto/RepositoryGetRecordRequest";
+import { RepositoryGetRecordResponse } from '../../../src/repository/records/dto/RepositoryGetRecordResponse';
+import { ServiceGetRecordsResponse } from '../../../src/service/records/dto/ServiceGetRecordsResponse';
+import { ServiceDeleteRecordRequest } from '../../../src/service/records/dto/ServiceDeleteRecordRequest';
+import { RepositoryDeleteRecordRequest } from '../../../src/domain/records/repository/dto/RepositoryDeleteRecordRequest';
+import exp = require('constants');
+import { ServiceGetRecordRequest } from '../../../src/service/records/dto/ServiceGetRecordRequest';
+import { RepositoryGetRecordRequest } from '../../../src/repository/records/dto/RepositoryGetRecordRequest';
 
 describe('RecordServiceMapperTest', () => {
   it('toEntities Test', async () => {
@@ -64,26 +62,29 @@ describe('RecordServiceMapperTest', () => {
   it('toGetResponse Test', async () => {
     const quizRecordArray: RecordDto[] = [
       new RecordDto(
-          '퀴즈 1',
-          true,
-          CategoryEnum.JAVA,
-          Level.EASY,
-          ['선택1', '선택2', '선택3', '선택4'],
-          [true, false, false, false],
+        '퀴즈 1',
+        true,
+        CategoryEnum.JAVA,
+        Level.EASY,
+        ['선택1', '선택2', '선택3', '선택4'],
+        [true, false, false, false],
       ),
       new RecordDto(
-          '퀴즈 2',
-          false,
-          CategoryEnum.DATASTRUCTURE,
-          Level.HARD,
-          ['선택1', '선택2', '선택3', '선택4'],
-          [false, true, false, false],
+        '퀴즈 2',
+        false,
+        CategoryEnum.DATASTRUCTURE,
+        Level.HARD,
+        ['선택1', '선택2', '선택3', '선택4'],
+        [false, true, false, false],
       ),
     ];
 
     const totalPage = 1;
 
-    const repositoryGetRecordResponse = RepositoryGetRecordResponse.create(quizRecordArray, totalPage);
+    const repositoryGetRecordResponse = RepositoryGetRecordResponse.create(
+      quizRecordArray,
+      totalPage,
+    );
 
     const result = await RecordsServiceMapper.toGetResponse(repositoryGetRecordResponse);
 
@@ -97,7 +98,6 @@ describe('RecordServiceMapperTest', () => {
 
     expect(result).toBeInstanceOf(RepositoryDeleteRecordRequest);
     expect(result.isAnswerOption).toEqual(undefined);
-
   });
   it('toGetRequest Test', async () => {
     const userKey = 'user-key';
@@ -106,10 +106,15 @@ describe('RecordServiceMapperTest', () => {
     const category = CategoryEnum.JAVA;
     const level = Level.EASY;
 
-    const serviceRequest = ServiceGetRecordRequest.create(userKey, page, unresolved, category, level);
+    const serviceRequest = ServiceGetRecordRequest.create(
+      userKey,
+      page,
+      unresolved,
+      category,
+      level,
+    );
 
     const repositoryRequest = await RecordsServiceMapper.toGetRequest(serviceRequest);
-
 
     expect(repositoryRequest).toBeInstanceOf(RepositoryGetRecordRequest);
     expect(repositoryRequest.userKey).toEqual(userKey);
@@ -117,6 +122,5 @@ describe('RecordServiceMapperTest', () => {
     expect(repositoryRequest.unresolved).toEqual(unresolved);
     expect(repositoryRequest.category).toEqual(category);
     expect(repositoryRequest.level).toEqual(level);
-
   });
 });

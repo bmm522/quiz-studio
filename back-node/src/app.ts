@@ -26,9 +26,7 @@ export class App {
 
       useExpressServer(this.app, {
         routePrefix: '/api/v1',
-        controllers: [QuizController,RecordsController],
-
-
+        controllers: [QuizController, RecordsController],
       });
     } catch (error) {
       throw error;

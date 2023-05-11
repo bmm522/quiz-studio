@@ -13,7 +13,7 @@ if (config.error) {
  */
 export const env = {
   nodeEnv: {
-    testEnv: process.env.TEST_ENV
+    testEnv: process.env.TEST_ENV,
   },
 
   // mysqlDatabase: {

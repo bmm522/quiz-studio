@@ -8,7 +8,7 @@ import { RecordsRepository } from '../../domain/records/repository/RecordsReposi
 import { ServiceDeleteRecordRequest } from './dto/ServiceDeleteRecordRequest';
 import { ServiceGetRecordsResponse } from './dto/ServiceGetRecordsResponse';
 import { ServiceGetRecordRequest } from './dto/ServiceGetRecordRequest';
-import { Records } from "../../domain/records/records";
+import { Records } from '../../domain/records/records';
 
 @Service()
 export class RecordsService {

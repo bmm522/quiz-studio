@@ -4,7 +4,7 @@ import { Level } from '../../../global/enum/Level';
 
 export class ControllerGetRecordRequest {
   page: number;
-  unresolved: boolean;
+  unresolved: string;
 
   @IsOptional()
   @IsEnum(CategoryEnum)
@@ -14,7 +14,7 @@ export class ControllerGetRecordRequest {
   @IsEnum(Level)
   level: Level;
 
-  constructor(page: number, unresolved: boolean, category: string, level: string) {
+  constructor(page: number, unresolved: string, category: string, level: string) {
     this.page = page;
     this.unresolved = unresolved;
     this.category = category as CategoryEnum;
