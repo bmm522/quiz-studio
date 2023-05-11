@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import quiz.domain.BaseTimeEntity;
 import quiz.domain.category.Category;
 import quiz.domain.customCategory.CustomCategory;
 import quiz.domain.customQuizChoice.CustomQuizChoice;
@@ -20,7 +21,7 @@ import quiz.domain.quizChoice.QuizChoice;
 
 @Entity
 @Table(name = "custom_quiz")
-public class CustomQuiz {
+public class CustomQuiz extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long quizId;

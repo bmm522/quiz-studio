@@ -10,11 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import quiz.domain.BaseTimeEntity;
 import quiz.domain.customQuiz.CustomQuiz;
 
 @Entity
 @Table(name = "custom_category")
-public class CustomCategory {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+public class CustomCategory extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +41,6 @@ public class CustomCategory {
 
     @OneToMany(mappedBy = "category")
     private List<CustomQuiz> quizzes;
+
 
 }

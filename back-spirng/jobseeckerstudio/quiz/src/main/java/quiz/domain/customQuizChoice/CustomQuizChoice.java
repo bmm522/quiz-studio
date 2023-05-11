@@ -11,13 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import quiz.domain.BaseTimeEntity;
 import quiz.domain.customQuiz.CustomQuiz;
 import quiz.domain.quiz.Quiz;
 
 @Entity
 @Getter
 @Table(name = "custom_quizChoice")
-public class CustomQuizChoice {
+public class CustomQuizChoice extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
