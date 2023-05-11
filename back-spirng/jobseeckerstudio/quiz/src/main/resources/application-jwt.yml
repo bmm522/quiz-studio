@@ -1,0 +1,7 @@
+jwt:
+  secret: ENC(a577iFuWzEX1CsYpOVy8aklp9YlKGV8X/nio5SamNtEkg1MIvkQ50oWEg0al0Xf/NAMG2WFp5Gia90VNjtxsXg==)
+  token_prefix: 'Bearer '
+  refresh_prefix: 'RefreshToken '
+  header_jwt: ENC(kO850PBGUZwlEfxMvlhYHrJamBRcuP0R)
+  header_refresh: ENC(XAi1m6mJNZmZI4w8hYUxL0SuAllvZuv6)
+  iss: ENC(+lt3Xd5tzsJriiVG6dO739LlLNA9/Xdtj1vO4GqS88c=)
