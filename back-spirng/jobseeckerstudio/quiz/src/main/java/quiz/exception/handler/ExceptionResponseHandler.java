@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import lombok.extern.slf4j.Slf4j;
 import quiz.controller.dto.CommonResponse;
 import quiz.exception.ExpiredTokenException;
+import quiz.exception.InvalidParameterFromDtoException;
 import quiz.exception.InvalidTokenException;
 import quiz.exception.NullUserKeyFromJwtTokenException;
 
@@ -26,6 +27,11 @@ public class ExceptionResponseHandler {
     @ExceptionHandler(NullUserKeyFromJwtTokenException.class)
     public CommonResponse<?> handleNullUserKeyFromJwtTokenException(NullUserKeyFromJwtTokenException e) {
         return errorHandler(e, 401);
+    }
+
+    @ExceptionHandler(InvalidParameterFromDtoException.class)
+    public CommonResponse<?> handleInvalidParameterFromDtoException(InvalidParameterFromDtoException e) {
+        return errorHandler(e, 400);
     }
 
     private CommonResponse<?> errorHandler(Exception e, Integer status) {
