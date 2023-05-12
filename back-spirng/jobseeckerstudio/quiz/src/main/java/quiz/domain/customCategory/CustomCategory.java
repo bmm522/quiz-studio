@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import quiz.domain.BaseTimeEntity;
+import quiz.domain.customCategory.repository.dto.CustomCategoryDto;
 import quiz.domain.customQuiz.CustomQuiz;
 
 @Entity
@@ -42,5 +43,13 @@ public class CustomCategory extends BaseTimeEntity {
     @OneToMany(mappedBy = "category")
     private List<CustomQuiz> quizzes;
 
+    public CustomCategoryDto toDto(){
+        return CustomCategoryDto.builder()
+            .categoryId(this.categoryId)
+            .userKey(this.userKey)
+            .title(this.title)
+            .description(this.description)
+            .build();
+    }
 
 }

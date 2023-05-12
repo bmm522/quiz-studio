@@ -2,6 +2,7 @@ package quiz.service.category;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import quiz.domain.customCategory.CustomCategory;
 import quiz.domain.customCategory.mapper.CustomCategoryMapper;
 import quiz.domain.customCategory.repository.CustomCategoryRepository;
+import quiz.domain.customCategory.repository.dto.CustomCategoryDto;
 import quiz.exception.DuplicateTitleException;
 import quiz.service.category.dto.S_CategoryGetResponse;
 import quiz.service.category.dto.S_CategorySaveReqeust;
@@ -31,7 +33,10 @@ public class CategoryService {
     }
 
     public S_CategoryGetResponse get(String userKey) {
-        List<CustomCategory> customCategoryList = customCategoryRepository.findByUserKey(userKey);
+        List<CustomCategoryDto> customCategoryList = customCategoryRepository.findByUserKey(userKey)
+            .stream()
+            .map(CustomCategory::toDto)
+            .collect(Collectors.toList());
         return S_CategoryMapper.toGetResponse(customCategoryList);
     }
 
