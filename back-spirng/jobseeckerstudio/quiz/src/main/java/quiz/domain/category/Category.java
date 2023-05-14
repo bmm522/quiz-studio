@@ -1,13 +1,20 @@
 package quiz.domain.category;
 
 
-import quiz.domain.common.CategoryName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import quiz.domain.quiz.Quiz;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@Getter
 public class Category {
 
     @Id
@@ -16,13 +23,15 @@ public class Category {
     private int categoryId;
 
     @Column(nullable = false, name = "category_name")
-    @Enumerated(EnumType.STRING)
-    private CategoryName categoryName;
+    private String categoryName;
+
+    @Column(nullable = true, name = "category_description")
+    private String categoryDescription;
 
     @OneToMany(mappedBy = "category")
     private List<Quiz> quizzes;
 
-    public String getCategoryName(){
-        return categoryName.get();
-    }
+    // public String getCategoryName(){
+    //     return categoryName.get();
+    // }
 }

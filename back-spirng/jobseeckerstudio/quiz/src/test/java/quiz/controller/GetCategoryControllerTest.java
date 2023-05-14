@@ -14,8 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import quiz.controller.category.CategoryController;
 import quiz.controller.dto.CommonResponse;
-import quiz.domain.customCategory.CustomCategory;
-import quiz.domain.customCategory.repository.dto.CustomCategoryDto;
+import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 import quiz.service.category.CategoryService;
 import quiz.service.category.dto.S_CategoryGetResponse;
 
@@ -37,23 +36,23 @@ public class GetCategoryControllerTest {
     @DisplayName("get 정상적인 요청")
     void getCategoryTest() {
         String userKey = "testUser1";
-        CustomCategoryDto category = CustomCategoryDto.builder()
+        UserCategoryDto category = UserCategoryDto.builder()
             .userKey(userKey)
             .title("testTitle1")
             .description("testDescription1")
             .build();
-        CustomCategoryDto category2 = CustomCategoryDto.builder()
+        UserCategoryDto category2 = UserCategoryDto.builder()
             .userKey(userKey)
             .title("testTitle2")
             .description("testDescription1")
             .build();
-        CustomCategoryDto category3 = CustomCategoryDto.builder()
+        UserCategoryDto category3 = UserCategoryDto.builder()
             .userKey(userKey)
             .title("testTitle3")
             .description("testDescription1")
             .build();
 
-        List<CustomCategoryDto> customCategoryList = new ArrayList<>();
+        List<UserCategoryDto> customCategoryList = new ArrayList<>();
         customCategoryList.add(category);
         customCategoryList.add(category2);
         customCategoryList.add(category3);

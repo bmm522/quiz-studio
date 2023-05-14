@@ -31,6 +31,8 @@ public class QuizCacheTransformer {
     }
 
     private static List<QuizCache.QuizChoices> toRedisQuizChoicesList(List<QuizDto.ChoiceDto> choiceDtoList) {
+        System.out.println("111111111111111111111111");
+        System.out.println(choiceDtoList);
         return choiceDtoList.stream()
             .map(choiceDto -> new QuizCache.QuizChoices(choiceDto.getChoiceContent(), choiceDto.isAnswer()))
             .collect(Collectors.toList());

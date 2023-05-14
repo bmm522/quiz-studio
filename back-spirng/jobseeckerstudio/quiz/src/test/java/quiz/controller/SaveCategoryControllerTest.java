@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.controller.category.CategoryController;
 import quiz.controller.category.dto.C_CategorySaveRequest;
 import quiz.controller.dto.CommonResponse;
+import quiz.exception.ExistCategorySaveException;
 import quiz.exception.InvalidParameterFromDtoException;
 import quiz.service.category.CategoryService;
 import quiz.service.category.dto.S_CategorySaveResponse;
@@ -84,6 +85,56 @@ public class SaveCategoryControllerTest {
         });
 
         assertThat(exception.getMessage()).isEqualTo("save 요청에 description이 담기지 않았습니다.");
+    }
+
+    @Test
+    @DisplayName("기존 카테고리 이름으로 요청을 보냈을 때 (자바)")
+    void saveCategoryWhenExistCategoryWithJava() {
+        CategoryService categoryService = mock(CategoryService.class);
+        C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+            .title("java")
+            .description("testDescription")
+            .build();
+        String userKey = "testUserKey";
+
+        Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
+            categoryController.saveCategory(userKey, request);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");
+    }
+    @Test
+    @DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(자료구조)")
+    void saveCategoryWhenExistCategoryWithDataStructure() {
+        CategoryService categoryService = mock(CategoryService.class);
+        C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+            .title("Data Structure")
+            .description("testDescription")
+            .build();
+        String userKey = "testUserKey";
+
+        Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
+            categoryController.saveCategory(userKey, request);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(공백포함)")
+    void saveCategoryWhenExistCategoryWithBlank() {
+        CategoryService categoryService = mock(CategoryService.class);
+        C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+            .title("  DAta Str Uct Ure   ")
+            .description("testDescription")
+            .build();
+        String userKey = "testUserKey";
+
+        Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
+            categoryController.saveCategory(userKey, request);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");
     }
 
 }
