@@ -40,7 +40,7 @@ public class GetUserCategoryServiceTest {
         userCategoryDtos.add(dto2);
         userCategoryDtos.add(dto3);
 
-        when(userCategoryRepository.findByUserKey(any())).thenReturn(userCategoryDtos);
+        when(userCategoryRepository.findUserCategoryDtosByUserKey(any())).thenReturn(userCategoryDtos);
 
         S_UserCategoryGetResponse response = userCategoryService.get(userKey);
 

@@ -20,7 +20,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private int categoryId;
+    private Long categoryId;
 
     @Column(nullable = false, name = "category_name")
     private String categoryName;
@@ -31,7 +31,16 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Quiz> quizzes;
 
-    // public String getCategoryName(){
-    //     return categoryName.get();
-    // }
+    public void updateCategoryName(String categoryName) {
+        if (categoryName != null && !categoryName.isEmpty()) {
+            this.categoryName = categoryName;
+        }
+    }
+
+    public void updateCategoryDescription(String categoryDescription) {
+        if(categoryDescription != null && !categoryDescription.isEmpty()) {
+            this.categoryDescription = categoryDescription;
+        }
+    }
+
 }

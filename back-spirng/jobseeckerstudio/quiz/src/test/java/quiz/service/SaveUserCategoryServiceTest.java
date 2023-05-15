@@ -4,8 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,15 +17,15 @@ import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.exception.DuplicateTitleException;
 import quiz.service.userCategory.UserCategoryService;
-import quiz.service.userCategory.dto.S_UserCategorySaveReqeust;
+import quiz.service.userCategory.dto.S_UserCategorySaveRequest;
 import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class UserCategoryServiceSaveTest {
+public class SaveUserCategoryServiceTest {
 
     UserCategoryService userCategoryService;
     UserCategoryRepository userCategoryRepository;
-    S_UserCategorySaveReqeust reqeust;
+    S_UserCategorySaveRequest reqeust;
 
     Category category;
 
@@ -35,7 +34,7 @@ public class UserCategoryServiceSaveTest {
     void init() {
         userCategoryRepository = mock(UserCategoryRepository.class);
         userCategoryService = new UserCategoryService(userCategoryRepository);
-        reqeust = S_UserCategorySaveReqeust.builder()
+        reqeust = S_UserCategorySaveRequest.builder()
             .userKey("testUser")
             .title("testTitle")
             .description("testDescription")
@@ -44,8 +43,7 @@ public class UserCategoryServiceSaveTest {
         category = Category.builder().categoryName("testTitle")
             .categoryDescription("testDescription").build();
 
-        userCategory = UserCategory.builder().userKey("testUser").build();
-        userCategory.addCategory(category);
+        userCategory = UserCategory.builder().userKey("testUser").category(category).build();
     }
 
     @Test
@@ -63,11 +61,7 @@ public class UserCategoryServiceSaveTest {
     @Test
     @DisplayName("중복이 있는경우")
     void saveTestWhenDuplicate() {
-        List<UserCategory> userCategoryList = new ArrayList<>();
-        userCategoryList.add(userCategory);
-
-        when(userCategoryRepository.findByUserKeyAndTitle(any(), any())).thenReturn(userCategoryList);
-
+        when(userCategoryRepository.findUserCategoryByUserKeyAndTitle(any(), any())).thenReturn(Optional.of(userCategory));
 
         Exception exception =  assertThrows(DuplicateTitleException.class, () -> {
             userCategoryService.save(reqeust);

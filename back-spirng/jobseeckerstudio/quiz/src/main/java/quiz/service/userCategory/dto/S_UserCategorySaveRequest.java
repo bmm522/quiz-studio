@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class S_UserCategorySaveReqeust {
+public class S_UserCategorySaveRequest {
 
     private String userKey;
 

@@ -1,6 +1,7 @@
 package quiz.domain.userCategory.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,9 +21,6 @@ import quiz.domain.userCategory.repository.mapper.R_UserCategoryMapper;
 
 public class UserCategoryQueryRepositoryImpl implements UserCategoryQueryRepository{
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     private final JPAQueryFactory queryFactory;
     QUserCategory userCategory = QUserCategory.userCategory;
     QCategory category = QCategory.category;
@@ -31,22 +29,30 @@ public class UserCategoryQueryRepositoryImpl implements UserCategoryQueryReposit
     }
 
     @Override
-    public List<UserCategory> findByUserKeyAndTitle(String userKey, String title) {
-        return queryFactory
-             .selectFrom(userCategory)
-             .join(category)
-             .where(userCategory.userKey.eq(userKey)
-                 .and(category.categoryName.eq(title)))
-             .fetch();
+    public Optional<UserCategory> findUserCategoryByUserKeyAndTitle(String userKey, String title) {
+        return Optional.ofNullable(queryFactory
+            .selectFrom(userCategory)
+            .join(category).on(userCategory.category.categoryId.eq(category.categoryId))
+            .where(userCategory.userKey.eq(userKey))
+            .where(category.categoryName.eq(title))
+            .fetchOne());
     }
 
     @Override
-    public List<UserCategoryDto> findByUserKey(String userKey) {
+    public List<UserCategoryDto> findUserCategoryDtosByUserKey(String userKey) {
         List<UserCategory> userCategories = queryFactory.selectFrom(userCategory)
-            .join(category)
+            .join(userCategory.category, category)
             .where(userCategory.userKey.eq(userKey))
             .fetch();
         return R_UserCategoryMapper.toDto(userCategories);
+    }
+
+    @Override
+    public Optional<UserCategory> findUserCategoryByUserCategoryId(Long userCategoryId) {
+        return Optional.ofNullable(queryFactory.selectFrom(userCategory)
+            .join(userCategory.category, category)
+            .where(userCategory.userCategoryId.eq(userCategoryId))
+            .fetchOne());
     }
 }
 
