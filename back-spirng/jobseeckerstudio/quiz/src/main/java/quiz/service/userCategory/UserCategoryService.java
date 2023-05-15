@@ -1,7 +1,6 @@
-package quiz.service.category;
+package quiz.service.userCategory;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,35 +13,31 @@ import quiz.domain.userCategory.mapper.UserCategoryMapper;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 import quiz.exception.DuplicateTitleException;
-import quiz.service.category.dto.S_CategoryGetResponse;
-import quiz.service.category.dto.S_CategorySaveReqeust;
-import quiz.service.category.dto.S_CategorySaveResponse;
-import quiz.service.category.mapper.S_CategoryMapper;
+import quiz.service.userCategory.dto.S_UserCategoryGetResponse;
+import quiz.service.userCategory.dto.S_UserCategorySaveReqeust;
+import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
+import quiz.service.userCategory.mapper.S_UserCategoryMapper;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService {
+public class UserCategoryService {
 
     private final UserCategoryRepository userCategoryRepository;
 
     @Transactional(rollbackFor = RuntimeException.class)
-    public S_CategorySaveResponse save(S_CategorySaveReqeust reqeust) {
+    public S_UserCategorySaveResponse save(S_UserCategorySaveReqeust reqeust) {
         checkDuplicateTitle(reqeust.getUserKey(), reqeust.getTitle());
         Category category = CategoryMapper.toEntityWhenSave(reqeust);
         UserCategory relation = UserCategoryMapper.toEntityWhenSave(reqeust);
         relation.addCategory(category);
         UserCategory savedData = userCategoryRepository.save(relation);
-        return S_CategoryMapper.toSaveResponse(savedData);
+        return S_UserCategoryMapper.toSaveResponse(savedData);
 
     }
 
-    public S_CategoryGetResponse get(String userKey) {
-        // List<UserCategoryDto> customCategoryList = userCategoryRepository.findByUserKey(userKey)
-        //     .stream()
-        //     .map(UserCategory::toDto)
-        //     .collect(Collectors.toList());
-        // return S_CategoryMapper.toGetResponse(customCategoryList);
-        return null;
+    public S_UserCategoryGetResponse get(String userKey) {
+        List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findByUserKey(userKey);
+        return S_UserCategoryMapper.toGetResponse(userCategoryDtos);
     }
 
     private void checkDuplicateTitle(String userKey, String title) {

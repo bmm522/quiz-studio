@@ -12,24 +12,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import quiz.controller.category.CategoryController;
+import quiz.controller.userCategory.UserCategoryController;
 import quiz.controller.dto.CommonResponse;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
-import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategoryGetResponse;
+import quiz.service.userCategory.UserCategoryService;
+import quiz.service.userCategory.dto.S_UserCategoryGetResponse;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Get Category 테스트")
-public class GetCategoryControllerTest {
+public class GetUserCategoryControllerTest {
 
-    private CategoryService categoryService;
+    private UserCategoryService userCategoryService;
 
-    private CategoryController categoryController;
+    private UserCategoryController userCategoryController;
 
     @BeforeEach
     void init() {
-        categoryService = mock(CategoryService.class);
-        categoryController = new CategoryController(categoryService);
+        userCategoryService = mock(UserCategoryService.class);
+        userCategoryController = new UserCategoryController(userCategoryService);
     }
 
     @Test
@@ -57,13 +57,13 @@ public class GetCategoryControllerTest {
         customCategoryList.add(category2);
         customCategoryList.add(category3);
 
-        S_CategoryGetResponse responseFromService = S_CategoryGetResponse.builder()
+        S_UserCategoryGetResponse responseFromService = S_UserCategoryGetResponse.builder()
             .categories(customCategoryList)
             .build();
 
-        when(categoryService.get(any())).thenReturn(responseFromService);
+        when(userCategoryService.get(any())).thenReturn(responseFromService);
 
-        CommonResponse<?> result = categoryController.getCategories(userKey);
+        CommonResponse<?> result = userCategoryController.getCategories(userKey);
 
         assertThat(result.getStatus()).isEqualTo(200);
         assertThat(result.getMsg()).isEqualTo("카테고리 불러오기 성공");

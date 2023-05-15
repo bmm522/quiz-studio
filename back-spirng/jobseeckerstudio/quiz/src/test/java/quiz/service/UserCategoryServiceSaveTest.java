@@ -17,17 +17,16 @@ import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.exception.DuplicateTitleException;
-import quiz.exception.NullUserKeyFromJwtTokenException;
-import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategorySaveReqeust;
-import quiz.service.category.dto.S_CategorySaveResponse;
+import quiz.service.userCategory.UserCategoryService;
+import quiz.service.userCategory.dto.S_UserCategorySaveReqeust;
+import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class CategoryServiceSaveTest {
+public class UserCategoryServiceSaveTest {
 
-    CategoryService categoryService;
+    UserCategoryService userCategoryService;
     UserCategoryRepository userCategoryRepository;
-    S_CategorySaveReqeust reqeust;
+    S_UserCategorySaveReqeust reqeust;
 
     Category category;
 
@@ -35,8 +34,8 @@ public class CategoryServiceSaveTest {
     @BeforeEach
     void init() {
         userCategoryRepository = mock(UserCategoryRepository.class);
-        categoryService = new CategoryService(userCategoryRepository);
-        reqeust = S_CategorySaveReqeust.builder()
+        userCategoryService = new UserCategoryService(userCategoryRepository);
+        reqeust = S_UserCategorySaveReqeust.builder()
             .userKey("testUser")
             .title("testTitle")
             .description("testDescription")
@@ -55,7 +54,7 @@ public class CategoryServiceSaveTest {
         // given
         when(userCategoryRepository.save(any())).thenReturn(userCategory);
         // when
-        S_CategorySaveResponse response = categoryService.save(reqeust);
+        S_UserCategorySaveResponse response = userCategoryService.save(reqeust);
         // then
 
         assertThat(response.getUserKey()).isEqualTo("testUser");
@@ -71,7 +70,7 @@ public class CategoryServiceSaveTest {
 
 
         Exception exception =  assertThrows(DuplicateTitleException.class, () -> {
-            categoryService.save(reqeust);
+            userCategoryService.save(reqeust);
         });
 
         assertThat(exception.getMessage()).isEqualTo("중복된 카테고리 제목은 사용할 수 없습니다.");

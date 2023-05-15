@@ -21,7 +21,6 @@ public class QuizMapper {
                 .quizTitle(quiz.getQuizTitle())
                 .choiceDtos(choiceDtoList)
                 .build();
-            // return QuizDto.builder().build();
 
         }).collect(Collectors.toList());
     }

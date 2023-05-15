@@ -15,7 +15,8 @@ import quiz.domain.category.Category;
 import quiz.domain.category.QCategory;
 import quiz.domain.userCategory.QUserCategory;
 import quiz.domain.userCategory.UserCategory;
-
+import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.domain.userCategory.repository.mapper.R_UserCategoryMapper;
 
 public class UserCategoryQueryRepositoryImpl implements UserCategoryQueryRepository{
 
@@ -31,13 +32,21 @@ public class UserCategoryQueryRepositoryImpl implements UserCategoryQueryReposit
 
     @Override
     public List<UserCategory> findByUserKeyAndTitle(String userKey, String title) {
-
         return queryFactory
              .selectFrom(userCategory)
              .join(category)
              .where(userCategory.userKey.eq(userKey)
                  .and(category.categoryName.eq(title)))
              .fetch();
+    }
+
+    @Override
+    public List<UserCategoryDto> findByUserKey(String userKey) {
+        List<UserCategory> userCategories = queryFactory.selectFrom(userCategory)
+            .join(category)
+            .where(userCategory.userKey.eq(userKey))
+            .fetch();
+        return R_UserCategoryMapper.toDto(userCategories);
     }
 }
 
