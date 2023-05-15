@@ -30,8 +30,9 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
         QQuiz quiz = QQuiz.quiz;
         List<Quiz> quizList = queryFactory
             .selectFrom(quiz)
-            .where(quiz.category.categoryId.in(1, 2))
-            .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
+            .where(quiz.category.categoryName.eq("java")
+                .or(quiz.category.categoryName.eq("data_structure")))
+            // .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
             .fetch();
 
         return QuizMapper.toQuizDto(quizList);
