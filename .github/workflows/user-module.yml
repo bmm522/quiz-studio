@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'back-spring/jobseeckerstudio/user/**'
+      - 'api-spring/jobseeckerstudio/user/**'
 
 jobs:
   build:
@@ -55,15 +55,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: |
-          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
           mvn clean package
       - name: Run tests
         run: |
-          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
           mvn -B test
       - name: Build Docker image
         run: |
-          cd ../JobSeeckerStudio/back-spirng/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }} \
             --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
