@@ -20,26 +20,21 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     private final JPAQueryFactory queryFactory;
 
     public QuizMySqlQueryRepositoryImpl(EntityManager entityManager) {
-        this.queryFactory =new JPAQueryFactory(entityManager);
+        this.queryFactory = new JPAQueryFactory(entityManager);
     }
+
     public List<QuizDto> findQuizzes() {
         QQuiz quiz = QQuiz.quiz;
-        List<Quiz> quizList = queryFactory.selectFrom(quiz)
-            .where(quiz.category.categoryId.eq(1).or(quiz.category.categoryId.eq(2)))
-            .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
+        List<Quiz> quizList = queryFactory
+            .selectFrom(quiz)
+            .where(quiz.category.categoryName.eq("java")
+                .or(quiz.category.categoryName.eq("data_structure")))
+            // .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
             .fetch();
 
-        System.out.println("repo : " + quizList);
-        // String jpql = "SELECT q FROM Quiz q where q.category.categoryId = 1 or q.category.categoryId = 2 ORDER BY RAND()";
-        //
-        // TypedQuery<Quiz> query = entityManager.createQuery(jpql, Quiz.class);
         return QuizMapper.toQuizDto(quizList);
-//        return query.getResultList();
     }
 }

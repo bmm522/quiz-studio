@@ -1,4 +1,4 @@
-package quiz.service.category.dto;
+package quiz.service.userCategory.dto;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 @AllArgsConstructor
 @Builder
 @Getter
-public class S_CategoryGetResponse {
+public class S_UserCategoryGetResponse {
 
     private List<UserCategoryDto> categories;
 

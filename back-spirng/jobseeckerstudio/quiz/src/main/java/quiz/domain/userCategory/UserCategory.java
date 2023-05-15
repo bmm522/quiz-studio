@@ -1,5 +1,6 @@
 package quiz.domain.userCategory;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class UserCategory extends BaseTimeEntity {
 
 
     @JoinColumn(referencedColumnName = "category_id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Category category;
 
     @Column(nullable = false, name = "relation_userKey")
@@ -49,6 +50,11 @@ public class UserCategory extends BaseTimeEntity {
 
     public String getCategoryDescription() {
         return this.category.getCategoryDescription();
+    }
+
+    // Test 전용 set
+    public  void setCategory(Category category) {
+        this.category = category;
     }
 
 }
