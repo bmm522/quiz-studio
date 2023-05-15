@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'back-node/**'
+      - 'api-node/**'
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Generate Environment Variables File for Production
         run: |
-          cd back-node
+          cd api-node
           mkdir env
           cd env
           echo "SECRET_KEY=$SECRET_KEY" >> .env
@@ -54,15 +54,15 @@ jobs:
           MONGO_URL: ${{ secrets.MONGO_URL }}
       - name: Install Dependencies and Surge
         run: |
-          cd back-node
+          cd api-node
           npm install
       - name: Run Test
         run: |
-          cd back-node
+          cd api-node
           npm run test
 #       - name: Build Docker image
 #         run: |
-#           cd back-node
+#           cd api-node
 #           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:${{ github.sha }} \
 #             --build-arg SECRET_KEY=$SECRET_KEY \
 #             --build-arg TOKEN_PREFIX=$TOKEN_PREFIX \
