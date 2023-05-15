@@ -1,9 +1,9 @@
 error.log
-back-node/node_modules/**
+api-node/node_modules/**
 *.idea
-back-node/dist/**
-back-node/env/**
-back-node/env/.env.local
+api-node/dist/**
+api-node/env/**
+api-node/env/.env.local
 front/node_modules/**
 front/public/vendor
 front/public/css
