@@ -40,6 +40,7 @@ public class UserCategoryService {
 
     }
 
+    @Transactional(readOnly = true)
     public S_UserCategoryGetResponse get(String userKey) {
         List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(userKey);
         return S_UserCategoryMapper.toGetResponse(userCategoryDtos);

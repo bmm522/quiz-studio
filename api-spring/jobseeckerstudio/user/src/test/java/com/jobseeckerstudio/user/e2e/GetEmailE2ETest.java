@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-dev.yml")
 @DisplayName("이메일 불러오기 e2e 테스트")
-public class GetEmailE2eTest {
+public class GetEmailE2ETest {
 
     @Autowired
     private TestRestTemplate rt;

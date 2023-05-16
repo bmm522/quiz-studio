@@ -32,7 +32,7 @@ public class UserCategory extends BaseTimeEntity {
 
 
     @JoinColumn(referencedColumnName = "category_id")
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Category category;
 
     @Column(nullable = false, name = "relation_userKey")

@@ -7,9 +7,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.coyote.Response;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -43,14 +45,11 @@ import quiz.properties.JwtProperties;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @Rollback
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserCategoryE2ETest {
 
-    @LocalServerPort
-    private int port;
     @Autowired
     private TestRestTemplate rt;
-
-
 
     @Autowired
     private UserCategoryRepository userCategoryRepository;
@@ -63,13 +62,16 @@ public class UserCategoryE2ETest {
 
     private HttpHeaders headers;
 
-
     private final String testUserKey = "testUserKey";
     private final String testCategoryName = "testCategoryName";
 
     private final String testCategoryDescription = "testCategoryDescription";
 
+
+    private final String saveTestUser = "saveTestUser";
+    private final String url = "/api/v1/category";
     private String jwt;
+
 
     @BeforeEach
     void init() {
@@ -91,28 +93,37 @@ public class UserCategoryE2ETest {
             .withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
             .withClaim("userKey", testUserKey)
             .sign(Algorithm.HMAC256(JwtProperties.SECRET));
+        headers = new HttpHeaders();
 
+        headers.set(JwtProperties.HEADER_JWT, jwt);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
 
         om = new ObjectMapper();
     }
-
+    @AfterAll
+    void deleteData() {
+        userCategoryRepository.deleteByUserKey(saveTestUser);
+    }
     @Test
     @DisplayName("save 테스트")
     void saveTest() throws JsonProcessingException {
+
+        String jwt2 = JwtProperties.TOKEN_PREFIX + JWT.create()
+            .withSubject("testUser")
+            .withIssuer(JwtProperties.ISS)
+            .withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
+            .withClaim("userKey", saveTestUser)
+            .sign(Algorithm.HMAC256(JwtProperties.SECRET));
         C_UserCategorySaveRequest dto = C_UserCategorySaveRequest.builder()
             .title("testTitle")
             .description("testDescription")
             .build();
-        String url = "/api/v1/category";
-        headers = new HttpHeaders();
+        headers.remove(JwtProperties.HEADER_JWT);
+        headers.set(JwtProperties.HEADER_JWT, jwt2);
 
-        headers.set(JwtProperties.HEADER_JWT, jwt);
-        headers.set("userKey", testUserKey);
-        headers.setContentType(MediaType.APPLICATION_JSON);
         String body = om.writeValueAsString(dto);
         HttpEntity<String> request = new HttpEntity<>(body, headers);
-        System.out.println(url);
         ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, request, String.class);
 
         DocumentContext dc = JsonPath.parse(response.getBody());
@@ -127,7 +138,7 @@ public class UserCategoryE2ETest {
         assertThat(msg).isEqualTo("카테고리 저장 성공");
         assertThat(title).isEqualTo("testTitle");
         assertThat(description).isEqualTo("testDescription");
-        assertThat(userKey).isEqualTo(testUserKey);
+        assertThat(userKey).isEqualTo(saveTestUser);
     }
 
 

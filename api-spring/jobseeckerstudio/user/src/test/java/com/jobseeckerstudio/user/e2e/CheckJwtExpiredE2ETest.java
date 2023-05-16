@@ -22,7 +22,6 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jobseeckerstudio.user.domain.user.User;
 import com.jobseeckerstudio.user.encrypt.Encryptor;
-import com.jobseeckerstudio.user.jwt.JwtMaker;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
@@ -30,7 +29,7 @@ import com.jobseeckerstudio.user.repository.user.UserRepository;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-dev.yml")
 @DisplayName("jwt토큰 유효시간 체크 e2e 테스트")
-public class CheckJwtExpiredE2eTest {
+public class CheckJwtExpiredE2ETest {
 
     private static final int EXPIRATION_TIME = 1000*60*60;
 
