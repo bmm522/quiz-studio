@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      env_run: test
       jasypt_encryptor_password: ${{secrets.JASYPT_ENCRYPTOR_PASSWORD}}
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
