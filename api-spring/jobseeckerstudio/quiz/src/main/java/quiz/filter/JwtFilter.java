@@ -27,6 +27,7 @@ import quiz.properties.JwtProperties;
 
 
 
+@Component
 public class JwtFilter extends OncePerRequestFilter {
 
     // @Override
