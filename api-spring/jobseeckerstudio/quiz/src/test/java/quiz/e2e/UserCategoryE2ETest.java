@@ -16,18 +16,14 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -37,6 +33,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
 import quiz.controller.userCategory.dto.C_UserCategorySaveRequest;
+import quiz.controller.userCategory.dto.C_UserCategoryUpdateRequest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
@@ -69,6 +66,7 @@ public class UserCategoryE2ETest {
     private final String saveTestUser = "saveTestUser";
     private final String url = "/api/v1/category";
     private String jwt;
+
 
 
     @BeforeAll
@@ -144,6 +142,7 @@ public class UserCategoryE2ETest {
     @DisplayName("get 테스트")
     void getTest() throws JsonProcessingException {
 
+
         headers.remove(JwtProperties.HEADER_JWT);
         headers.set(JwtProperties.HEADER_JWT, jwt);
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -163,6 +162,49 @@ public class UserCategoryE2ETest {
         assertThat(description).isEqualTo("testCategoryDescription");
 
     }
+
+        @Test
+        @DisplayName("update테스트")
+        void updateTest() throws JsonProcessingException {
+           Category category3 = Category.builder()
+                .categoryName("updateBeforeTitle")
+                .categoryDescription("updateBeforeDescription")
+                .build();
+
+            UserCategory userCategory3 = UserCategory.builder()
+                .userKey(testUserKey)
+                .category(category3)
+                .build();
+
+            long savedUserCategoryId = userCategoryRepository.save(userCategory3).getUserCategoryId();
+
+            rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+                C_UserCategoryUpdateRequest dto = C_UserCategoryUpdateRequest.builder()
+                        .userCategoryId(savedUserCategoryId)
+                        .updateTitle("updateAfterTitle")
+                        .updateDescription("updateAfterDescription")
+                        .build();
+            headers.remove(JwtProperties.HEADER_JWT);
+            headers.set(JwtProperties.HEADER_JWT, jwt);
+
+                String body = om.writeValueAsString(dto);
+                HttpEntity<String> request = new HttpEntity<>(body, headers);
+                ResponseEntity<String> response = rt.exchange(url, HttpMethod.PATCH, request, String.class);
+                DocumentContext dc = JsonPath.parse(response.getBody());
+
+                int status = dc.read("$.status");
+                String msg = dc.read("$.msg");
+                String title = dc.read("$.data.updateTitle");
+                String description = dc.read("$.data.updateDescription");
+                String userKey = dc.read("$.data.userKey");
+
+                assertThat(status).isEqualTo(200);
+                assertThat(msg).isEqualTo("카테고리 업데이트 성공");
+                assertThat(userKey).isEqualTo(testUserKey);
+                assertThat(title).isEqualTo("updateAfterTitle");
+                assertThat(description).isEqualTo("updateAfterDescription");
+
+        }
 
 
 

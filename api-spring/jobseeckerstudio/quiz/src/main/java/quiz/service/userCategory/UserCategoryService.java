@@ -54,10 +54,7 @@ public class UserCategoryService {
                 return S_UserCategoryMapper.toGetResponse(userCategoryDtos);
         }
 
-        private UserCategory getUserCategory(S_UserCategoryUpdateRequest request) {
-                Optional<UserCategory> userCategoryOptional = userCategoryRepository.findUserCategoryByUserCategoryId(request.getUserCategoryId());
-                return userCategoryOptional.orElseThrow(() -> new NotFoundEntityException("userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
-        }
+
 
         @Transactional
         public S_UserCategoryUpdateResponse update(S_UserCategoryUpdateRequest request) {
@@ -69,6 +66,11 @@ public class UserCategoryService {
                 category.updateCategoryDescription(request.getUpdateDescription());
 
                 return S_UserCategoryMapper.toUpdateResponse(userCategory);
+        }
+
+        private UserCategory getUserCategory(S_UserCategoryUpdateRequest request) {
+                return  userCategoryRepository.findUserCategoryByUserCategoryId(request.getUserCategoryId())
+                        .orElseThrow(() -> new NotFoundEntityException("userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
         }
 
         private void validatePermission(String savedUserKey, String requestUserKey) {
