@@ -9,7 +9,7 @@ import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 public class R_UserCategoryMapper {
     public static List<UserCategoryDto> toDto(List<UserCategory> userCategories) {
         return userCategories.stream()
-            .map(userCategory -> UserCategoryDto.builder()
+            .map(userCategory -> UserCategoryDto.builder().categoryId(userCategory.getUserCategoryId())
                 .userKey(userCategory.getUserKey())
                 .title(userCategory.getCategoryName())
                 .description(userCategory.getCategoryDescription())

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.coyote.Response;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,12 +40,9 @@ import quiz.controller.userCategory.dto.C_UserCategorySaveRequest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
-import quiz.filter.JwtFilter;
 import quiz.properties.JwtProperties;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-@Rollback
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserCategoryE2ETest {
 
@@ -73,7 +71,7 @@ public class UserCategoryE2ETest {
     private String jwt;
 
 
-    @BeforeEach
+    @BeforeAll
     void init() {
         category = Category.builder()
             .categoryName(testCategoryName)
@@ -104,6 +102,7 @@ public class UserCategoryE2ETest {
     @AfterAll
     void deleteData() {
         userCategoryRepository.deleteByUserKey(saveTestUser);
+        userCategoryRepository.deleteByUserKey(testUserKey);
     }
     @Test
     @DisplayName("save 테스트")
@@ -139,6 +138,30 @@ public class UserCategoryE2ETest {
         assertThat(title).isEqualTo("testTitle");
         assertThat(description).isEqualTo("testDescription");
         assertThat(userKey).isEqualTo(saveTestUser);
+    }
+
+    @Test
+    @DisplayName("get 테스트")
+    void getTest() throws JsonProcessingException {
+
+        headers.remove(JwtProperties.HEADER_JWT);
+        headers.set(JwtProperties.HEADER_JWT, jwt);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET, request, String.class);
+        DocumentContext dc = JsonPath.parse(response.getBody());
+
+        int status = dc.read("$.status");
+        String msg = dc.read("$.msg");
+        String title = dc.read("$.data.categories[0].title");
+        String description = dc.read("$.data.categories[0].description");
+        String userKey = dc.read("$.data.categories[0].userKey");
+
+        assertThat(status).isEqualTo(200);
+        assertThat(msg).isEqualTo("카테고리 불러오기 성공");
+        assertThat(userKey).isEqualTo(testUserKey);
+        assertThat(title).isEqualTo("testCategoryName");
+        assertThat(description).isEqualTo("testCategoryDescription");
+
     }
 
 
