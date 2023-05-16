@@ -1,12 +1,14 @@
 package quiz.controller.userCategory;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,7 @@ public class UserCategoryController {
     private final UserCategoryService userCategoryService;
 
     @PostMapping("/category")
-    public CommonResponse<?> saveCategory(@RequestAttribute("userKey")String userKey, @RequestBody C_UserCategorySaveRequest request) {
+    public @ResponseBody CommonResponse<?> saveCategory(@RequestAttribute("userKey")String userKey, @RequestBody C_UserCategorySaveRequest request) {
         S_UserCategorySaveResponse response = userCategoryService.save(
             C_UserCategoryMapper.toSaveRequest(userKey, request));
         return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공", response);

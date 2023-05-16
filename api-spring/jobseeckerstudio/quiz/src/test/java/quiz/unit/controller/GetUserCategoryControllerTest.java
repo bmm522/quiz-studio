@@ -1,4 +1,4 @@
-package quiz.controller;
+package quiz.unit.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.Mockito.*;

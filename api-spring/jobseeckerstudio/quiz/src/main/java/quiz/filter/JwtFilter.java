@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
@@ -20,15 +25,29 @@ import quiz.exception.InvalidTokenException;
 import quiz.exception.NullUserKeyFromJwtTokenException;
 import quiz.properties.JwtProperties;
 
-public class JwtFilter extends OncePerRequestFilter{
 
+@Component
+public class JwtFilter extends OncePerRequestFilter {
+
+    // @Override
+    // public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws
+    //     IOException,
+    //     ServletException {
+    //     String jwtToken = extractJwtToken((HttpServletRequest)request);
+    //     Jws<Claims> claims = parseJwtToken(jwtToken);
+    //     String userKey = extractUserKey(claims);
+    //     request.setAttribute("userKey", userKey);
+    //     filterChain.doFilter(request, response);
+    //
+    // }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
-        String jwtToken = extractJwtToken(request);
-        Jws<Claims> claims = parseJwtToken(jwtToken);
-        String userKey = extractUserKey(claims);
-        request.setAttribute("userKey", userKey);
+            String jwtToken = extractJwtToken(request);
+            Jws<Claims> claims = parseJwtToken(jwtToken);
+            String userKey = extractUserKey(claims);
+            request.setAttribute("userKey", userKey);
+            filterChain.doFilter(request, response);
     }
 
     private String extractJwtToken(HttpServletRequest request) {

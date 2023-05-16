@@ -1,4 +1,4 @@
-package quiz.controller;
+package quiz.unit.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.*;

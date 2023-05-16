@@ -1,4 +1,4 @@
-package quiz.filter;
+package quiz.unit.filter;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +28,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import quiz.exception.ExpiredTokenException;
 import quiz.exception.InvalidTokenException;
 import quiz.exception.NullUserKeyFromJwtTokenException;
+import quiz.filter.JwtFilter;
 import quiz.properties.JwtProperties;
 
 @SpringBootTest

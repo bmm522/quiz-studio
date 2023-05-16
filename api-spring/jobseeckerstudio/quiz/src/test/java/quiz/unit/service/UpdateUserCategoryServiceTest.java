@@ -1,4 +1,4 @@
-package quiz.service;
+package quiz.unit.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;

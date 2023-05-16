@@ -61,20 +61,6 @@ public class GetEmailE2eTest {
         return JsonPath.parse(response.getBody());
     }
 
-    // @Test
-    // @DisplayName("이메일 가져오기 정상적인 요청")
-    // public void getEmailTestWhenSuccess() {
-    //     HttpHeaders headers = createHeaders(jwtToken.getJwtToken(), jwtToken.getRefreshToken());
-    //     DocumentContext dc = executeGetEmailRequest(headers);
-    //
-    //     Integer status = dc.read("$.status");
-    //     String msg = dc.read("$.msg");
-    //     String email = dc.read("$.data.email");
-    //     assertThat(status).isEqualTo(200);
-    //     assertThat(msg).isEqualTo("이메일 불러오기 성공");
-    //     assertThat(email).isEqualTo("test_email@test.com");
-    // }
-
     @Test
     @DisplayName("AccessToken 없이 요청")
     public void getEmailTestWhenNotHaveJwtToken() {

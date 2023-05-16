@@ -1,4 +1,4 @@
-package quiz.service;
+package quiz.unit.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;

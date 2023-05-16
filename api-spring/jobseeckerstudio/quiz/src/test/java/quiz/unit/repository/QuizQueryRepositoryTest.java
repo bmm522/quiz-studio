@@ -1,4 +1,4 @@
-package quiz.repository;
+package quiz.unit.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 

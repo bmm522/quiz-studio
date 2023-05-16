@@ -16,3 +16,6 @@ jasypt:
             prefix: ENC(
             suffix: )
         password: ${jasypt_encryptor_password}
+
+run:
+    env: ${run_env}
