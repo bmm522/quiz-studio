@@ -4,8 +4,8 @@ on:
   push:
     branches: 
       - main
-#     paths:
-#       - 'api-spring/jobseeckerstudio/quiz/**'
+    paths:
+      - 'api-spring/jobseeckerstudio/quiz/**'
 
 jobs:
   build:
@@ -67,10 +67,10 @@ jobs:
         run: |
           cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/quiz
           mvn clean package
-      - name: Test
-        run: |
-          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/quiz
-          mvn -B test
+#       - name: Test
+#         run: |
+#           cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/quiz
+#           mvn -B test
 #       - name: Build Docker image
 #         run: |
 #           cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/quiz
