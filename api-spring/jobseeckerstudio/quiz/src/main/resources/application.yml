@@ -9,6 +9,7 @@ spring:
             - prod
         include:
             - jwt
+            - env
 jasypt:
     encryptor:
         bean: jasyptStringEncryptor
@@ -17,5 +18,3 @@ jasypt:
             suffix: )
         password: ${jasypt_encryptor_password}
 
-run:
-    env: ${run_env}
