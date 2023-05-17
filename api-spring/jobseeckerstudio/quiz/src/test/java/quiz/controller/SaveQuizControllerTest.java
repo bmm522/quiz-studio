@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.controller.quiz.dto.C_QuizSaveRequest;
 import quiz.global.dto.CustomQuizDto;
+import quiz.service.quiz.dto.S_QuizSaveRequest;
 import quiz.service.quiz.dto.S_QuizSaveResponse;
 
 
@@ -39,6 +40,7 @@ public class SaveQuizControllerTest extends ControllerTest {
 		);
 	}
 
+
 	@Test
 	@DisplayName("save 정상적인 요청")
 	void saveQuizTest() throws Exception {
@@ -53,7 +55,7 @@ public class SaveQuizControllerTest extends ControllerTest {
 			.quizzes(quizDtoList)
 			.build();
 
-		when(quizService.save(any())).thenReturn(returnDto);
+		when(quizService.save(any(S_QuizSaveRequest.class))).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
 			post("/api/v1/category/1000/quiz")

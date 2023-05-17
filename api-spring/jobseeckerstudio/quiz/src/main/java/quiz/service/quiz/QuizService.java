@@ -22,7 +22,7 @@ public class QuizService {
 	private final QuizMySqlRepository quizRepository;
 	private final UserCategoryRepository userCategoryRepository;
 
-	public final S_QuizSaveResponse save(final S_QuizSaveRequest request) {
+	public S_QuizSaveResponse save(final S_QuizSaveRequest request) {
 		final UserCategory userCategory = getUserCategory(request.getUserCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
 			userCategory.getUserKey());
@@ -32,8 +32,7 @@ public class QuizService {
 			quiz.addCategory(userCategory.getCategory());
 		}
 
-		final List<Quiz> savedQuizzes = quizRepository.saveAll(quizzes);
-		return S_QuizMapper.toSaveResponse(request.getUserKey(), savedQuizzes);
+		return S_QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
 	}
 
 	private UserCategory getUserCategory(final long userCategoryId) {

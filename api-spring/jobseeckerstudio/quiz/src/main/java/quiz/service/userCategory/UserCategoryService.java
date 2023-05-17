@@ -28,7 +28,7 @@ public class UserCategoryService {
 	private final UserCategoryRepository userCategoryRepository;
 
 	@Transactional
-	public S_UserCategorySaveResponse save(S_UserCategorySaveRequest request) {
+	public S_UserCategorySaveResponse save(final S_UserCategorySaveRequest request) {
 		validateDuplicateTitle(request.getUserKey(), request.getTitle());
 
 		Category category = CategoryMapper.toEntityWhenSave(request);

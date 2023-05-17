@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import quiz.domain.quiz.Quiz;
 
 
@@ -20,6 +21,7 @@ import quiz.domain.quiz.Quiz;
 @Table(name = "quiz_choice")
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class QuizChoice {
 
 	@Id
