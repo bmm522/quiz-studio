@@ -1,4 +1,4 @@
-package quiz.service.userCategory.dto;
+package quiz.service.usercategory.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 public class S_UserCategoryUpdateRequest {
 
-    private Long userCategoryId;
+	private Long userCategoryId;
 
-    private String userKey;
+	private String userKey;
 
-    private String updateTitle;
+	private String updateTitle;
 
-    private String updateDescription;
+	private String updateDescription;
 }

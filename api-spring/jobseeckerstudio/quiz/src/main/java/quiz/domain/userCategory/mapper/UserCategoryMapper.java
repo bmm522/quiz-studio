@@ -1,7 +1,7 @@
 package quiz.domain.userCategory.mapper;
 
 import quiz.domain.userCategory.UserCategory;
-import quiz.service.userCategory.dto.S_UserCategorySaveRequest;
+import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
 
 public class UserCategoryMapper {
 

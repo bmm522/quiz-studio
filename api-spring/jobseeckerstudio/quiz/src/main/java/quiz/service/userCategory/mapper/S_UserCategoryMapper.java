@@ -1,11 +1,11 @@
-package quiz.service.userCategory.mapper;
+package quiz.service.usercategory.mapper;
 
 import java.util.List;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
-import quiz.service.userCategory.dto.S_UserCategoryGetResponse;
-import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
-import quiz.service.userCategory.dto.S_UserCategoryUpdateResponse;
+import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
+import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
+import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
 
 public class S_UserCategoryMapper {
 

@@ -1,4 +1,4 @@
-package quiz.controller.userCategory.dto;
+package quiz.controller.usercategory.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class C_UserCategorySaveRequest {
 
-    private String title;
-    private String description;
+	private String title;
+	private String description;
 
 }

@@ -1,4 +1,4 @@
-package quiz.service.userCategory;
+package quiz.service.usercategory;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,15 +11,15 @@ import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.mapper.UserCategoryMapper;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
-import quiz.exception.DuplicateTitleException;
-import quiz.exception.NotFoundEntityException;
-import quiz.exception.PermissionException;
-import quiz.service.userCategory.dto.S_UserCategoryGetResponse;
-import quiz.service.userCategory.dto.S_UserCategorySaveRequest;
-import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
-import quiz.service.userCategory.dto.S_UserCategoryUpdateRequest;
-import quiz.service.userCategory.dto.S_UserCategoryUpdateResponse;
-import quiz.service.userCategory.mapper.S_UserCategoryMapper;
+import quiz.global.exception.DuplicateTitleException;
+import quiz.global.exception.NotFoundEntityException;
+import quiz.global.exception.PermissionException;
+import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
+import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
+import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
+import quiz.service.usercategory.dto.S_UserCategoryUpdateRequest;
+import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
+import quiz.service.usercategory.mapper.S_UserCategoryMapper;
 
 @Service
 @RequiredArgsConstructor
@@ -69,8 +69,8 @@ public class UserCategoryService {
 
 	private UserCategory getUserCategory(S_UserCategoryUpdateRequest request) {
 		return userCategoryRepository.findUserCategoryByUserCategoryId(request.getUserCategoryId())
-									 .orElseThrow(() -> new NotFoundEntityException(
-										 "userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
+			.orElseThrow(() -> new NotFoundEntityException(
+				"userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
 	}
 
 	private void validatePermission(String savedUserKey, String requestUserKey) {

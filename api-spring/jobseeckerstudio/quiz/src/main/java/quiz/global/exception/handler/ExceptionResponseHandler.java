@@ -9,6 +9,7 @@ import quiz.global.exception.ExistCategorySaveException;
 import quiz.global.exception.ExpiredTokenException;
 import quiz.global.exception.InvalidParameterFromDtoException;
 import quiz.global.exception.InvalidTokenException;
+import quiz.global.exception.NotCorrectAnswerException;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.global.exception.NullUserKeyFromJwtTokenException;
 import quiz.global.exception.PermissionException;
@@ -57,6 +58,11 @@ public class ExceptionResponseHandler {
 	@ExceptionHandler(NotFoundEntityException.class)
 	public CommonResponse<?> handleNotFoundEntityException(NotFoundEntityException e) {
 		return errorHandler(e, 500);
+	}
+
+	@ExceptionHandler(NotCorrectAnswerException.class)
+	public CommonResponse<?> handleNotCorrectAnswerException(NotCorrectAnswerException e) {
+		return errorHandler(e, 400);
 	}
 
 	private CommonResponse<?> errorHandler(Exception e, Integer status) {

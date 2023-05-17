@@ -1,4 +1,4 @@
-package quiz.controller.userCategory.dto;
+package quiz.controller.usercategory.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

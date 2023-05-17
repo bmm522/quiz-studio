@@ -1,11 +1,11 @@
-package quiz.controller.userCategory.mapper;
+package quiz.controller.usercategory.mapper;
 
-import quiz.controller.userCategory.dto.C_UserCategorySaveRequest;
-import quiz.controller.userCategory.dto.C_UserCategoryUpdateRequest;
-import quiz.exception.ExistCategorySaveException;
-import quiz.exception.InvalidParameterFromDtoException;
-import quiz.service.userCategory.dto.S_UserCategorySaveRequest;
-import quiz.service.userCategory.dto.S_UserCategoryUpdateRequest;
+import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
+import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
+import quiz.global.exception.ExistCategorySaveException;
+import quiz.global.exception.InvalidParameterFromDtoException;
+import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
+import quiz.service.usercategory.dto.S_UserCategoryUpdateRequest;
 
 public class C_UserCategoryMapper {
 
@@ -14,21 +14,21 @@ public class C_UserCategoryMapper {
 		validateTitleAndDescription(request.getTitle(), request.getDescription());
 		checkExistCategoryName(request.getTitle());
 		return S_UserCategorySaveRequest.builder()
-										.userKey(userKey)
-										.title(request.getTitle())
-										.description(request.getDescription())
-										.build();
+			.userKey(userKey)
+			.title(request.getTitle())
+			.description(request.getDescription())
+			.build();
 	}
 
 	public static S_UserCategoryUpdateRequest toUpdateReqeust(String userKey,
 		C_UserCategoryUpdateRequest request) {
 		checkExistCategoryName(request.getUpdateTitle());
 		return S_UserCategoryUpdateRequest.builder()
-										  .userCategoryId(request.getUserCategoryId())
-										  .userKey(userKey)
-										  .updateTitle(request.getUpdateTitle())
-										  .updateDescription(request.getUpdateDescription())
-										  .build();
+			.userCategoryId(request.getUserCategoryId())
+			.userKey(userKey)
+			.updateTitle(request.getUpdateTitle())
+			.updateDescription(request.getUpdateDescription())
+			.build();
 	}
 
 	private static void validateTitleAndDescription(String title, String description) {

@@ -1,29 +1,6 @@
 package quiz.e2e;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.coyote.Response;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -31,9 +8,23 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-
-import quiz.controller.userCategory.dto.C_UserCategorySaveRequest;
-import quiz.controller.userCategory.dto.C_UserCategoryUpdateRequest;
+import java.util.Date;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
+import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
@@ -43,169 +34,167 @@ import quiz.properties.JwtProperties;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserCategoryE2ETest {
 
-    @Autowired
-    private TestRestTemplate rt;
+	@Autowired
+	private TestRestTemplate rt;
 
-    @Autowired
-    private UserCategoryRepository userCategoryRepository;
+	@Autowired
+	private UserCategoryRepository userCategoryRepository;
 
-    private UserCategory userCategory;
+	private UserCategory userCategory;
 
-    private ObjectMapper om;
+	private ObjectMapper om;
 
-    private Category category;
+	private Category category;
 
-    private HttpHeaders headers;
+	private HttpHeaders headers;
 
-    private final String testUserKey = "testUserKey";
-    private final String testCategoryName = "testCategoryName";
+	private final String testUserKey = "testUserKey";
+	private final String testCategoryName = "testCategoryName";
 
-    private final String testCategoryDescription = "testCategoryDescription";
-
-
-    private final String saveTestUser = "saveTestUser";
-    private final String url = "/api/v1/category";
-    private String jwt;
+	private final String testCategoryDescription = "testCategoryDescription";
 
 
-
-    @BeforeAll
-    void init() {
-        category = Category.builder()
-            .categoryName(testCategoryName)
-            .categoryDescription(testCategoryDescription)
-            .build();
-
-        userCategory = UserCategory.builder()
-            .userKey(testUserKey)
-            .category(category)
-            .build();
-
-        userCategoryRepository.save(userCategory);
-
-        jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
-            .withSubject("testUser")
-            .withIssuer(JwtProperties.ISS)
-            .withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
-            .withClaim("userKey", testUserKey)
-            .sign(Algorithm.HMAC256(JwtProperties.SECRET));
-        headers = new HttpHeaders();
-
-        headers.set(JwtProperties.HEADER_JWT, jwt);
-        headers.setContentType(MediaType.APPLICATION_JSON);
+	private final String saveTestUser = "saveTestUser";
+	private final String url = "/api/v1/category";
+	private String jwt;
 
 
-        om = new ObjectMapper();
-    }
-    @AfterAll
-    void deleteData() {
-        userCategoryRepository.deleteByUserKey(saveTestUser);
-        userCategoryRepository.deleteByUserKey(testUserKey);
-    }
-    @Test
-    @DisplayName("save 테스트")
-    void saveTest() throws JsonProcessingException {
+	@BeforeAll
+	void init() {
+		category = Category.builder()
+			.categoryName(testCategoryName)
+			.categoryDescription(testCategoryDescription)
+			.build();
 
-        String jwt2 = JwtProperties.TOKEN_PREFIX + JWT.create()
-            .withSubject("testUser")
-            .withIssuer(JwtProperties.ISS)
-            .withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
-            .withClaim("userKey", saveTestUser)
-            .sign(Algorithm.HMAC256(JwtProperties.SECRET));
-        C_UserCategorySaveRequest dto = C_UserCategorySaveRequest.builder()
-            .title("testTitle")
-            .description("testDescription")
-            .build();
-        headers.remove(JwtProperties.HEADER_JWT);
-        headers.set(JwtProperties.HEADER_JWT, jwt2);
+		userCategory = UserCategory.builder()
+			.userKey(testUserKey)
+			.category(category)
+			.build();
 
-        String body = om.writeValueAsString(dto);
-        HttpEntity<String> request = new HttpEntity<>(body, headers);
-        ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, request, String.class);
+		userCategoryRepository.save(userCategory);
 
-        DocumentContext dc = JsonPath.parse(response.getBody());
+		jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
+			.withSubject("testUser")
+			.withIssuer(JwtProperties.ISS)
+			.withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
+			.withClaim("userKey", testUserKey)
+			.sign(Algorithm.HMAC256(JwtProperties.SECRET));
+		headers = new HttpHeaders();
 
-        int status = dc.read("$.status");
-        String msg = dc.read("$.msg");
-        String title = dc.read("$.data.title");
-        String description = dc.read("$.data.description");
-        String userKey = dc.read("$.data.userKey");
+		headers.set(JwtProperties.HEADER_JWT, jwt);
+		headers.setContentType(MediaType.APPLICATION_JSON);
 
-        assertThat(status).isEqualTo(201);
-        assertThat(msg).isEqualTo("카테고리 저장 성공");
-        assertThat(title).isEqualTo("testTitle");
-        assertThat(description).isEqualTo("testDescription");
-        assertThat(userKey).isEqualTo(saveTestUser);
-    }
+		om = new ObjectMapper();
+	}
 
-    @Test
-    @DisplayName("get 테스트")
-    void getTest() throws JsonProcessingException {
+	@AfterAll
+	void deleteData() {
+		userCategoryRepository.deleteByUserKey(saveTestUser);
+		userCategoryRepository.deleteByUserKey(testUserKey);
+	}
 
+	@Test
+	@DisplayName("save 테스트")
+	void saveTest() throws JsonProcessingException {
 
-        headers.remove(JwtProperties.HEADER_JWT);
-        headers.set(JwtProperties.HEADER_JWT, jwt);
-        HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET, request, String.class);
-        DocumentContext dc = JsonPath.parse(response.getBody());
+		String jwt2 = JwtProperties.TOKEN_PREFIX + JWT.create()
+			.withSubject("testUser")
+			.withIssuer(JwtProperties.ISS)
+			.withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
+			.withClaim("userKey", saveTestUser)
+			.sign(Algorithm.HMAC256(JwtProperties.SECRET));
+		C_UserCategorySaveRequest dto = C_UserCategorySaveRequest.builder()
+			.title("testTitle")
+			.description("testDescription")
+			.build();
+		headers.remove(JwtProperties.HEADER_JWT);
+		headers.set(JwtProperties.HEADER_JWT, jwt2);
 
-        int status = dc.read("$.status");
-        String msg = dc.read("$.msg");
-        String title = dc.read("$.data.categories[0].title");
-        String description = dc.read("$.data.categories[0].description");
-        String userKey = dc.read("$.data.categories[0].userKey");
+		String body = om.writeValueAsString(dto);
+		HttpEntity<String> request = new HttpEntity<>(body, headers);
+		ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, request, String.class);
 
-        assertThat(status).isEqualTo(200);
-        assertThat(msg).isEqualTo("카테고리 불러오기 성공");
-        assertThat(userKey).isEqualTo(testUserKey);
-        assertThat(title).isEqualTo("testCategoryName");
-        assertThat(description).isEqualTo("testCategoryDescription");
+		DocumentContext dc = JsonPath.parse(response.getBody());
 
-    }
+		int status = dc.read("$.status");
+		String msg = dc.read("$.msg");
+		String title = dc.read("$.data.title");
+		String description = dc.read("$.data.description");
+		String userKey = dc.read("$.data.userKey");
 
-        @Test
-        @DisplayName("update테스트")
-        void updateTest() throws JsonProcessingException {
-           Category category3 = Category.builder()
-                .categoryName("updateBeforeTitle")
-                .categoryDescription("updateBeforeDescription")
-                .build();
+		assertThat(status).isEqualTo(201);
+		assertThat(msg).isEqualTo("카테고리 저장 성공");
+		assertThat(title).isEqualTo("testTitle");
+		assertThat(description).isEqualTo("testDescription");
+		assertThat(userKey).isEqualTo(saveTestUser);
+	}
 
-            UserCategory userCategory3 = UserCategory.builder()
-                .userKey(testUserKey)
-                .category(category3)
-                .build();
+	@Test
+	@DisplayName("get 테스트")
+	void getTest() throws JsonProcessingException {
 
-            long savedUserCategoryId = userCategoryRepository.save(userCategory3).getUserCategoryId();
+		headers.remove(JwtProperties.HEADER_JWT);
+		headers.set(JwtProperties.HEADER_JWT, jwt);
+		HttpEntity<String> request = new HttpEntity<>(headers);
+		ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET, request, String.class);
+		DocumentContext dc = JsonPath.parse(response.getBody());
 
-            rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-                C_UserCategoryUpdateRequest dto = C_UserCategoryUpdateRequest.builder()
-                        .userCategoryId(savedUserCategoryId)
-                        .updateTitle("updateAfterTitle")
-                        .updateDescription("updateAfterDescription")
-                        .build();
-            headers.remove(JwtProperties.HEADER_JWT);
-            headers.set(JwtProperties.HEADER_JWT, jwt);
+		int status = dc.read("$.status");
+		String msg = dc.read("$.msg");
+		String title = dc.read("$.data.categories[0].title");
+		String description = dc.read("$.data.categories[0].description");
+		String userKey = dc.read("$.data.categories[0].userKey");
 
-                String body = om.writeValueAsString(dto);
-                HttpEntity<String> request = new HttpEntity<>(body, headers);
-                ResponseEntity<String> response = rt.exchange(url, HttpMethod.PATCH, request, String.class);
-                DocumentContext dc = JsonPath.parse(response.getBody());
+		assertThat(status).isEqualTo(200);
+		assertThat(msg).isEqualTo("카테고리 불러오기 성공");
+		assertThat(userKey).isEqualTo(testUserKey);
+		assertThat(title).isEqualTo("testCategoryName");
+		assertThat(description).isEqualTo("testCategoryDescription");
 
-                int status = dc.read("$.status");
-                String msg = dc.read("$.msg");
-                String title = dc.read("$.data.updateTitle");
-                String description = dc.read("$.data.updateDescription");
-                String userKey = dc.read("$.data.userKey");
+	}
 
-                assertThat(status).isEqualTo(200);
-                assertThat(msg).isEqualTo("카테고리 업데이트 성공");
-                assertThat(userKey).isEqualTo(testUserKey);
-                assertThat(title).isEqualTo("updateAfterTitle");
-                assertThat(description).isEqualTo("updateAfterDescription");
+	@Test
+	@DisplayName("update테스트")
+	void updateTest() throws JsonProcessingException {
+		Category category3 = Category.builder()
+			.categoryName("updateBeforeTitle")
+			.categoryDescription("updateBeforeDescription")
+			.build();
 
-        }
+		UserCategory userCategory3 = UserCategory.builder()
+			.userKey(testUserKey)
+			.category(category3)
+			.build();
 
+		long savedUserCategoryId = userCategoryRepository.save(userCategory3).getUserCategoryId();
+
+		rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+		C_UserCategoryUpdateRequest dto = C_UserCategoryUpdateRequest.builder()
+			.userCategoryId(savedUserCategoryId)
+			.updateTitle("updateAfterTitle")
+			.updateDescription("updateAfterDescription")
+			.build();
+		headers.remove(JwtProperties.HEADER_JWT);
+		headers.set(JwtProperties.HEADER_JWT, jwt);
+
+		String body = om.writeValueAsString(dto);
+		HttpEntity<String> request = new HttpEntity<>(body, headers);
+		ResponseEntity<String> response = rt.exchange(url, HttpMethod.PATCH, request, String.class);
+		DocumentContext dc = JsonPath.parse(response.getBody());
+
+		int status = dc.read("$.status");
+		String msg = dc.read("$.msg");
+		String title = dc.read("$.data.updateTitle");
+		String description = dc.read("$.data.updateDescription");
+		String userKey = dc.read("$.data.userKey");
+
+		assertThat(status).isEqualTo(200);
+		assertThat(msg).isEqualTo("카테고리 업데이트 성공");
+		assertThat(userKey).isEqualTo(testUserKey);
+		assertThat(title).isEqualTo("updateAfterTitle");
+		assertThat(description).isEqualTo("updateAfterDescription");
+
+	}
 
 
 }
