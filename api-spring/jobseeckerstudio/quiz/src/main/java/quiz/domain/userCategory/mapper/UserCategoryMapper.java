@@ -7,7 +7,7 @@ public class UserCategoryMapper {
 
 	public static UserCategory toEntityWhenSave(S_UserCategorySaveRequest reqeust) {
 		return UserCategory.builder()
-						   .userKey(reqeust.getUserKey())
-						   .build();
+			.userKey(reqeust.getUserKey())
+			.build();
 	}
 }

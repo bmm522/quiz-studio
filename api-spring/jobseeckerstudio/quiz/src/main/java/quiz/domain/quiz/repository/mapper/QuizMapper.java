@@ -11,17 +11,17 @@ public class QuizMapper {
 
 		return quizList.stream().map(quiz -> {
 			List<QuizDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
-														.map(choice -> new QuizDto.ChoiceDto(
-															choice.getChoiceContent(),
-															choice.getIsAnswer()))
-														.collect(Collectors.toList());
+				.map(choice -> new QuizDto.ChoiceDto(
+					choice.getChoiceContent(),
+					choice.getIsAnswer()))
+				.collect(Collectors.toList());
 
 			return QuizDto.builder()
-						  .categoryName(quiz.getCategoryName())
-						  .difficulty(quiz.getDifficulty())
-						  .quizTitle(quiz.getQuizTitle())
-						  .choiceDtos(choiceDtoList)
-						  .build();
+				.categoryName(quiz.getCategoryName())
+				.difficulty(quiz.getDifficulty())
+				.quizTitle(quiz.getQuizTitle())
+				.choiceDtos(choiceDtoList)
+				.build();
 
 		}).collect(Collectors.toList());
 	}
