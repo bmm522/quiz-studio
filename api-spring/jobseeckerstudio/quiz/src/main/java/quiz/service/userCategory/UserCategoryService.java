@@ -27,55 +27,54 @@ import quiz.service.userCategory.mapper.S_UserCategoryMapper;
 @RequiredArgsConstructor
 public class UserCategoryService {
 
-        private final UserCategoryRepository userCategoryRepository;
+	private final UserCategoryRepository userCategoryRepository;
 
-        @Transactional
-        public S_UserCategorySaveResponse save(S_UserCategorySaveRequest request) {
-                validateDuplicateTitle(request.getUserKey(), request.getTitle());
+	@Transactional
+	public S_UserCategorySaveResponse save (S_UserCategorySaveRequest request) {
+		validateDuplicateTitle(request.getUserKey(), request.getTitle());
 
-                Category category = CategoryMapper.toEntityWhenSave(request);
-                UserCategory userCategory = UserCategoryMapper.toEntityWhenSave(request);
-                userCategory.addCategory(category);
+		Category category = CategoryMapper.toEntityWhenSave(request);
+		UserCategory userCategory = UserCategoryMapper.toEntityWhenSave(request);
+		userCategory.addCategory(category);
 
-                UserCategory savedData = userCategoryRepository.save(userCategory);
-                return S_UserCategoryMapper.toSaveResponse(savedData);
-        }
+		UserCategory savedData = userCategoryRepository.save(userCategory);
+		return S_UserCategoryMapper.toSaveResponse(savedData);
+	}
 
-        private void validateDuplicateTitle(String userKey, String title) {
-                Optional<UserCategory> userCategoryOptional = userCategoryRepository.findUserCategoryByUserKeyAndTitle(userKey, title);
-                if (userCategoryOptional.isPresent()) {
-                        throw new DuplicateTitleException("중복된 카테고리 제목은 사용할 수 없습니다.");
-                }
-        }
+	private void validateDuplicateTitle (String userKey, String title) {
+		Optional<UserCategory> userCategoryOptional = userCategoryRepository.findUserCategoryByUserKeyAndTitle(userKey,
+			title);
+		if (userCategoryOptional.isPresent()) {
+			throw new DuplicateTitleException("중복된 카테고리 제목은 사용할 수 없습니다.");
+		}
+	}
 
-        @Transactional(readOnly = true)
-        public S_UserCategoryGetResponse get(String userKey) {
-                List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(userKey);
-                return S_UserCategoryMapper.toGetResponse(userCategoryDtos);
-        }
+	@Transactional(readOnly = true)
+	public S_UserCategoryGetResponse get (String userKey) {
+		List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(userKey);
+		return S_UserCategoryMapper.toGetResponse(userCategoryDtos);
+	}
 
+	@Transactional
+	public S_UserCategoryUpdateResponse update (S_UserCategoryUpdateRequest request) {
+		UserCategory userCategory = getUserCategory(request);
+		validatePermission(userCategory.getUserKey(), request.getUserKey());
 
+		Category category = userCategory.getCategory();
+		category.updateCategoryName(request.getUpdateTitle());
+		category.updateCategoryDescription(request.getUpdateDescription());
 
-        @Transactional
-        public S_UserCategoryUpdateResponse update(S_UserCategoryUpdateRequest request) {
-                UserCategory userCategory = getUserCategory(request);
-                validatePermission(userCategory.getUserKey(), request.getUserKey());
+		return S_UserCategoryMapper.toUpdateResponse(userCategory);
+	}
 
-                Category category = userCategory.getCategory();
-                category.updateCategoryName(request.getUpdateTitle());
-                category.updateCategoryDescription(request.getUpdateDescription());
+	private UserCategory getUserCategory (S_UserCategoryUpdateRequest request) {
+		return userCategoryRepository.findUserCategoryByUserCategoryId(request.getUserCategoryId())
+			.orElseThrow(() -> new NotFoundEntityException("userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
+	}
 
-                return S_UserCategoryMapper.toUpdateResponse(userCategory);
-        }
-
-        private UserCategory getUserCategory(S_UserCategoryUpdateRequest request) {
-                return  userCategoryRepository.findUserCategoryByUserCategoryId(request.getUserCategoryId())
-                        .orElseThrow(() -> new NotFoundEntityException("userKey로 해당 UserCategory 객체를 찾을 수 없습니다."));
-        }
-
-        private void validatePermission(String savedUserKey, String requestUserKey) {
-                if (!savedUserKey.equals(requestUserKey)) {
-                        throw new PermissionException("권한이 없는 회원입니다. (userKey 일치하지 않음)");
-                }
-        }
+	private void validatePermission (String savedUserKey, String requestUserKey) {
+		if (!savedUserKey.equals(requestUserKey)) {
+			throw new PermissionException("권한이 없는 회원입니다. (userKey 일치하지 않음)");
+		}
+	}
 }

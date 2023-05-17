@@ -25,58 +25,44 @@ import quiz.exception.InvalidTokenException;
 import quiz.exception.NullUserKeyFromJwtTokenException;
 import quiz.properties.JwtProperties;
 
-
-
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    // @Override
-    // public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws
-    //     IOException,
-    //     ServletException {
-    //     String jwtToken = extractJwtToken((HttpServletRequest)request);
-    //     Jws<Claims> claims = parseJwtToken(jwtToken);
-    //     String userKey = extractUserKey(claims);
-    //     request.setAttribute("userKey", userKey);
-    //     filterChain.doFilter(request, response);
-    //
-    // }
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
-            String jwtToken = extractJwtToken(request);
-            Jws<Claims> claims = parseJwtToken(jwtToken);
-            String userKey = extractUserKey(claims);
-            request.setAttribute("userKey", userKey);
-            filterChain.doFilter(request, response);
-    }
+	@Override
+	protected void doFilterInternal (HttpServletRequest request, HttpServletResponse response,
+		FilterChain filterChain) throws ServletException, IOException {
+		String jwtToken = extractJwtToken(request);
+		Jws<Claims> claims = parseJwtToken(jwtToken);
+		String userKey = extractUserKey(claims);
+		request.setAttribute("userKey", userKey);
+		filterChain.doFilter(request, response);
+	}
 
-    private String extractJwtToken(HttpServletRequest request) {
-        final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
+	private String extractJwtToken (HttpServletRequest request) {
+		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
 
-        if (authorizationHeader == null || !authorizationHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
-            throw new InvalidTokenException("잘못된 토큰 정보입니다.");
-        }
-        return authorizationHeader.replace(JwtProperties.TOKEN_PREFIX, "");
-    }
+		if (authorizationHeader == null || !authorizationHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
+			throw new InvalidTokenException("잘못된 토큰 정보입니다.");
+		}
+		return authorizationHeader.replace(JwtProperties.TOKEN_PREFIX, "");
+	}
 
-    private Jws<Claims> parseJwtToken(String jwtToken) {
-        try {
-            return Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
-                .parseClaimsJws(jwtToken);
-        } catch (ExpiredJwtException e) {
-            throw new ExpiredTokenException("유효시간이 지난 토큰입니다.");
-        }
-    }
+	private Jws<Claims> parseJwtToken (String jwtToken) {
+		try {
+			return Jwts.parser()
+				.setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
+				.parseClaimsJws(jwtToken);
+		} catch (ExpiredJwtException e) {
+			throw new ExpiredTokenException("유효시간이 지난 토큰입니다.");
+		}
+	}
 
-    private String extractUserKey(Jws<Claims> claims) {
-        String userKey = claims.getBody().get("userKey", String.class);
-        if (userKey == null) {
-            throw new NullUserKeyFromJwtTokenException("jwt토큰으로부터 userKey를 찾을 수 없습니다.");
-        }
-        return userKey;
-    }
-
+	private String extractUserKey (Jws<Claims> claims) {
+		String userKey = claims.getBody().get("userKey", String.class);
+		if (userKey == null) {
+			throw new NullUserKeyFromJwtTokenException("jwt토큰으로부터 userKey를 찾을 수 없습니다.");
+		}
+		return userKey;
+	}
 
 }

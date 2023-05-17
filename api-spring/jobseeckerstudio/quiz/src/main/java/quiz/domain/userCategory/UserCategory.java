@@ -44,6 +44,8 @@ public class UserCategory extends BaseTimeEntity {
         }
     }
 
+    public long getCategoryId() {return this.category.getCategoryId();}
+
     public String getCategoryName() {
         return this.category.getCategoryName();
     }

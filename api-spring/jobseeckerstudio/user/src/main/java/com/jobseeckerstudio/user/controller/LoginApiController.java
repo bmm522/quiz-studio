@@ -20,32 +20,32 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class LoginApiController {
 
-    private final ReadUserService readUserService;
+	private final ReadUserService readUserService;
 
-    private final JwtExpiredChecker jwtExpiredChecker;
+	private final JwtExpiredChecker jwtExpiredChecker;
 
-    @GetMapping("social/login/{social}")
-    public String moveSocialLoginForm(@PathVariable("social") String social) {
-        return "redirect:/oauth2/authorization/" + social;
-    }
+	@GetMapping("social/login/{social}")
+	public String moveSocialLoginForm (@PathVariable("social") String social) {
+		return "redirect:/oauth2/authorization/" + social;
+	}
 
-    @GetMapping("/email")
-    public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
-        JwtToken jwtToken = JwtMapper.toJwtToken(request);
-        GetEmailResponse dto = readUserService.getEmail(jwtToken);
-        return responseHandler(200, "이메일 불러오기 성공", dto);
-    }
+	@GetMapping("/email")
+	public @ResponseBody CommonResponse<?> getEmail (HttpServletRequest request) {
+		JwtToken jwtToken = JwtMapper.toJwtToken(request);
+		GetEmailResponse dto = readUserService.getEmail(jwtToken);
+		return responseHandler(200, "이메일 불러오기 성공", dto);
+	}
 
-    @GetMapping("/check-expired-jwt")
-    public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request) {
-        JwtToken jwtToken = JwtMapper.toJwtToken(request);
-        JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
+	@GetMapping("/check-expired-jwt")
+	public @ResponseBody CommonResponse<?> checkExpiredJwt (HttpServletRequest request) {
+		JwtToken jwtToken = JwtMapper.toJwtToken(request);
+		JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
 
-        return responseHandler(200, "jwt 체크완료", checkedToken);
-    }
+		return responseHandler(200, "jwt 체크완료", checkedToken);
+	}
 
-    private CommonResponse<?> responseHandler(Integer status, String msg, Object data) {
-        return CommonResponse.builder().status(status).msg(msg).data(data).build();
-    }
+	private CommonResponse<?> responseHandler (Integer status, String msg, Object data) {
+		return CommonResponse.builder().status(status).msg(msg).data(data).build();
+	}
 
 }
