@@ -1,5 +1,6 @@
 package quiz.controller.quiz.mapper;
 
+import java.util.List;
 import quiz.controller.quiz.dto.C_QuizSaveRequest;
 import quiz.global.dto.CustomQuizDto;
 import quiz.global.exception.NotCorrectAnswerException;
@@ -8,18 +9,18 @@ import quiz.service.quiz.dto.S_QuizSaveRequest;
 public class C_QuizMapper {
 
 	public static S_QuizSaveRequest toSaveRequest(String userKey, C_QuizSaveRequest request,
-		long categoryId) {
-		checkCorrectAnswer(request);
+		long userCategoryId) {
+		checkCorrectAnswer(request.getQuizzes());
 		return S_QuizSaveRequest.builder()
 			.userKey(userKey)
 			.quizzes(request.getQuizzes())
-			.categoryId(categoryId)
+			.userCategoryId(userCategoryId)
 			.build();
 	}
 
-	private static void checkCorrectAnswer(C_QuizSaveRequest request) {
-		for (int i = 0; i < request.getQuizzes().size(); i++) {
-			long correctAnswerCount = request.getQuizzes().get(i).getChoices().stream()
+	public static void checkCorrectAnswer(List<CustomQuizDto> customQuizDtoList) {
+		for (int i = 0; i < customQuizDtoList.size(); i++) {
+			long correctAnswerCount = customQuizDtoList.get(i).getChoices().stream()
 				.filter(CustomQuizDto.Choice::getIsAnswer)
 				.count();
 

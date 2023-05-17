@@ -29,6 +29,7 @@ public class CustomQuizDto {
 			.build();
 	}
 
+
 	@AllArgsConstructor
 	@Builder
 	@Getter

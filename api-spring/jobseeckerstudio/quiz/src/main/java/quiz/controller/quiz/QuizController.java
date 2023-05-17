@@ -21,11 +21,12 @@ public class QuizController {
 
 	private final QuizService quizService;
 
-	@PostMapping("/category/{categoryId}/quiz")
+	@PostMapping("/category/{userCategoryId}/quiz")
 	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") String userKey,
-		@RequestBody C_QuizSaveRequest request, @PathVariable("categoryId") long categoryId) {
+		@RequestBody C_QuizSaveRequest request,
+		@PathVariable("userCategoryId") long userCategoryId) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공",
-			quizService.save(C_QuizMapper.toSaveRequest(userKey, request, categoryId))
+			quizService.save(C_QuizMapper.toSaveRequest(userKey, request, userCategoryId))
 		);
 	}
 }

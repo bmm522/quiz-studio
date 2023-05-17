@@ -1,48 +1,106 @@
 package quiz.domain.quiz;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import quiz.domain.category.Category;
 import quiz.domain.common.Difficulty;
 import quiz.domain.quizChoice.QuizChoice;
-
-import javax.persistence.*;
-import java.util.List;
+import quiz.global.dto.CustomQuizDto;
+import quiz.global.dto.CustomQuizDto.Choice;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Quiz {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quiz_id")
-    private long quizId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "quiz_id")
+	private long quizId;
 
-    @Column(nullable = false, name = "quiz_title")
-    private String quizTitle;
+	@Column(nullable = false, name = "quiz_title")
+	private String quizTitle;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Difficulty difficulty;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="category_id")
-    private Category category;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
-    private List<QuizChoice> quizChoices;
+	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private List<QuizChoice> quizChoices = new ArrayList<>();
 
-    public String getCategoryName() {
-        return this.category.getCategoryName();
-    }
+	public String getCategoryName() {
+		return this.category.getCategoryName();
+	}
 
-    public String getQuizTitle() {
-        return this.quizTitle;
-    }
+	public String getQuizTitle() {
+		return this.quizTitle;
+	}
 
-    public String getDifficulty() {
-        return this.difficulty.get();
-    }
+	public String getDifficulty() {
+		return this.difficulty.get();
+	}
 
-    public List<QuizChoice> getQuizChoices() {
-        return this.quizChoices;
-    }
+	public List<QuizChoice> getQuizChoices() {
+		return this.quizChoices;
+	}
+
+	@Builder
+	public Quiz(String quizTitle) {
+		this.quizTitle = quizTitle;
+	}
+
+	public void addCategory(Category category) {
+		if (this.category == null) {
+			this.category = category;
+		}
+	}
+
+	public void addChoice(QuizChoice quizChoice) {
+
+		this.quizChoices.add(quizChoice);
+		if (quizChoice.getQuiz() != this) {
+			quizChoice.addQuiz(this);
+		}
+	}
+
+	public void addChoices(List<QuizChoice> quizChoices) {
+		this.quizChoices.addAll(quizChoices);
+	}
+
+	public CustomQuizDto toCustomQuizDto() {
+		List<Choice> choices = quizChoices.stream()
+			.map(choice -> Choice.builder()
+				.content(choice.getChoiceContent())
+				.isAnswer(choice.getIsAnswer())
+				.build())
+			.collect(Collectors.toList());
+
+		return CustomQuizDto.builder()
+			.title(quizTitle)
+			.choices(choices)
+			.build();
+	}
 }

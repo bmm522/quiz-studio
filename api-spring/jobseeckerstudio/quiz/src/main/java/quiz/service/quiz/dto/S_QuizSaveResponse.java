@@ -9,13 +9,12 @@ import quiz.global.dto.CustomQuizDto;
 @AllArgsConstructor
 @Getter
 @Builder
-public class C_QuizSaveResponse {
+public class S_QuizSaveResponse {
 
 	private List<CustomQuizDto> quizzes;
 
 	private String userKey;
 
 	private long categoryId;
-
 
 }

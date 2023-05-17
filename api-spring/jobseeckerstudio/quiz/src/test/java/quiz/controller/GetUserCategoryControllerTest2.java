@@ -1,33 +1,41 @@
 package quiz.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import quiz.controller.dto.CommonResponse;
+import quiz.controller.usercategory.UserCategoryController;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.service.usercategory.UserCategoryService;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 
-public class GetUserCategoryControllerTest extends ControllerTest {
+@ExtendWith(MockitoExtension.class)
+@DisplayName("Get Category 테스트")
+public class GetUserCategoryControllerTest2 {
+
+	private UserCategoryService userCategoryService;
+
+	private UserCategoryController userCategoryController;
 
 	@BeforeEach
 	void init() {
-		setUp();
+		userCategoryService = mock(UserCategoryService.class);
+		userCategoryController = new UserCategoryController(userCategoryService);
 	}
 
 	@Test
 	@DisplayName("get 정상적인 요청")
-	void getCategoryTest() throws Exception {
-		String userKey = "testUser";
+	void getCategoryTest() {
+		String userKey = "testUser1";
 		UserCategoryDto category = UserCategoryDto.builder()
 			.userKey(userKey)
 			.title("testTitle1")
@@ -55,22 +63,10 @@ public class GetUserCategoryControllerTest extends ControllerTest {
 
 		when(userCategoryService.get(any())).thenReturn(responseFromService);
 
-		ResultActions perform = mockMvc.perform(
-			get("/api/v1/category")
-				.contentType(MediaType.APPLICATION_JSON)
-				.headers(headers)
-		);
+		CommonResponse<?> result = userCategoryController.getCategories(userKey);
 
-		String body = decodeBody(perform);
-		DocumentContext dc = JsonPath.parse(body);
-
-		int status = dc.read("$.status");
-		String msg = dc.read("$.msg");
-		String title = dc.read("$.data.categories[0].title");
-
-		assertThat(status).isEqualTo(200);
-		assertThat(msg).isEqualTo("카테고리 불러오기 성공");
-		assertThat(title).isEqualTo("testTitle1");
-
+		assertThat(result.getStatus()).isEqualTo(200);
+		assertThat(result.getMsg()).isEqualTo("카테고리 불러오기 성공");
+		assertThat(result.getData()).isEqualTo(responseFromService);
 	}
 }

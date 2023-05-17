@@ -15,7 +15,10 @@ public class S_QuizSaveRequest {
 
 	private List<CustomQuizDto> quizzes;
 
-	private long categoryId;
+	private long userCategoryId;
 
+	public List<CustomQuizDto.Choice> getQuizzesChoice(int i) {
+		return this.quizzes.get(i).getChoices();
+	}
 
 }
