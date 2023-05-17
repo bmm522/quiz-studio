@@ -1,4 +1,4 @@
-package quiz.controller.userCategory;
+package quiz.controller.usercategory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
-import quiz.controller.userCategory.dto.C_UserCategorySaveRequest;
-import quiz.controller.userCategory.dto.C_UserCategoryUpdateRequest;
-import quiz.controller.userCategory.mapper.C_UserCategoryMapper;
-import quiz.service.userCategory.UserCategoryService;
-import quiz.service.userCategory.dto.S_UserCategoryGetResponse;
-import quiz.service.userCategory.dto.S_UserCategorySaveResponse;
-import quiz.service.userCategory.dto.S_UserCategoryUpdateResponse;
+import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
+import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
+import quiz.controller.usercategory.mapper.C_UserCategoryMapper;
+import quiz.service.usercategory.UserCategoryService;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,24 +26,23 @@ public class UserCategoryController {
 	@PostMapping("/category")
 	public CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_UserCategorySaveRequest request) {
-		S_UserCategorySaveResponse response = userCategoryService.save(
-			C_UserCategoryMapper.toSaveRequest(userKey, request));
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
-			response);
+			userCategoryService.save(
+				C_UserCategoryMapper.toSaveRequest(userKey, request)));
 	}
 
 	@GetMapping("/category")
 	public CommonResponse<?> getCategories(@RequestAttribute("userKey") String userKey) {
-		S_UserCategoryGetResponse response = userCategoryService.get(userKey);
-		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공", response);
+		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공",
+			userCategoryService.get(userKey));
 	}
 
 	@PatchMapping("/category")
 	public CommonResponse<?> updateCategories(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_UserCategoryUpdateRequest reqeust) {
-		S_UserCategoryUpdateResponse response = userCategoryService.update(
-			C_UserCategoryMapper.toUpdateReqeust(userKey, reqeust));
-		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공", response);
+		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
+			userCategoryService.update(
+				C_UserCategoryMapper.toUpdateReqeust(userKey, reqeust)));
 	}
 
 }
