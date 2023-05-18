@@ -14,10 +14,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 
-public class GetUserCategoryControllerTest extends ControllerTest {
+public class GetCategoryControllerTest extends ControllerTest {
 
 	@BeforeEach
 	void init() {
@@ -28,23 +28,23 @@ public class GetUserCategoryControllerTest extends ControllerTest {
 	@DisplayName("get 정상적인 요청")
 	void getCategoryTest() throws Exception {
 		String userKey = "testUser";
-		UserCategoryDto category = UserCategoryDto.builder()
+		CategoryQueryDto category = CategoryQueryDto.builder()
 			.userKey(userKey)
 			.title("testTitle1")
 			.description("testDescription1")
 			.build();
-		UserCategoryDto category2 = UserCategoryDto.builder()
+		CategoryQueryDto category2 = CategoryQueryDto.builder()
 			.userKey(userKey)
 			.title("testTitle2")
 			.description("testDescription1")
 			.build();
-		UserCategoryDto category3 = UserCategoryDto.builder()
+		CategoryQueryDto category3 = CategoryQueryDto.builder()
 			.userKey(userKey)
 			.title("testTitle3")
 			.description("testDescription1")
 			.build();
 
-		List<UserCategoryDto> customCategoryList = new ArrayList<>();
+		List<CategoryQueryDto> customCategoryList = new ArrayList<>();
 		customCategoryList.add(category);
 		customCategoryList.add(category2);
 		customCategoryList.add(category3);

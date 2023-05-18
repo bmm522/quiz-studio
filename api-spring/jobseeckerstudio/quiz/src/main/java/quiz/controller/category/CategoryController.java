@@ -1,4 +1,4 @@
-package quiz.controller.usercategory;
+package quiz.controller.category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import quiz.controller.category.dto.C_CategorySaveRequest;
+import quiz.controller.category.dto.C_CategoryUpdateRequest;
+import quiz.controller.category.mapper.C_CategoryMapper;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
-import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
-import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
-import quiz.controller.usercategory.mapper.C_UserCategoryMapper;
 import quiz.service.usercategory.UserCategoryService;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class UserCategoryController {
+public class CategoryController {
 
 	private final UserCategoryService userCategoryService;
 
 	@PostMapping("/category")
 	public CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
-		@RequestBody C_UserCategorySaveRequest request) {
+		@RequestBody C_CategorySaveRequest request) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
 			userCategoryService.save(
-				C_UserCategoryMapper.toSaveRequest(userKey, request)));
+				C_CategoryMapper.toSaveRequest(userKey, request)));
 	}
 
 	@GetMapping("/category")
@@ -39,10 +39,10 @@ public class UserCategoryController {
 
 	@PatchMapping("/category")
 	public CommonResponse<?> updateCategories(@RequestAttribute("userKey") String userKey,
-		@RequestBody C_UserCategoryUpdateRequest reqeust) {
+		@RequestBody C_CategoryUpdateRequest reqeust) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
 			userCategoryService.update(
-				C_UserCategoryMapper.toUpdateReqeust(userKey, reqeust)));
+				C_CategoryMapper.toUpdateReqeust(userKey, reqeust)));
 	}
 
 }

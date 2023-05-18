@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 
 
@@ -24,19 +24,19 @@ public class GetUserCategoryServiceTest extends CategoryServiceTest {
 	@DisplayName("정상적인 요청")
 	void getTest() {
 		String userKey = "testUser";
-		UserCategoryDto dto1 = UserCategoryDto.builder().userKey(userKey).title("title1")
+		CategoryQueryDto dto1 = CategoryQueryDto.builder().userKey(userKey).title("title1")
 			.description("description1").build();
-		UserCategoryDto dto2 = UserCategoryDto.builder().userKey(userKey).title("title2")
+		CategoryQueryDto dto2 = CategoryQueryDto.builder().userKey(userKey).title("title2")
 			.description("description2").build();
-		UserCategoryDto dto3 = UserCategoryDto.builder().userKey(userKey).title("title3")
+		CategoryQueryDto dto3 = CategoryQueryDto.builder().userKey(userKey).title("title3")
 			.description("description3").build();
-		List<UserCategoryDto> userCategoryDtos = new ArrayList<>();
-		userCategoryDtos.add(dto1);
-		userCategoryDtos.add(dto2);
-		userCategoryDtos.add(dto3);
+		List<CategoryQueryDto> categoryQueryDtos = new ArrayList<>();
+		categoryQueryDtos.add(dto1);
+		categoryQueryDtos.add(dto2);
+		categoryQueryDtos.add(dto3);
 
 		when(userCategoryRepository.findUserCategoryDtosByUserKey(any())).thenReturn(
-			userCategoryDtos);
+			categoryQueryDtos);
 
 		S_UserCategoryGetResponse response = userCategoryService.get(userKey);
 

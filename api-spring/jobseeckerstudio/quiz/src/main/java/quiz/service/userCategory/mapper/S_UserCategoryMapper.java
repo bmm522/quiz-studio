@@ -2,8 +2,7 @@ package quiz.service.usercategory.mapper;
 
 import java.util.List;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
 import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
@@ -13,23 +12,23 @@ public class S_UserCategoryMapper {
 	public static S_UserCategorySaveResponse toSaveResponse(Category entity) {
 		return S_UserCategorySaveResponse.builder()
 			.userKey(entity.getUserKey())
-			.title(entity.getCategoryName())
+			.title(entity.getCategoryTitle())
 			.description(entity.getCategoryDescription())
 			.build();
 	}
 
 	public static S_UserCategoryGetResponse toGetResponse(
-		List<UserCategoryDto> customCategoryList) {
+		List<CategoryQueryDto> categories) {
 		return S_UserCategoryGetResponse.builder()
-			.categories(customCategoryList)
+			.categories(categories)
 			.build();
 	}
 
-	public static S_UserCategoryUpdateResponse toUpdateResponse(UserCategory userCategory) {
+	public static S_UserCategoryUpdateResponse toUpdateResponse(Category category) {
 		return S_UserCategoryUpdateResponse.builder()
-			.userKey(userCategory.getUserKey())
-			.updateTitle(userCategory.getCategoryName())
-			.updateDescription(userCategory.getCategoryDescription())
+			.userKey(category.getUserKey())
+			.updateTitle(category.getCategoryTitle())
+			.updateDescription(category.getCategoryDescription())
 			.build();
 	}
 }

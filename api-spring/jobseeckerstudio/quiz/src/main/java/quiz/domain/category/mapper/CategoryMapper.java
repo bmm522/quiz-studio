@@ -7,7 +7,7 @@ public class CategoryMapper {
 
 	public static Category toEntityWhenSave(S_UserCategorySaveRequest dto) {
 		return Category.builder()
-			.categoryName(dto.getTitle())
+			.categoryTitle(dto.getTitle())
 			.categoryDescription(dto.getDescription())
 			.userKey(dto.getUserKey())
 			.build();

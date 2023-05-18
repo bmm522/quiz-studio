@@ -14,13 +14,13 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import quiz.controller.category.CategoryController;
 import quiz.controller.quiz.QuizController;
-import quiz.controller.usercategory.UserCategoryController;
 import quiz.properties.JwtProperties;
 import quiz.service.quiz.QuizService;
 import quiz.service.usercategory.UserCategoryService;
 
-@WebMvcTest({QuizController.class, UserCategoryController.class})
+@WebMvcTest({QuizController.class, CategoryController.class})
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureMockMvc
 public class ControllerTest {

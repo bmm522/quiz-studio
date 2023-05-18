@@ -16,8 +16,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
-import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
+import quiz.controller.category.dto.C_CategorySaveRequest;
+import quiz.controller.category.dto.C_CategoryUpdateRequest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.properties.JwtProperties;
@@ -62,7 +62,7 @@ public class UserCategoryE2ETest extends E2ETest {
 			.withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
 			.withClaim("userKey", saveTestUser)
 			.sign(Algorithm.HMAC256(JwtProperties.SECRET));
-		C_UserCategorySaveRequest dto = C_UserCategorySaveRequest.builder()
+		C_CategorySaveRequest dto = C_CategorySaveRequest.builder()
 			.title("testTitle")
 			.description("testDescription")
 			.build();
@@ -128,7 +128,7 @@ public class UserCategoryE2ETest extends E2ETest {
 		long savedUserCategoryId = userCategoryRepository.save(userCategory3).getUserCategoryId();
 
 		rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-		C_UserCategoryUpdateRequest dto = C_UserCategoryUpdateRequest.builder()
+		C_CategoryUpdateRequest dto = C_CategoryUpdateRequest.builder()
 			.userCategoryId(savedUserCategoryId)
 			.updateTitle("updateAfterTitle")
 			.updateDescription("updateAfterDescription")

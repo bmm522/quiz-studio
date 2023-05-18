@@ -24,8 +24,8 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 	public List<QuizQueryDto> findQuizzes() {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
-			.where(quiz.category.categoryName.eq("java")
-				.or(quiz.category.categoryName.eq("data_structure")))
+			.where(quiz.category.categoryTitle.eq("java")
+				.or(quiz.category.categoryTitle.eq("data_structure")))
 			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
 			.fetch();
 
@@ -44,11 +44,12 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 
 	@Override
 	public List<QuizQueryDto> findQuizDtoByCategoryIdAndUserKey(String userKey, long categoryId) {
-		List<Quiz> quizList = queryFactory
-			.selectFrom(quiz)
-			.where(quiz.category.categoryId.eq(categoryId)
-				.and(quiz.category.userCategory.userKey.eq(userKey)))
-			.fetch();
-		return QuizMapper.toQuizDtoList(quizList);
+//		List<Quiz> quizList = queryFactory
+//			.selectFrom(quiz)
+//			.where(quiz.category.categoryId.eq(categoryId)
+//				.and(quiz.category.userCategory.userKey.eq(userKey)))
+//			.fetch();
+//		return QuizMapper.toQuizDtoList(quizList);
+		return null;
 	}
 }

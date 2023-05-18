@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import quiz.domain.BaseTimeEntity;
 import quiz.domain.quiz.Quiz;
 
 @Entity
@@ -20,15 +21,15 @@ import quiz.domain.quiz.Quiz;
 @Builder
 @NoArgsConstructor
 @Getter
-public class Category {
+public class Category extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id")
 	private Long categoryId;
 
-	@Column(nullable = false, name = "category_name")
-	private String categoryName;
+	@Column(nullable = false, name = "category_title")
+	private String categoryTitle;
 
 	@Column(nullable = true, name = "category_description")
 	private String categoryDescription;
@@ -42,9 +43,9 @@ public class Category {
 
 	private String userKey;
 
-	public void updateCategoryName(String categoryName) {
-		if (categoryName != null && !categoryName.isEmpty()) {
-			this.categoryName = categoryName;
+	public void updateCategoryName(String categoryTitle) {
+		if (categoryTitle != null && !categoryTitle.isEmpty()) {
+			this.categoryTitle = categoryTitle;
 		}
 	}
 

@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import quiz.domain.BaseTimeEntity;
 import quiz.domain.category.Category;
 import quiz.domain.common.Difficulty;
 import quiz.domain.quizChoice.QuizChoice;
@@ -30,7 +31,7 @@ import quiz.global.dto.CustomQuizDto.Choice;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Quiz {
+public class Quiz extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +53,7 @@ public class Quiz {
 	private List<QuizChoice> quizChoices = new ArrayList<>();
 
 	public String getCategoryName() {
-		return this.category.getCategoryName();
+		return this.category.getCategoryTitle();
 	}
 
 	public String getQuizTitle() {

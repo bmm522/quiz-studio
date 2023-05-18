@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.repository.category.dto.CategoryQueryDto;
 
 @DataJpaTest
 public class UserCategoryQueryRepositoryTest {
@@ -59,9 +59,9 @@ public class UserCategoryQueryRepositoryTest {
 	@Test
 	@DisplayName("userKey로 해당 UserCategory 가져온 후 UserCategoryDto로 반환")
 	void findUserCategoryDtosByUserKeyTest() {
-		List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(
+		List<CategoryQueryDto> categoryQueryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(
 			"testUser");
-		assertThat(userCategoryDtos.size()).isEqualTo(2);
+		assertThat(categoryQueryDtos.size()).isEqualTo(2);
 	}
 
 	@Test

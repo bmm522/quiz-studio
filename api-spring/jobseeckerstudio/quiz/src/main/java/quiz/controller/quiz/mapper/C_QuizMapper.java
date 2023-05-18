@@ -8,8 +8,9 @@ import quiz.service.quiz.dto.S_QuizSaveRequest;
 
 public class C_QuizMapper {
 
-	public static S_QuizSaveRequest toSaveRequest(String userKey, C_QuizSaveRequest request,
-		long userCategoryId) {
+	public static S_QuizSaveRequest toSaveRequest(final String userKey,
+		final C_QuizSaveRequest request,
+		final Long userCategoryId) {
 		checkCorrectAnswer(request.getQuizzes());
 		return S_QuizSaveRequest.builder()
 			.userKey(userKey)
@@ -18,7 +19,7 @@ public class C_QuizMapper {
 			.build();
 	}
 
-	public static void checkCorrectAnswer(List<CustomQuizDto> customQuizDtoList) {
+	public static void checkCorrectAnswer(final List<CustomQuizDto> customQuizDtoList) {
 		for (int i = 0; i < customQuizDtoList.size(); i++) {
 			long correctAnswerCount = customQuizDtoList.get(i).getChoices().stream()
 				.filter(CustomQuizDto.Choice::getIsAnswer)

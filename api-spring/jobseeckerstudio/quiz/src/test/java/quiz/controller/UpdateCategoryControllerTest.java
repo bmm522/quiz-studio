@@ -11,30 +11,30 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import quiz.controller.category.CategoryController;
+import quiz.controller.category.dto.C_CategoryUpdateRequest;
 import quiz.controller.dto.CommonResponse;
-import quiz.controller.usercategory.UserCategoryController;
-import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.service.usercategory.UserCategoryService;
 import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateUserCategoryControllerTest {
+public class UpdateCategoryControllerTest {
 
 	private UserCategoryService userCategoryService;
 
-	private UserCategoryController userCategoryController;
+	private CategoryController categoryController;
 
 	@BeforeEach
 	void init() {
 		userCategoryService = mock(UserCategoryService.class);
-		userCategoryController = new UserCategoryController(userCategoryService);
+		categoryController = new CategoryController(userCategoryService);
 	}
 
 	@Test
 	@DisplayName("update 정상적인 요청")
 	void updateCategoryTest() {
-		C_UserCategoryUpdateRequest request = C_UserCategoryUpdateRequest.builder()
+		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
 			.userCategoryId(1L)
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
@@ -47,7 +47,7 @@ public class UpdateUserCategoryControllerTest {
 			.build();
 		when(userCategoryService.update(any())).thenReturn(response);
 
-		CommonResponse<?> result = userCategoryController.updateCategories(userKey, request);
+		CommonResponse<?> result = categoryController.updateCategories(userKey, request);
 
 		assertThat(result.getStatus()).isEqualTo(200);
 		assertThat(result.getMsg()).isEqualTo("카테고리 업데이트 성공");
@@ -57,14 +57,14 @@ public class UpdateUserCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때 (자바)")
 	void updateCategoryWhenExistCategoryWithJava() {
-		C_UserCategoryUpdateRequest request = C_UserCategoryUpdateRequest.builder()
+		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
 			.userCategoryId(1L)
 			.updateTitle("java")
 			.updateDescription("updateDescription")
 			.build();
 		String userKey = "testUserKey";
 		Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
-			userCategoryController.updateCategories(userKey, request);
+			categoryController.updateCategories(userKey, request);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");
@@ -73,14 +73,14 @@ public class UpdateUserCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(자료구조)")
 	void updateCategoryWhenExistCategoryWithDataStructure() {
-		C_UserCategoryUpdateRequest request = C_UserCategoryUpdateRequest.builder()
+		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
 			.userCategoryId(1L)
 			.updateTitle("Data Structure")
 			.updateDescription("updateDescription")
 			.build();
 		String userKey = "testUserKey";
 		Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
-			userCategoryController.updateCategories(userKey, request);
+			categoryController.updateCategories(userKey, request);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");
@@ -89,14 +89,14 @@ public class UpdateUserCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(공백포함)")
 	void updateCategoryWhenExistCategoryWithBlank() {
-		C_UserCategoryUpdateRequest request = C_UserCategoryUpdateRequest.builder()
+		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
 			.userCategoryId(1L)
 			.updateTitle("  DAta Str Uct Ure   ")
 			.updateDescription("updateDescription")
 			.build();
 		String userKey = "testUserKey";
 		Exception exception = assertThrows(ExistCategorySaveException.class, () -> {
-			userCategoryController.updateCategories(userKey, request);
+			categoryController.updateCategories(userKey, request);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("기존의 카테고리 이름은 사용할 수 없습니다.");

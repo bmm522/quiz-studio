@@ -4,13 +4,13 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
+import quiz.repository.category.dto.CategoryQueryDto;
 
 @AllArgsConstructor
 @Builder
 @Getter
 public class S_UserCategoryGetResponse {
 
-	private List<UserCategoryDto> categories;
+	private List<CategoryQueryDto> categories;
 
 }
