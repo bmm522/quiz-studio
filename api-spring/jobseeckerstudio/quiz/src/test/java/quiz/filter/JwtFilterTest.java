@@ -40,7 +40,7 @@ public class JwtFilterTest {
 
 	@Test
 	@DisplayName("잘못된 jwt토큰 요청")
-	void filterTestWhenInvalidToken() {
+	void 잘못된_jwt토큰_요청() {
 		request.addHeader(JwtProperties.HEADER_JWT, "invalid.jwt.token");
 
 		Exception exception = assertThrows(InvalidTokenException.class, () -> {
@@ -52,7 +52,7 @@ public class JwtFilterTest {
 
 	@Test
 	@DisplayName("유효시간 지난 jwt토큰 요청")
-	void filterTestWhenHaveToken() {
+	void 유효시간_지난_jwt토큰_요청() {
 		String jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
 			.withSubject("testUser")
 			.withIssuer(JwtProperties.ISS)
@@ -71,7 +71,7 @@ public class JwtFilterTest {
 
 	@Test
 	@DisplayName("claim에 userkey가 없을 때 요청")
-	void filterTestWhenNotHaveUserKeyToken() {
+	void claim에_userKey가_없을_때_요청() {
 		String jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
 			.withSubject("testUser")
 			.withIssuer(JwtProperties.ISS)
@@ -89,7 +89,7 @@ public class JwtFilterTest {
 
 	@Test
 	@DisplayName("정상적인 요청")
-	void filterTest() throws ServletException, IOException {
+	void 정상적인_요청() throws ServletException, IOException {
 		String jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
 			.withSubject("testUser")
 			.withIssuer(JwtProperties.ISS)

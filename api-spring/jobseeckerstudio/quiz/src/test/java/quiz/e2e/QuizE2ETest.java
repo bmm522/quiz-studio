@@ -16,9 +16,7 @@ import quiz.global.dto.CustomQuizDto;
 
 public class QuizE2ETest extends E2ETest {
 
-	private final String url = "/api/v1";
-
-	private long categoryId;
+	String url = "/api/v1";
 
 	@BeforeAll
 	void init() {
@@ -29,7 +27,8 @@ public class QuizE2ETest extends E2ETest {
 			.userKey(testUserKey)
 			.build();
 
-		categoryId = categoryRepository.save(category).getCategoryId();
+		long categoryId = categoryRepository.save(category).getCategoryId();
+		url = "/api/v1/category/" + categoryId + "/quiz";
 	}
 
 	@AfterAll
@@ -58,7 +57,7 @@ public class QuizE2ETest extends E2ETest {
 
 		String body = om.writeValueAsString(requestBody);
 		HttpEntity<String> request = new HttpEntity<>(body, headers);
-		ResponseEntity<String> response = rt.exchange(url + "/category/" + categoryId + "/quiz",
+		ResponseEntity<String> response = rt.exchange(url,
 			HttpMethod.POST, request, String.class);
 
 	}
