@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.domain.quiz.Quiz;
@@ -41,7 +42,7 @@ public class SaveQuizServiceTest {
 
 	@Test
 	@DisplayName("정상적인 요청")
-	void saveTest() {
+	void 정상적인_요청() {
 		List<CustomQuizDto> quizDtoList = createQuizDtoList();
 		S_QuizSaveRequest request = S_QuizSaveRequest.builder()
 			.quizzes(quizDtoList)
@@ -77,7 +78,8 @@ public class SaveQuizServiceTest {
 		quiz3.addChoices(quiz3Choices);
 
 		List<Quiz> quizList = List.of(quiz, quiz2, quiz3);
-		when(userCategoryRepository.findUserCategoryByUserCategoryId(any())).thenReturn(
+		when(userCategoryRepository.findUserCategoryByCategoryId(
+			ArgumentMatchers.anyLong())).thenReturn(
 			Optional.of(userCategory));
 		when(quizRepository.saveAll(any())).thenReturn(quizList);
 

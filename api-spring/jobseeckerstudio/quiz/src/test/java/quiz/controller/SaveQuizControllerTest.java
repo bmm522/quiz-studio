@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.controller.quiz.dto.C_QuizSaveRequest;
 import quiz.global.dto.CustomQuizDto;
-import quiz.service.quiz.dto.S_QuizSaveRequest;
 import quiz.service.quiz.dto.S_QuizSaveResponse;
 
 
@@ -55,7 +54,8 @@ public class SaveQuizControllerTest extends ControllerTest {
 			.quizzes(quizDtoList)
 			.build();
 
-		when(quizService.saveAll(any(S_QuizSaveRequest.class))).thenReturn(returnDto);
+		when(quizService.saveAll(any())).thenReturn(returnDto);
+//		when(userCategoryRepository.saveAll(any())).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
 			post("/api/v1/category/1000/quiz")

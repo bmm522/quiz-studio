@@ -23,17 +23,17 @@ public class QuizController {
 	private final QuizService quizService;
 
 	@PostMapping("/category/{categoryId}/quiz")
-	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") String userKey,
-		@RequestBody C_QuizSaveRequest request,
-		@PathVariable("categoryId") long categoryId) {
+	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") final String userKey,
+		@RequestBody final C_QuizSaveRequest request,
+		@PathVariable("categoryId") final long categoryId) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공",
 			quizService.saveAll(C_QuizMapper.toSaveRequest(userKey, request, categoryId))
 		);
 	}
 
 	@GetMapping("/category/{categoryId}/quiz")
-	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") String userKey,
-		@PathVariable("categoryId") long categoryId) {
+	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") final String userKey,
+		@PathVariable("categoryId") final long categoryId) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 불러오기 성공",
 			quizService.get(userKey, categoryId)
 		);

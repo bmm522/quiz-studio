@@ -67,6 +67,20 @@ public class QuizE2ETest extends E2ETest {
 		ResponseEntity<String> response = rt.exchange(url + "/category/" + categoryId + "/quiz",
 			HttpMethod.POST, request, String.class);
 
-		System.out.println(response.getBody());
 	}
+
+//	@Test
+//	@DisplayName("퀴즈 불러오기")
+//	void 퀴즈_불러오기() throws JsonProcessingException {
+//
+//		C_QuizSaveRequest requestBody = C_QuizSaveRequest.builder()
+//			.quizzes(quizDtoList)
+//			.build();
+//
+//		String body = om.writeValueAsString(requestBody);
+//		HttpEntity<String> request = new HttpEntity<>(body, headers);
+//		ResponseEntity<String> response = rt.exchange(url + "/category/" + categoryId + "/quiz",
+//			HttpMethod.POST, request, String.class);
+//
+//	}
 }

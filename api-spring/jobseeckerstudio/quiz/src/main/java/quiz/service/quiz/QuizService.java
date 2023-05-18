@@ -38,10 +38,10 @@ public class QuizService {
 		return S_QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
 	}
 
-	private UserCategory getUserCategory(final long userCategoryId) {
+	private UserCategory getUserCategory(final long categoryId) {
 		return userCategoryRepository.findUserCategoryByCategoryId(
-			userCategoryId).orElseThrow(() -> new NotFoundEntityException(
-			"userCategoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
+			categoryId).orElseThrow(() -> new NotFoundEntityException(
+			"categoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
 	}
 
 	@Transactional(readOnly = true)
