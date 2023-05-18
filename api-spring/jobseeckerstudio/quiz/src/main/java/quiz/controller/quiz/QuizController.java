@@ -2,6 +2,7 @@ package quiz.controller.quiz;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -21,12 +22,20 @@ public class QuizController {
 
 	private final QuizService quizService;
 
-	@PostMapping("/category/{userCategoryId}/quiz")
+	@PostMapping("/category/{categoryId}/quiz")
 	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_QuizSaveRequest request,
-		@PathVariable("userCategoryId") long userCategoryId) {
+		@PathVariable("categoryId") long categoryId) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공",
-			quizService.save(C_QuizMapper.toSaveRequest(userKey, request, userCategoryId))
+			quizService.saveAll(C_QuizMapper.toSaveRequest(userKey, request, categoryId))
+		);
+	}
+
+	@GetMapping("/category/{categoryId}/quiz")
+	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") String userKey,
+		@PathVariable("categoryId") long categoryId) {
+		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 불러오기 성공",
+			quizService.get(userKey, categoryId)
 		);
 	}
 }

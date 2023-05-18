@@ -46,7 +46,7 @@ public class SaveQuizServiceTest {
 		S_QuizSaveRequest request = S_QuizSaveRequest.builder()
 			.quizzes(quizDtoList)
 			.userKey("testUser")
-			.userCategoryId(1000L)
+			.categoryId(1000L)
 			.build();
 
 		Category category = Category.builder()
@@ -81,7 +81,7 @@ public class SaveQuizServiceTest {
 			Optional.of(userCategory));
 		when(quizRepository.saveAll(any())).thenReturn(quizList);
 
-		S_QuizSaveResponse result = quizService.save(request);
+		S_QuizSaveResponse result = quizService.saveAll(request);
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);

@@ -14,7 +14,7 @@ public class C_QuizMapper {
 		return S_QuizSaveRequest.builder()
 			.userKey(userKey)
 			.quizzes(request.getQuizzes())
-			.userCategoryId(userCategoryId)
+			.categoryId(userCategoryId)
 			.build();
 	}
 

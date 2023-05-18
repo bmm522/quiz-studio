@@ -36,7 +36,8 @@ public class C_QuizMapperTest {
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);
-		assertThat(result.getUserCategoryId()).isEqualTo(1000L);
+		assertThat(result.getQuizzesChoice(1).size()).isEqualTo(4);
+		assertThat(result.getCategoryId()).isEqualTo(1000L);
 
 	}
 

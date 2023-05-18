@@ -43,8 +43,8 @@ public class QuizChoice {
 		return isAnswer;
 	}
 
-	public void addQuiz(Quiz quiz) {
+	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
-		quiz.addChoice(this);
+//		quiz.addChoice(this);
 	}
 }

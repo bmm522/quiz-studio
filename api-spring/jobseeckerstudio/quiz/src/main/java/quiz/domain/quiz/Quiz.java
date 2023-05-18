@@ -40,7 +40,7 @@ public class Quiz {
 	@Column(nullable = false, name = "quiz_title")
 	private String quizTitle;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)
 	private Difficulty difficulty;
 
@@ -48,7 +48,7 @@ public class Quiz {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<QuizChoice> quizChoices = new ArrayList<>();
 
 	public String getCategoryName() {
@@ -79,10 +79,10 @@ public class Quiz {
 	}
 
 	public void addChoice(QuizChoice quizChoice) {
-
+		System.out.println(this.quizChoices.size());
 		this.quizChoices.add(quizChoice);
 		if (quizChoice.getQuiz() != this) {
-			quizChoice.addQuiz(this);
+			quizChoice.setQuiz(this);
 		}
 	}
 
@@ -91,6 +91,7 @@ public class Quiz {
 	}
 
 	public CustomQuizDto toCustomQuizDto() {
+		System.out.println(quizChoices.size());
 		List<Choice> choices = quizChoices.stream()
 			.map(choice -> Choice.builder()
 				.content(choice.getChoiceContent())

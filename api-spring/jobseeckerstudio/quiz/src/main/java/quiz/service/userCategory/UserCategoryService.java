@@ -1,6 +1,5 @@
 package quiz.service.usercategory;
 
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import quiz.domain.category.mapper.CategoryMapper;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.mapper.UserCategoryMapper;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
-import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 import quiz.global.exception.DuplicateTitleException;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.global.exception.PermissionException;
@@ -50,9 +48,9 @@ public class UserCategoryService {
 
 	@Transactional(readOnly = true)
 	public S_UserCategoryGetResponse get(String userKey) {
-		List<UserCategoryDto> userCategoryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(
-			userKey);
-		return S_UserCategoryMapper.toGetResponse(userCategoryDtos);
+		return S_UserCategoryMapper.toGetResponse(
+			userCategoryRepository.findUserCategoryDtosByUserKey(
+				userKey));
 	}
 
 	@Transactional

@@ -5,7 +5,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import java.util.Date;
@@ -13,54 +12,27 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import quiz.controller.usercategory.dto.C_UserCategorySaveRequest;
 import quiz.controller.usercategory.dto.C_UserCategoryUpdateRequest;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.properties.JwtProperties;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UserCategoryE2ETest {
 
-	@Autowired
-	private TestRestTemplate rt;
-
-	@Autowired
-	private UserCategoryRepository userCategoryRepository;
-
-	private UserCategory userCategory;
-
-	private ObjectMapper om;
-
-	private Category category;
-
-	private HttpHeaders headers;
-
-	private final String testUserKey = "testUserKey";
-	private final String testCategoryName = "testCategoryName";
-
-	private final String testCategoryDescription = "testCategoryDescription";
+public class UserCategoryE2ETest extends E2ETest {
 
 
 	private final String saveTestUser = "saveTestUser";
 	private final String url = "/api/v1/category";
-	private String jwt;
 
 
 	@BeforeAll
 	void init() {
+		setUp();
 		category = Category.builder()
 			.categoryName(testCategoryName)
 			.categoryDescription(testCategoryDescription)
@@ -72,19 +44,6 @@ public class UserCategoryE2ETest {
 			.build();
 
 		userCategoryRepository.save(userCategory);
-
-		jwt = JwtProperties.TOKEN_PREFIX + JWT.create()
-			.withSubject("testUser")
-			.withIssuer(JwtProperties.ISS)
-			.withExpiresAt(new Date(System.currentTimeMillis() + 10000000))
-			.withClaim("userKey", testUserKey)
-			.sign(Algorithm.HMAC256(JwtProperties.SECRET));
-		headers = new HttpHeaders();
-
-		headers.set(JwtProperties.HEADER_JWT, jwt);
-		headers.setContentType(MediaType.APPLICATION_JSON);
-
-		om = new ObjectMapper();
 	}
 
 	@AfterAll

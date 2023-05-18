@@ -55,7 +55,7 @@ public class SaveQuizControllerTest extends ControllerTest {
 			.quizzes(quizDtoList)
 			.build();
 
-		when(quizService.save(any(S_QuizSaveRequest.class))).thenReturn(returnDto);
+		when(quizService.saveAll(any(S_QuizSaveRequest.class))).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
 			post("/api/v1/category/1000/quiz")

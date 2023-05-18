@@ -9,7 +9,7 @@ import quiz.global.dto.CustomQuizDto;
 
 public class QuizMapper {
 
-	public static List<QuizDto> toQuizDto(List<Quiz> quizList) {
+	public static List<QuizDto> toQuizDtoList(List<Quiz> quizList) {
 
 		return quizList.stream().map(quiz -> {
 			List<QuizDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
