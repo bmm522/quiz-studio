@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import quiz.controller.category.CategoryController;
 import quiz.controller.quiz.QuizController;
 import quiz.properties.JwtProperties;
+import quiz.service.category.CategoryService;
 import quiz.service.quiz.QuizService;
-import quiz.service.usercategory.UserCategoryService;
 
 @WebMvcTest({QuizController.class, CategoryController.class})
 @MockBean(JpaMetamodelMappingContext.class)
@@ -30,7 +30,7 @@ public class ControllerTest {
 	@MockBean
 	QuizService quizService;
 	@MockBean
-	UserCategoryService userCategoryService;
+	CategoryService categoryService;
 
 	ObjectMapper om;
 

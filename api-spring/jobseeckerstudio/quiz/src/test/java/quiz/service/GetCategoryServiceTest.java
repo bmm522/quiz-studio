@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
+import quiz.service.category.dto.S_CategoryGetResponse;
 
 
 public class GetCategoryServiceTest extends ServiceTest {
@@ -17,7 +17,7 @@ public class GetCategoryServiceTest extends ServiceTest {
 //	@BeforeEach
 //	void init() {
 //		userCategoryRepository = mock(UserCategoryRepository.class);
-//		userCategoryService = new UserCategoryService(userCategoryRepository);
+//		userCategoryService = new CategoryService(userCategoryRepository);
 //	}
 
 	@Test
@@ -38,7 +38,7 @@ public class GetCategoryServiceTest extends ServiceTest {
 		when(categoryRepository.findCategoryDtosByUserKey(any())).thenReturn(
 			categoryQueryDtos);
 
-		S_UserCategoryGetResponse response = userCategoryService.get(userKey);
+		S_CategoryGetResponse response = categoryService.get(userKey);
 
 		assertThat(response.getCategories().get(0).getUserKey()).isEqualTo(userKey);
 		assertThat(response.getCategories().size()).isEqualTo(3);
@@ -74,6 +74,6 @@ public class GetCategoryServiceTest extends ServiceTest {
 //
 //     when(userCategoryRepository.findByUserKey(userKey)).thenReturn(userCategoryList);
 //
-//     S_UserCategoryGetResponse result = categoryService.get(userKey);
+//     S_CategoryGetResponse result = categoryService.get(userKey);
 //     assertThat(result.getCategories().size()).isEqualTo(3);
 // }

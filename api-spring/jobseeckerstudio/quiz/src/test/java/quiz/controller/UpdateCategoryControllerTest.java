@@ -15,20 +15,20 @@ import quiz.controller.category.CategoryController;
 import quiz.controller.category.dto.C_CategoryUpdateRequest;
 import quiz.controller.dto.CommonResponse;
 import quiz.global.exception.ExistCategorySaveException;
-import quiz.service.usercategory.UserCategoryService;
-import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
+import quiz.service.category.CategoryService;
+import quiz.service.category.dto.S_CategoryUpdateResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateCategoryControllerTest {
 
-	private UserCategoryService userCategoryService;
+	private CategoryService categoryService;
 
 	private CategoryController categoryController;
 
 	@BeforeEach
 	void init() {
-		userCategoryService = mock(UserCategoryService.class);
-		categoryController = new CategoryController(userCategoryService);
+		categoryService = mock(CategoryService.class);
+		categoryController = new CategoryController(categoryService);
 	}
 
 	@Test
@@ -41,11 +41,11 @@ public class UpdateCategoryControllerTest {
 			.build();
 		String userKey = "testUserKey";
 
-		S_UserCategoryUpdateResponse response = S_UserCategoryUpdateResponse.builder()
+		S_CategoryUpdateResponse response = S_CategoryUpdateResponse.builder()
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
 			.build();
-		when(userCategoryService.update(any())).thenReturn(response);
+		when(categoryService.update(any())).thenReturn(response);
 
 		CommonResponse<?> result = categoryController.updateCategories(userKey, request);
 

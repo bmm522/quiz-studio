@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import quiz.domain.quiz.repository.QuizMySqlRepository;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 @Service
 @RequiredArgsConstructor

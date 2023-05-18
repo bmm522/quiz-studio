@@ -1,12 +1,12 @@
-package quiz.domain.quiz.repository;
+package quiz.repository.quiz;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
 import quiz.domain.quiz.QQuiz;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
-import quiz.domain.quiz.repository.mapper.QuizMapper;
+import quiz.domain.quiz.mapper.QuizMapper;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 
 public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {

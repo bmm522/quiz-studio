@@ -1,7 +1,7 @@
-package quiz.domain.quiz.repository;
+package quiz.repository.quiz;
 
 import java.util.List;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 public interface QuizMySqlQueryRepository {
 

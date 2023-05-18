@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.mapper.QuizMapper;
+import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.global.dto.CustomQuizDto;
 
 public class QuizMapperTest {

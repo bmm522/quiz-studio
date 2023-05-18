@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.controller.category.dto.C_CategorySaveRequest;
-import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
+import quiz.service.category.dto.S_CategorySaveResponse;
 
 public class SaveCategoryControllerTest extends ControllerTest {
 
@@ -30,13 +30,13 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.description("testtest")
 			.build();
 
-		S_UserCategorySaveResponse response = S_UserCategorySaveResponse.builder()
+		S_CategorySaveResponse response = S_CategorySaveResponse.builder()
 			.userKey("testUser")
 			.title("test")
 			.description("testtest")
 			.build();
 
-		when(userCategoryService.save(any())).thenReturn(response);
+		when(categoryService.save(any())).thenReturn(response);
 
 		ResultActions perform = mockMvc.perform(
 			post("/api/v1/category")

@@ -15,21 +15,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.controller.category.CategoryController;
 import quiz.controller.dto.CommonResponse;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.service.usercategory.UserCategoryService;
-import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
+import quiz.service.category.CategoryService;
+import quiz.service.category.dto.S_CategoryGetResponse;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Get Category 테스트")
 public class GetCategoryControllerTest2 {
 
-	private UserCategoryService userCategoryService;
+	private CategoryService categoryService;
 
 	private CategoryController categoryController;
 
 	@BeforeEach
 	void init() {
-		userCategoryService = mock(UserCategoryService.class);
-		categoryController = new CategoryController(userCategoryService);
+		categoryService = mock(CategoryService.class);
+		categoryController = new CategoryController(categoryService);
 	}
 
 	@Test
@@ -57,11 +57,11 @@ public class GetCategoryControllerTest2 {
 		customCategoryList.add(category2);
 		customCategoryList.add(category3);
 
-		S_UserCategoryGetResponse responseFromService = S_UserCategoryGetResponse.builder()
+		S_CategoryGetResponse responseFromService = S_CategoryGetResponse.builder()
 			.categories(customCategoryList)
 			.build();
 
-		when(userCategoryService.get(any())).thenReturn(responseFromService);
+		when(categoryService.get(any())).thenReturn(responseFromService);
 
 		CommonResponse<?> result = categoryController.getCategories(userKey);
 

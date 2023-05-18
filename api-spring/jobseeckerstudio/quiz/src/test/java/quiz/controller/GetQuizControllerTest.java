@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.domain.category.Category;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
-import quiz.domain.quiz.repository.dto.QuizQueryDto.ChoiceDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
+import quiz.repository.quiz.dto.QuizQueryDto.ChoiceDto;
 
 public class GetQuizControllerTest extends ControllerTest {
 

@@ -1,11 +1,11 @@
-package quiz.domain.quiz.repository.mapper;
+package quiz.domain.quiz.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 public class QuizMapper {
 

@@ -1,4 +1,4 @@
-package quiz.domain.quiz.repository.dto;
+package quiz.repository.quiz.dto;
 
 import java.util.List;
 import lombok.Builder;

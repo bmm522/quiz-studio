@@ -3,8 +3,8 @@ package quiz.service.quiz.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.global.dto.CustomQuizDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
 import quiz.service.quiz.dto.S_QuizGetResponse;
 import quiz.service.quiz.dto.S_QuizSaveResponse;
 

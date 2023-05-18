@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
+import quiz.service.category.dto.S_CategoryGetResponse;
 
 public class GetCategoryControllerTest extends ControllerTest {
 
@@ -49,11 +49,11 @@ public class GetCategoryControllerTest extends ControllerTest {
 		customCategoryList.add(category2);
 		customCategoryList.add(category3);
 
-		S_UserCategoryGetResponse responseFromService = S_UserCategoryGetResponse.builder()
+		S_CategoryGetResponse responseFromService = S_CategoryGetResponse.builder()
 			.categories(customCategoryList)
 			.build();
 
-		when(userCategoryService.get(any())).thenReturn(responseFromService);
+		when(categoryService.get(any())).thenReturn(responseFromService);
 
 		ResultActions perform = mockMvc.perform(
 			get("/api/v1/category")

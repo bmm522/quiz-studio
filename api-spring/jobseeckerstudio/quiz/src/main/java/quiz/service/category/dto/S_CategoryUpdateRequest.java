@@ -1,4 +1,4 @@
-package quiz.service.usercategory.dto;
+package quiz.service.category.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class S_UserCategoryUpdateRequest {
+public class S_CategoryUpdateRequest {
 
 	private Long categoryId;
 

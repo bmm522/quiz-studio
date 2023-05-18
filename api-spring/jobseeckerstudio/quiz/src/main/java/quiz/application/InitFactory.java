@@ -3,9 +3,9 @@ package quiz.application;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quizCache.QuizCache;
 import quiz.domain.quizCache.mapper.QuizCacheTransformer;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 @Component
 public class InitFactory {

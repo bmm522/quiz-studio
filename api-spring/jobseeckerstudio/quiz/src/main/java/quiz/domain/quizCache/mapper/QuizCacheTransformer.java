@@ -3,8 +3,8 @@ package quiz.domain.quizCache.mapper;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quizCache.QuizCache;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 public class QuizCacheTransformer {
 

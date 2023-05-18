@@ -14,34 +14,34 @@ import quiz.controller.category.dto.C_CategoryUpdateRequest;
 import quiz.controller.category.mapper.C_CategoryMapper;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
-import quiz.service.usercategory.UserCategoryService;
+import quiz.service.category.CategoryService;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CategoryController {
 
-	private final UserCategoryService userCategoryService;
+	private final CategoryService categoryService;
 
 	@PostMapping("/category")
 	public CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_CategorySaveRequest request) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
-			userCategoryService.save(
+			categoryService.save(
 				C_CategoryMapper.toSaveRequest(userKey, request)));
 	}
 
 	@GetMapping("/category")
 	public CommonResponse<?> getCategories(@RequestAttribute("userKey") String userKey) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공",
-			userCategoryService.get(userKey));
+			categoryService.get(userKey));
 	}
 
 	@PatchMapping("/category")
 	public CommonResponse<?> updateCategories(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_CategoryUpdateRequest reqeust) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
-			userCategoryService.update(
+			categoryService.update(
 				C_CategoryMapper.toUpdateReqeust(userKey, reqeust)));
 	}
 

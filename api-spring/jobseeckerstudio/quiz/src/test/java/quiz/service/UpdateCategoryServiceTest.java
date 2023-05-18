@@ -14,15 +14,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.global.exception.PermissionException;
-import quiz.service.usercategory.dto.S_UserCategoryUpdateRequest;
-import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
+import quiz.service.category.dto.S_CategoryUpdateRequest;
+import quiz.service.category.dto.S_CategoryUpdateResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateCategoryServiceTest extends ServiceTest {
 
 	Category category;
 
-	S_UserCategoryUpdateRequest request;
+	S_CategoryUpdateRequest request;
 
 	@BeforeEach
 	void init() {
@@ -34,7 +34,7 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 			.userKey("testUser")
 			.build();
 
-		request = S_UserCategoryUpdateRequest.builder()
+		request = S_CategoryUpdateRequest.builder()
 			.categoryId(1L)
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
@@ -49,7 +49,7 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 		when(categoryRepository.findCategoryByCategoryId(any())).thenReturn(
 			Optional.of(category));
 
-		S_UserCategoryUpdateResponse response = userCategoryService.update(request);
+		S_CategoryUpdateResponse response = categoryService.update(request);
 
 		assertThat(response.getUpdateTitle()).isEqualTo("updateTitle");
 		assertThat(response.getUpdateDescription()).isEqualTo("updateDescription");
@@ -64,7 +64,7 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 			Optional.empty());
 
 		Exception exception = assertThrows(NotFoundEntityException.class, () -> {
-			userCategoryService.update(request);
+			categoryService.update(request);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("userKey로 해당 Category 객체를 찾을 수 없습니다.");
@@ -78,7 +78,7 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 			Optional.of(category2));
 
 		Exception exception = assertThrows(PermissionException.class, () -> {
-			userCategoryService.update(request);
+			categoryService.update(request);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("권한이 없는 회원입니다. (userKey 일치하지 않음)");

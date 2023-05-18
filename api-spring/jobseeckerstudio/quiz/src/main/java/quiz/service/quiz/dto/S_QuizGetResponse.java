@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import quiz.domain.quiz.repository.dto.QuizQueryDto;
+import quiz.repository.quiz.dto.QuizQueryDto;
 
 @AllArgsConstructor
 @Builder

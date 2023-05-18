@@ -13,21 +13,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.global.exception.DuplicateTitleException;
-import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
-import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
+import quiz.service.category.dto.S_CategorySaveRequest;
+import quiz.service.category.dto.S_CategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveCategoryServiceTest extends ServiceTest {
 
 
-	S_UserCategorySaveRequest reqeust;
+	S_CategorySaveRequest reqeust;
 
 	Category category;
 
 
 	@BeforeEach
 	void init() {
-		reqeust = S_UserCategorySaveRequest.builder()
+		reqeust = S_CategorySaveRequest.builder()
 			.userKey("testUser")
 			.title("testTitle")
 			.description("testDescription")
@@ -47,7 +47,7 @@ public class SaveCategoryServiceTest extends ServiceTest {
 		// given
 		when(categoryRepository.save(any())).thenReturn(category);
 		// when
-		S_UserCategorySaveResponse response = userCategoryService.save(reqeust);
+		S_CategorySaveResponse response = categoryService.save(reqeust);
 		// then
 
 		assertThat(response.getUserKey()).isEqualTo("testUser");
@@ -61,7 +61,7 @@ public class SaveCategoryServiceTest extends ServiceTest {
 			Optional.of(category));
 
 		Exception exception = assertThrows(DuplicateTitleException.class, () -> {
-			userCategoryService.save(reqeust);
+			categoryService.save(reqeust);
 		});
 
 		assertThat(exception.getMessage()).isEqualTo("중복된 카테고리 제목은 사용할 수 없습니다.");
