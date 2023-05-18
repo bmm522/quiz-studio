@@ -36,6 +36,12 @@ public class Category {
 	@OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<Quiz> quizzes;
 
+//	@OneToOne
+//	@JoinColumn(referencedColumnName = "user_category_id", nullable = true)
+//	private UserCategory userCategory;
+
+	private String userKey;
+
 	public void updateCategoryName(String categoryName) {
 		if (categoryName != null && !categoryName.isEmpty()) {
 			this.categoryName = categoryName;

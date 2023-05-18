@@ -1,6 +1,7 @@
 package quiz.service.usercategory.mapper;
 
 import java.util.List;
+import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
@@ -9,7 +10,7 @@ import quiz.service.usercategory.dto.S_UserCategoryUpdateResponse;
 
 public class S_UserCategoryMapper {
 
-	public static S_UserCategorySaveResponse toSaveResponse(UserCategory entity) {
+	public static S_UserCategorySaveResponse toSaveResponse(Category entity) {
 		return S_UserCategorySaveResponse.builder()
 			.userKey(entity.getUserKey())
 			.title(entity.getCategoryName())

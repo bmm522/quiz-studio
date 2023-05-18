@@ -9,6 +9,7 @@ public class CategoryMapper {
 		return Category.builder()
 			.categoryName(dto.getTitle())
 			.categoryDescription(dto.getDescription())
+			.userKey(dto.getUserKey())
 			.build();
 	}
 }

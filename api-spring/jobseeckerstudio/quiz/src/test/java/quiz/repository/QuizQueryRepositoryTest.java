@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import quiz.domain.quiz.repository.QuizMySqlRepository;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 
 @DataJpaTest
 public class QuizQueryRepositoryTest {
@@ -21,9 +21,9 @@ public class QuizQueryRepositoryTest {
 	@DisplayName("모든 퀴즈데이터를 가져온다")
 	@Sql("classpath:db/testData.sql")
 	void findQuizzes() {
-		List<QuizDto> quizDtoList = quizRepository.findQuizzes();
+		List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizzes();
 
-		assertThat(quizDtoList.size()).isEqualTo(7);
+		assertThat(quizQueryDtoList.size()).isEqualTo(7);
 	}
 
 }

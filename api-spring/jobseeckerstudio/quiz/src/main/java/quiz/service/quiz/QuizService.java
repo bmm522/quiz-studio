@@ -46,6 +46,7 @@ public class QuizService {
 
 	@Transactional(readOnly = true)
 	public S_QuizGetResponse get(final String userKey, final long categoryId) {
-		return S_QuizMapper.toGetResponse(quizRepository.findQuizDtoByCategoryId(categoryId));
+		return S_QuizMapper.toGetResponse(
+			quizRepository.findQuizDtoByCategoryIdAndUserKey(userKey, categoryId));
 	}
 }

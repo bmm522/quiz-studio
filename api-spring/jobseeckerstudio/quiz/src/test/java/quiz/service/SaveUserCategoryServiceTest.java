@@ -3,7 +3,6 @@ package quiz.service;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -14,17 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.global.exception.DuplicateTitleException;
-import quiz.service.usercategory.UserCategoryService;
 import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
 import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class SaveUserCategoryServiceTest {
+public class SaveUserCategoryServiceTest extends CategoryServiceTest {
 
-	UserCategoryService userCategoryService;
-	UserCategoryRepository userCategoryRepository;
+
 	S_UserCategorySaveRequest reqeust;
 
 	Category category;
@@ -33,8 +29,6 @@ public class SaveUserCategoryServiceTest {
 
 	@BeforeEach
 	void init() {
-		userCategoryRepository = mock(UserCategoryRepository.class);
-		userCategoryService = new UserCategoryService(userCategoryRepository);
 		reqeust = S_UserCategorySaveRequest.builder()
 			.userKey("testUser")
 			.title("testTitle")

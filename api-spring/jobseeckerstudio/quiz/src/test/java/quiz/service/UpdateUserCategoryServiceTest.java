@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
+import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.userCategory.UserCategory;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.global.exception.NotFoundEntityException;
@@ -27,6 +28,8 @@ public class UpdateUserCategoryServiceTest {
 	UserCategoryService userCategoryService;
 	UserCategoryRepository userCategoryRepository;
 
+	CategoryRepository categoryRepository;
+
 	UserCategory userCategory;
 
 	Category category;
@@ -36,10 +39,10 @@ public class UpdateUserCategoryServiceTest {
 	@BeforeEach
 	void init() {
 		userCategoryRepository = mock(UserCategoryRepository.class);
-		userCategoryService = new UserCategoryService(userCategoryRepository);
+		userCategoryService = new UserCategoryService(userCategoryRepository, categoryRepository);
 
 		category = Category.builder().categoryId(1L).categoryName("testTitle")
-			.categoryDescription("testDescription").build();
+			.categoryDescription("testDescription").userKey("testUser").build();
 
 		userCategory = UserCategory.builder().userCategoryId(1L).userKey("testUser")
 			.category(category).build();

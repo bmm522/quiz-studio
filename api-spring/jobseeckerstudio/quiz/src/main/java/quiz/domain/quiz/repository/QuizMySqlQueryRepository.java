@@ -1,11 +1,13 @@
 package quiz.domain.quiz.repository;
 
 import java.util.List;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 
 public interface QuizMySqlQueryRepository {
 
-	List<QuizDto> findQuizzes();
+	List<QuizQueryDto> findQuizzes();
 
-	List<QuizDto> findQuizDtoByCategoryId(long categoryId);
+	List<QuizQueryDto> findQuizDtoByCategoryId(long categoryId);
+
+	List<QuizQueryDto> findQuizDtoByCategoryIdAndUserKey(String userKey, long categoryId);
 }

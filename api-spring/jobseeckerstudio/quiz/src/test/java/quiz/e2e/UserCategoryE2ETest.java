@@ -48,8 +48,8 @@ public class UserCategoryE2ETest extends E2ETest {
 
 	@AfterAll
 	void deleteData() {
-		userCategoryRepository.deleteByUserKey(saveTestUser);
-		userCategoryRepository.deleteByUserKey(testUserKey);
+//		userCategoryRepository.deleteByUserKey(saveTestUser);
+//		userCategoryRepository.deleteByUserKey(testUserKey);
 	}
 
 	@Test

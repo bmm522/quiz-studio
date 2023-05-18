@@ -2,32 +2,23 @@ package quiz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.domain.userCategory.repository.dto.UserCategoryDto;
-import quiz.service.usercategory.UserCategoryService;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 
-@ExtendWith(MockitoExtension.class)
-public class GetUserCategoryServiceTest {
 
-	UserCategoryRepository userCategoryRepository;
-	UserCategoryService userCategoryService;
+public class GetUserCategoryServiceTest extends CategoryServiceTest {
 
-	@BeforeEach
-	void init() {
-		userCategoryRepository = mock(UserCategoryRepository.class);
-		userCategoryService = new UserCategoryService(userCategoryRepository);
-	}
+//	@BeforeEach
+//	void init() {
+//		userCategoryRepository = mock(UserCategoryRepository.class);
+//		userCategoryService = new UserCategoryService(userCategoryRepository);
+//	}
 
 	@Test
 	@DisplayName("정상적인 요청")

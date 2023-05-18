@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import quiz.domain.quiz.QQuiz;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quiz.repository.mapper.QuizMapper;
 
 
@@ -21,7 +21,7 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 		quiz = QQuiz.quiz;
 	}
 
-	public List<QuizDto> findQuizzes() {
+	public List<QuizQueryDto> findQuizzes() {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryName.eq("java")
@@ -33,10 +33,21 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 	}
 
 	@Override
-	public List<QuizDto> findQuizDtoByCategoryId(final long categoryId) {
+	public List<QuizQueryDto> findQuizDtoByCategoryId(final long categoryId) {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryId.eq(categoryId))
+			.fetch();
+		return QuizMapper.toQuizDtoList(quizList);
+	}
+
+
+	@Override
+	public List<QuizQueryDto> findQuizDtoByCategoryIdAndUserKey(String userKey, long categoryId) {
+		List<Quiz> quizList = queryFactory
+			.selectFrom(quiz)
+			.where(quiz.category.categoryId.eq(categoryId)
+				.and(quiz.category.userCategory.userKey.eq(userKey)))
 			.fetch();
 		return QuizMapper.toQuizDtoList(quizList);
 	}

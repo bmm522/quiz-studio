@@ -1,28 +1,27 @@
 package quiz.application;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quizCache.QuizCache;
 import quiz.domain.quizCache.mapper.QuizCacheTransformer;
 
-
-import java.util.List;
 @Component
 public class InitFactory {
 
 
-    @Autowired
-    private QuizMysqlService quizMysqlService;
+	@Autowired
+	private QuizMysqlService quizMysqlService;
 
-    @Autowired
-    private quiz.application.QuizCache quizCache;
+	@Autowired
+	private quiz.application.QuizCache quizCache;
 
 
-    public void initData() {
-        List<QuizDto> quizDtoList = quizMysqlService.getAllForRedis();
-        List<QuizCache> quizList = QuizCacheTransformer.toQuizCacheList(quizDtoList);
-        quizCache.deleteAll();
-        quizCache.saveAll(quizList);
-    }
+	public void initData() {
+		List<QuizQueryDto> quizQueryDtoList = quizMysqlService.getAllForRedis();
+		List<QuizCache> quizList = QuizCacheTransformer.toQuizCacheList(quizQueryDtoList);
+		quizCache.deleteAll();
+		quizCache.saveAll(quizList);
+	}
 }

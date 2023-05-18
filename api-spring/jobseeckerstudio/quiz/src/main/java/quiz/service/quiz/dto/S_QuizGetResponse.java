@@ -4,13 +4,13 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 
 @AllArgsConstructor
 @Builder
 @Getter
 public class S_QuizGetResponse {
 
-	private List<QuizDto> quizzes;
+	private List<QuizQueryDto> quizzes;
 
 }

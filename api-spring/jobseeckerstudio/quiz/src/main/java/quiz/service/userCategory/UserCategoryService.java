@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import quiz.domain.category.Category;
 import quiz.domain.category.mapper.CategoryMapper;
+import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.mapper.UserCategoryMapper;
 import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.global.exception.DuplicateTitleException;
 import quiz.global.exception.NotFoundEntityException;
@@ -25,15 +25,18 @@ public class UserCategoryService {
 
 	private final UserCategoryRepository userCategoryRepository;
 
+	private final CategoryRepository categoryRepository;
+
 	@Transactional
 	public S_UserCategorySaveResponse save(final S_UserCategorySaveRequest request) {
 		validateDuplicateTitle(request.getUserKey(), request.getTitle());
 
 		Category category = CategoryMapper.toEntityWhenSave(request);
-		UserCategory userCategory = UserCategoryMapper.toEntityWhenSave(request);
-		userCategory.addCategory(category);
+//		UserCategory userCategory = UserCategoryMapper.toEntityWhenSave(request);
+//		userCategory.addCategory(category);
 
-		UserCategory savedData = userCategoryRepository.save(userCategory);
+//		UserCategory savedData = userCategoryRepository.save(userCategory);
+		Category savedData = categoryRepository.save(category);
 		return S_UserCategoryMapper.toSaveResponse(savedData);
 	}
 

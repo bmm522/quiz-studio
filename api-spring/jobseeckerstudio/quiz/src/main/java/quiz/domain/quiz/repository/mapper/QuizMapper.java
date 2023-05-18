@@ -3,22 +3,22 @@ package quiz.domain.quiz.repository.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.dto.QuizDto;
+import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
 
 public class QuizMapper {
 
-	public static List<QuizDto> toQuizDtoList(List<Quiz> quizList) {
+	public static List<QuizQueryDto> toQuizDtoList(List<Quiz> quizList) {
 
 		return quizList.stream().map(quiz -> {
-			List<QuizDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
-				.map(choice -> new QuizDto.ChoiceDto(
+			List<QuizQueryDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
+				.map(choice -> new QuizQueryDto.ChoiceDto(
 					choice.getChoiceContent(),
 					choice.getIsAnswer()))
 				.collect(Collectors.toList());
 
-			return QuizDto.builder()
+			return QuizQueryDto.builder()
 				.categoryName(quiz.getCategoryName())
 				.difficulty(quiz.getDifficulty())
 				.quizTitle(quiz.getQuizTitle())
