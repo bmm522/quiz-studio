@@ -5,14 +5,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.repository.CategoryRepository;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.service.usercategory.UserCategoryService;
 
 @ExtendWith(MockitoExtension.class)
-public class CategoryServiceTest {
-
-	@Mock
-	UserCategoryRepository userCategoryRepository;
+public class ServiceTest {
 
 	@Mock
 	CategoryRepository categoryRepository;

@@ -20,7 +20,7 @@ public class QuizQueryRepositoryTest {
 	@Test
 	@DisplayName("모든 퀴즈데이터를 가져온다")
 	@Sql("classpath:db/testData.sql")
-	void findQuizzes() {
+	void 모든_퀴즈데이터를_가져온다() {
 		List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizzes();
 
 		assertThat(quizQueryDtoList.size()).isEqualTo(7);

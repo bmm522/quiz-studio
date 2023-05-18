@@ -12,20 +12,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
 import quiz.global.exception.DuplicateTitleException;
 import quiz.service.usercategory.dto.S_UserCategorySaveRequest;
 import quiz.service.usercategory.dto.S_UserCategorySaveResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class SaveUserCategoryServiceTest extends CategoryServiceTest {
+public class SaveCategoryServiceTest extends ServiceTest {
 
 
 	S_UserCategorySaveRequest reqeust;
 
 	Category category;
 
-	UserCategory userCategory;
 
 	@BeforeEach
 	void init() {
@@ -35,17 +33,19 @@ public class SaveUserCategoryServiceTest extends CategoryServiceTest {
 			.description("testDescription")
 			.build();
 
-		category = Category.builder().categoryName("testTitle")
-			.categoryDescription("testDescription").build();
+		category = Category.builder()
+			.categoryTitle("testTitle")
+			.categoryDescription("testDescription")
+			.userKey("testUser")
+			.build();
 
-		userCategory = UserCategory.builder().userKey("testUser").category(category).build();
 	}
 
 	@Test
-	@DisplayName("정상적인 상황")
-	void saveTest() {
+	@DisplayName("서비스 단에서 카테고리 하나를 저장한다")
+	void 서비스_단에서_카테고리_하나를_저장한다() {
 		// given
-		when(userCategoryRepository.save(any())).thenReturn(userCategory);
+		when(categoryRepository.save(any())).thenReturn(category);
 		// when
 		S_UserCategorySaveResponse response = userCategoryService.save(reqeust);
 		// then
@@ -55,10 +55,10 @@ public class SaveUserCategoryServiceTest extends CategoryServiceTest {
 	}
 
 	@Test
-	@DisplayName("중복이 있는경우")
-	void saveTestWhenDuplicate() {
-		when(userCategoryRepository.findUserCategoryByUserKeyAndTitle(any(), any())).thenReturn(
-			Optional.of(userCategory));
+	@DisplayName("카테고리 이름의 중복이 있는 경우")
+	void 카테고리_이름의_중복이_있는_경우() {
+		when(categoryRepository.findCategoryByUserKeyAndTitle(any(), any())).thenReturn(
+			Optional.of(category));
 
 		Exception exception = assertThrows(DuplicateTitleException.class, () -> {
 			userCategoryService.save(reqeust);

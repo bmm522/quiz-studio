@@ -19,7 +19,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import quiz.controller.category.dto.C_CategorySaveRequest;
 import quiz.controller.category.dto.C_CategoryUpdateRequest;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
 import quiz.properties.JwtProperties;
 
 
@@ -34,27 +33,22 @@ public class UserCategoryE2ETest extends E2ETest {
 	void init() {
 		setUp();
 		category = Category.builder()
-			.categoryName(testCategoryName)
+			.categoryTitle(testCategoryName)
 			.categoryDescription(testCategoryDescription)
-			.build();
-
-		userCategory = UserCategory.builder()
 			.userKey(testUserKey)
-			.category(category)
 			.build();
-
-		userCategoryRepository.save(userCategory);
+		categoryRepository.save(category);
 	}
 
 	@AfterAll
 	void deleteData() {
-//		userCategoryRepository.deleteByUserKey(saveTestUser);
-//		userCategoryRepository.deleteByUserKey(testUserKey);
+		categoryRepository.deleteByUserKey(saveTestUser);
+		categoryRepository.deleteByUserKey(testUserKey);
 	}
 
 	@Test
-	@DisplayName("save 테스트")
-	void saveTest() throws JsonProcessingException {
+	@DisplayName("카테고리 하나를 저장한다")
+	void 카테고리_하나를_저장한다() throws JsonProcessingException {
 
 		String jwt2 = JwtProperties.TOKEN_PREFIX + JWT.create()
 			.withSubject("testUser")
@@ -89,8 +83,8 @@ public class UserCategoryE2ETest extends E2ETest {
 	}
 
 	@Test
-	@DisplayName("get 테스트")
-	void getTest() throws JsonProcessingException {
+	@DisplayName("유저키로 카테고리 목록 불러온다")
+	void 유저키로_카테고리_목록_불러온다() throws JsonProcessingException {
 
 		headers.remove(JwtProperties.HEADER_JWT);
 		headers.set(JwtProperties.HEADER_JWT, jwt);
@@ -113,19 +107,15 @@ public class UserCategoryE2ETest extends E2ETest {
 	}
 
 	@Test
-	@DisplayName("update테스트")
-	void updateTest() throws JsonProcessingException {
+	@DisplayName("카테고리 하나를 업데이트 한다")
+	void 카테고리_하나를_업데이트_한다() throws JsonProcessingException {
 		Category category3 = Category.builder()
-			.categoryName("updateBeforeTitle")
+			.categoryTitle("updateBeforeTitle")
 			.categoryDescription("updateBeforeDescription")
-			.build();
-
-		UserCategory userCategory3 = UserCategory.builder()
 			.userKey(testUserKey)
-			.category(category3)
 			.build();
 
-		long savedUserCategoryId = userCategoryRepository.save(userCategory3).getUserCategoryId();
+		long savedUserCategoryId = categoryRepository.save(category3).getCategoryId();
 
 		rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 		C_CategoryUpdateRequest dto = C_CategoryUpdateRequest.builder()

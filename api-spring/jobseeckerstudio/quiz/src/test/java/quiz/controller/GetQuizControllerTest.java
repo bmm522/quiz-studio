@@ -7,13 +7,10 @@ import org.junit.jupiter.api.Test;
 import quiz.domain.category.Category;
 import quiz.domain.quiz.repository.dto.QuizQueryDto;
 import quiz.domain.quiz.repository.dto.QuizQueryDto.ChoiceDto;
-import quiz.domain.userCategory.UserCategory;
 
 public class GetQuizControllerTest extends ControllerTest {
 
 	Category category;
-
-	UserCategory userCategory;
 
 	protected final String testUserKey = "testUserKey";
 	protected final String testCategoryName = "testCategoryName";

@@ -11,8 +11,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
+import quiz.domain.category.repository.CategoryRepository;
 import quiz.properties.JwtProperties;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -23,14 +22,13 @@ public class E2ETest {
 	protected TestRestTemplate rt;
 
 	@Autowired
-	protected UserCategoryRepository userCategoryRepository;
+	protected CategoryRepository categoryRepository;
+
 
 	protected final String testUserKey = "testUserKey";
 	protected final String testCategoryName = "testCategoryName";
 
 	protected final String testCategoryDescription = "testCategoryDescription";
-
-	protected UserCategory userCategory;
 
 	protected Category category;
 

@@ -15,11 +15,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
+import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.repository.QuizMySqlRepository;
 import quiz.domain.quizChoice.QuizChoice;
-import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
 import quiz.global.dto.CustomQuizDto;
 import quiz.service.quiz.QuizService;
 import quiz.service.quiz.dto.S_QuizSaveRequest;
@@ -30,14 +29,14 @@ public class SaveQuizServiceTest {
 
 	QuizMySqlRepository quizRepository;
 
-	UserCategoryRepository userCategoryRepository;
+	CategoryRepository categoryRepository;
 	QuizService quizService;
 
 	@BeforeEach
 	void init() {
 		quizRepository = mock(QuizMySqlRepository.class);
-		userCategoryRepository = mock(UserCategoryRepository.class);
-		quizService = new QuizService(quizRepository, userCategoryRepository);
+		categoryRepository = mock(CategoryRepository.class);
+		quizService = new QuizService(quizRepository, categoryRepository);
 	}
 
 	@Test
@@ -51,12 +50,9 @@ public class SaveQuizServiceTest {
 			.build();
 
 		Category category = Category.builder()
-			.categoryName("testCategoryName")
+			.categoryTitle("testCategoryName")
 			.categoryDescription("testCategoryDescription")
-			.build();
-		UserCategory userCategory = UserCategory.builder()
 			.userKey("testUser")
-			.category(category)
 			.build();
 		List<QuizChoice> quiz1Choices = createQuizChoices(true, false, false, false);
 		List<QuizChoice> quiz2Choices = createQuizChoices(false, true, false, false);
@@ -78,9 +74,9 @@ public class SaveQuizServiceTest {
 		quiz3.addChoices(quiz3Choices);
 
 		List<Quiz> quizList = List.of(quiz, quiz2, quiz3);
-		when(userCategoryRepository.findUserCategoryByCategoryId(
+		when(categoryRepository.findCategoryByCategoryId(
 			ArgumentMatchers.anyLong())).thenReturn(
-			Optional.of(userCategory));
+			Optional.of(category));
 		when(quizRepository.saveAll(any())).thenReturn(quizList);
 
 		S_QuizSaveResponse result = quizService.saveAll(request);

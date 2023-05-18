@@ -12,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import quiz.controller.quiz.dto.C_QuizSaveRequest;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
 import quiz.global.dto.CustomQuizDto;
 
 public class QuizE2ETest extends E2ETest {
@@ -25,22 +24,17 @@ public class QuizE2ETest extends E2ETest {
 	void init() {
 		setUp();
 		category = Category.builder()
-			.categoryName(testCategoryName)
+			.categoryTitle(testCategoryName)
 			.categoryDescription(testCategoryDescription)
-			.build();
-
-		userCategory = UserCategory.builder()
 			.userKey(testUserKey)
-			.category(category)
 			.build();
 
-		categoryId = userCategoryRepository.save(userCategory).getCategory().getCategoryId();
+		categoryId = categoryRepository.save(category).getCategoryId();
 	}
 
 	@AfterAll
 	void deleteData() {
-
-		userCategoryRepository.deleteByUserKey(testUserKey);
+		categoryRepository.deleteByUserKey(testUserKey);
 	}
 
 	@Test
@@ -69,18 +63,4 @@ public class QuizE2ETest extends E2ETest {
 
 	}
 
-//	@Test
-//	@DisplayName("퀴즈 불러오기")
-//	void 퀴즈_불러오기() throws JsonProcessingException {
-//
-//		C_QuizSaveRequest requestBody = C_QuizSaveRequest.builder()
-//			.quizzes(quizDtoList)
-//			.build();
-//
-//		String body = om.writeValueAsString(requestBody);
-//		HttpEntity<String> request = new HttpEntity<>(body, headers);
-//		ResponseEntity<String> response = rt.exchange(url + "/category/" + categoryId + "/quiz",
-//			HttpMethod.POST, request, String.class);
-//
-//	}
 }

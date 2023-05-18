@@ -12,7 +12,7 @@ import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.usercategory.dto.S_UserCategoryGetResponse;
 
 
-public class GetUserCategoryServiceTest extends CategoryServiceTest {
+public class GetCategoryServiceTest extends ServiceTest {
 
 //	@BeforeEach
 //	void init() {
@@ -21,8 +21,8 @@ public class GetUserCategoryServiceTest extends CategoryServiceTest {
 //	}
 
 	@Test
-	@DisplayName("정상적인 요청")
-	void getTest() {
+	@DisplayName("서비스 단에서 카테고리 목록을 불러온다")
+	void 서비스_단에서_카테고리_목록을_불러온다() {
 		String userKey = "testUser";
 		CategoryQueryDto dto1 = CategoryQueryDto.builder().userKey(userKey).title("title1")
 			.description("description1").build();
@@ -35,7 +35,7 @@ public class GetUserCategoryServiceTest extends CategoryServiceTest {
 		categoryQueryDtos.add(dto2);
 		categoryQueryDtos.add(dto3);
 
-		when(userCategoryRepository.findUserCategoryDtosByUserKey(any())).thenReturn(
+		when(categoryRepository.findCategoryDtosByUserKey(any())).thenReturn(
 			categoryQueryDtos);
 
 		S_UserCategoryGetResponse response = userCategoryService.get(userKey);

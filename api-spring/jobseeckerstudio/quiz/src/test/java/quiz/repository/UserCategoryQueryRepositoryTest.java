@@ -9,78 +9,66 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import quiz.domain.category.Category;
-import quiz.domain.userCategory.UserCategory;
-import quiz.domain.userCategory.repository.UserCategoryRepository;
+import quiz.domain.category.repository.CategoryRepository;
 import quiz.repository.category.dto.CategoryQueryDto;
 
 @DataJpaTest
 public class UserCategoryQueryRepositoryTest {
 
 	@Autowired
-	private UserCategoryRepository userCategoryRepository;
+	private CategoryRepository categoryRepository;
 
 	@BeforeEach
 	void init() {
 		Category category = Category.builder()
-			.categoryName("testCategoryName")
+			.categoryTitle("testCategoryName")
 			.categoryDescription("testCategoryDescription")
-			.build();
-
-		UserCategory userCategory = UserCategory.builder()
 			.userKey("testUser")
-			.category(category)
 			.build();
 
 		Category category2 = Category.builder()
-			.categoryName("testCategoryName2")
+			.categoryTitle("testCategoryName2")
 			.categoryDescription("testCategoryDescription2")
-			.build();
-
-		UserCategory userCategory2 = UserCategory.builder()
 			.userKey("testUser")
-			.category(category2)
 			.build();
 
-		userCategoryRepository.save(userCategory);
-		userCategoryRepository.save(userCategory2);
+		categoryRepository.save(category);
+		categoryRepository.save(category2);
 	}
 
 	@Test
-	@DisplayName("userKey, title로 UserCategory 객체 찾아오기")
-	void findUserCategoriesByUserKeyAndTitleTest() {
-		UserCategory userCategory = userCategoryRepository.findUserCategoryByUserKeyAndTitle(
+	@DisplayName("유저키와 제목으로 카테고리 하나 찾아오기")
+	void 유저키와_제목으로_카테고리_하나_찾아오기() {
+		Category category = categoryRepository.findCategoryByUserKeyAndTitle(
 			"testUser", "testCategoryName").get();
 
-		assertThat(userCategory.getUserKey()).isEqualTo("testUser");
-		assertThat(userCategory.getCategoryName()).isEqualTo("testCategoryName");
-		assertThat(userCategory.getCategoryDescription()).isEqualTo("testCategoryDescription");
+		assertThat(category.getUserKey()).isEqualTo("testUser");
+		assertThat(category.getCategoryTitle()).isEqualTo("testCategoryName");
+		assertThat(category.getCategoryDescription()).isEqualTo("testCategoryDescription");
 	}
 
 	@Test
-	@DisplayName("userKey로 해당 UserCategory 가져온 후 UserCategoryDto로 반환")
-	void findUserCategoryDtosByUserKeyTest() {
-		List<CategoryQueryDto> categoryQueryDtos = userCategoryRepository.findUserCategoryDtosByUserKey(
+	@DisplayName("유저키로 해당 카테고리 목록 가져온 후 카테고리 쿼리 DTO로 반환")
+	void 유저키로_해당_카테고리_목록_가져온_후_카테고리_쿼리_DTO로_반환() {
+		List<CategoryQueryDto> categoryQueryDtos = categoryRepository.findCategoryDtosByUserKey(
 			"testUser");
 		assertThat(categoryQueryDtos.size()).isEqualTo(2);
 	}
 
 	@Test
-	@DisplayName("id로 UserCategory 객체 가져오기 ")
-	void findUserCategoryByUserCategoryId() {
+	@DisplayName("카테고리 아이디로 카테고리 하나 가져오기 ")
+	void 카테고리_아이디로_카테고리_하나_가져오기() {
 		Category category3 = Category.builder()
-			.categoryName("testCategoryName3")
+			.categoryTitle("testCategoryName3")
 			.categoryDescription("testCategoryDescription3")
-			.build();
-
-		UserCategory userCategory3 = UserCategory.builder()
 			.userKey("testUser")
-			.category(category3)
 			.build();
-		UserCategory savedData = userCategoryRepository.save(userCategory3);
-		UserCategory userCategory = userCategoryRepository.findUserCategoryByUserCategoryId(
-			savedData.getUserCategoryId()).get();
 
-		assertThat(userCategory.getCategoryName()).isEqualTo("testCategoryName3");
+		Category savedData = categoryRepository.save(category3);
+		Category userCategory = categoryRepository.findCategoryByCategoryId(
+			savedData.getCategoryId()).get();
+
+		assertThat(userCategory.getCategoryTitle()).isEqualTo("testCategoryName3");
 
 	}
 }
