@@ -29,13 +29,13 @@ public class SaveQuizControllerTest extends ControllerTest {
 		setUp();
 		quizDtoList = new ArrayList<>();
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1)
+			CustomQuizDto.createForTest("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1)
 		);
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2)
+			CustomQuizDto.createForTest("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2)
 		);
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
+			CustomQuizDto.createForTest("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
 		);
 	}
 
@@ -89,7 +89,7 @@ public class SaveQuizControllerTest extends ControllerTest {
 	@DisplayName("정답이 없는 데이터를 요청했을 때")
 	void saveQuizTestWhenNotCorrectAnswer() throws Exception {
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 5)
+			CustomQuizDto.createForTest("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 5)
 		);
 
 		S_QuizSaveResponse returnDto = S_QuizSaveResponse.builder()

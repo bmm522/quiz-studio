@@ -9,7 +9,7 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 
 public class QuizMapper {
 
-	public static List<QuizQueryDto> toQuizDtoList(List<Quiz> quizList) {
+	public static List<QuizQueryDto> toQuizQueryDtoListForRedis(List<Quiz> quizList) {
 
 		return quizList.stream().map(quiz -> {
 			List<QuizQueryDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
@@ -19,8 +19,26 @@ public class QuizMapper {
 				.collect(Collectors.toList());
 
 			return QuizQueryDto.builder()
-				.categoryName(quiz.getCategoryName())
+				.categoryTitle(quiz.getCategoryName())
 				.difficulty(quiz.getDifficulty())
+				.quizTitle(quiz.getQuizTitle())
+				.choiceDtos(choiceDtoList)
+				.build();
+
+		}).collect(Collectors.toList());
+	}
+
+	public static List<QuizQueryDto> toQuizQueryDtoList(List<Quiz> quizList) {
+
+		return quizList.stream().map(quiz -> {
+			List<QuizQueryDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
+				.map(choice -> new QuizQueryDto.ChoiceDto(
+					choice.getChoiceContent(),
+					choice.getIsAnswer()))
+				.collect(Collectors.toList());
+
+			return QuizQueryDto.builder()
+				.categoryTitle(quiz.getCategoryName())
 				.quizTitle(quiz.getQuizTitle())
 				.choiceDtos(choiceDtoList)
 				.build();

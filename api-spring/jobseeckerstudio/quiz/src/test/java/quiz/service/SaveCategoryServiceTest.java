@@ -39,6 +39,7 @@ public class SaveCategoryServiceTest extends ServiceTest {
 			.userKey("testUser")
 			.build();
 
+		setUp();
 	}
 
 	@Test

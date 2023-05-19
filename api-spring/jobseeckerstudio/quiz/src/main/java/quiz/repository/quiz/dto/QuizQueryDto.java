@@ -9,29 +9,57 @@ import lombok.Setter;
 @Setter
 public class QuizQueryDto {
 
-	private final String categoryName;
-	private final String difficulty;
-	private final String quizTitle;
-	private final List<ChoiceDto> choiceDtos;
+	private String categoryTitle;
+	private String difficulty;
+	private String quizTitle;
 
+	private List<ChoiceDto> choices;
+
+	public static QuizQueryDto createForTest(final String categoryTitle, final String quizTitle,
+		final String choiceContent1, final String choiceContent2, final String choiceContent3,
+		final String choiceContent4,
+		final int answerIndex) {
+		return QuizQueryDto.builder()
+			.categoryTitle(categoryTitle)
+			.quizTitle(quizTitle)
+			.choiceDtos(List.of(
+				ChoiceDto.builder()
+					.choiceContent(choiceContent1)
+					.isAnswer(answerIndex == 1)
+					.build(),
+				ChoiceDto.builder()
+					.choiceContent(choiceContent2)
+					.isAnswer(answerIndex == 2)
+					.build(),
+				ChoiceDto.builder()
+					.choiceContent(choiceContent3)
+					.isAnswer(answerIndex == 3)
+					.build(),
+				ChoiceDto.builder()
+					.choiceContent(choiceContent4)
+					.isAnswer(answerIndex == 4)
+					.build()
+			))
+			.build();
+	}
 
 	@Builder
-	public QuizQueryDto(String categoryName, String difficulty, String quizTitle,
-		List<ChoiceDto> choiceDtos) {
-		this.categoryName = categoryName;
+	public QuizQueryDto(final String categoryTitle, final String difficulty, final String quizTitle,
+		final List<ChoiceDto> choiceDtos) {
+		this.categoryTitle = categoryTitle;
 		this.difficulty = difficulty;
 		this.quizTitle = quizTitle;
-		this.choiceDtos = choiceDtos;
+		this.choices = choiceDtos;
 	}
 
 	@Getter
 	public static class ChoiceDto {
 
-		private final String choiceContent;
-		private final boolean isAnswer;
+		private String choiceContent;
+		private boolean isAnswer;
 
 		@Builder
-		public ChoiceDto(String choiceContent, boolean isAnswer) {
+		public ChoiceDto(final String choiceContent, final boolean isAnswer) {
 			this.choiceContent = choiceContent;
 			this.isAnswer = isAnswer;
 		}

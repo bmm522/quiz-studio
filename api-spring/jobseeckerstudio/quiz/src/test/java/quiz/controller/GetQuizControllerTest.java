@@ -1,12 +1,23 @@
 package quiz.controller;
 
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import quiz.domain.category.Category;
 import quiz.repository.quiz.dto.QuizQueryDto;
-import quiz.repository.quiz.dto.QuizQueryDto.ChoiceDto;
+import quiz.service.quiz.dto.S_QuizGetResponse;
 
 public class GetQuizControllerTest extends ControllerTest {
 
@@ -24,44 +35,40 @@ public class GetQuizControllerTest extends ControllerTest {
 
 	@Test
 	@DisplayName("퀴즈 불러오기")
-	void 퀴즈_불러오기() {
-		List<ChoiceDto> choiceDtoList = List.of(ChoiceDto.builder()
-				.choiceContent("예제 보기1")
-				.isAnswer(true)
-				.build(),
-			ChoiceDto.builder()
-				.choiceContent("예제 보기2")
-				.isAnswer(false)
-				.build(),
-			ChoiceDto.builder()
-				.choiceContent("예제 보기3")
-				.isAnswer(false)
-				.build(),
-			ChoiceDto.builder()
-				.choiceContent("예제 보기4")
-				.isAnswer(false)
-				.build()
+	void 퀴즈_불러오기() throws Exception {
+		List<QuizQueryDto> quizQeuryDtoList = List.of(
+			QuizQueryDto.createForTest("예제 카테고리", "예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4",
+				1),
+			QuizQueryDto.createForTest("예제 카테고리", "예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4",
+				2),
+			QuizQueryDto.createForTest("예제 카테고리", "예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4",
+				3),
+			QuizQueryDto.createForTest("예제 카테고리", "예제 문제4", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4",
+				4)
 		);
-		List<QuizQueryDto> quizQueryDtos = List.of(
-			QuizQueryDto.builder()
-				.categoryName(testCategoryName)
-				.quizTitle("예제문제 1")
-				.choiceDtos(choiceDtoList)
-				.build(),
-			QuizQueryDto.builder()
-				.categoryName(testCategoryName)
-				.quizTitle("예제문제 2")
-				.choiceDtos(choiceDtoList)
-				.build(),
-			QuizQueryDto.builder()
-				.categoryName(testCategoryName)
-				.quizTitle("예제문제 3")
-				.choiceDtos(choiceDtoList)
-				.build()
 
+		S_QuizGetResponse returnDto = S_QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
+
+		when(quizService.get(anyString(), anyLong())).thenReturn(returnDto);
+
+		ResultActions perform = mockMvc.perform(
+			get("/api/v1/category/1000/quiz")
+				.contentType(MediaType.APPLICATION_JSON)
+				.headers(headers)
 		);
-//		when(quizService.get(anyString(), anyLong()))
 
+		String body = decodeBody(perform);
+		DocumentContext dc = JsonPath.parse(body);
+		System.out.println(body);
+		int status = dc.read("$.status");
+		String msg = dc.read("$.msg");
+		String checkQuizTitle = dc.read("$.data.quizzes[0].quizTitle");
+		String checkQuizChoice = dc.read("$.data.quizzes[0].choices[0].choiceContent");
+
+		assertThat(status).isEqualTo(200);
+		assertThat(msg).isEqualTo("퀴즈 불러오기 성공");
+		assertThat(checkQuizTitle).isEqualTo("예제 문제1");
+		assertThat(checkQuizChoice).isEqualTo("예제 보기1");
 	}
 
 }

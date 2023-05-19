@@ -13,7 +13,7 @@ import quiz.domain.category.repository.CategoryRepository;
 import quiz.repository.category.dto.CategoryQueryDto;
 
 @DataJpaTest
-public class UserCategoryQueryRepositoryTest {
+public class CategoryQueryRepositoryTest {
 
 	@Autowired
 	private CategoryRepository categoryRepository;

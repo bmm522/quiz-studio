@@ -10,8 +10,9 @@ import quiz.service.quiz.dto.S_QuizSaveResponse;
 
 public class S_QuizMapper {
 
-	public static S_QuizSaveResponse toSaveResponse(String userKey, List<Quiz> quizzes) {
-		List<CustomQuizDto> quizDtoList = quizzes.stream()
+	public static S_QuizSaveResponse toSaveResponse(final String userKey,
+		final List<Quiz> quizzes) {
+		final List<CustomQuizDto> quizDtoList = quizzes.stream()
 			.map(Quiz::toCustomQuizDto)
 			.collect(Collectors.toList());
 		return S_QuizSaveResponse.builder()
@@ -20,7 +21,7 @@ public class S_QuizMapper {
 			.build();
 	}
 
-	public static S_QuizGetResponse toGetResponse(List<QuizQueryDto> quizQueryDtos) {
+	public static S_QuizGetResponse toGetResponse(final List<QuizQueryDto> quizQueryDtos) {
 		return S_QuizGetResponse.builder()
 			.quizzes(quizQueryDtos)
 			.build();

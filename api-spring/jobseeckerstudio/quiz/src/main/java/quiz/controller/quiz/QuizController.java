@@ -34,7 +34,7 @@ public class QuizController {
 	@GetMapping("/category/{categoryId}/quiz")
 	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId) {
-		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 불러오기 성공",
+		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공",
 			quizService.get(userKey, categoryId)
 		);
 	}

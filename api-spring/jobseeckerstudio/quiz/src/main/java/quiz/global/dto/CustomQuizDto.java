@@ -15,7 +15,7 @@ public class CustomQuizDto {
 	private List<Choice> choices;
 
 	// Test용 생성자
-	public static CustomQuizDto createQuiz(String title, String choice1, String choice2,
+	public static CustomQuizDto createForTest(String title, String choice1, String choice2,
 		String choice3, String choice4, int answerIndex) {
 		List<Choice> choices = new ArrayList<>();
 		choices.add(Choice.builder().content(choice1).isAnswer(answerIndex == 1).build());

@@ -17,13 +17,13 @@ public class QuizMapperTest {
 	void 커스텀_퀴즈_DTO를_넣으면_퀴즈_ENTITY를_반환환다() {
 		List<CustomQuizDto> quizDtoList = new ArrayList<>();
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1)
+			CustomQuizDto.createForTest("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1)
 		);
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2)
+			CustomQuizDto.createForTest("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2)
 		);
 		quizDtoList.add(
-			CustomQuizDto.createQuiz("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
+			CustomQuizDto.createForTest("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
 		);
 
 		List<Quiz> result = QuizMapper.toEntitiesWhenSave(quizDtoList);

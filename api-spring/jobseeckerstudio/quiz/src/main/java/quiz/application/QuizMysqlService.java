@@ -3,7 +3,7 @@ package quiz.application;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import quiz.domain.quiz.repository.QuizMySqlRepository;
+import quiz.domain.quiz.repository.QuizRepository;
 import quiz.repository.quiz.dto.QuizQueryDto;
 
 @Service
@@ -11,10 +11,10 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 public class QuizMysqlService {
 
 
-	private final QuizMySqlRepository quizMySqlRepository;
+	private final QuizRepository quizRepository;
 
 	public List<QuizQueryDto> getAllForRedis() {
-		return quizMySqlRepository.findQuizzes();
+		return quizRepository.findQuizzes();
 	}
 
 

@@ -16,12 +16,12 @@ public class QuizCacheTransformer {
 	}
 
 	private static String generateQuizId(QuizQueryDto quizQueryDto, int index) {
-		return quizQueryDto.getCategoryName() + "_" + quizQueryDto.getDifficulty() + index;
+		return quizQueryDto.getCategoryTitle() + "_" + quizQueryDto.getDifficulty() + index;
 	}
 
 	private static QuizCache toQuizCache(QuizQueryDto quizQueryDto, int index) {
 		List<QuizCache.QuizChoices> redisQuizChoicesList = toRedisQuizChoicesList(
-			quizQueryDto.getChoiceDtos());
+			quizQueryDto.getChoices());
 		return QuizCache.builder()
 			.id(generateQuizId(quizQueryDto, index))
 			.quizTitle(quizQueryDto.getQuizTitle())

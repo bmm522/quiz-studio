@@ -2,6 +2,7 @@ insert into category(category_id, category_title)
 values (1, 'java');
 insert into category(category_id, category_title)
 values (2, 'data_structure');
+
 INSERT INTO quiz (quiz_title, difficulty, category_id)
 VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?', 'easy', 2),
        ('논리 연산자로 적절하지 않은 것은?', 'easy', 2),
@@ -10,7 +11,6 @@ VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?
        ('자바에서 예외처리를 하는 이유는 무엇인가?', 'easy', 2),
        ('자바에서 다형성의 개념에 대해 설명한 것으로 옳은것은?', 'easy', 2),
        ('자바에서 제네릭(Generic)이란 무엇인가?', 'easy', 2);
-
 
 INSERT INTO quiz_choice (choice_content, is_answer, quiz_id)
 VALUES ('int', 0, 1),
@@ -41,3 +41,5 @@ VALUES ('int', 0, 1),
        ('메모리 관리를 담당하는 기능입니다.', 0, 7),
        ('객체 간의 상호작용을 담당하는 기능입니다.', 0, 7),
        ('다른 클래스를 상속하여 새로운 클래스를 만드는 기능입니다.', 0, 7);
+
+

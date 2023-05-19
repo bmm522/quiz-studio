@@ -9,7 +9,7 @@ import quiz.service.category.dto.S_CategoryUpdateResponse;
 
 public class S_CategoryMapper {
 
-	public static S_CategorySaveResponse toSaveResponse(Category entity) {
+	public static S_CategorySaveResponse toSaveResponse(final Category entity) {
 		return S_CategorySaveResponse.builder()
 			.userKey(entity.getUserKey())
 			.title(entity.getCategoryTitle())
@@ -18,13 +18,13 @@ public class S_CategoryMapper {
 	}
 
 	public static S_CategoryGetResponse toGetResponse(
-		List<CategoryQueryDto> categories) {
+		final List<CategoryQueryDto> categories) {
 		return S_CategoryGetResponse.builder()
 			.categories(categories)
 			.build();
 	}
 
-	public static S_CategoryUpdateResponse toUpdateResponse(Category category) {
+	public static S_CategoryUpdateResponse toUpdateResponse(final Category category) {
 		return S_CategoryUpdateResponse.builder()
 			.userKey(category.getUserKey())
 			.updateTitle(category.getCategoryTitle())

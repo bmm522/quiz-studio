@@ -8,7 +8,7 @@ import quiz.domain.category.Category;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.mapper.QuizMapper;
-import quiz.domain.quiz.repository.QuizMySqlRepository;
+import quiz.domain.quiz.repository.QuizRepository;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.service.quiz.dto.S_QuizGetResponse;
 import quiz.service.quiz.dto.S_QuizSaveRequest;
@@ -21,32 +21,35 @@ import quiz.service.util.PermissionValidator;
 public class QuizService {
 
 
-	private final QuizMySqlRepository quizRepository;
+	private final QuizRepository quizRepository;
 	private final CategoryRepository categoryRepository;
+
 
 	@Transactional
 	public S_QuizSaveResponse saveAll(final S_QuizSaveRequest request) {
-		final Category category = getCategory(request.getCategoryId());
+		final Category category = getCategoryFromCategoryId
+			(request.getCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
 			category.getUserKey());
 
-		final List<Quiz> quizzes = QuizMapper.toEntitiesWhenSave(request.getQuizzes());
-		for (Quiz quiz : quizzes) {
-			quiz.addCategory(category);
-		}
+		List<Quiz> quizzes = QuizMapper.toEntitiesWhenSave(request.getQuizzes());
+		quizzes.forEach(quiz -> quiz.addCategory(category));
 
 		return S_QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
 	}
 
-	private Category getCategory(final Long categoryId) {
-		return categoryRepository.findCategoryByCategoryId(
-			categoryId).orElseThrow(() -> new NotFoundEntityException(
-			"categoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
+	private Category getCategoryFromCategoryId(final Long categoryId) {
+		return categoryRepository.findCategoryByCategoryId(categoryId)
+			.orElseThrow(
+				() -> new NotFoundEntityException("categoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
 	}
 
+
 	@Transactional(readOnly = true)
-	public S_QuizGetResponse get(final String userKey, final long categoryId) {
+	public S_QuizGetResponse get(final String userKey, final Long categoryId) {
 		return S_QuizMapper.toGetResponse(
-			quizRepository.findQuizDtoByCategoryIdAndUserKey(userKey, categoryId));
+			quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(userKey, categoryId));
 	}
+
+
 }

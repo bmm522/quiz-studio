@@ -9,13 +9,13 @@ import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.repository.quiz.dto.QuizQueryDto;
 
 
-public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
+public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 
 	private final JPAQueryFactory queryFactory;
 
 	QQuiz quiz;
 
-	public QuizMySqlQueryRepositoryImpl(EntityManager entityManager) {
+	public QuizQueryRepositoryImpl(EntityManager entityManager) {
 		this.queryFactory = new JPAQueryFactory(entityManager);
 
 		quiz = QQuiz.quiz;
@@ -29,27 +29,27 @@ public class QuizMySqlQueryRepositoryImpl implements QuizMySqlQueryRepository {
 			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
 			.fetch();
 
-		return QuizMapper.toQuizDtoList(quizList);
+		return QuizMapper.toQuizQueryDtoListForRedis(quizList);
 	}
 
 	@Override
-	public List<QuizQueryDto> findQuizDtoByCategoryId(final long categoryId) {
+	public List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId) {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryId.eq(categoryId))
 			.fetch();
-		return QuizMapper.toQuizDtoList(quizList);
+		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 
 
 	@Override
-	public List<QuizQueryDto> findQuizDtoByCategoryIdAndUserKey(String userKey, long categoryId) {
-//		List<Quiz> quizList = queryFactory
-//			.selectFrom(quiz)
-//			.where(quiz.category.categoryId.eq(categoryId)
-//				.and(quiz.category.userCategory.userKey.eq(userKey)))
-//			.fetch();
-//		return QuizMapper.toQuizDtoList(quizList);
-		return null;
+	public List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKey(final String userKey,
+		final Long categoryId) {
+		List<Quiz> quizList = queryFactory
+			.selectFrom(quiz)
+			.where(quiz.category.categoryId.eq(categoryId)
+				.and(quiz.category.userKey.eq(userKey)))
+			.fetch();
+		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 }

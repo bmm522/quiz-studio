@@ -4,7 +4,7 @@ const category = localStorage.getItem("category");
 
 window.onload = async function () {
     await checkToken();
-  await getEmail();
+    await getEmail();
     await loadQuiz();
 }
 async function getQuizData(level, category) {

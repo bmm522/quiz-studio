@@ -31,7 +31,7 @@ public class C_CategoryMapper {
 			.build();
 	}
 
-	private static void validateTitleAndDescription(String title, String description) {
+	private static void validateTitleAndDescription(final String title, final String description) {
 		if (title == null || title.isEmpty()) {
 			throw new InvalidParameterFromDtoException("save 요청에 title이 담기지 않았습니다.");
 		}
@@ -42,7 +42,7 @@ public class C_CategoryMapper {
 
 	}
 
-	private static void checkExistCategoryName(String title) {
+	private static void checkExistCategoryName(final String title) {
 		String checkStr = title.toLowerCase().trim().replace(" ", "");
 
 		if ("java".equals(checkStr) || "datastructure".equals(checkStr)) {

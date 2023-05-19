@@ -123,6 +123,7 @@ public class UserCategoryE2ETest extends E2ETest {
 			.updateTitle("updateAfterTitle")
 			.updateDescription("updateAfterDescription")
 			.build();
+
 		headers.remove(JwtProperties.HEADER_JWT);
 		headers.set(JwtProperties.HEADER_JWT, jwt);
 

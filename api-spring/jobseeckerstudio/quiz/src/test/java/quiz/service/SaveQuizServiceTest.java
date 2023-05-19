@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.QuizMySqlRepository;
+import quiz.domain.quiz.repository.QuizRepository;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
 import quiz.service.quiz.QuizService;
@@ -27,14 +27,14 @@ import quiz.service.quiz.dto.S_QuizSaveResponse;
 @ExtendWith(MockitoExtension.class)
 public class SaveQuizServiceTest {
 
-	QuizMySqlRepository quizRepository;
+	QuizRepository quizRepository;
 
 	CategoryRepository categoryRepository;
 	QuizService quizService;
 
 	@BeforeEach
 	void init() {
-		quizRepository = mock(QuizMySqlRepository.class);
+		quizRepository = mock(QuizRepository.class);
 		categoryRepository = mock(CategoryRepository.class);
 		quizService = new QuizService(quizRepository, categoryRepository);
 	}
@@ -87,9 +87,9 @@ public class SaveQuizServiceTest {
 
 	private List<CustomQuizDto> createQuizDtoList() {
 		return List.of(
-			CustomQuizDto.createQuiz("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1),
-			CustomQuizDto.createQuiz("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2),
-			CustomQuizDto.createQuiz("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
+			CustomQuizDto.createForTest("예제 문제1", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 1),
+			CustomQuizDto.createForTest("예제 문제2", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 2),
+			CustomQuizDto.createForTest("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
 		);
 	}
 

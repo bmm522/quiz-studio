@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.repository.category.dto.CategoryQueryDto;
@@ -14,11 +15,10 @@ import quiz.service.category.dto.S_CategoryGetResponse;
 
 public class GetCategoryServiceTest extends ServiceTest {
 
-//	@BeforeEach
-//	void init() {
-//		userCategoryRepository = mock(UserCategoryRepository.class);
-//		userCategoryService = new CategoryService(userCategoryRepository);
-//	}
+	@BeforeEach
+	void init() {
+		setUp();
+	}
 
 	@Test
 	@DisplayName("서비스 단에서 카테고리 목록을 불러온다")
