@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
-import quiz.controller.quiz.dto.C_QuizSaveRequest;
-import quiz.controller.quiz.mapper.C_QuizMapper;
+import quiz.controller.quiz.dto.QuizSaveBody;
+import quiz.controller.quiz.util.QuizConverter;
 import quiz.service.quiz.QuizService;
+import quiz.service.quiz.dto.QuizSaveParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,12 +24,18 @@ public class QuizController {
 	private final QuizService quizService;
 
 	@PostMapping("/category/{categoryId}/quiz")
-	public CommonResponse<?> saveQuiz(@RequestAttribute("userKey") final String userKey,
-		@RequestBody final C_QuizSaveRequest request,
+	public CommonResponse<?> saveQuiz(
+		@RequestAttribute("userKey") final String userKey,
+		@RequestBody final QuizSaveBody body,
 		@PathVariable("categoryId") final long categoryId) {
-		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공",
-			quizService.saveAll(C_QuizMapper.toSaveRequest(userKey, request, categoryId))
-		);
+
+		QuizSaveParam.Request request = QuizConverter.toSaveParam(
+			userKey,
+			body.getQuizzes(),
+			categoryId);
+		QuizSaveParam.Response response = quizService.saveAll(request);
+
+		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공", response);
 	}
 
 	@GetMapping("/category/{categoryId}/quiz")

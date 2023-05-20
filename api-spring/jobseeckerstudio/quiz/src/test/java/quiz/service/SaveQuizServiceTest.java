@@ -21,8 +21,7 @@ import quiz.domain.quiz.repository.QuizRepository;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
 import quiz.service.quiz.QuizService;
-import quiz.service.quiz.dto.S_QuizSaveRequest;
-import quiz.service.quiz.dto.S_QuizSaveResponse;
+import quiz.service.quiz.dto.QuizSaveParam;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveQuizServiceTest {
@@ -43,7 +42,7 @@ public class SaveQuizServiceTest {
 	@DisplayName("정상적인 요청")
 	void 정상적인_요청() {
 		List<CustomQuizDto> quizDtoList = createQuizDtoList();
-		S_QuizSaveRequest request = S_QuizSaveRequest.builder()
+		QuizSaveParam.Request request = QuizSaveParam.Request.builder()
 			.quizzes(quizDtoList)
 			.userKey("testUser")
 			.categoryId(1000L)
@@ -79,7 +78,7 @@ public class SaveQuizServiceTest {
 			Optional.of(category));
 		when(quizRepository.saveAll(any())).thenReturn(quizList);
 
-		S_QuizSaveResponse result = quizService.saveAll(request);
+		QuizSaveParam.Response result = quizService.saveAll(request);
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);

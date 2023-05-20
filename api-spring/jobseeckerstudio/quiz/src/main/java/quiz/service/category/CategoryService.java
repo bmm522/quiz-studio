@@ -58,7 +58,7 @@ public class CategoryService {
 	private Category getCategoryFromCategoryId(final Long categoryId) {
 		return categoryRepository.findCategoryByCategoryId(
 			categoryId).orElseThrow(() -> new NotFoundEntityException(
-			"categoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
+			"userKey로 해당 Category 객체를 찾을 수 없습니다."));
 	}
 
 }

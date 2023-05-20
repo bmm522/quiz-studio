@@ -22,7 +22,7 @@ import quiz.domain.category.Category;
 import quiz.properties.JwtProperties;
 
 
-public class UserCategoryE2ETest extends E2ETest {
+public class CategoryE2ETest extends E2ETest {
 
 
 	private final String saveTestUser = "saveTestUser";

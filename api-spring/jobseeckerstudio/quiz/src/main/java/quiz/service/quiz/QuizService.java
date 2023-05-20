@@ -10,9 +10,8 @@ import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.domain.quiz.repository.QuizRepository;
 import quiz.global.exception.NotFoundEntityException;
+import quiz.service.quiz.dto.QuizSaveParam;
 import quiz.service.quiz.dto.S_QuizGetResponse;
-import quiz.service.quiz.dto.S_QuizSaveRequest;
-import quiz.service.quiz.dto.S_QuizSaveResponse;
 import quiz.service.quiz.mapper.S_QuizMapper;
 import quiz.service.util.PermissionValidator;
 
@@ -26,7 +25,7 @@ public class QuizService {
 
 
 	@Transactional
-	public S_QuizSaveResponse saveAll(final S_QuizSaveRequest request) {
+	public QuizSaveParam.Response saveAll(final QuizSaveParam.Request request) {
 		final Category category = getCategoryFromCategoryId
 			(request.getCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
