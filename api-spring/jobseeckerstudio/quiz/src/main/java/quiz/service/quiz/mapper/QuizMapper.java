@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import quiz.domain.quiz.Quiz;
 import quiz.global.dto.CustomQuizDto;
 import quiz.repository.quiz.dto.QuizQueryDto;
+import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
-import quiz.service.quiz.dto.S_QuizGetResponse;
 
-public class S_QuizMapper {
+public class QuizMapper {
 
 	public static synchronized QuizSaveParam.Response toSaveResponse(final String userKey,
 		final List<Quiz> quizzes) {
@@ -21,9 +21,9 @@ public class S_QuizMapper {
 			.build();
 	}
 
-	public static synchronized S_QuizGetResponse toGetResponse(
+	public static synchronized QuizGetResponse toGetResponse(
 		final List<QuizQueryDto> quizQueryDtos) {
-		return S_QuizGetResponse.builder()
+		return QuizGetResponse.builder()
 			.quizzes(quizQueryDtos)
 			.build();
 	}

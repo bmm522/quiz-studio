@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.repository.quiz.dto.QuizQueryDto;
-import quiz.service.quiz.dto.S_QuizGetResponse;
+import quiz.service.quiz.dto.QuizGetResponse;
 
 public class GetQuizServiceTest extends ServiceTest {
 
@@ -35,7 +35,7 @@ public class GetQuizServiceTest extends ServiceTest {
 		when(quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(anyString(),
 			anyLong())).thenReturn(quizQeuryDtoList);
 
-		S_QuizGetResponse result = quizService.get("testUser", 1000L);
+		QuizGetResponse result = quizService.get("testUser", 1000L);
 
 		assertThat(result.getQuizzes().size()).isEqualTo(4);
 	}

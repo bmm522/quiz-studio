@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.domain.category.Category;
 import quiz.repository.quiz.dto.QuizQueryDto;
-import quiz.service.quiz.dto.S_QuizGetResponse;
+import quiz.service.quiz.dto.QuizGetResponse;
 
 public class GetQuizControllerTest extends ControllerTest {
 
@@ -47,7 +47,7 @@ public class GetQuizControllerTest extends ControllerTest {
 				4)
 		);
 
-		S_QuizGetResponse returnDto = S_QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
+		QuizGetResponse returnDto = QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
 
 		when(quizService.get(anyString(), anyLong())).thenReturn(returnDto);
 

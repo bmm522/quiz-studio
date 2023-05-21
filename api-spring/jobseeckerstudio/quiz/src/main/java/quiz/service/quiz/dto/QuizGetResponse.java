@@ -9,7 +9,7 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 @AllArgsConstructor
 @Builder
 @Getter
-public class S_QuizGetResponse {
+public class QuizGetResponse {
 
 	private List<QuizQueryDto> quizzes;
 

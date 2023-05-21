@@ -7,12 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import quiz.domain.category.Category;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.domain.quiz.repository.QuizRepository;
 import quiz.global.exception.NotFoundEntityException;
+import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
-import quiz.service.quiz.dto.S_QuizGetResponse;
-import quiz.service.quiz.mapper.S_QuizMapper;
+import quiz.service.quiz.mapper.QuizMapper;
 import quiz.service.util.PermissionValidator;
 
 @RequiredArgsConstructor
@@ -31,10 +30,11 @@ public class QuizService {
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
 			category.getUserKey());
 
-		List<Quiz> quizzes = QuizMapper.toEntitiesWhenSave(request.getQuizzes());
+		List<Quiz> quizzes = quiz.domain.quiz.mapper.QuizMapper.toEntitiesWhenSave(
+			request.getQuizzes());
 		quizzes.forEach(quiz -> quiz.addCategory(category));
 
-		return S_QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
+		return QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
 	}
 
 	private Category getCategoryFromCategoryId(final Long categoryId) {
@@ -45,8 +45,8 @@ public class QuizService {
 
 
 	@Transactional(readOnly = true)
-	public S_QuizGetResponse get(final String userKey, final Long categoryId) {
-		return S_QuizMapper.toGetResponse(
+	public QuizGetResponse get(final String userKey, final Long categoryId) {
+		return QuizMapper.toGetResponse(
 			quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(userKey, categoryId));
 	}
 
