@@ -51,6 +51,7 @@ public class CustomQuizDto {
 	@Getter
 	public static class Choice {
 
+		private Long choiceId;
 		private String content;
 		private boolean isAnswer;
 

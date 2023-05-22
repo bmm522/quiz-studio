@@ -13,7 +13,6 @@ public class QuizUpdateParam {
 
 	private QuizUpdateParam.Request request;
 
-	private QuizUpdateParam.Response response;
 
 	@AllArgsConstructor
 	@Builder
@@ -31,15 +30,15 @@ public class QuizUpdateParam {
 		}
 	}
 
-	@AllArgsConstructor
-	@Builder
-	@Getter
-	public static class Response {
-
-		private List<CustomQuizDto> quizzes;
-
-		private String userKey;
-
-		private long categoryId;
-	}
+//	@AllArgsConstructor
+//	@Builder
+//	@Getter
+//	public static class Response {
+//
+//		private List<CustomQuizDto> quizzes;
+//
+//		private String userKey;
+//
+//		private long categoryId;
+//	}
 }

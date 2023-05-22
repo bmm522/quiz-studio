@@ -1,5 +1,6 @@
 package quiz.service.quiz;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import quiz.domain.category.Category;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.repository.QuizRepository;
+import quiz.domain.quizChoice.repository.QuizChoiceRepository;
+import quiz.global.dto.CustomQuizDto;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
@@ -21,6 +24,7 @@ public class QuizService {
 
 
 	private final QuizRepository quizRepository;
+	private final QuizChoiceRepository quizChoiceRepository;
 	private final CategoryRepository categoryRepository;
 
 
@@ -52,9 +56,25 @@ public class QuizService {
 
 
 	@Transactional
-	public QuizUpdateParam.Response update(QuizUpdateParam.Request request) {
-		List<Quiz> quizzes = quizRepository.findQuizzesByCategoryId(request.getCategoryId());
+	public int update(QuizUpdateParam.Request request) {
+		Category category = getCategoryFromCategoryId(request.getCategoryId());
+		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
+			category.getUserKey());
 
-		quizRepository.updateAll(quizzes);
+		int quizUpdateResultCnt = quizRepository.updateAllTitleByCustomQuizDto(
+			request.getQuizzes());
+
+		List<CustomQuizDto.Choice> quizChoices = new ArrayList<>();
+
+		for (int i = 0; i < request.getQuizzes().size(); i++) {
+			List<CustomQuizDto.Choice> temp = request.getQuizChoiceFromIndex(i);
+			for (int z = 0; z < 4; z++) {
+				quizChoices.add(temp.get(z));
+			}
+		}
+		int choiceUpdateResultCnt = quizChoiceRepository.updateAllContentAndIsAnswer(quizChoices);
+
+		return quizUpdateResultCnt + choiceUpdateResultCnt;
+
 	}
 }

@@ -60,9 +60,8 @@ public class QuizController {
 			categoryId,
 			body.getQuizzes()
 		);
-		QuizUpdateParam.Response response = quizService.update(request);
+		int updateCnt = quizService.update(request);
 
-		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 업데이트 성공", response);
-
+		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 업데이트 성공", updateCnt);
 	}
 }
