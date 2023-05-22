@@ -1,6 +1,8 @@
 package quiz.repository.quiz;
 
 import java.util.List;
+import java.util.Optional;
+import quiz.domain.quiz.Quiz;
 import quiz.repository.quiz.dto.QuizQueryDto;
 
 public interface QuizQueryRepository {
@@ -11,4 +13,8 @@ public interface QuizQueryRepository {
 
 	List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKey(final String userKey,
 		final Long categoryId);
+
+	List<Quiz> findQuizzesByCategoryId(final Long categoryId);
+
+	Optional<Quiz> findQuizByQuizId(final Long quizId);
 }

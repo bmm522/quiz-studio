@@ -10,6 +10,8 @@ import lombok.Setter;
 public class QuizQueryDto {
 
 	private String categoryTitle;
+
+	private Long quizId;
 	private String difficulty;
 	private String quizTitle;
 
@@ -44,8 +46,9 @@ public class QuizQueryDto {
 	}
 
 	@Builder
-	public QuizQueryDto(final String categoryTitle, final String difficulty, final String quizTitle,
-		final List<ChoiceDto> choiceDtos) {
+	public QuizQueryDto(final Long quizId, final String categoryTitle, final String difficulty,
+		final String quizTitle, final List<ChoiceDto> choiceDtos) {
+		this.quizId = quizId;
 		this.categoryTitle = categoryTitle;
 		this.difficulty = difficulty;
 		this.quizTitle = quizTitle;

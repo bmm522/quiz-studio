@@ -80,7 +80,6 @@ public class Quiz extends BaseTimeEntity {
 	}
 
 	public void addChoice(QuizChoice quizChoice) {
-		System.out.println(this.quizChoices.size());
 		this.quizChoices.add(quizChoice);
 		if (quizChoice.getQuiz() != this) {
 			quizChoice.setQuiz(this);
@@ -104,5 +103,9 @@ public class Quiz extends BaseTimeEntity {
 			.title(quizTitle)
 			.choices(choices)
 			.build();
+	}
+
+	public void updateQuizTitle(final String updateTitle) {
+		this.quizTitle = updateTitle;
 	}
 }

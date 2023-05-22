@@ -38,6 +38,7 @@ public class QuizMapper {
 				.collect(Collectors.toList());
 
 			return QuizQueryDto.builder()
+				.quizId(quiz.getQuizId())
 				.categoryTitle(quiz.getCategoryName())
 				.quizTitle(quiz.getQuizTitle())
 				.choiceDtos(choiceDtoList)

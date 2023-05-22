@@ -47,4 +47,12 @@ public class QuizChoice {
 		this.quiz = quiz;
 //		quiz.addChoice(this);
 	}
+
+	public void updateContent(final String updateContent) {
+		this.choiceContent = updateContent;
+	}
+
+	public void updateIsAnswer(final boolean updateIsAnswer) {
+		this.isAnswer = isAnswer;
+	}
 }

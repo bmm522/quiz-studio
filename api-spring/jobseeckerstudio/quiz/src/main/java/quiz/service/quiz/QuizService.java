@@ -11,6 +11,7 @@ import quiz.domain.quiz.repository.QuizRepository;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
+import quiz.service.quiz.dto.QuizUpdateParam;
 import quiz.service.quiz.mapper.QuizMapper;
 import quiz.service.util.PermissionValidator;
 
@@ -25,8 +26,7 @@ public class QuizService {
 
 	@Transactional
 	public QuizSaveParam.Response saveAll(final QuizSaveParam.Request request) {
-		final Category category = getCategoryFromCategoryId
-			(request.getCategoryId());
+		final Category category = getCategoryFromCategoryId(request.getCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
 			category.getUserKey());
 
@@ -40,7 +40,7 @@ public class QuizService {
 	private Category getCategoryFromCategoryId(final Long categoryId) {
 		return categoryRepository.findCategoryByCategoryId(categoryId)
 			.orElseThrow(
-				() -> new NotFoundEntityException("categoryId로 해당 UserCategory 객체를 찾을 수 없습니다."));
+				() -> new NotFoundEntityException("categoryId로 해당 Category 객체를 찾을 수 없습니다."));
 	}
 
 
@@ -51,4 +51,10 @@ public class QuizService {
 	}
 
 
+	@Transactional
+	public QuizUpdateParam.Response update(QuizUpdateParam.Request request) {
+		List<Quiz> quizzes = quizRepository.findQuizzesByCategoryId(request.getCategoryId());
+
+		quizRepository.updateAll(quizzes);
+	}
 }

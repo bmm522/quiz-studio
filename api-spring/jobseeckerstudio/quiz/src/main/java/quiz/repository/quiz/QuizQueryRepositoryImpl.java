@@ -2,6 +2,7 @@ package quiz.repository.quiz;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import quiz.domain.quiz.QQuiz;
 import quiz.domain.quiz.Quiz;
@@ -52,4 +53,23 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 			.fetch();
 		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
+
+	@Override
+	public List<Quiz> findQuizzesByCategoryId(Long categoryId) {
+		return queryFactory
+			.selectFrom(quiz)
+			.where(quiz.category.categoryId.eq(categoryId))
+			.fetch();
+	}
+
+	@Override
+	public Optional<Quiz> findQuizByQuizId(Long quizId) {
+		return Optional.ofNullable(
+			queryFactory
+				.selectFrom(quiz)
+				.where(quiz.quizId.eq(quizId))
+				.fetchOne()
+		);
+	}
+
 }

@@ -9,7 +9,8 @@ public class R_UserCategoryMapper {
 
 	public static List<CategoryQueryDto> toDto(List<Category> categories) {
 		return categories.stream()
-			.map(category -> CategoryQueryDto.builder().categoryId(category.getCategoryId())
+			.map(category -> CategoryQueryDto.builder()
+				.categoryId(category.getCategoryId())
 				.userKey(category.getUserKey())
 				.title(category.getCategoryTitle())
 				.description(category.getCategoryDescription())

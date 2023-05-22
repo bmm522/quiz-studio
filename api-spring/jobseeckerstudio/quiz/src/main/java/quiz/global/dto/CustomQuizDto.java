@@ -13,6 +13,8 @@ import quiz.global.exception.NotCorrectAnswerException;
 public class CustomQuizDto {
 
 	private String title;
+
+	private Long quizId;
 	private List<Choice> choices;
 
 	// Test용 생성자
