@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.category.dto.C_CategorySaveRequest;
 import quiz.controller.category.dto.C_CategoryUpdateRequest;
@@ -24,8 +25,9 @@ public class CategoryController {
 	private final CategoryService categoryService;
 
 	@PostMapping("/category")
-	public CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
+	public @ResponseBody CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
 		@RequestBody C_CategorySaveRequest request) {
+		System.out.println("들어옴?");
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
 			categoryService.save(
 				C_CategoryMapper.toSaveRequest(userKey, request)));

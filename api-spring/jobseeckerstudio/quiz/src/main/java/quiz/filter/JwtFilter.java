@@ -17,8 +17,10 @@ import quiz.global.exception.InvalidTokenException;
 import quiz.global.exception.NullUserKeyFromJwtTokenException;
 import quiz.properties.JwtProperties;
 
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -27,12 +29,12 @@ public class JwtFilter extends OncePerRequestFilter {
 		Jws<Claims> claims = parseJwtToken(jwtToken);
 		String userKey = extractUserKey(claims);
 		request.setAttribute("userKey", userKey);
+
 		filterChain.doFilter(request, response);
 	}
 
 	private String extractJwtToken(HttpServletRequest request) {
 		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
-
 		if (authorizationHeader == null || !authorizationHeader.startsWith(
 			JwtProperties.TOKEN_PREFIX)) {
 			throw new InvalidTokenException("잘못된 토큰 정보입니다.");
