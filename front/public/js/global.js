@@ -1,7 +1,7 @@
 const loginHost = "http://localhost:8081";
 const nodeHost = "http://localhost:3000/api";
 const frontHost = "http://localhost:3001";
-
+const quizSpringHost = "http://localhost:8082";
 async function getName() {
 await checkToken();
 await getEmail();
@@ -28,9 +28,16 @@ document.querySelector(".main-button").addEventListener("click", function(event)
       window.location.href = `${frontHost}/main`;
 });
 
+document.querySelector(".edit-quiz-button").addEventListener("click", function(event) {
+
+       event.stopPropagation(); 
+      event.preventDefault(); 
+      window.location.href = `${frontHost}/edit-quiz`;
+});
+
 document.querySelector(".record-button").addEventListener("click", function(event) {
-    event.stopPropagation(); // 이벤트 버블링 중지
-      event.preventDefault(); // 기본 동작 중지
+    event.stopPropagation(); 
+      event.preventDefault(); 
       window.location.href = `${frontHost}/record`;
 });
 

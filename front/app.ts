@@ -21,6 +21,10 @@ app.get('/edit-quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'edit-quiz.html'));
 });
 
+app.get('/edit-quiz-detail', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html', 'edit-quiz-detail.html'));
+});
+
 app.get('/record', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'record.html'));
 });
@@ -28,6 +32,9 @@ app.get('/record', (req, res) => {
 app.get('/main', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'main.html'));
 });
+
+
+
 
 app.listen(3001, () => {
   console.log('Server listening on port 3001');

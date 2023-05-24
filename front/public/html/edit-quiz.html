@@ -48,9 +48,9 @@
                     <span id="main-page">문제풀기</span></div>
             </li>
             <li class="nav-item active">
-                <div class="nav-link main-button" style="cursor: pointer;">
+                <div class="nav-link edit-quiz-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-edit"></i>
-                    <span id="main-page">문제 만들기</span></div>
+                    <span id="edit-quiz-page">문제 만들기</span></div>
             </li>
 
             <li class="nav-item">
@@ -144,24 +144,33 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">카테고리 이름</th>
+                                        <th scope="col">카테고리 설명</th>
                                         <th scope="col">편집</th>
+                                        <th scope="col">문제 관리</th>
                                     </tr>
                                 </thead>
+                              <!-- 페이지 버튼 -->
                                 <tbody>
                                     <!-- <tr>
                                         <td>카테고리 1</td>
                                         <td><button class="btn btn-primary btn-sm">편집</button></td>
                                     </tr> -->
                                 </tbody>
+                              
                             </table>
+                            <div id="pagination" class="d-flex justify-content-center mt-3"></div> 
+                            </div>
                         </div>
+                        <div id="editModal"></div>
                     </div>
                     
-
+                 
+                
                     
                 </div>
                 <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel"
     aria-hidden="true">
+
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,7 +193,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" type="button" id="saveCategoryBtn">Save</button>
+                <button class="btn btn-primary" type="button" id="saveCategoryBtn" onclick="saveEvent()">Save</button>
             </div>
         </div>
     </div>
@@ -241,6 +250,8 @@
 
     <!-- Page level plugins -->
     <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../js/global.js"></script>
+    <script src="../js/editquiz/edit-quiz.js"></script>
 
 
     
