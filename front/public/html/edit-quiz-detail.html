@@ -109,7 +109,7 @@
 
             <!-- Main Content -->
             <div id="content">
-
+           
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <!-- Sidebar Toggle (Topbar) -->
@@ -177,62 +177,29 @@
                 
                         <!-- Quiz List Tab -->
                         <div class="col-lg-6">
+                         
                             <h1 class="h3 mb-4 text-gray-800">Quiz List</h1>
+                            <div id="quizNavigation" class="quiz-navigation d-flex justify-content-between">
+                                <button id="prevButton" class="d-flex justify-content-center mt-3" disabled>&lt;</button>
+                                <div id="pagination" class="d-flex justify-content-center mt-3">
+                                  asdfasdfasdf
+                                </div>
+                                <button id="nextButton" class="d-flex justify-content-center mt-3">></button>
+                              </div>
+                      
                             <ul id="quizList">
+                      
                                 <!-- Dummy Quiz List -->
-                                <li>
-                                    <h5 class="mb-2 quiz-title" data-toggle="modal" data-target="#quizModal">Quiz 1</h5>
-                                    <ul>
-                                        <li>Question 1</li>
-                                        <li>Question 2</li>
-                                        <li>Question 3</li>
-                                        <li>Question 4</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h5 class="mb-2 quiz-title" data-toggle="modal" data-target="#quizModal">Quiz 2</h5>
-                                    <ul>
-                                        <li>Question 1</li>
-                                        <li>Question 2</li>
-                                        <li>Question 3</li>
-                                        <li>Question 4</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h5 class="mb-2 quiz-title" data-toggle="modal" data-target="#quizModal">Quiz 2</h5>
-                                    <ul>
-                                        <li>Question 1</li>
-                                        <li>Question 2</li>
-                                        <li>Question 3</li>
-                                        <li>Question 4</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h5 class="mb-2 quiz-title" data-toggle="modal" data-target="#quizModal">Quiz 2</h5>
-                                    <ul>
-                                        <li>Question 1</li>
-                                        <li>Question 2</li>
-                                        <li>Question 3</li>
-                                        <li>Question 4</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h5 class="mb-2 quiz-title" data-toggle="modal" data-target="#quizModal">Quiz 2</h5>
-                                    <ul>
-                                        <li>Question 1</li>
-                                        <li>Question 2</li>
-                                        <li>Question 3</li>
-                                        <li>Question 4</li>
-                                    </ul>
-                                </li>
+                        
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <div>
-                                <button type="submit" class="btn btn-primary mb-3" id="submitQuizBtn">만들기</button>
+                              
                             </div>
                             
                             <form id="quizForm">
+                                <button type="submit" class="btn btn-primary mb-3" id="submitQuizBtn" >만들기</button>
                                 <!-- Dynamic Questions and Options -->
                                 <div id="questionsContainer"></div>
                 
