@@ -17,9 +17,15 @@ app.get('/quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'Quiz.html'));
 });
 
+app.get('/custom-quiz', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html', 'custom-quiz.html'));
+});
+
 app.get('/edit-quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'edit-quiz.html'));
 });
+
+
 
 app.get('/edit-quiz-detail', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html', 'edit-quiz-detail.html'));

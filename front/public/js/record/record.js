@@ -5,6 +5,7 @@ window.onload = async function () {
 await checkToken();
   await getEmail();
   await getRecords(currentPage);
+  console.log(localStorage.getItem("category"));
 
 }
 

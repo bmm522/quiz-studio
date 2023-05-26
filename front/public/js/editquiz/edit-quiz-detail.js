@@ -432,17 +432,19 @@ function updateQuiz(updatedQuizData) {
   }
 
   window.onload =async function () {
-    await checkToken();
+    await getName();
     await createQuizList(1);
 
     // Add question button click event
-    document.getElementById("addQuestionBtn").addEventListener("click", function () {
-      addQuestion();
+    document.getElementById("addQuestionBtn").addEventListener("click", async function () {
+      await checkToken();
+      await addQuestion();
     });
 
     // Quiz form submit event
-    document.getElementById("quizForm").addEventListener("submit", function (e) {
+    document.getElementById("quizForm").addEventListener("submit", async function (e) {
       e.preventDefault();
-     saveQuizzes();
+      await checkToken();
+      await saveQuizzes();
     });
   };

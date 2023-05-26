@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/quiz.css" rel="stylesheet">
 
 </head>
 
@@ -42,15 +43,10 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item  active">
+            <li class="nav-item active">
                 <div class="nav-link main-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span id="main-page">문제풀기</span></div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link edit-quiz-button" style="cursor: pointer;">
-                    <i class="fas fa-fw fa-edit"></i>
-                    <span id="edit-quiz-page">문제 만들기</span></div>
             </li>
 
             <li class="nav-item">
@@ -71,10 +67,11 @@
 
             <!-- Main Content -->
             <div id="content">
+                
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    <div style="display: inline-block; text-align: left;" id="after"></div>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -84,7 +81,7 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                        
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -107,15 +104,9 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
-
-                       
-                    
-
-                    
-
+                        </li>                
                         <div class="topbar-divider d-none d-sm-block"></div>
-
+                        
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -125,69 +116,30 @@
                                     src="img/undraw_profile.svg">
                             </a>
                     
-                        </li>
-                        
-
+                        </li>  
                     </ul>
 
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    
-                    <!-- Content Row -->
-                    <div class="row">
-                        <div class="col-lg-3 mb-4">
-                            <div class="card bg-primary text-white shadow">
-                                <div class="card-body" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    JAVA
-                                    <div class="text-white-50 small">자바와 관련된 문제를 풉니다.</div>
-                                </div>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" id = "java-easy">쉬움</a>
-                                    <a class="dropdown-item" id = "java-hard">어려움</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4">
-                            <div class="card bg-primary text-white shadow">
-                                <div class="card-body" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Data Structure
-                                    <div class="text-white-50 small">자료구조와 관련된 문제를 풉니다.</div>
-                                </div>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" id = "data-structure-easy">쉬움</a>
-                                    <a class="dropdown-item" id = "data-structure-hard">어려움</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-         
-                    <div class="row"  id="custom-category-div">
-       
-    
-                
-   
-  
-
+                <div class="container-fluid" id="quiz-container">
                   
 
-                    </div>
-                    <div id="pagination" class="d-flex justify-content-center mt-3"></div> 
-                   
-                       
-                  
-                    
-
-                    <!-- Content Row -->
-
-
-                            <!-- Approach -->
                         
 
                         </div>
+                        
+                          
+                          <!-- 제출 버튼 -->
+                          <div class="text-center mt-3">
+                            <button type="button" class="btn btn-primary btn-lg" id="submit-btn">
+                              <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                              제출하기
+                            </button>
+                          </div>
+                          
+                        
                     </div>
 
                 </div>
@@ -241,11 +193,17 @@
     <!-- Page level plugins -->
     <script src="../vendor/chart.js/Chart.min.js"></script>
 
-    <script src="../js/global.js"></script>
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
-    <script src="../js/Main.js"></script>
+    <script src="../js/global.js"></script>
+
+    <script src="../js/quiz/quiz.clickHandler.js"></script>
+    <script src="../js/quiz/custom.quiz.createElement.js"></script>
+    <script src="../js/quiz/custom-quiz.js"></script>
+   
+    
+    <!-- <script src="js/Main.js"></script> -->
     
 
 </body>

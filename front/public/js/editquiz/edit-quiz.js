@@ -1,5 +1,5 @@
 window.onload = async function () {
-      await checkToken();
+      await getName();
       await getCategories(1);
       
   }
