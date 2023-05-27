@@ -1,0 +1,31 @@
+spring:
+  batch:
+    initalize-schema: always
+    job:
+      enabled: false
+  datasource:
+    datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;
+    schema: classpath:/org/springframework/batch/core/schema-h2.sql # ??? ?? ??
+  redis:
+    password: ENC(Oe1NIOl40z6c6Ft4+xNx0B80IL7jrEaXUjM9nLTR99/3MLws6HqIhMPWfruNyPM6)
+    client-name: ENC(nSJH7sHUNWUX0BzORh0R/Q==)
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+
+openai:
+  model: gpt-3.5-turbo
+  api:
+    url: https://api.openai.com/v1/chat/completions
+    key: ENC(bAwpU+30c3jL9FjGW7tEMgsgB76aBjrmtoONbgEDGT377Dl+C50dMuqZisgeCfMtIGo1TeS69y4qqn3qPMJofw==)
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
+    password: ${jasypt_encryptor_password}
+
+
