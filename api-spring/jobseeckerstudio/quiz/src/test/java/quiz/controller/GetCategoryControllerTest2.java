@@ -33,7 +33,7 @@ public class GetCategoryControllerTest2 {
 	}
 
 	@Test
-	@DisplayName("get 정상적인 요청")
+	@DisplayName("getQuizzesWithPaging 정상적인 요청")
 	void getCategoryTest() {
 		String userKey = "testUser1";
 		CategoryQueryDto category = CategoryQueryDto.builder()

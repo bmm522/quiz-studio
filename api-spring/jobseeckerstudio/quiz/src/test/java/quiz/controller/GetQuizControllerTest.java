@@ -49,7 +49,7 @@ public class GetQuizControllerTest extends ControllerTest {
 
 		QuizGetResponse returnDto = QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
 
-		when(quizService.get(anyString(), anyLong())).thenReturn(returnDto);
+		when(quizService.getQuizzesWithPaging(anyString(), anyLong())).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
 			get("/api/v1/category/1000/quiz")

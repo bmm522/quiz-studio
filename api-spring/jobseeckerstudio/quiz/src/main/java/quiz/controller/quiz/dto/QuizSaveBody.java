@@ -14,7 +14,6 @@ public class QuizSaveBody {
 
 	@Builder
 	public QuizSaveBody(List<CustomQuizDto> quizzes) {
-
 		this.quizzes = quizzes;
 	}
 

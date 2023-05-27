@@ -13,4 +13,8 @@ public class QuizGetResponse {
 
 	private List<QuizQueryDto> quizzes;
 
+	private Long totalCount;
+
+	private int totalPage;
+
 }

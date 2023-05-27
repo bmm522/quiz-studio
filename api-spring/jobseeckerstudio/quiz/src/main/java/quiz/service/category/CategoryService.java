@@ -1,5 +1,6 @@
 package quiz.service.category;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,8 @@ import quiz.domain.category.mapper.CategoryMapper;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.global.exception.DuplicateTitleException;
 import quiz.global.exception.NotFoundEntityException;
+import quiz.repository.category.dto.CategoryQueryDto;
+import quiz.service.category.dto.CategoryGetCondition;
 import quiz.service.category.dto.S_CategoryGetResponse;
 import quiz.service.category.dto.S_CategorySaveRequest;
 import quiz.service.category.dto.S_CategorySaveResponse;
@@ -37,10 +40,16 @@ public class CategoryService {
 	}
 
 	@Transactional(readOnly = true)
-	public S_CategoryGetResponse get(final String userKey) {
-		return S_CategoryMapper.toGetResponse(
-			categoryRepository.findCategoryDtosByUserKey(
-				userKey));
+	public S_CategoryGetResponse get(final String userKey, final int page) {
+		final CategoryGetCondition item = S_CategoryMapper.toGetCondition(userKey, page);
+		final List<CategoryQueryDto> categoryQueryDtoList = categoryRepository.findCategoryDtosByUserKey(
+			item.getUserKey(),
+			item.getOffset(),
+			item.getPageSize()
+		);
+		final Long categoryTotalCount = categoryRepository.getCategoryTotalCount(item.getUserKey());
+		return S_CategoryMapper.toGetResponse(categoryQueryDtoList, categoryTotalCount);
+
 	}
 
 	@Transactional

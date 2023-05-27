@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
@@ -17,6 +18,7 @@ import quiz.controller.quiz.dto.QuizUpdateBody;
 import quiz.controller.quiz.util.QuizConverter;
 import quiz.service.quiz.QuizService;
 import quiz.service.quiz.dto.QuizGetResponse;
+import quiz.service.quiz.dto.QuizGetWithoutPagingResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
 import quiz.service.quiz.dto.QuizUpdateParam;
 
@@ -42,11 +44,20 @@ public class QuizController {
 	}
 
 	@GetMapping("/category/{categoryId}/quiz")
-	public CommonResponse<?> saveQuiz(
+	public CommonResponse<?> getQuizzesWithPaging(
 		@RequestAttribute("userKey") final String userKey,
-		@PathVariable("categoryId") final Long categoryId) {
-		QuizGetResponse response = quizService.get(userKey, categoryId);
+		@PathVariable("categoryId") final long categoryId,
+		@RequestParam("page") final int page) {
+		QuizGetResponse response = quizService.getQuizzesWithPaging(userKey, categoryId, page);
+		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
+	}
 
+	@GetMapping("/category/{categoryId}/take-quiz")
+	public CommonResponse<?> getQuizzesWhenTakeQuiz(
+		@RequestAttribute("userKey") final String userKey,
+		@PathVariable("categoryId") final long categoryId) {
+		QuizGetWithoutPagingResponse response = quizService.getQuizzesWhenTakeQuiz(userKey,
+			categoryId);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
 	}
 

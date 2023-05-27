@@ -58,11 +58,19 @@ public class QuizQueryDto {
 	@Getter
 	public static class ChoiceDto {
 
+		private Long choiceId;
 		private String choiceContent;
 		private boolean isAnswer;
 
 		@Builder
 		public ChoiceDto(final String choiceContent, final boolean isAnswer) {
+			this.choiceContent = choiceContent;
+			this.isAnswer = isAnswer;
+		}
+
+		@Builder
+		public ChoiceDto(final Long choiceId, final String choiceContent, final boolean isAnswer) {
+			this.choiceId = choiceId;
 			this.choiceContent = choiceContent;
 			this.isAnswer = isAnswer;
 		}

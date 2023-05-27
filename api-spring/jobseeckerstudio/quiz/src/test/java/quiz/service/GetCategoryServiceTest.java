@@ -74,6 +74,6 @@ public class GetCategoryServiceTest extends ServiceTest {
 //
 //     when(userCategoryRepository.findByUserKey(userKey)).thenReturn(userCategoryList);
 //
-//     S_CategoryGetResponse result = categoryService.get(userKey);
+//     S_CategoryGetResponse result = categoryService.getQuizzesWithPaging(userKey);
 //     assertThat(result.getCategories().size()).isEqualTo(3);
 // }

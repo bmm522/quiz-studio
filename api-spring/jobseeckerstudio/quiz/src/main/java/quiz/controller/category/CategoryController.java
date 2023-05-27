@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.category.dto.C_CategorySaveRequest;
@@ -25,18 +26,20 @@ public class CategoryController {
 	private final CategoryService categoryService;
 
 	@PostMapping("/category")
-	public @ResponseBody CommonResponse<?> saveCategory(@RequestAttribute("userKey") String userKey,
+	public @ResponseBody CommonResponse<?> saveCategory(
+		@RequestAttribute("userKey") String userKey,
 		@RequestBody C_CategorySaveRequest request) {
-		System.out.println("들어옴?");
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
 			categoryService.save(
 				C_CategoryMapper.toSaveRequest(userKey, request)));
 	}
 
 	@GetMapping("/category")
-	public CommonResponse<?> getCategories(@RequestAttribute("userKey") String userKey) {
+	public CommonResponse<?> getCategories(
+		@RequestAttribute("userKey") String userKey,
+		@RequestParam("page") int page) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공",
-			categoryService.get(userKey));
+			categoryService.get(userKey, page));
 	}
 
 	@PatchMapping("/category")

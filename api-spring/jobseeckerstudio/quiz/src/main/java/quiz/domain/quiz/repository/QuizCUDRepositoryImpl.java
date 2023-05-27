@@ -32,7 +32,7 @@ public class QuizCUDRepositoryImpl implements QuizCUDRepository {
 
 		sb.append(") n ON q.quiz_id = n.new_quiz_id ")
 			.append("SET q.quiz_title = n.new_quiz_title;");
-
+		System.out.println(sb.toString());
 		Query query = entityManager.createNativeQuery(sb.toString());
 		return query.executeUpdate();
 	}

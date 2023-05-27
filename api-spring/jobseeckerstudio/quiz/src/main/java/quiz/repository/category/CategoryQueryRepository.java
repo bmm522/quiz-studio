@@ -7,9 +7,12 @@ import quiz.repository.category.dto.CategoryQueryDto;
 
 public interface CategoryQueryRepository {
 
-	List<CategoryQueryDto> findCategoryDtosByUserKey(final String userKey);
+	List<CategoryQueryDto> findCategoryDtosByUserKey(final String userKey, final int offset,
+		final int pageSize);
 
 	Optional<Category> findCategoryByCategoryId(final Long categoryId);
 
 	Optional<Category> findCategoryByUserKeyAndTitle(final String userKey, final String title);
+
+	Long getCategoryTotalCount(String userKey);
 }

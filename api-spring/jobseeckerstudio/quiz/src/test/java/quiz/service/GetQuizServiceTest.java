@@ -35,7 +35,7 @@ public class GetQuizServiceTest extends ServiceTest {
 		when(quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(anyString(),
 			anyLong())).thenReturn(quizQeuryDtoList);
 
-		QuizGetResponse result = quizService.get("testUser", 1000L);
+		QuizGetResponse result = quizService.getQuizzesWithPaging("testUser", 1000L);
 
 		assertThat(result.getQuizzes().size()).isEqualTo(4);
 	}

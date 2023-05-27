@@ -33,6 +33,7 @@ public class QuizMapper {
 		return quizList.stream().map(quiz -> {
 			List<QuizQueryDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
 				.map(choice -> new QuizQueryDto.ChoiceDto(
+					choice.getChoiceId(),
 					choice.getChoiceContent(),
 					choice.getIsAnswer()))
 				.collect(Collectors.toList());

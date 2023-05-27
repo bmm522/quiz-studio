@@ -5,10 +5,12 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import quiz.global.exception.NotCorrectAnswerException;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CustomQuizDto {
 
@@ -33,20 +35,19 @@ public class CustomQuizDto {
 	}
 
 	public void checkCorrectAnswer() {
-		for (int i = 0; i < this.choices.size(); i++) {
-			long correctAnswerCount = this.choices.stream()
-				.filter(CustomQuizDto.Choice::getIsAnswer)
-				.count();
+		long correctAnswerCount = this.choices.stream()
+			.filter(CustomQuizDto.Choice::getIsAnswer)
+			.count();
 
-			if (correctAnswerCount != 1) {
-				throw new NotCorrectAnswerException(
-					"정확히 하나의 답만 선택해야 합니다. 퀴즈의 현재 선택된 답안 수 : " + correctAnswerCount
-				);
-			}
+		if (correctAnswerCount != 1) {
+			throw new NotCorrectAnswerException(
+				"정확히 하나의 답만 선택해야 합니다. 퀴즈의 현재 선택된 답안 수 : " + correctAnswerCount
+			);
 		}
 	}
 
 	@AllArgsConstructor
+	@NoArgsConstructor
 	@Builder
 	@Getter
 	public static class Choice {

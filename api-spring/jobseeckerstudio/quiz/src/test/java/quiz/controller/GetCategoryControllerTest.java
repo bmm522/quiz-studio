@@ -25,7 +25,7 @@ public class GetCategoryControllerTest extends ControllerTest {
 	}
 
 	@Test
-	@DisplayName("get 정상적인 요청")
+	@DisplayName("getQuizzesWithPaging 정상적인 요청")
 	void getCategoryTest() throws Exception {
 		String userKey = "testUser";
 		CategoryQueryDto category = CategoryQueryDto.builder()

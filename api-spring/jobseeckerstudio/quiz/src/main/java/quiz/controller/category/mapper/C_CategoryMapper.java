@@ -24,7 +24,7 @@ public class C_CategoryMapper {
 		final C_CategoryUpdateRequest request) {
 		checkExistCategoryName(request.getUpdateTitle());
 		return S_CategoryUpdateRequest.builder()
-			.categoryId(request.getUserCategoryId())
+			.categoryId(request.getCategoryId())
 			.userKey(userKey)
 			.updateTitle(request.getUpdateTitle())
 			.updateDescription(request.getUpdateDescription())

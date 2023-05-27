@@ -13,4 +13,8 @@ public class S_CategoryGetResponse {
 
 	private List<CategoryQueryDto> categories;
 
+	private Long totalCount;
+
+	private int totalPage;
+
 }

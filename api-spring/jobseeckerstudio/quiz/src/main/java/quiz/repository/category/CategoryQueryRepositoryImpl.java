@@ -20,11 +20,23 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 	}
 
 	@Override
-	public List<CategoryQueryDto> findCategoryDtosByUserKey(final String userKey) {
-		List<Category> categories = queryFactory
+	public List<CategoryQueryDto> findCategoryDtosByUserKey(final String userKey, final int offset,
+		final int pageSize) {
+		final List<Category> categories = queryFactory
 			.selectFrom(category)
-			.where(category.userKey.eq(userKey)).fetch();
+			.where(category.userKey.eq(userKey))
+			.offset(offset)
+			.limit(pageSize)
+			.fetch();
 		return R_UserCategoryMapper.toDto(categories);
+	}
+
+	@Override
+	public Long getCategoryTotalCount(String userKey) {
+		return queryFactory.select(category.count())
+			.from(category)
+			.where(category.userKey.eq(userKey))
+			.fetchOne();
 	}
 
 	@Override
@@ -48,5 +60,6 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 				.fetchOne()
 		);
 	}
+
 
 }

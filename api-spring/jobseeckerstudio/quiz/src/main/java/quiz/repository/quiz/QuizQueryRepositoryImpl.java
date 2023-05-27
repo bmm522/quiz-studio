@@ -1,5 +1,6 @@
 package quiz.repository.quiz;
 
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import java.util.Optional;
@@ -45,13 +46,42 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 
 	@Override
 	public List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKey(final String userKey,
-		final Long categoryId) {
-		List<Quiz> quizList = queryFactory
+		final Long categoryId, final int offset, final int pageSize) {
+
+		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryId.eq(categoryId)
 				.and(quiz.category.userKey.eq(userKey)))
+			.offset(offset)
+			.limit(pageSize)
+			.fetch();
+
+		return QuizMapper.toQuizQueryDtoList(quizList);
+	}
+
+	@Override
+	public List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKeyWithOutPaging(
+		String userKey,
+		Long categoryId) {
+		final List<Quiz> quizList = queryFactory
+			.selectFrom(quiz)
+			.where(quiz.category.categoryId.eq(categoryId)
+				.and(quiz.category.userKey.eq(userKey)))
+			.orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+			.limit(10)
 			.fetch();
 		return QuizMapper.toQuizQueryDtoList(quizList);
+	}
+
+	@Override
+	public Long getQuizTotalCount(final String userKey,
+		final Long categoryId) {
+		return queryFactory
+			.select(quiz.count())
+			.from(quiz)
+			.where(quiz.category.categoryId.eq(categoryId)
+				.and(quiz.category.userKey.eq(userKey)))
+			.fetchOne();
 	}
 
 	@Override

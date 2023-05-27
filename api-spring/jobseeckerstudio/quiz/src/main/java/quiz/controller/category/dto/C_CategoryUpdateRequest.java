@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 public class C_CategoryUpdateRequest {
 
-	private Long userCategoryId;
+	private Long categoryId;
 
 	private String updateTitle;
 
