@@ -12,7 +12,11 @@ public class QuizMapper {
 		Gson gson = new Gson();
 		Type quizListType = new TypeToken<List<Quiz>>() {
 		}.getType();
+
 		List<Quiz> quizzes = gson.fromJson(responseJson, quizListType);
+		for (Quiz quiz : quizzes) {
+			quiz.setId("java", "easy");
+		}
 		return quizzes;
 	}
 

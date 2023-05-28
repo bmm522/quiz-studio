@@ -16,6 +16,8 @@ public class ChatRequest {
 	private String model;
 	private List<Message> messages;
 
+	private float temperature;
+
 //	private int n;
 //	private double temperature;
 
@@ -59,6 +61,7 @@ public class ChatRequest {
 			("assistant", secondAnswer.toString()));
 		this.messages.add(new Message("user",
 			"자바와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+		this.temperature = 0.5f;
 	}
 
 }

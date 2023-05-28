@@ -3,6 +3,7 @@ package com.quizbatch.config;
 
 import com.quizbatch.tasklets.ApiRequestTasklet;
 import com.quizbatch.tasklets.MapperTasklet;
+import com.quizbatch.tasklets.SaveAllRedisTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -21,6 +22,8 @@ public class BatchConfig {
 
 	private final ApiRequestTasklet apiRequestTasklet;
 
+	private final SaveAllRedisTasklet saveAllRedisTasklet;
+
 	@Bean
 	public Job testJob() {
 		return jobBuilderFactory.get("testJob")
@@ -32,7 +35,19 @@ public class BatchConfig {
 			.to(mapperStep())
 			.on("FAILED")
 			.end()
+			.from(mapperStep())
+			.on("*")
+			.to(saveAllStep())
+			.on("FAILED")
 			.end()
+			.end()
+			.build();
+	}
+
+	@Bean
+	public Step saveAllStep() {
+		return stepBuilderFactory.get("saveAllStep")
+			.tasklet(saveAllRedisTasklet)
 			.build();
 	}
 

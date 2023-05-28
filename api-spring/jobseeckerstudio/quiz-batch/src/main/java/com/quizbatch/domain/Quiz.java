@@ -32,6 +32,10 @@ public class Quiz {
 		this.quizChoices = quizChoices;
 	}
 
+	public void setId(String categoryTitle, String difficulty) {
+		this.id = categoryTitle + "_" + difficulty + ((int) (Math.random() * 10000));
+	}
+
 //	@NoArgsConstructor
 //	@Getter
 //
