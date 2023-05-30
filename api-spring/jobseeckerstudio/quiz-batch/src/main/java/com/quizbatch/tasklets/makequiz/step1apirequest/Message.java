@@ -1,4 +1,4 @@
-package com.quizbatch.application;
+package com.quizbatch.tasklets.makequiz.step1apirequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

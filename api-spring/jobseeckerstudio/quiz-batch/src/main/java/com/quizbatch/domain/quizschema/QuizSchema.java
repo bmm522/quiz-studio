@@ -1,4 +1,4 @@
-package com.quizbatch.domain;
+package com.quizbatch.domain.quizschema;
 
 import java.util.List;
 import lombok.Builder;
@@ -10,42 +10,42 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash("quiz")
 @Getter
 @NoArgsConstructor
-public class Quiz {
+public class QuizSchema {
 
 	@Id
 	private String id;
 
 	private String quizTitle;
 
-	private List<QuizChoices> quizChoices;
+	private List<QuizChoicesSchema> quizChoiceSchemas;
 
 	@Builder
-	public Quiz(String id, String quizTitle, List<QuizChoices> quizChoices) {
+	public QuizSchema(String id, String quizTitle, List<QuizChoicesSchema> quizChoiceSchemas) {
 		this.id = id;
 		this.quizTitle = quizTitle;
-		this.quizChoices = quizChoices;
+		this.quizChoiceSchemas = quizChoiceSchemas;
 	}
 
 	@Builder
-	public Quiz(String quizTitle, List<QuizChoices> quizChoices) {
+	public QuizSchema(String quizTitle, List<QuizChoicesSchema> quizChoiceSchemas) {
 		this.quizTitle = quizTitle;
-		this.quizChoices = quizChoices;
+		this.quizChoiceSchemas = quizChoiceSchemas;
 	}
 
-	public void setId(String categoryTitle, String difficulty) {
-		this.id = categoryTitle + "_" + difficulty + ((int) (Math.random() * 10000));
+	public void setId(String categoryTitle) {
+		this.id = categoryTitle + "_" + ((int) (Math.random() * 10000));
 	}
 
 //	@NoArgsConstructor
 //	@Getter
 //
-//	public static class QuizChoices {
+//	public static class QuizChoicesSchema {
 //
 //		private String choiceContent;
 //		private boolean isAnswer;
 //
 //		@Builder
-//		public QuizChoices(String choiceContent, boolean isAnswer) {
+//		public QuizChoicesSchema(String choiceContent, boolean isAnswer) {
 //			this.choiceContent = choiceContent;
 //			this.isAnswer = isAnswer;
 //		}

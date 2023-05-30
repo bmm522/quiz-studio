@@ -1,7 +1,5 @@
-package com.quizbatch.tasklets;
+package com.quizbatch.tasklets.makequiz.step1apirequest;
 
-import com.quizbatch.application.ChatRequest;
-import com.quizbatch.application.ChatResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;

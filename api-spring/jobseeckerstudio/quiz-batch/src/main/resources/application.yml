@@ -4,10 +4,17 @@ spring:
     job:
       enabled: false
   datasource:
-    datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;
-    schema: classpath:/org/springframework/batch/core/schema-h2.sql # ??? ?? ??
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    jpa:
+      open-in-view: true
+      hibernate:
+        ddl-auto: update
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
   redis:
     password: ENC(Oe1NIOl40z6c6Ft4+xNx0B80IL7jrEaXUjM9nLTR99/3MLws6HqIhMPWfruNyPM6)
     client-name: ENC(nSJH7sHUNWUX0BzORh0R/Q==)

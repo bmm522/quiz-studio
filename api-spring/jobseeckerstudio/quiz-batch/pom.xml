@@ -12,8 +12,8 @@
   <groupId>com</groupId>
   <artifactId>quiz-batch</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>quiz-batch</name>
-  <description>quiz-batch</description>
+  <name>quizSchema-batch</name>
+  <description>quizSchema-batch</description>
   <properties>
     <java.version>11</java.version>
   </properties>
@@ -75,6 +75,18 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-redis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jobseecker.quiz</groupId>
+      <artifactId>quiz</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jobseecker.quizSchema</groupId>
+      <artifactId>quiz</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
