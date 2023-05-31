@@ -7,7 +7,7 @@ import quiz.domain.category.Category;
 import quiz.domain.quiz.Quiz;
 import quiz.domain.quizChoice.QuizChoice;
 
-public class QuizMapper {
+public class QuizTransformer {
 
 	public static List<Quiz> toQuizzes(final List<QuizDtoFromResponse> quizDtoFromResponses,
 		final Category category) {
@@ -30,7 +30,7 @@ public class QuizMapper {
 	private static void addChoicesToQuiz(final Quiz quiz,
 		final List<QuizDtoFromResponse.Choice> choices) {
 		choices.stream()
-			.map(QuizMapper::createQuizChoiceFromChoiceDto)
+			.map(QuizTransformer::createQuizChoiceFromChoiceDto)
 			.forEach(quiz::addChoice);
 	}
 

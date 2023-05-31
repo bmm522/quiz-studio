@@ -1,110 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.12</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>com</groupId>
   <artifactId>quiz-batch</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>quizSchema-batch</name>
-  <description>quizSchema-batch</description>
-  <properties>
-    <java.version>11</java.version>
-  </properties>
-  <dependencies>
-    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.8.9</version>
-    </dependency>
-
-    <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>3.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-batch</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-quartz</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.batch</groupId>
-      <artifactId>spring-batch-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.ulisesbocchio</groupId>
-      <artifactId>jasypt-spring-boot</artifactId>
-      <version>3.0.4</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-redis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.jobseecker.quiz</groupId>
-      <artifactId>quiz</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.jobseecker.quizSchema</groupId>
-      <artifactId>quiz</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <excludes>
             <exclude>
-              <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
             </exclude>
           </excludes>
         </configuration>
+        <groupId>org.springframework.boot</groupId>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <artifactId>gson</artifactId>
+      <groupId>com.google.code.gson</groupId>
+      <version>2.8.9</version>
+    </dependency>
+
+    <!--    <dependency>-->
+    <!--      <artifactId>querydsl-jpa</artifactId>-->
+    <!--      <groupId>com.querydsl</groupId>-->
+    <!--      <version>5.0.0</version>-->
+    <!--    </dependency>-->
+
+    <!--    <dependency>-->
+    <!--      <artifactId>querydsl-apt</artifactId>-->
+    <!--      <groupId>com.querydsl</groupId>-->
+    <!--      <version>5.0.0</version>-->
+    <!--    </dependency>-->
+    <dependency>
+      <artifactId>jedis</artifactId>
+      <groupId>redis.clients</groupId>
+      <version>3.6.0</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-batch</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-quartz</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-batch-test</artifactId>
+      <groupId>org.springframework.batch</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>h2</artifactId>
+      <groupId>com.h2database</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>jasypt-spring-boot</artifactId>
+      <groupId>com.github.ulisesbocchio</groupId>
+      <scope>compile</scope>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-data-redis</artifactId>
+      <groupId>org.springframework.data</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>quiz</artifactId>
+      <groupId>com.jobseecker.quiz</groupId>
+      <scope>compile</scope>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!--    <dependency>-->
+    <!--      <artifactId>quiz</artifactId>-->
+    <!--      <groupId>com.jobseecker.quizSchema</groupId>-->
+    <!--      <scope>compile</scope>-->
+    <!--      <version>0.0.1-SNAPSHOT</version>-->
+    <!--    </dependency>-->
+  </dependencies>
+  <description>quizSchema-batch</description>
+  <groupId>com</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>quizSchema-batch</name>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.7.12</version> <!-- lookup parent from repository -->
+  </parent>
+  <properties>
+    <java.version>11</java.version>
+  </properties>
+
+  <version>0.0.1-SNAPSHOT</version>
 
 </project>

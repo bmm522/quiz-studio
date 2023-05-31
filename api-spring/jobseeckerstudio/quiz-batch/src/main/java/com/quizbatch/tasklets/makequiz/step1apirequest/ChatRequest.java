@@ -21,7 +21,7 @@ public class ChatRequest {
 //	private int n;
 //	private double temperature;
 
-	public ChatRequest(String model) {
+	public ChatRequest(String model, CategoryTitle categoryTitle) {
 		this.model = model;
 		String firstAnswer = "["
 			+ "{\"title\": \"1+1은?\", \"choices\": [{\"content\": \"1\", \"isAnswer\": false},{\"content\": \"2\", \"isAnswer\": true},{\"content\": \"3\", \"isAnswer\": false},{\"content\": \"4\", \"isAnswer\": false} ]},"
@@ -49,8 +49,22 @@ public class ChatRequest {
 				"뺄셈과 관련된 cs 면접 문제를 3개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
 		this.messages.add(new Message
 			("assistant", secondAnswer));
-		this.messages.add(new Message("user",
-			"자바와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+
+		switch (categoryTitle) {
+			case JAVA:
+				this.messages.add(new Message("user",
+					"자바와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+				break;
+			case DATA_STRUCTURE:
+				this.messages.add(new Message("user",
+					"자료구조와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+				break;
+			case DATABASE:
+				this.messages.add(new Message("user",
+					"데이터베이스와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+				break;
+		}
+
 		this.temperature = 0.5f;
 	}
 

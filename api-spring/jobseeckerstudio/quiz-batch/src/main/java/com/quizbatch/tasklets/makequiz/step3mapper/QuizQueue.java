@@ -31,7 +31,8 @@ public class QuizQueue {
 
 	public static List<Quiz> getAllFromQueue() {
 		List<Quiz> quizzes = new ArrayList<>();
-		for (int i = 0; i < quizzesQueue.size(); i++) {
+		int size = quizzesQueue.size();
+		for (int i = 0; i < size; i++) {
 			List<Quiz> quizzesFromQueue = quizzesQueue.poll();
 			if (quizzesFromQueue == null || quizzesFromQueue.size() == 0) {
 				return quizzes;

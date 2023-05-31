@@ -24,7 +24,7 @@ public class QuizSchemaMapper {
 		return QuizSchema.builder()
 			.id(generateQuizId(quizQueryDto, index))
 			.quizTitle(quizQueryDto.getQuizTitle())
-			.quizChoiceSchemas(redisQuizChoicesList)
+			.quizChoices(redisQuizChoicesList)
 			.build();
 	}
 

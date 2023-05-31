@@ -1,24 +1,23 @@
 package com.quizbatch.domain.category;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import quiz.domain.category.Category;
-import quiz.domain.category.QCategory;
 
+@Repository
+@RequiredArgsConstructor
 public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 
-	private final JPAQueryFactory queryFactory;
 
-	QCategory category = QCategory.category;
-
-	public CategoryQueryRepositoryImpl(EntityManager entityManager) {
-		this.queryFactory = new JPAQueryFactory(entityManager);
-	}
+	private final EntityManager entityManager;
 
 	public Category findCategoryByCategoryTitle(final String categoryTitle) {
-		return queryFactory.selectFrom(category)
-			.where(category.categoryTitle.eq(categoryTitle))
-			.fetchOne();
+		return entityManager.createQuery(
+				"SELECT c FROM Category c WHERE c.categoryTitle = :categoryTitle", Category.class)
+			.setParameter("categoryTitle", categoryTitle)
+			.getSingleResult();
 	}
+
 
 }

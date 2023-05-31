@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @RequiredArgsConstructor
-public class ApiRequestTasklet implements Tasklet {
+public class ApiJavaRequestTasklet implements Tasklet {
 
 	@Qualifier("openaiRestTemplate")
 	private final RestTemplate restTemplate;
@@ -32,11 +32,12 @@ public class ApiRequestTasklet implements Tasklet {
 		final ExecutionContext jobExecutionContext = stepContext.getStepExecution()
 			.getJobExecution().getExecutionContext();
 
-		ChatRequest request = new ChatRequest(model);
+		ChatRequest request = new ChatRequest(model, CategoryTitle.JAVA);
 		ChatResponse response = restTemplate.postForObject(apiUrl, request, ChatResponse.class);
 		String responseJson = response.getChoices().get(0).getMessage().getContent();
-		System.out.println(responseJson);
 		jobExecutionContext.put("response", responseJson);
+		jobExecutionContext.put("categoryTitle", CategoryTitle.JAVA);
 		return RepeatStatus.FINISHED;
 	}
+
 }

@@ -5,4 +5,5 @@ import quiz.domain.category.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>, CategoryQueryRepository {
 
+	Category findByCategoryTitle(String categoryTitle);
 }

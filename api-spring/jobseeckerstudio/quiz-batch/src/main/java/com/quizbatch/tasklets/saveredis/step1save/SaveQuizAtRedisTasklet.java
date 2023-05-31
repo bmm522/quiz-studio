@@ -25,7 +25,7 @@ public class SaveQuizAtRedisTasklet implements Tasklet {
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {
-		List<QuizQueryDto> quizzes = quizRepository.findQuizzesFroRedis();
+		List<QuizQueryDto> quizzes = quizRepository.getQuizzesForRedisBy();
 		List<QuizSchema> quizSchemas = QuizSchemaMapper.toQuizSchemas(quizzes);
 		quizRedisRepository.deleteAll();
 		quizRedisRepository.saveAll(quizSchemas);

@@ -5,6 +5,6 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 
 public interface QuizQueryRepository {
 
-	List<QuizQueryDto> findQuizzesFroRedis();
+	List<QuizQueryDto> getQuizzesForRedisBy();
 
 }

@@ -17,7 +17,7 @@ public class QuizSchemaMapperTest {
 		for (QuizSchema quizSchema : quizSchemas) {
 			System.out.println("QuizSchema Title: " + quizSchema.getQuizTitle());
 			System.out.println("QuizSchema Choices: ");
-			for (QuizChoicesSchema choice : quizSchema.getQuizChoiceSchemas()) {
+			for (QuizChoicesSchema choice : quizSchema.getQuizChoices()) {
 				System.out.println("Choice Content: " + choice.getChoiceContent());
 				System.out.println("Is Answer: " + choice.isAnswer());
 			}

@@ -8,7 +8,8 @@
 //import com.quizbatch.domain.quizschema.QuizSchemaMapper;
 //import com.quizbatch.tasklets.makejob.step2converter.QuizDtoConverter;
 //import com.quizbatch.tasklets.makejob.step2converter.QuizDtoFromResponse;
-//import com.quizbatch.tasklets.makejob.step3mapper.QuizMapper;
+//import com.quizbatch.tasklets.makejob.step3mapper.ServiceQuizMapper;
+//import com.quizbatch.tasklets.makequiz.step2converter.QuizDtoFromResponse;
 //import java.util.List;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@
 //		List<QuizDtoFromResponse> quizDtoFromResponses = QuizDtoConverter.toQuizDtosFromResponses(
 //			responseJson);
 //		Category category = categoryRepository.findCategoryByCategoryTitle("java");
-//		List<Quiz> quizzes = QuizMapper.toQuizzes(quizDtoFromResponses, category);
+//		List<Quiz> quizzes = ServiceQuizMapper.toQuizzes(quizDtoFromResponses, category);
 //
 //		List<Quiz> quizList = quizRepository.saveAll(quizzes);
 //
-//		List<QuizQueryDto> quizQueryDtos = quizRepository.findQuizzesFroRedis();
+//		List<QuizQueryDto> quizQueryDtos = quizRepository.findQuizzesForRedisBy();
 //
 //		List<QuizSchema> quizSchemas = QuizSchemaMapper.toQuizSchemas(quizQueryDtos);
 //

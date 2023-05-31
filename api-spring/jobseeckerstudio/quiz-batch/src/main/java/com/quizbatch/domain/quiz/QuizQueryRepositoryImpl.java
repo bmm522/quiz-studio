@@ -1,33 +1,27 @@
 package com.quizbatch.domain.quiz;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
-import quiz.domain.quiz.QQuiz;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.repository.quiz.dto.QuizQueryDto;
 
+@Repository
+@RequiredArgsConstructor
 public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 
-	private final JPAQueryFactory queryFactory;
+	private final EntityManager entityManager;
 
-	QQuiz quiz;
+	public List<QuizQueryDto> getQuizzesForRedisBy() {
+		List<Quiz> quizzes = entityManager.createQuery(
+				"SELECT q FROM Quiz q JOIN q.category c WHERE c.categoryTitle = 'java' OR c.categoryTitle = 'data_structure'",
+				Quiz.class)
+			.getResultList();
 
-	public QuizQueryRepositoryImpl(EntityManager entityManager) {
-		this.queryFactory = new JPAQueryFactory(entityManager);
-
-		quiz = QQuiz.quiz;
+		return QuizMapper.toQuizQueryDtoListForRedis(quizzes);
 	}
 
-	public List<QuizQueryDto> findQuizzesFroRedis() {
-		List<Quiz> quizList = queryFactory
-			.selectFrom(quiz)
-			.where(quiz.category.categoryTitle.eq("java")
-				.or(quiz.category.categoryTitle.eq("data_structure")))
-			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
-			.fetch();
 
-		return QuizMapper.toQuizQueryDtoListForRedis(quizList);
-	}
 }

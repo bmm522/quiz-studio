@@ -17,19 +17,19 @@ public class QuizSchema {
 
 	private String quizTitle;
 
-	private List<QuizChoicesSchema> quizChoiceSchemas;
+	private List<QuizChoicesSchema> quizChoices;
 
 	@Builder
-	public QuizSchema(String id, String quizTitle, List<QuizChoicesSchema> quizChoiceSchemas) {
+	public QuizSchema(String id, String quizTitle, List<QuizChoicesSchema> quizChoices) {
 		this.id = id;
 		this.quizTitle = quizTitle;
-		this.quizChoiceSchemas = quizChoiceSchemas;
+		this.quizChoices = quizChoices;
 	}
 
 	@Builder
-	public QuizSchema(String quizTitle, List<QuizChoicesSchema> quizChoiceSchemas) {
+	public QuizSchema(String quizTitle, List<QuizChoicesSchema> quizChoices) {
 		this.quizTitle = quizTitle;
-		this.quizChoiceSchemas = quizChoiceSchemas;
+		this.quizChoices = quizChoices;
 	}
 
 	public void setId(String categoryTitle) {

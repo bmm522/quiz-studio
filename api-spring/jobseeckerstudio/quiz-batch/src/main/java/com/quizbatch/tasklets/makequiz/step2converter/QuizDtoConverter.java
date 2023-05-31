@@ -3,9 +3,12 @@ package com.quizbatch.tasklets.makequiz.step2converter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.quizbatch.domain.quizschema.QuizSchema;
+import com.quizbatch.tasklets.makequiz.step1apirequest.CategoryTitle;
 import java.lang.reflect.Type;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class QuizDtoConverter {
 
 	public static List<QuizSchema> toQuizzes(final String responseJson) {
@@ -21,7 +24,8 @@ public class QuizDtoConverter {
 		return quizSchemas;
 	}
 
-	public static List<QuizDtoFromResponse> toQuizDtosFromResponses(String response) {
+	public static List<QuizDtoFromResponse> toQuizDtosFromResponses(String response,
+		CategoryTitle categoryTitle) {
 		Gson gson = new Gson();
 
 		Type quizListType = new TypeToken<List<QuizDtoFromResponse>>() {
@@ -29,7 +33,8 @@ public class QuizDtoConverter {
 
 		List<QuizDtoFromResponse> quizDtoFromResponses = gson.fromJson(response, quizListType);
 		for (QuizDtoFromResponse dto : quizDtoFromResponses) {
-			dto.setId("java");
+			dto.setCategoryTitle(categoryTitle);
+			dto.setId();
 		}
 		return quizDtoFromResponses;
 	}
