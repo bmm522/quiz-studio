@@ -102,15 +102,14 @@
     <!--      <version>0.0.1-SNAPSHOT</version>-->
     <!--    </dependency>-->
   </dependencies>
-  <description>quizSchema-batch</description>
-  <groupId>com</groupId>
+  <!--  <description>quiz-batch</description>-->
+  <groupId>com.jobseecker.quiz-batch</groupId>
   <modelVersion>4.0.0</modelVersion>
-  <name>quizSchema-batch</name>
+  <!--  <name>quiz-batch</name>-->
   <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.7.12</version> <!-- lookup parent from repository -->
+    <artifactId>jobseeckerstudio</artifactId>
+    <groupId>com.jobseecker</groupId>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <properties>
     <java.version>11</java.version>
