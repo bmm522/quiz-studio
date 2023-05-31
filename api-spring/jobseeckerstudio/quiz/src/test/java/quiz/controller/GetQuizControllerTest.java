@@ -2,6 +2,7 @@ package quiz.controller;
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -49,7 +50,7 @@ public class GetQuizControllerTest extends ControllerTest {
 
 		QuizGetResponse returnDto = QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
 
-		when(quizService.getQuizzesWithPaging(anyString(), anyLong())).thenReturn(returnDto);
+		when(quizService.getQuizzesWithPaging(anyString(), anyLong(), anyInt())).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
 			get("/api/v1/category/1000/quiz")

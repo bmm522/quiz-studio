@@ -32,8 +32,9 @@ public class QuizConverterTest {
 			.build();
 
 		QuizSaveParam.Request result = QuizConverter.toSaveParam("testUser",
-			requestDto.getQuizzes(),
-			1000L);
+			1000L,
+			requestDto.getQuizzes());
+
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);

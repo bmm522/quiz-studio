@@ -1,7 +1,8 @@
 package quiz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.service.category.dto.S_CategoryGetResponse;
+import quiz.service.category.dto.CategoryGetResponse;
 
 
 public class GetCategoryServiceTest extends ServiceTest {
@@ -35,10 +36,11 @@ public class GetCategoryServiceTest extends ServiceTest {
 		categoryQueryDtos.add(dto2);
 		categoryQueryDtos.add(dto3);
 
-		when(categoryRepository.findCategoryDtosByUserKey(any())).thenReturn(
+		when(categoryRepository.findCategoryDtosByUserKey(anyString(), anyInt(),
+			anyInt())).thenReturn(
 			categoryQueryDtos);
 
-		S_CategoryGetResponse response = categoryService.get(userKey);
+		CategoryGetResponse response = categoryService.get(userKey, 1);
 
 		assertThat(response.getCategories().get(0).getUserKey()).isEqualTo(userKey);
 		assertThat(response.getCategories().size()).isEqualTo(3);
@@ -74,6 +76,6 @@ public class GetCategoryServiceTest extends ServiceTest {
 //
 //     when(userCategoryRepository.findByUserKey(userKey)).thenReturn(userCategoryList);
 //
-//     S_CategoryGetResponse result = categoryService.getQuizzesWithPaging(userKey);
+//     CategoryGetResponse result = categoryService.getQuizzesWithPaging(userKey);
 //     assertThat(result.getCategories().size()).isEqualTo(3);
 // }

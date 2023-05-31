@@ -16,7 +16,7 @@ public class QuizCacheTransformer {
 	}
 
 	private static String generateQuizId(QuizQueryDto quizQueryDto, int index) {
-		return quizQueryDto.getCategoryTitle() + "_" + quizQueryDto.getDifficulty() + index;
+		return quizQueryDto.getCategoryTitle() + "_" + index;
 	}
 
 	private static QuizCache toQuizCache(QuizQueryDto quizQueryDto, int index) {

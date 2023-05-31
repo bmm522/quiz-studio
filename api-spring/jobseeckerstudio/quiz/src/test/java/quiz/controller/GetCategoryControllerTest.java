@@ -1,7 +1,8 @@
 package quiz.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.service.category.dto.S_CategoryGetResponse;
+import quiz.service.category.dto.CategoryGetResponse;
 
 public class GetCategoryControllerTest extends ControllerTest {
 
@@ -49,11 +50,11 @@ public class GetCategoryControllerTest extends ControllerTest {
 		customCategoryList.add(category2);
 		customCategoryList.add(category3);
 
-		S_CategoryGetResponse responseFromService = S_CategoryGetResponse.builder()
+		CategoryGetResponse responseFromService = CategoryGetResponse.builder()
 			.categories(customCategoryList)
 			.build();
 
-		when(categoryService.get(any())).thenReturn(responseFromService);
+		when(categoryService.get(anyString(), anyInt())).thenReturn(responseFromService);
 
 		ResultActions perform = mockMvc.perform(
 			get("/api/v1/category")

@@ -9,7 +9,7 @@ import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizGetWithoutPagingResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
 
-public class QuizMapper {
+public class ServiceQuizMapper {
 
 	public static synchronized QuizSaveParam.Response toSaveResponse(final String userKey,
 		final List<Quiz> quizzes) {

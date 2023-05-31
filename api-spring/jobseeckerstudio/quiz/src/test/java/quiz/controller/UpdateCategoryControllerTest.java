@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.controller.category.CategoryController;
-import quiz.controller.category.dto.C_CategoryUpdateRequest;
+import quiz.controller.category.dto.CategoryUpdateBody;
 import quiz.controller.dto.CommonResponse;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.service.category.CategoryService;
@@ -34,8 +34,8 @@ public class UpdateCategoryControllerTest {
 	@Test
 	@DisplayName("update 정상적인 요청")
 	void updateCategoryTest() {
-		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
-			.userCategoryId(1L)
+		CategoryUpdateBody request = CategoryUpdateBody.builder()
+			.categoryId(1L)
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
 			.build();
@@ -57,8 +57,8 @@ public class UpdateCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때 (자바)")
 	void updateCategoryWhenExistCategoryWithJava() {
-		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
-			.userCategoryId(1L)
+		CategoryUpdateBody request = CategoryUpdateBody.builder()
+			.categoryId(1L)
 			.updateTitle("java")
 			.updateDescription("updateDescription")
 			.build();
@@ -73,8 +73,8 @@ public class UpdateCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(자료구조)")
 	void updateCategoryWhenExistCategoryWithDataStructure() {
-		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
-			.userCategoryId(1L)
+		CategoryUpdateBody request = CategoryUpdateBody.builder()
+			.categoryId(1L)
 			.updateTitle("Data Structure")
 			.updateDescription("updateDescription")
 			.build();
@@ -89,8 +89,8 @@ public class UpdateCategoryControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(공백포함)")
 	void updateCategoryWhenExistCategoryWithBlank() {
-		C_CategoryUpdateRequest request = C_CategoryUpdateRequest.builder()
-			.userCategoryId(1L)
+		CategoryUpdateBody request = CategoryUpdateBody.builder()
+			.categoryId(1L)
 			.updateTitle("  DAta Str Uct Ure   ")
 			.updateDescription("updateDescription")
 			.build();

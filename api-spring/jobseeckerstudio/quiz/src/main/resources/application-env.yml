@@ -1,2 +1,12 @@
 run:
-    env: ${run_env}
+  env: ${run_env}
+
+openai:
+  model: gpt-3.5-turbo
+  api:
+    url: https://api.openai.com/v1/chat/completions
+    key: ${openAI_secret}
+
+
+
+

@@ -37,10 +37,10 @@ public class Category extends BaseTimeEntity {
 	@OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<Quiz> quizzes;
 
-//	@OneToOne
+	//	@OneToOne
 //	@JoinColumn(referencedColumnName = "user_category_id", nullable = true)
 //	private UserCategory userCategory;
-
+	@Column(nullable = true, name = "user_key")
 	private String userKey;
 
 	public void updateCategoryName(String categoryTitle) {

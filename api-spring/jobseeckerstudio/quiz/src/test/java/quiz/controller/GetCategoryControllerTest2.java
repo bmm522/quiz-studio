@@ -1,7 +1,8 @@
 package quiz.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -16,7 +17,7 @@ import quiz.controller.category.CategoryController;
 import quiz.controller.dto.CommonResponse;
 import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategoryGetResponse;
+import quiz.service.category.dto.CategoryGetResponse;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Get Category 테스트")
@@ -57,13 +58,13 @@ public class GetCategoryControllerTest2 {
 		customCategoryList.add(category2);
 		customCategoryList.add(category3);
 
-		S_CategoryGetResponse responseFromService = S_CategoryGetResponse.builder()
+		CategoryGetResponse responseFromService = CategoryGetResponse.builder()
 			.categories(customCategoryList)
 			.build();
 
-		when(categoryService.get(any())).thenReturn(responseFromService);
+		when(categoryService.get(anyString(), anyInt())).thenReturn(responseFromService);
 
-		CommonResponse<?> result = categoryController.getCategories(userKey);
+		CommonResponse<?> result = categoryController.getCategories(userKey, 1);
 
 		assertThat(result.getStatus()).isEqualTo(200);
 		assertThat(result.getMsg()).isEqualTo("카테고리 불러오기 성공");

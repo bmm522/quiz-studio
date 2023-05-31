@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import quiz.domain.category.Category;
 import quiz.domain.category.QCategory;
 import quiz.repository.category.dto.CategoryQueryDto;
-import quiz.repository.category.mapper.R_UserCategoryMapper;
+import quiz.repository.category.mapper.CategoryQueryMapper;
 
 public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 
@@ -28,7 +28,7 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 			.offset(offset)
 			.limit(pageSize)
 			.fetch();
-		return R_UserCategoryMapper.toDto(categories);
+		return CategoryQueryMapper.toDto(categories);
 	}
 
 	@Override

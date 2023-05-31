@@ -23,7 +23,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		quiz = QQuiz.quiz;
 	}
 
-	public List<QuizQueryDto> findQuizzes() {
+	public List<QuizQueryDto> findQuizzesFroRedis() {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryTitle.eq("java")

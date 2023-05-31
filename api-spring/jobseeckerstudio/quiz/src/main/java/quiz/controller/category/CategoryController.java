@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import quiz.controller.category.dto.C_CategorySaveRequest;
-import quiz.controller.category.dto.C_CategoryUpdateRequest;
-import quiz.controller.category.mapper.C_CategoryMapper;
+import quiz.controller.category.dto.CategorySaveBody;
+import quiz.controller.category.dto.CategoryUpdateBody;
+import quiz.controller.category.util.CategoryConverter;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
 import quiz.service.category.CategoryService;
@@ -28,10 +28,10 @@ public class CategoryController {
 	@PostMapping("/category")
 	public @ResponseBody CommonResponse<?> saveCategory(
 		@RequestAttribute("userKey") String userKey,
-		@RequestBody C_CategorySaveRequest request) {
+		@RequestBody CategorySaveBody request) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
 			categoryService.save(
-				C_CategoryMapper.toSaveRequest(userKey, request)));
+				CategoryConverter.toSaveRequest(userKey, request)));
 	}
 
 	@GetMapping("/category")
@@ -44,10 +44,10 @@ public class CategoryController {
 
 	@PatchMapping("/category")
 	public CommonResponse<?> updateCategories(@RequestAttribute("userKey") String userKey,
-		@RequestBody C_CategoryUpdateRequest reqeust) {
+		@RequestBody CategoryUpdateBody reqeust) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
 			categoryService.update(
-				C_CategoryMapper.toUpdateReqeust(userKey, reqeust)));
+				CategoryConverter.toUpdateReqeust(userKey, reqeust)));
 	}
 
 }

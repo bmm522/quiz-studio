@@ -5,18 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import quiz.domain.category.Category;
-import quiz.domain.category.mapper.CategoryMapper;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.global.exception.DuplicateTitleException;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.repository.category.dto.CategoryQueryDto;
 import quiz.service.category.dto.CategoryGetCondition;
-import quiz.service.category.dto.S_CategoryGetResponse;
-import quiz.service.category.dto.S_CategorySaveRequest;
-import quiz.service.category.dto.S_CategorySaveResponse;
-import quiz.service.category.dto.S_CategoryUpdateRequest;
-import quiz.service.category.dto.S_CategoryUpdateResponse;
-import quiz.service.category.mapper.S_CategoryMapper;
+import quiz.service.category.dto.CategoryGetResponse;
+import quiz.service.category.dto.CategorySaveParam;
+import quiz.service.category.dto.CategoryUpdateParam;
+import quiz.service.category.mapper.ServiceCategoryMapper;
 import quiz.service.util.PermissionValidator;
 
 @Service
@@ -27,10 +24,11 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
 	@Transactional
-	public S_CategorySaveResponse save(final S_CategorySaveRequest request) {
+	public CategorySaveParam.Response save(final CategorySaveParam.Request request) {
 		validateDuplicateTitle(request.getUserKey(), request.getTitle());
-		final Category category = CategoryMapper.toEntityWhenSave(request);
-		return S_CategoryMapper.toSaveResponse(categoryRepository.save(category));
+		final Category category = quiz.domain.category.mapper.CategoryMapper.toEntityWhenSave(
+			request);
+		return ServiceCategoryMapper.toSaveResponse(categoryRepository.save(category));
 	}
 
 	private void validateDuplicateTitle(final String userKey, final String title) {
@@ -40,20 +38,20 @@ public class CategoryService {
 	}
 
 	@Transactional(readOnly = true)
-	public S_CategoryGetResponse get(final String userKey, final int page) {
-		final CategoryGetCondition item = S_CategoryMapper.toGetCondition(userKey, page);
+	public CategoryGetResponse get(final String userKey, final int page) {
+		final CategoryGetCondition item = ServiceCategoryMapper.toGetCondition(userKey, page);
 		final List<CategoryQueryDto> categoryQueryDtoList = categoryRepository.findCategoryDtosByUserKey(
 			item.getUserKey(),
 			item.getOffset(),
 			item.getPageSize()
 		);
 		final Long categoryTotalCount = categoryRepository.getCategoryTotalCount(item.getUserKey());
-		return S_CategoryMapper.toGetResponse(categoryQueryDtoList, categoryTotalCount);
+		return ServiceCategoryMapper.toGetResponse(categoryQueryDtoList, categoryTotalCount);
 
 	}
 
 	@Transactional
-	public S_CategoryUpdateResponse update(final S_CategoryUpdateRequest request) {
+	public CategoryUpdateParam.Response update(final CategoryUpdateParam.Request request) {
 		Category category = getCategoryFromCategoryId
 			(request.getCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(
@@ -61,7 +59,7 @@ public class CategoryService {
 			request.getUserKey());
 		category.updateCategoryName(request.getUpdateTitle());
 		category.updateCategoryDescription(request.getUpdateDescription());
-		return S_CategoryMapper.toUpdateResponse(category);
+		return ServiceCategoryMapper.toUpdateResponse(category);
 	}
 
 	private Category getCategoryFromCategoryId(final Long categoryId) {

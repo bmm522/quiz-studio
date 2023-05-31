@@ -1,6 +1,6 @@
 insert into category(category_id, category_title, category_description, userKey)
 values (3, 'testTitle', 'testDescription', 'testUserKey');
-INSERT INTO quiz (quiz_title, category_id)
+INSERT INTO quizSchema (quiz_title, category_id)
 VALUES ('테스트 문제1', 3),
        ('테스트 문제2', 3),
        ('테스트 문제3', 3),

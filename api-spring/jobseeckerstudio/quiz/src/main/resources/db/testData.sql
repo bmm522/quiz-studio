@@ -3,7 +3,7 @@ values (1, 'java');
 insert into category(category_id, category_title)
 values (2, 'data_structure');
 
-INSERT INTO quiz (quiz_title, difficulty, category_id)
+INSERT INTO quizSchema (quiz_title, difficulty, category_id)
 VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?', 'easy', 2),
        ('논리 연산자로 적절하지 않은 것은?', 'easy', 2),
        ('자바에서 클래스와 인터페이스의 차이점은 무엇인가?', 'easy', 2),

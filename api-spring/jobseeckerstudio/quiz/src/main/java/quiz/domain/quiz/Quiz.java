@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +20,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import quiz.domain.BaseTimeEntity;
 import quiz.domain.category.Category;
-import quiz.domain.common.Difficulty;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
 import quiz.global.dto.CustomQuizDto.Choice;
@@ -41,9 +38,9 @@ public class Quiz extends BaseTimeEntity {
 	@Column(nullable = false, name = "quiz_title")
 	private String quizTitle;
 
-	@Column(nullable = true)
-	@Enumerated(EnumType.STRING)
-	private Difficulty difficulty;
+//	@Column(nullable = true)
+//	@Enumerated(EnumType.STRING)
+//	private Difficulty difficulty;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
@@ -60,9 +57,9 @@ public class Quiz extends BaseTimeEntity {
 		return this.quizTitle;
 	}
 
-	public String getDifficulty() {
-		return this.difficulty.get();
-	}
+//	public String getDifficulty() {
+//		return this.difficulty.get();
+//	}
 
 	public List<QuizChoice> getQuizChoices() {
 		return this.quizChoices;

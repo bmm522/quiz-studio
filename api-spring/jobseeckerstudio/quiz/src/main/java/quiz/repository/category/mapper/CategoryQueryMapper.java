@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import quiz.domain.category.Category;
 import quiz.repository.category.dto.CategoryQueryDto;
 
-public class R_UserCategoryMapper {
+public class CategoryQueryMapper {
 
 	public static List<CategoryQueryDto> toDto(List<Category> categories) {
 		return categories.stream()

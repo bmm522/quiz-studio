@@ -11,11 +11,11 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 public class QuizMysqlService {
 
 
-	private final QuizRepository quizRepository;
+  private final QuizRepository quizRepository;
 
-	public List<QuizQueryDto> getAllForRedis() {
-		return quizRepository.findQuizzes();
-	}
+  public List<QuizQueryDto> getAllForRedis() {
+    return quizRepository.findQuizzesFroRedis();
+  }
 
 
 }

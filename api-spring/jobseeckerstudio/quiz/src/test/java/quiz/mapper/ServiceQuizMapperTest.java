@@ -10,7 +10,7 @@ import quiz.domain.quiz.Quiz;
 import quiz.domain.quiz.mapper.QuizMapper;
 import quiz.global.dto.CustomQuizDto;
 
-public class QuizMapperTest {
+public class ServiceQuizMapperTest {
 
 	@Test
 	@DisplayName("커스텀 퀴즈 DTO를 넣으면 퀴즈 ENTITY를 반환한다.")

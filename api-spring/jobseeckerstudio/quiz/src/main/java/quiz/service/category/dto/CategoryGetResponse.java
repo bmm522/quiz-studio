@@ -9,7 +9,7 @@ import quiz.repository.category.dto.CategoryQueryDto;
 @AllArgsConstructor
 @Builder
 @Getter
-public class S_CategoryGetResponse {
+public class CategoryGetResponse {
 
 	private List<CategoryQueryDto> categories;
 

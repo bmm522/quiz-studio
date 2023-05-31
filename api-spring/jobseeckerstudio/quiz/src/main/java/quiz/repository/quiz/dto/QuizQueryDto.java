@@ -12,7 +12,7 @@ public class QuizQueryDto {
 	private String categoryTitle;
 
 	private Long quizId;
-	private String difficulty;
+	//	private String difficulty;
 	private String quizTitle;
 
 	private List<ChoiceDto> choices;
@@ -46,11 +46,11 @@ public class QuizQueryDto {
 	}
 
 	@Builder
-	public QuizQueryDto(final Long quizId, final String categoryTitle, final String difficulty,
+	public QuizQueryDto(final Long quizId, final String categoryTitle,
 		final String quizTitle, final List<ChoiceDto> choiceDtos) {
 		this.quizId = quizId;
 		this.categoryTitle = categoryTitle;
-		this.difficulty = difficulty;
+//		this.difficulty = difficulty;
 		this.quizTitle = quizTitle;
 		this.choices = choiceDtos;
 	}

@@ -3,6 +3,7 @@ package quiz.service.quiz;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import quiz.controller.quiz.dto.QuizGetCondition;
@@ -19,18 +20,20 @@ import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizGetWithoutPagingResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
 import quiz.service.quiz.dto.QuizUpdateParam;
-import quiz.service.quiz.mapper.QuizMapper;
+import quiz.service.quiz.mapper.ServiceQuizMapper;
 import quiz.service.util.PermissionValidator;
 
 @RequiredArgsConstructor
 @Service
 public class QuizService {
 
-
 	private final QuizRepository quizRepository;
 	private final QuizChoiceRepository quizChoiceRepository;
 	private final CategoryRepository categoryRepository;
-
+	@Value("${openai.model}")
+	private String model;
+	@Value("${openai.api.url}")
+	private String apiUrl;
 
 	@Transactional
 	public QuizSaveParam.Response saveAll(final QuizSaveParam.Request request) {
@@ -42,7 +45,8 @@ public class QuizService {
 			request.getQuizzes());
 		quizzes.forEach(quiz -> quiz.addCategory(category));
 
-		return QuizMapper.toSaveResponse(request.getUserKey(), quizRepository.saveAll(quizzes));
+		return ServiceQuizMapper.toSaveResponse(request.getUserKey(),
+			quizRepository.saveAll(quizzes));
 	}
 
 	private Category getCategoryFromCategoryId(final Long categoryId) {
@@ -64,7 +68,7 @@ public class QuizService {
 		);
 		final Long quizTotalCount = quizRepository.getQuizTotalCount(item.getUserKey(),
 			item.getCategoryId());
-		return QuizMapper.toGetResponse(quizQueryDtoList, quizTotalCount);
+		return ServiceQuizMapper.toGetResponse(quizQueryDtoList, quizTotalCount);
 
 	}
 
@@ -74,7 +78,7 @@ public class QuizService {
 		final List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizQueryDtoListByCategoryIdAndUserKeyWithOutPaging(
 			userKey, categoryId);
 
-		return QuizMapper.toGetWithOutPagingResponse(quizQueryDtoList);
+		return ServiceQuizMapper.toGetWithOutPagingResponse(quizQueryDtoList);
 	}
 
 

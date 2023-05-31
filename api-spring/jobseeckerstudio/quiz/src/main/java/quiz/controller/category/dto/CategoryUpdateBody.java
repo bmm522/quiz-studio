@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class C_CategoryUpdateRequest {
+public class CategoryUpdateBody {
 
 	private Long categoryId;
 

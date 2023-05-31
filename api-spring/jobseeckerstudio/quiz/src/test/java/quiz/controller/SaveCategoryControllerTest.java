@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
-import quiz.controller.category.dto.C_CategorySaveRequest;
+import quiz.controller.category.dto.CategorySaveBody;
 import quiz.service.category.dto.S_CategorySaveResponse;
 
 public class SaveCategoryControllerTest extends ControllerTest {
@@ -25,7 +25,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("save 정상적인 요청")
 	void saveCategoryTest() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("test")
 			.description("testtest")
 			.build();
@@ -65,7 +65,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("save 파라미터 title 안들어왔을때")
 	void saveCategoryWhenNotHaveTitleParameterRequest() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.build();
 
 		ResultActions perform = mockMvc.perform(
@@ -91,7 +91,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("save 파라미터 description 안들어왔을때")
 	void saveCategoryWhenNotHaveDescriptionParameterRequest() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("testTitle")
 			.build();
 
@@ -118,7 +118,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때 (자바)")
 	void saveCategoryWhenExistCategoryWithJava() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("java")
 			.description("testDescription")
 			.build();
@@ -145,7 +145,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(자료구조)")
 	void saveCategoryWhenExistCategoryWithDataStructure() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("Data Structure")
 			.description("testDescription")
 			.build();
@@ -173,7 +173,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(공백포함)")
 	void saveCategoryWhenExistCategoryWithBlank() throws Exception {
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("  DAta Str Uct Ure   ")
 			.description("testDescription")
 			.build();

@@ -1,6 +1,7 @@
 package quiz.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -33,9 +34,9 @@ public class GetQuizServiceTest extends ServiceTest {
 				4)
 		);
 		when(quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(anyString(),
-			anyLong())).thenReturn(quizQeuryDtoList);
+			anyLong(), anyInt(), anyInt())).thenReturn(quizQeuryDtoList);
 
-		QuizGetResponse result = quizService.getQuizzesWithPaging("testUser", 1000L);
+		QuizGetResponse result = quizService.getQuizzesWithPaging("testUser", 1000L, 1);
 
 		assertThat(result.getQuizzes().size()).isEqualTo(4);
 	}

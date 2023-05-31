@@ -1,29 +1,29 @@
-package quiz.controller.category.mapper;
+package quiz.controller.category.util;
 
-import quiz.controller.category.dto.C_CategorySaveRequest;
-import quiz.controller.category.dto.C_CategoryUpdateRequest;
+import quiz.controller.category.dto.CategorySaveBody;
+import quiz.controller.category.dto.CategoryUpdateBody;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.global.exception.InvalidParameterFromDtoException;
-import quiz.service.category.dto.S_CategorySaveRequest;
-import quiz.service.category.dto.S_CategoryUpdateRequest;
+import quiz.service.category.dto.CategorySaveParam;
+import quiz.service.category.dto.CategoryUpdateParam;
 
-public class C_CategoryMapper {
+public class CategoryConverter {
 
-	public static S_CategorySaveRequest toSaveRequest(final String userKey,
-		final C_CategorySaveRequest request) {
+	public static CategorySaveParam.Request toSaveRequest(final String userKey,
+		final CategorySaveBody request) {
 		validateTitleAndDescription(request.getTitle(), request.getDescription());
 		checkExistCategoryName(request.getTitle());
-		return S_CategorySaveRequest.builder()
+		return CategorySaveParam.Request.builder()
 			.userKey(userKey)
 			.title(request.getTitle())
 			.description(request.getDescription())
 			.build();
 	}
 
-	public static S_CategoryUpdateRequest toUpdateReqeust(final String userKey,
-		final C_CategoryUpdateRequest request) {
+	public static CategoryUpdateParam.Request toUpdateReqeust(final String userKey,
+		final CategoryUpdateBody request) {
 		checkExistCategoryName(request.getUpdateTitle());
-		return S_CategoryUpdateRequest.builder()
+		return CategoryUpdateParam.Request.builder()
 			.categoryId(request.getCategoryId())
 			.userKey(userKey)
 			.updateTitle(request.getUpdateTitle())

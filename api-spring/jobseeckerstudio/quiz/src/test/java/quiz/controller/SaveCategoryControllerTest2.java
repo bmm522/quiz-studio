@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.controller.category.CategoryController;
-import quiz.controller.category.dto.C_CategorySaveRequest;
+import quiz.controller.category.dto.CategorySaveBody;
 import quiz.controller.dto.CommonResponse;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.global.exception.InvalidParameterFromDtoException;
@@ -37,7 +37,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("save 정상적인 요청")
 	void saveCategoryTest() {
 
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("test")
 			.description("testtest")
 			.build();
@@ -62,7 +62,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("save 파라미터 title 안들어왔을때")
 	void saveCategoryWhenNotHaveTitleParameterRequest() {
 		CategoryService categoryService = mock(CategoryService.class);
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.build();
 		String userKey = "testUserKey";
 
@@ -77,7 +77,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("save 파라미터 description 안들어왔을때")
 	void saveCategoryWhenNotHaveDescriptionParameterRequest() {
 		CategoryService categoryService = mock(CategoryService.class);
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("testTitle")
 			.build();
 		String userKey = "testUserKey";
@@ -93,7 +93,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때 (자바)")
 	void saveCategoryWhenExistCategoryWithJava() {
 		CategoryService categoryService = mock(CategoryService.class);
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("java")
 			.description("testDescription")
 			.build();
@@ -110,7 +110,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(자료구조)")
 	void saveCategoryWhenExistCategoryWithDataStructure() {
 		CategoryService categoryService = mock(CategoryService.class);
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("Data Structure")
 			.description("testDescription")
 			.build();
@@ -127,7 +127,7 @@ public class SaveCategoryControllerTest2 {
 	@DisplayName("기존 카테고리 이름으로 요청을 보냈을 때(공백포함)")
 	void saveCategoryWhenExistCategoryWithBlank() {
 		CategoryService categoryService = mock(CategoryService.class);
-		C_CategorySaveRequest request = C_CategorySaveRequest.builder()
+		CategorySaveBody request = CategorySaveBody.builder()
 			.title("  DAta Str Uct Ure   ")
 			.description("testDescription")
 			.build();

@@ -2,41 +2,25 @@ package quiz.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
-import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.QuizRepository;
 import quiz.domain.quizChoice.QuizChoice;
 import quiz.global.dto.CustomQuizDto;
-import quiz.service.quiz.QuizService;
 import quiz.service.quiz.dto.QuizSaveParam;
 
 @ExtendWith(MockitoExtension.class)
-public class SaveQuizServiceTest {
+public class SaveQuizServiceTest extends ServiceTest {
 
-	QuizRepository quizRepository;
-
-	CategoryRepository categoryRepository;
-	QuizService quizService;
-
-	@BeforeEach
-	void init() {
-		quizRepository = mock(QuizRepository.class);
-		categoryRepository = mock(CategoryRepository.class);
-		quizService = new QuizService(quizRepository, categoryRepository);
-	}
 
 	@Test
 	@DisplayName("정상적인 요청")

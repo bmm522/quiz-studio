@@ -20,7 +20,7 @@ public class QuizMapper {
 
 			return QuizQueryDto.builder()
 				.categoryTitle(quiz.getCategoryName())
-				.difficulty(quiz.getDifficulty())
+//				.difficulty(quiz.getDifficulty())
 				.quizTitle(quiz.getQuizTitle())
 				.choiceDtos(choiceDtoList)
 				.build();

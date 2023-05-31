@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class C_CategorySaveRequest {
+public class CategorySaveBody {
 
 	private String title;
 	private String description;
