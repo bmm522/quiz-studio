@@ -23,12 +23,18 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 	@Override
 	public List<CategoryQueryDto> findCategoryDtosByUserKey(final String userKey, final int offset,
 		final int pageSize) {
+		System.out.println("요청들어옴옴");
+		System.out.println("요청들어옴옴");
+		System.out.println("요청들어옴옴");
+		System.out.println("요청들어옴옴");
 		final List<Category> categories = queryFactory
 			.selectFrom(category)
 			.where(category.userKey.eq(userKey))
 			.offset(offset)
 			.limit(pageSize)
 			.fetch();
+		System.out.println(categories.size()
+			+ " repository ----------------------------------------------------------------");
 		return CategoryQueryMapper.toDto(categories);
 	}
 

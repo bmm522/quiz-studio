@@ -40,7 +40,6 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 			.userKey("testUser")
 			.build();
 
-		setUp();
 	}
 
 	@Test

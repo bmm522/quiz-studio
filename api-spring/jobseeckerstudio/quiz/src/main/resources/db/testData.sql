@@ -3,14 +3,14 @@ values (1, 'java');
 insert into category(category_id, category_title)
 values (2, 'data_structure');
 
-INSERT INTO quizSchema (quiz_title, difficulty, category_id)
-VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?', 'easy', 2),
-       ('논리 연산자로 적절하지 않은 것은?', 'easy', 2),
-       ('자바에서 클래스와 인터페이스의 차이점은 무엇인가?', 'easy', 2),
-       ('자바에서 final 키워드의 역할은 무엇인가?', 'easy', 2),
-       ('자바에서 예외처리를 하는 이유는 무엇인가?', 'easy', 2),
-       ('자바에서 다형성의 개념에 대해 설명한 것으로 옳은것은?', 'easy', 2),
-       ('자바에서 제네릭(Generic)이란 무엇인가?', 'easy', 2);
+INSERT INTO quiz (quiz_title, category_id)
+VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?', 2),
+       ('논리 연산자로 적절하지 않은 것은?', 2),
+       ('자바에서 클래스와 인터페이스의 차이점은 무엇인가?', 2),
+       ('자바에서 final 키워드의 역할은 무엇인가?', 2),
+       ('자바에서 예외처리를 하는 이유는 무엇인가?', 2),
+       ('자바에서 다형성의 개념에 대해 설명한 것으로 옳은것은?', 2),
+       ('자바에서 제네릭(Generic)이란 무엇인가?', 2);
 
 INSERT INTO quiz_choice (choice_content, is_answer, quiz_id)
 VALUES ('int', 0, 1),

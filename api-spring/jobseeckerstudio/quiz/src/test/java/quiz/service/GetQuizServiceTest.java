@@ -17,7 +17,6 @@ public class GetQuizServiceTest extends ServiceTest {
 
 	@BeforeEach
 	void init() {
-		setUp();
 	}
 
 	@Test

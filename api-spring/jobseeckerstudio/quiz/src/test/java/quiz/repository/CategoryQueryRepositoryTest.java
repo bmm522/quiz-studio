@@ -26,14 +26,8 @@ public class CategoryQueryRepositoryTest {
 			.userKey("testUser")
 			.build();
 
-		Category category2 = Category.builder()
-			.categoryTitle("testCategoryName2")
-			.categoryDescription("testCategoryDescription2")
-			.userKey("testUser")
-			.build();
-
 		categoryRepository.save(category);
-		categoryRepository.save(category2);
+
 	}
 
 	@Test
@@ -50,6 +44,21 @@ public class CategoryQueryRepositoryTest {
 	@Test
 	@DisplayName("유저키로 해당 카테고리 목록 가져온 후 카테고리 쿼리 DTO로 반환")
 	void 유저키로_해당_카테고리_목록_가져온_후_카테고리_쿼리_DTO로_반환() {
+
+		Category category2 = Category.builder()
+			.categoryTitle("testCategoryName2")
+			.categoryDescription("testCategoryDescription2")
+			.userKey("testUser")
+			.build();
+		categoryRepository.save(category2);
+
+		Category category3 = Category.builder()
+			.categoryTitle("testCategoryName3")
+			.categoryDescription("testCategoryDescription3")
+			.userKey("testUser")
+			.build();
+
+		categoryRepository.save(category3);
 		List<CategoryQueryDto> categoryQueryDtos = categoryRepository.findCategoryDtosByUserKey(
 			"testUser", 1, 10);
 		assertThat(categoryQueryDtos.size()).isEqualTo(2);
@@ -58,6 +67,7 @@ public class CategoryQueryRepositoryTest {
 	@Test
 	@DisplayName("카테고리 아이디로 카테고리 하나 가져오기 ")
 	void 카테고리_아이디로_카테고리_하나_가져오기() {
+
 		Category category3 = Category.builder()
 			.categoryTitle("testCategoryName3")
 			.categoryDescription("testCategoryDescription3")

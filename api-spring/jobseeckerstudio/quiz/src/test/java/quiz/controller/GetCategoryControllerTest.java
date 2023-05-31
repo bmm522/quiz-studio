@@ -1,8 +1,7 @@
 package quiz.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -27,7 +26,7 @@ public class GetCategoryControllerTest extends ControllerTest {
 
 	@Test
 	@DisplayName("getQuizzesWithPaging 정상적인 요청")
-	void getCategoryTest() throws Exception {
+	void 페이징이_된_퀴즈목록을_가져온다() throws Exception {
 		String userKey = "testUser";
 		CategoryQueryDto category = CategoryQueryDto.builder()
 			.userKey(userKey)
@@ -54,15 +53,17 @@ public class GetCategoryControllerTest extends ControllerTest {
 			.categories(customCategoryList)
 			.build();
 
-		when(categoryService.get(anyString(), anyInt())).thenReturn(responseFromService);
+		when(categoryService.get(any(String.class), any(Integer.class))).thenReturn(
+			responseFromService);
 
 		ResultActions perform = mockMvc.perform(
-			get("/api/v1/category")
+			get("/api/v1/category?page=1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 		);
 
 		String body = decodeBody(perform);
+
 		DocumentContext dc = JsonPath.parse(body);
 
 		int status = dc.read("$.status");

@@ -22,12 +22,10 @@ import quiz.service.quiz.dto.QuizGetResponse;
 
 public class GetQuizControllerTest extends ControllerTest {
 
-	Category category;
-
 	protected final String testUserKey = "testUserKey";
 	protected final String testCategoryName = "testCategoryName";
-
 	protected final String testCategoryDescription = "testCategoryDescription";
+	Category category;
 
 	@BeforeEach
 	void init() {
@@ -50,10 +48,11 @@ public class GetQuizControllerTest extends ControllerTest {
 
 		QuizGetResponse returnDto = QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
 
-		when(quizService.getQuizzesWithPaging(anyString(), anyLong(), anyInt())).thenReturn(returnDto);
+		when(quizService.getQuizzesWithPaging(anyString(), anyLong(), anyInt())).thenReturn(
+			returnDto);
 
 		ResultActions perform = mockMvc.perform(
-			get("/api/v1/category/1000/quiz")
+			get("/api/v1/category/1000/quiz?page=1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 		);

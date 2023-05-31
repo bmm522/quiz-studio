@@ -20,7 +20,7 @@ spring:
             ddl-auto: update
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
+        defer-datasource-initialization: true
 logging:
     level:
         '[org.springframework.boot.web]': INFO

@@ -44,10 +44,10 @@ public class CategoryController {
 
 	@PatchMapping("/category")
 	public CommonResponse<?> updateCategories(@RequestAttribute("userKey") String userKey,
-		@RequestBody CategoryUpdateBody reqeust) {
+		@RequestBody CategoryUpdateBody request) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
 			categoryService.update(
-				CategoryConverter.toUpdateReqeust(userKey, reqeust)));
+				CategoryConverter.toUpdateReqeust(userKey, request)));
 	}
 
 }

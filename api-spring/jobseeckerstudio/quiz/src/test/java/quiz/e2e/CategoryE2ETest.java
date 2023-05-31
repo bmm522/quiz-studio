@@ -89,7 +89,8 @@ public class CategoryE2ETest extends E2ETest {
 		headers.remove(JwtProperties.HEADER_JWT);
 		headers.set(JwtProperties.HEADER_JWT, jwt);
 		HttpEntity<String> request = new HttpEntity<>(headers);
-		ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET, request, String.class);
+		ResponseEntity<String> response = rt.exchange(url + "?page=1", HttpMethod.GET, request,
+			String.class);
 		DocumentContext dc = JsonPath.parse(response.getBody());
 
 		int status = dc.read("$.status");
@@ -129,9 +130,10 @@ public class CategoryE2ETest extends E2ETest {
 
 		String body = om.writeValueAsString(dto);
 		HttpEntity<String> request = new HttpEntity<>(body, headers);
-		ResponseEntity<String> response = rt.exchange(url, HttpMethod.PATCH, request, String.class);
+		ResponseEntity<String> response = rt.exchange(url, HttpMethod.PATCH, request,
+			String.class);
 		DocumentContext dc = JsonPath.parse(response.getBody());
-
+		System.out.println(response.getBody());
 		int status = dc.read("$.status");
 		String msg = dc.read("$.msg");
 		String title = dc.read("$.data.updateTitle");
