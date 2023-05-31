@@ -19,7 +19,7 @@ public class QuizMapper {
 				.collect(Collectors.toList());
 
 			return QuizQueryDto.builder()
-				.categoryTitle(quiz.getCategoryName())
+				.categoryTitle(quiz.findCategoryName())
 //				.difficulty(quiz.getDifficulty())
 				.quizTitle(quiz.getQuizTitle())
 				.choiceDtos(choiceDtoList)
@@ -39,8 +39,8 @@ public class QuizMapper {
 				.collect(Collectors.toList());
 
 			return QuizQueryDto.builder()
-				.quizId(quiz.getQuizId())
-				.categoryTitle(quiz.getCategoryName())
+				.quizId(quiz.getId())
+				.categoryTitle(quiz.findCategoryName())
 				.quizTitle(quiz.getQuizTitle())
 				.choiceDtos(choiceDtoList)
 				.build();

@@ -7,12 +7,12 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 
 public interface QuizQueryRepository {
 
-	List<QuizQueryDto> findQuizzesFroRedis();
+	List<QuizQueryDto> findQuizzesForRedisBy();
 
 	List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId);
 
 
-	List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKey(final String userKey,
+	List<QuizQueryDto> findQuizQueryDtoListByIdAndUserKey(final String userKey,
 		final Long categoryId, final int offset, final int pageSize);
 
 	List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKeyWithOutPaging(String userKey,

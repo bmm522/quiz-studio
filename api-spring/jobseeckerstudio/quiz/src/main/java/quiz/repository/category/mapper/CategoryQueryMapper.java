@@ -10,7 +10,7 @@ public class CategoryQueryMapper {
 	public static List<CategoryQueryDto> toDto(List<Category> categories) {
 		return categories.stream()
 			.map(category -> CategoryQueryDto.builder()
-				.categoryId(category.getCategoryId())
+				.categoryId(category.getId())
 				.userKey(category.getUserKey())
 				.title(category.getCategoryTitle())
 				.description(category.getCategoryDescription())

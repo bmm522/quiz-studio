@@ -16,7 +16,7 @@ import quiz.controller.category.dto.CategoryUpdateBody;
 import quiz.controller.dto.CommonResponse;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategoryUpdateResponse;
+import quiz.service.category.dto.CategoryUpdateParam;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateCategoryControllerTest {
@@ -41,7 +41,7 @@ public class UpdateCategoryControllerTest {
 			.build();
 		String userKey = "testUserKey";
 
-		S_CategoryUpdateResponse response = S_CategoryUpdateResponse.builder()
+		CategoryUpdateParam.Response response = CategoryUpdateParam.Response.builder()
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
 			.build();

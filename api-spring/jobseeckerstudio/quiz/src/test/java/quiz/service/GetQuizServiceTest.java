@@ -33,7 +33,7 @@ public class GetQuizServiceTest extends ServiceTest {
 			QuizQueryDto.createForTest("예제 카테고리", "예제 문제4", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4",
 				4)
 		);
-		when(quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(anyString(),
+		when(quizRepository.findQuizQueryDtoListByIdAndUserKey(anyString(),
 			anyLong(), anyInt(), anyInt())).thenReturn(quizQeuryDtoList);
 
 		QuizGetResponse result = quizService.getQuizzesWithPaging("testUser", 1000L, 1);

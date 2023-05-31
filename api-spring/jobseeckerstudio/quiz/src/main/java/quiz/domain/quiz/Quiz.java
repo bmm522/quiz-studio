@@ -33,7 +33,7 @@ public class Quiz extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "quiz_id")
-	private long quizId;
+	private Long id;
 
 	@Column(nullable = false, name = "quiz_title")
 	private String quizTitle;
@@ -49,25 +49,25 @@ public class Quiz extends BaseTimeEntity {
 	@OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<QuizChoice> quizChoices = new ArrayList<>();
 
-	public String getCategoryName() {
-		return this.category.getCategoryTitle();
+	@Builder
+	public Quiz(String quizTitle) {
+		this.quizTitle = quizTitle;
 	}
 
-	public String getQuizTitle() {
-		return this.quizTitle;
-	}
+//	public String getQuizTitle() {
+//		return this.quizTitle;
+//	}
 
 //	public String getDifficulty() {
 //		return this.difficulty.get();
 //	}
 
-	public List<QuizChoice> getQuizChoices() {
-		return this.quizChoices;
-	}
+//	public List<QuizChoice> getQuizChoices() {
+//		return this.quizChoices;
+//	}
 
-	@Builder
-	public Quiz(String quizTitle) {
-		this.quizTitle = quizTitle;
+	public String findCategoryName() {
+		return this.category.getCategoryTitle();
 	}
 
 	public void addCategory(Category category) {

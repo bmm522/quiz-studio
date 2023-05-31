@@ -115,7 +115,7 @@ public class CategoryE2ETest extends E2ETest {
 			.userKey(testUserKey)
 			.build();
 
-		long savedUserCategoryId = categoryRepository.save(category3).getCategoryId();
+		long savedUserCategoryId = categoryRepository.save(category3).getId();
 
 		rt.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 		CategoryUpdateBody dto = CategoryUpdateBody.builder()

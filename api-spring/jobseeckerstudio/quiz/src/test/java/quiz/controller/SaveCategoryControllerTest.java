@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import quiz.controller.category.dto.CategorySaveBody;
-import quiz.service.category.dto.S_CategorySaveResponse;
+import quiz.service.category.dto.CategorySaveParam;
 
 public class SaveCategoryControllerTest extends ControllerTest {
 
@@ -30,7 +30,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.description("testtest")
 			.build();
 
-		S_CategorySaveResponse response = S_CategorySaveResponse.builder()
+		CategorySaveParam.Response response = CategorySaveParam.Response.builder()
 			.userKey("testUser")
 			.title("test")
 			.description("testtest")

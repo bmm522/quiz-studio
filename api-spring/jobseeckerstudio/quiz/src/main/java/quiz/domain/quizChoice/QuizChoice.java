@@ -48,6 +48,7 @@ public class QuizChoice {
 //		quiz.addChoice(this);
 	}
 
+
 	public void updateContent(final String updateContent) {
 		this.choiceContent = updateContent;
 	}

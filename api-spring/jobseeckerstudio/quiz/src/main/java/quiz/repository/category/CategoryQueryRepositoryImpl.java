@@ -13,10 +13,11 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 
 	private final JPAQueryFactory queryFactory;
 
-	QCategory category = QCategory.category;
+	QCategory category;
 
 	public CategoryQueryRepositoryImpl(EntityManager entityManager) {
 		this.queryFactory = new JPAQueryFactory(entityManager);
+		category = QCategory.category;
 	}
 
 	@Override
@@ -40,11 +41,18 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 	}
 
 	@Override
+	public Category findCategoryByCategoryTitle(final String categoryTitle) {
+		return queryFactory.selectFrom(category)
+			.where(category.categoryTitle.eq(categoryTitle))
+			.fetchOne();
+	}
+
+	@Override
 	public Optional<Category> findCategoryByCategoryId(final Long categoryId) {
 		return Optional.ofNullable(
 			queryFactory
 				.selectFrom(category)
-				.where(category.categoryId.eq(categoryId))
+				.where(category.id.eq(categoryId))
 				.fetchOne()
 		);
 	}

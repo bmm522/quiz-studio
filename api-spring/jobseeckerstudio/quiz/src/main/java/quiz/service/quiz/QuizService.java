@@ -60,7 +60,7 @@ public class QuizService {
 	public QuizGetResponse getQuizzesWithPaging(final String userKey, final Long categoryId,
 		final int page) {
 		final QuizGetCondition item = QuizConverter.toGetConition(userKey, categoryId, page);
-		final List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizQueryDtoListByCategoryIdAndUserKey(
+		final List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizQueryDtoListByIdAndUserKey(
 			item.getUserKey(),
 			item.getCategoryId(),
 			item.getOffset(),

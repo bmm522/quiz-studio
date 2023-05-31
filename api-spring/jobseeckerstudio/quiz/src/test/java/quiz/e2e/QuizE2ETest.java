@@ -32,7 +32,7 @@ public class QuizE2ETest extends E2ETest {
 			.userKey(testUserKey)
 			.build();
 
-		long categoryId = categoryRepository.save(category).getCategoryId();
+		long categoryId = categoryRepository.save(category).getId();
 		url = "/api/v1/category/" + categoryId + "/quiz";
 	}
 

@@ -14,27 +14,26 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.global.exception.NotFoundEntityException;
 import quiz.global.exception.PermissionException;
-import quiz.service.category.dto.S_CategoryUpdateRequest;
-import quiz.service.category.dto.S_CategoryUpdateResponse;
+import quiz.service.category.dto.CategoryUpdateParam;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateCategoryServiceTest extends ServiceTest {
 
 	Category category;
 
-	S_CategoryUpdateRequest request;
+	CategoryUpdateParam.Request request;
 
 	@BeforeEach
 	void init() {
 
 		category = Category.builder()
-			.categoryId(1L)
+			.id(1L)
 			.categoryTitle("testTitle")
 			.categoryDescription("testDescription")
 			.userKey("testUser")
 			.build();
 
-		request = S_CategoryUpdateRequest.builder()
+		request = CategoryUpdateParam.Request.builder()
 			.categoryId(1L)
 			.updateTitle("updateTitle")
 			.updateDescription("updateDescription")
@@ -51,7 +50,7 @@ public class UpdateCategoryServiceTest extends ServiceTest {
 		when(categoryRepository.findCategoryByCategoryId(any())).thenReturn(
 			Optional.of(category));
 
-		S_CategoryUpdateResponse response = categoryService.update(request);
+		CategoryUpdateParam.Response response = categoryService.update(request);
 
 		assertThat(response.getUpdateTitle()).isEqualTo("updateTitle");
 		assertThat(response.getUpdateDescription()).isEqualTo("updateDescription");

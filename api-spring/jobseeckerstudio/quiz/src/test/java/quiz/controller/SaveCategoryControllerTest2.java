@@ -17,7 +17,7 @@ import quiz.controller.dto.CommonResponse;
 import quiz.global.exception.ExistCategorySaveException;
 import quiz.global.exception.InvalidParameterFromDtoException;
 import quiz.service.category.CategoryService;
-import quiz.service.category.dto.S_CategorySaveResponse;
+import quiz.service.category.dto.CategorySaveParam;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Save Category 테스트")
@@ -43,7 +43,7 @@ public class SaveCategoryControllerTest2 {
 			.build();
 		String userKey = "testUserKey";
 
-		S_CategorySaveResponse response = S_CategorySaveResponse.builder()
+		CategorySaveParam.Response response = CategorySaveParam.Response.builder()
 			.userKey("testUserKey")
 			.title("test")
 			.description("testtest")

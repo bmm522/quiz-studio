@@ -15,4 +15,6 @@ public interface CategoryQueryRepository {
 	Optional<Category> findCategoryByUserKeyAndTitle(final String userKey, final String title);
 
 	Long getCategoryTotalCount(String userKey);
+
+	Category findCategoryByCategoryTitle(String categoryTitle);
 }

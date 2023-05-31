@@ -23,7 +23,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		quiz = QQuiz.quiz;
 	}
 
-	public List<QuizQueryDto> findQuizzesFroRedis() {
+	public List<QuizQueryDto> findQuizzesForRedisBy() {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.categoryTitle.eq("java")
@@ -38,19 +38,19 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 	public List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId) {
 		List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
-			.where(quiz.category.categoryId.eq(categoryId))
+			.where(quiz.category.id.eq(categoryId))
 			.fetch();
 		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 
 
 	@Override
-	public List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKey(final String userKey,
+	public List<QuizQueryDto> findQuizQueryDtoListByIdAndUserKey(final String userKey,
 		final Long categoryId, final int offset, final int pageSize) {
 
 		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
-			.where(quiz.category.categoryId.eq(categoryId)
+			.where(quiz.category.id.eq(categoryId)
 				.and(quiz.category.userKey.eq(userKey)))
 			.offset(offset)
 			.limit(pageSize)
@@ -65,7 +65,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		Long categoryId) {
 		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
-			.where(quiz.category.categoryId.eq(categoryId)
+			.where(quiz.category.id.eq(categoryId)
 				.and(quiz.category.userKey.eq(userKey)))
 			.orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
 			.limit(10)
@@ -79,7 +79,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		return queryFactory
 			.select(quiz.count())
 			.from(quiz)
-			.where(quiz.category.categoryId.eq(categoryId)
+			.where(quiz.category.id.eq(categoryId)
 				.and(quiz.category.userKey.eq(userKey)))
 			.fetchOne();
 	}
@@ -88,7 +88,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 	public List<Quiz> findQuizzesByCategoryId(Long categoryId) {
 		return queryFactory
 			.selectFrom(quiz)
-			.where(quiz.category.categoryId.eq(categoryId))
+			.where(quiz.category.id.eq(categoryId))
 			.fetch();
 	}
 
@@ -97,7 +97,7 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		return Optional.ofNullable(
 			queryFactory
 				.selectFrom(quiz)
-				.where(quiz.quizId.eq(quizId))
+				.where(quiz.id.eq(quizId))
 				.fetchOne()
 		);
 	}

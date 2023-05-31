@@ -66,7 +66,7 @@ public class CategoryQueryRepositoryTest {
 
 		Category savedData = categoryRepository.save(category3);
 		Category userCategory = categoryRepository.findCategoryByCategoryId(
-			savedData.getCategoryId()).get();
+			savedData.getId()).get();
 
 		assertThat(userCategory.getCategoryTitle()).isEqualTo("testCategoryName3");
 

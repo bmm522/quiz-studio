@@ -13,21 +13,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.global.exception.DuplicateTitleException;
-import quiz.service.category.dto.S_CategorySaveRequest;
-import quiz.service.category.dto.S_CategorySaveResponse;
+import quiz.service.category.dto.CategorySaveParam;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveCategoryServiceTest extends ServiceTest {
 
 
-	S_CategorySaveRequest reqeust;
+	CategorySaveParam.Request reqeust;
 
 	Category category;
 
 
 	@BeforeEach
 	void init() {
-		reqeust = S_CategorySaveRequest.builder()
+		reqeust = CategorySaveParam.Request.builder()
 			.userKey("testUser")
 			.title("testTitle")
 			.description("testDescription")
@@ -48,7 +47,7 @@ public class SaveCategoryServiceTest extends ServiceTest {
 		// given
 		when(categoryRepository.save(any())).thenReturn(category);
 		// when
-		S_CategorySaveResponse response = categoryService.save(reqeust);
+		CategorySaveParam.Response response = categoryService.save(reqeust);
 		// then
 
 		assertThat(response.getUserKey()).isEqualTo("testUser");
