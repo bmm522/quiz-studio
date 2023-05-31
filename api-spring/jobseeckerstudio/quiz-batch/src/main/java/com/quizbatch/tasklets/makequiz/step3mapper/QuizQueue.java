@@ -1,11 +1,12 @@
 package com.quizbatch.tasklets.makequiz.step3mapper;
 
+import com.quizbatch.domain.quiz.Quiz;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import lombok.extern.slf4j.Slf4j;
-import quiz.domain.quiz.Quiz;
+
 
 @Slf4j
 public class QuizQueue {

@@ -1,6 +1,7 @@
 package com.quizbatch.tasklets.saverdbms.step1save;
 
 
+import com.quizbatch.domain.quiz.Quiz;
 import com.quizbatch.domain.quiz.QuizRepository;
 import com.quizbatch.tasklets.makequiz.step3mapper.QuizQueue;
 import java.util.List;
@@ -10,7 +11,6 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
-import quiz.domain.quiz.Quiz;
 
 
 @Component

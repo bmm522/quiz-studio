@@ -2,6 +2,8 @@ package com.quizbatch.queue;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.quizbatch.domain.category.Category;
+import com.quizbatch.domain.quiz.Quiz;
 import com.quizbatch.tasklets.makequiz.step1apirequest.CategoryTitle;
 import com.quizbatch.tasklets.makequiz.step2converter.QuizDtoConverter;
 import com.quizbatch.tasklets.makequiz.step2converter.QuizDtoFromResponse;
@@ -11,8 +13,7 @@ import com.quizbatch.tasklets.makequiz.step3mapper.QuizTransformer;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import quiz.domain.category.Category;
-import quiz.domain.quiz.Quiz;
+
 
 public class QuizQueueTest {
 

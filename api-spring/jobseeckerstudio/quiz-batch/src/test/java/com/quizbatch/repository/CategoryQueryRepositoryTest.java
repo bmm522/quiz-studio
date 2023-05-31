@@ -1,12 +1,13 @@
 package com.quizbatch.repository;
 
 
+import com.quizbatch.domain.category.Category;
+import com.quizbatch.domain.category.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import quiz.domain.category.Category;
-import quiz.domain.category.repository.CategoryRepository;
+
 
 @SpringBootTest
 @ComponentScan(basePackages = {"quiz.config", "quiz.repository", "quiz.domain"})

@@ -5,26 +5,16 @@
   <artifactId>quiz</artifactId>
   <dependencies>
 
-    <dependency>
-      <artifactId>querydsl-jpa</artifactId>
-      <groupId>com.querydsl</groupId>
-      <version>5.0.0</version>
-    </dependency>
 
-    <dependency>
-      <artifactId>querydsl-apt</artifactId>
-      <groupId>com.querydsl</groupId>
-      <version>5.0.0</version>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>jedis</artifactId>
-      <groupId>redis.clients</groupId>
-      <version>3.6.0</version>
-    </dependency>
+    <!--    <dependency>-->
+    <!--      <artifactId>spring-boot-starter-data-redis</artifactId>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <artifactId>jedis</artifactId>-->
+    <!--      <groupId>redis.clients</groupId>-->
+    <!--      <version>3.6.0</version>-->
+    <!--    </dependency>-->
   </dependencies>
 
   <groupId>com.jobseecker.quiz</groupId>

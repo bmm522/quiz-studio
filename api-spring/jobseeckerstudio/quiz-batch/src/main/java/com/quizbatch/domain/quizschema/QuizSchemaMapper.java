@@ -1,9 +1,10 @@
 package com.quizbatch.domain.quizschema;
 
+import com.quizbatch.domain.quiz.QuizQueryDto;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import quiz.repository.quiz.dto.QuizQueryDto;
+
 
 public class QuizSchemaMapper {
 

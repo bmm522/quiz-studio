@@ -7,7 +7,7 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 
 public interface QuizQueryRepository {
 
-	List<QuizQueryDto> findQuizzesForRedisBy();
+//	List<QuizQueryDto> findQuizzesForRedisBy();
 
 	List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId);
 

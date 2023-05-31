@@ -23,16 +23,16 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		quiz = QQuiz.quiz;
 	}
 
-	public List<QuizQueryDto> findQuizzesForRedisBy() {
-		List<Quiz> quizList = queryFactory
-			.selectFrom(quiz)
-			.where(quiz.category.categoryTitle.eq("java")
-				.or(quiz.category.categoryTitle.eq("data_structure")))
-			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
-			.fetch();
-
-		return QuizMapper.toQuizQueryDtoListForRedis(quizList);
-	}
+//	public List<QuizQueryDto> findQuizzesForRedisBy() {
+//		List<Quiz> quizList = queryFactory
+//			.selectFrom(quiz)
+//			.where(quiz.category.categoryTitle.eq("java")
+//				.or(quiz.category.categoryTitle.eq("data_structure")))
+//			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
+//			.fetch();
+//
+//		return QuizMapper.toQuizQueryDtoListForRedis(quizList);
+//	}
 
 	@Override
 	public List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId) {

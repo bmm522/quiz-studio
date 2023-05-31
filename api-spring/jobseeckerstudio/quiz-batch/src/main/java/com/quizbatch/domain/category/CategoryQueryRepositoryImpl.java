@@ -3,7 +3,6 @@ package com.quizbatch.domain.category;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import quiz.domain.category.Category;
 
 @Repository
 @RequiredArgsConstructor

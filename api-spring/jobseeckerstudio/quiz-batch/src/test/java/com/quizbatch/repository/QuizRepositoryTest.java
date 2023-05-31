@@ -2,6 +2,10 @@ package com.quizbatch.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.quizbatch.domain.category.Category;
+import com.quizbatch.domain.category.CategoryRepository;
+import com.quizbatch.domain.quiz.Quiz;
+import com.quizbatch.domain.quiz.QuizRepository;
 import com.quizbatch.tasklets.makequiz.step1apirequest.CategoryTitle;
 import com.quizbatch.tasklets.makequiz.step2converter.QuizDtoConverter;
 import com.quizbatch.tasklets.makequiz.step2converter.QuizDtoFromResponse;
@@ -10,10 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import quiz.domain.category.Category;
-import quiz.domain.category.repository.CategoryRepository;
-import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.repository.QuizRepository;
+
 
 @DataJpaTest
 

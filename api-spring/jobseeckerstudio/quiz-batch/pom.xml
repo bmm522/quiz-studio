@@ -89,12 +89,6 @@
       <artifactId>spring-data-redis</artifactId>
       <groupId>org.springframework.data</groupId>
     </dependency>
-    <dependency>
-      <artifactId>quiz</artifactId>
-      <groupId>com.jobseecker.quiz</groupId>
-      <scope>compile</scope>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
     <!--    <dependency>-->
     <!--      <artifactId>quiz</artifactId>-->
     <!--      <groupId>com.jobseecker.quizSchema</groupId>-->

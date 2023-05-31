@@ -1,166 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>jobseeckerstudio</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+      <plugin>
+        <artifactId>apt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <outputDirectory>target/generated-sources/java</outputDirectory>
+              <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+            </configuration>
+            <goals>
+              <goal>process</goal>
+            </goals>
+          </execution>
+        </executions>
+        <groupId>com.mysema.maven</groupId>
+        <version>1.1.3</version>
+      </plugin>
+    </plugins>
+
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>querydsl-jpa</artifactId>
+      <groupId>com.querydsl</groupId>
+      <version>5.0.0</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>querydsl-apt</artifactId>
+      <groupId>com.querydsl</groupId>
+      <version>5.0.0</version>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt-api</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt-impl</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <scope>runtime</scope>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt-jackson</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <scope>runtime</scope>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <artifactId>java-jwt</artifactId>
+      <groupId>com.auth0</groupId>
+      <version>3.19.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter -->
+    <dependency>
+      <artifactId>jasypt-spring-boot-starter</artifactId>
+      <groupId>com.github.ulisesbocchio</groupId>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <artifactId>httpclient</artifactId>
+      <groupId>org.apache.httpcomponents</groupId>
+      <version>4.5.14</version>
+    </dependency>
+
+    <dependency>
+
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>h2</artifactId>
+      <groupId>com.h2database</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>mysql-connector-j</artifactId>
+      <groupId>com.mysql</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>5.8.2</version>
+    </dependency>
+
+    <!-- JUnit 5 Jupiter Engine -->
+    <dependency>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>5.8.2</version>
+    </dependency>
+
+    <!-- JUnit 5 Platform Runner -->
+    <dependency>
+      <artifactId>junit-platform-runner</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <scope>test</scope>
+      <version>1.8.2</version>
+    </dependency>
+  </dependencies>
+  <description>Studio for job seekers</description>
+  <groupId>com.jobseecker</groupId>
   <modelVersion>4.0.0</modelVersion>
   <modules>
     <module>quiz-batch</module>
     <module>quiz</module>
     <module>user</module>
   </modules>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.9</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>com.jobseecker</groupId>
-  <artifactId>jobseeckerstudio</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
   <name>JobSeeckerStudio</name>
-  <description>Studio for job seekers</description>
+  <packaging>pom</packaging>
 
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.7.9</version> <!-- lookup parent from repository -->
+  </parent>
   <properties>
     <java.version>11</java.version>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-api</artifactId>
-      <version>0.11.5</version>
-    </dependency>
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-impl</artifactId>
-      <version>0.11.5</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-jackson</artifactId>
-      <version>0.11.5</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.auth0</groupId>
-      <artifactId>java-jwt</artifactId>
-      <version>3.19.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter -->
-    <dependency>
-      <groupId>com.github.ulisesbocchio</groupId>
-      <artifactId>jasypt-spring-boot-starter</artifactId>
-      <version>3.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.14</version>
-    </dependency>
 
-    <dependency>
-
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.8.2</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- JUnit 5 Jupiter Engine -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.8.2</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- JUnit 5 Platform Runner -->
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-      <version>1.8.2</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-            </exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.mysema.maven</groupId>
-        <artifactId>apt-maven-plugin</artifactId>
-        <version>1.1.3</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>target/generated-sources/java</outputDirectory>
-              <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-
-  </build>
+  <version>0.0.1-SNAPSHOT</version>
 
 
 </project>

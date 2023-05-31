@@ -4,9 +4,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import quiz.domain.quiz.Quiz;
-import quiz.domain.quiz.mapper.QuizMapper;
-import quiz.repository.quiz.dto.QuizQueryDto;
 
 @Repository
 @RequiredArgsConstructor
