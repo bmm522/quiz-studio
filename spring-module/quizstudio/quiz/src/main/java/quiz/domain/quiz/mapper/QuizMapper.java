@@ -9,9 +9,13 @@ import quiz.repository.quiz.dto.QuizQueryDto;
 
 public class QuizMapper {
 
-
-	public static List<QuizQueryDto> toQuizQueryDtoList(List<Quiz> quizList) {
-
+	/**
+	 * 퀴즈 목록을 퀴즈 조회 DTO로 변환합니다.
+	 *
+	 * @param quizList 퀴즈 목록
+	 * @return 퀴즈 조회 DTO 목록
+	 */
+	public static List<QuizQueryDto> toQuizQueryDtoList(final List<Quiz> quizList) {
 		return quizList.stream().map(quiz -> {
 			List<QuizQueryDto.ChoiceDto> choiceDtoList = quiz.getQuizChoices().stream()
 				.map(choice -> new QuizQueryDto.ChoiceDto(
@@ -30,6 +34,12 @@ public class QuizMapper {
 		}).collect(Collectors.toList());
 	}
 
+	/**
+	 * 퀴즈 저장 요청 데이터를 엔티티로 변환합니다.
+	 *
+	 * @param customQuizDtos 퀴즈 저장 요청 데이터 목록
+	 * @return 퀴즈 엔티티 목록
+	 */
 	public static List<Quiz> toEntitiesWhenSave(final List<CustomQuizDto> customQuizDtos) {
 		return customQuizDtos.stream()
 			.map(quizDto -> {
@@ -59,4 +69,5 @@ public class QuizMapper {
 			.isAnswer(choice.getIsAnswer())
 			.build();
 	}
+
 }

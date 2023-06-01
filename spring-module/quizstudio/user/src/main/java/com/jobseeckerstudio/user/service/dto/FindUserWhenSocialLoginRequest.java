@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class FindUserWhenSocialLoginRequest {
 
-    private String userKey;
+	private final String userKey;
 
-    @Builder
-    public FindUserWhenSocialLoginRequest(String userKey){
-        this.userKey = userKey;
-    }
+	@Builder
+	public FindUserWhenSocialLoginRequest(final String userKey) {
+		this.userKey = userKey;
+	}
 }

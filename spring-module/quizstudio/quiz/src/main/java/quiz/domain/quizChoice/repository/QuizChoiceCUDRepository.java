@@ -5,6 +5,6 @@ import quiz.global.dto.CustomQuizDto;
 
 public interface QuizChoiceCUDRepository {
 
-	int updateAllContentAndIsAnswer(List<CustomQuizDto.Choice> quizChoices);
+	int updateAllContentAndIsAnswer(final List<CustomQuizDto.Choice> quizChoices);
 
 }

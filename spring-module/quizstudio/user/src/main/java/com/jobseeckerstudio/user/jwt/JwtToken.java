@@ -25,7 +25,11 @@ public class JwtToken {
 		this.refreshToken = refreshToken;
 	}
 
-
+	/**
+	 * JWT 토큰의 유효성을 검사합니다.
+	 *
+	 * @throws InvalidTokenException 유효하지 않은 토큰인 경우 발생하는 예외
+	 */
 	public void checkValidateJwtToken() {
 		if (jwtToken == null || jwtToken.isEmpty() || !jwtToken.startsWith(
 			JwtProperties.TOKEN_PREFIX)) {
@@ -33,6 +37,11 @@ public class JwtToken {
 		}
 	}
 
+	/**
+	 * 리프레시 토큰의 유효성을 검사합니다.
+	 *
+	 * @throws InvalidTokenException 유효하지 않은 토큰인 경우 발생하는 예외
+	 */
 	public void checkValidateRefreshToken() {
 		if (refreshToken == null || refreshToken.isEmpty() || !refreshToken.startsWith(
 			JwtProperties.REFRESH_PREFIX)) {
@@ -40,6 +49,11 @@ public class JwtToken {
 		}
 	}
 
+	/**
+	 * 액세스 토큰의 만료 여부를 확인합니다.
+	 *
+	 * @return 액세스 토큰이 만료되었으면 false, 그렇지 않으면 true를 반환합니다.
+	 */
 	public boolean checkExpiredToken() {
 		try {
 			Jws<Claims> claims = Jwts.parser()
@@ -55,9 +69,12 @@ public class JwtToken {
 		return true;
 	}
 
+	/**
+	 * 리프레시 토큰의 만료 여부를 확인합니다.
+	 *
+	 * @return 리프레시 토큰이 만료되었으면 false, 그렇지 않으면 true를 반환합니다.
+	 */
 	public boolean checkExpiredRefreshToken() {
-//		System.out.println(JwtProperties.REFRESH_PREFIX);
-//		System.out.println(refreshToken);
 		try {
 			Jws<Claims> claims = Jwts.parser()
 				.setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))

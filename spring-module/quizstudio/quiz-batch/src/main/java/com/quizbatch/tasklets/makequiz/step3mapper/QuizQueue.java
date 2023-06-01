@@ -17,6 +17,11 @@ public class QuizQueue {
 
 	}
 
+	/**
+	 * 퀴즈 목록을 큐에 추가합니다.
+	 *
+	 * @param quizzes 퀴즈 목록
+	 */
 	public static void add(List<Quiz> quizzes) {
 		try {
 			quizzesQueue.add(quizzes);
@@ -26,10 +31,20 @@ public class QuizQueue {
 
 	}
 
+	/**
+	 * 큐에서 하나의 퀴즈 목록을 가져옵니다.
+	 *
+	 * @return 퀴즈 목록
+	 */
 	public static List<Quiz> getOne() {
 		return quizzesQueue.poll();
 	}
 
+	/**
+	 * 큐에 있는 모든 퀴즈 목록을 가져옵니다. 만약 큐가 비어있거나 퀴즈 목록이 비어있는 경우 빈 리스트를 반환합니다.
+	 *
+	 * @return 모든 퀴즈 목록
+	 */
 	public static List<Quiz> getAllFromQueue() {
 		List<Quiz> quizzes = new ArrayList<>();
 		int size = quizzesQueue.size();

@@ -23,6 +23,14 @@ public class SaveQuizAtRedisTasklet implements Tasklet {
 
 	private final QuizRepository quizRepository;
 
+	/**
+	 * Redis에 퀴즈를 저장하는 Tasklet입니다. RDBMS에서 퀴즈 목록을 가져와서 Redis에 저장합니다.
+	 *
+	 * @param stepContribution StepContribution 객체
+	 * @param chunkContext     ChunkContext 객체
+	 * @return RepeatStatus.FINISHED
+	 * @throws Exception 예외 발생 시
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {

@@ -26,6 +26,14 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	private final AuthenticationManager authenticationManager;
 
 
+	/**
+	 * 인증을 시도하는 메서드입니다.
+	 *
+	 * @param request  HttpServletRequest 객체
+	 * @param response HttpServletResponse 객체
+	 * @return Authentication 객체
+	 * @throws AuthenticationException 인증 실패 시
+	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request,
 		HttpServletResponse response) throws AuthenticationException {
@@ -39,6 +47,16 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	}
 
 
+	/**
+	 * 인증 성공 시 호출되는 메서드입니다.
+	 *
+	 * @param request    HttpServletRequest 객체
+	 * @param response   HttpServletResponse 객체
+	 * @param chain      FilterChain 객체
+	 * @param authResult Authentication 객체
+	 * @throws IOException      I/O 예외 발생 시
+	 * @throws ServletException Servlet 예외 발생 시
+	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request,
 		HttpServletResponse response, FilterChain chain, Authentication authResult)

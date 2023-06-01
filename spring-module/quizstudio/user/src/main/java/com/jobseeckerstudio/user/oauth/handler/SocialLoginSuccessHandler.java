@@ -51,13 +51,24 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		}
 	}
 
+	/**
+	 * 사용자의 솔트와 리프레시 토큰을 설정하고 저장합니다.
+	 *
+	 * @param user         사용자 정보
+	 * @param refreshToken 리프레시 토큰
+	 */
 	public void setUserSaltAndSave(User user, String refreshToken) {
 		user.setEmailWithEncryption();
 		user.setSalt(refreshToken);
 		userRepository.save(user);
 	}
 
-
+	/**
+	 * 저장된 사용자의 솔트와 리프레시 토큰을 업데이트합니다. 리프레시 토큰이 만료되지 않은 경우에만 업데이트합니다.
+	 *
+	 * @param savedUser 저장된 사용자 정보
+	 * @param jwtToken  JWT 토큰
+	 */
 	public void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
 		String refreshTokenFromSavedUser = savedUser.getSalt();
 		jwtToken.setRefreshToken(refreshTokenFromSavedUser);

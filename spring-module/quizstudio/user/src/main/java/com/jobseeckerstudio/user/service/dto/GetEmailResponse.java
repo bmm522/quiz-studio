@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class GetEmailResponse {
 
-    private String email;
+	private final String email;
 
-    @Builder
-    public GetEmailResponse(String email){
-        this.email = email;
-    }
+	@Builder
+	public GetEmailResponse(final String email) {
+		this.email = email;
+	}
 }

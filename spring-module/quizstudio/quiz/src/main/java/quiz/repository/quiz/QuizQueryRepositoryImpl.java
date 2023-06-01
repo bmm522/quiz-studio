@@ -23,31 +23,34 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		quiz = QQuiz.quiz;
 	}
 
-//	public List<QuizQueryDto> findQuizzesForRedisBy() {
-//		List<Quiz> quizList = queryFactory
-//			.selectFrom(quiz)
-//			.where(quiz.category.categoryTitle.eq("java")
-//				.or(quiz.category.categoryTitle.eq("data_structure")))
-//			// .orderBy(Expressions.numberTemplate(Double.class, "function('RAND')").asc())
-//			.fetch();
-//
-//		return QuizMapper.toQuizQueryDtoListForRedis(quizList);
-//	}
 
+	/**
+	 * 카테고리 ID에 해당하는 퀴즈의 쿼리 DTO 목록을 조회하는 메서드입니다.
+	 *
+	 * @param categoryId 카테고리 ID
+	 * @return 퀴즈의 쿼리 DTO 목록
+	 */
 	@Override
 	public List<QuizQueryDto> findQuizQueryDtoByCategoryId(final Long categoryId) {
-		List<Quiz> quizList = queryFactory
+		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.id.eq(categoryId))
 			.fetch();
 		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 
-
+	/**
+	 * 사용자 키와 카테고리 ID에 해당하는 퀴즈의 쿼리 DTO 목록을 조회하는 메서드입니다.
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @param offset     조회 시작 위치
+	 * @param pageSize   페이지 크기
+	 * @return 퀴즈의 쿼리 DTO 목록
+	 */
 	@Override
 	public List<QuizQueryDto> findQuizQueryDtoListByIdAndUserKey(final String userKey,
 		final Long categoryId, final int offset, final int pageSize) {
-
 		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.id.eq(categoryId)
@@ -59,10 +62,17 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 
+	/**
+	 * 사용자 키와 카테고리 ID에 해당하는 퀴즈의 쿼리 DTO 목록을 페이징 없이 조회하는 메서드입니다.
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @return 퀴즈의 쿼리 DTO 목록
+	 */
 	@Override
 	public List<QuizQueryDto> findQuizQueryDtoListByCategoryIdAndUserKeyWithOutPaging(
-		String userKey,
-		Long categoryId) {
+		final String userKey,
+		final Long categoryId) {
 		final List<Quiz> quizList = queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.id.eq(categoryId)
@@ -73,6 +83,13 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		return QuizMapper.toQuizQueryDtoList(quizList);
 	}
 
+	/**
+	 * 사용자 키와 카테고리 ID에 해당하는 퀴즈의 총 개수를 조회하는 메서드입니다.
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @return 퀴즈의 총 개수
+	 */
 	@Override
 	public Long getQuizTotalCount(final String userKey,
 		final Long categoryId) {
@@ -84,16 +101,28 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 			.fetchOne();
 	}
 
+	/**
+	 * 카테고리 ID에 해당하는 퀴즈 목록을 조회하는 메서드입니다.
+	 *
+	 * @param categoryId 카테고리 ID
+	 * @return 퀴즈 목록
+	 */
 	@Override
-	public List<Quiz> findQuizzesByCategoryId(Long categoryId) {
+	public List<Quiz> findQuizzesByCategoryId(final Long categoryId) {
 		return queryFactory
 			.selectFrom(quiz)
 			.where(quiz.category.id.eq(categoryId))
 			.fetch();
 	}
 
+	/**
+	 * 퀴즈 ID에 해당하는 퀴즈를 조회하는 메서드입니다.
+	 *
+	 * @param quizId 퀴즈 ID
+	 * @return 조회된 퀴즈 객체 (존재하지 않을 경우 Optional.empty())
+	 */
 	@Override
-	public Optional<Quiz> findQuizByQuizId(Long quizId) {
+	public Optional<Quiz> findQuizByQuizId(final Long quizId) {
 		return Optional.ofNullable(
 			queryFactory
 				.selectFrom(quiz)
@@ -101,5 +130,4 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 				.fetchOne()
 		);
 	}
-
 }

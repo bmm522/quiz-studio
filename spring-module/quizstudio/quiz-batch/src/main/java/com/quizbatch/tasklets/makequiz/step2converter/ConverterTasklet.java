@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConverterTasklet implements Tasklet {
 
+	/**
+	 * API 응답을 변환하여 퀴즈 DTO 리스트로 변환하고 큐에 추가하는 메서드입니다.
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {

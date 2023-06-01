@@ -21,7 +21,15 @@ import quiz.properties.JwtProperties;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-
+	/**
+	 * 요청을 필터링하여 JWT 토큰을 추출하고 해석하여 사용자 키를 추출한 후, 요청에 userKey 속성을 설정하는 메서드입니다.
+	 *
+	 * @param request     HTTP 요청
+	 * @param response    HTTP 응답
+	 * @param filterChain 필터 체인
+	 * @throws ServletException 필터 체인 내에서 예외가 발생한 경우
+	 * @throws IOException      I/O 예외가 발생한 경우
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
@@ -33,6 +41,13 @@ public class JwtFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	/**
+	 * HTTP 요청에서 JWT 토큰을 추출하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청
+	 * @return 추출된 JWT 토큰
+	 * @throws InvalidTokenException 토큰 정보가 잘못된 경우 예외 발생
+	 */
 	private String extractJwtToken(HttpServletRequest request) {
 		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
 		if (authorizationHeader == null || !authorizationHeader.startsWith(
@@ -42,6 +57,13 @@ public class JwtFilter extends OncePerRequestFilter {
 		return authorizationHeader.replace(JwtProperties.TOKEN_PREFIX, "");
 	}
 
+	/**
+	 * JWT 토큰을 해석하여 클레임을 추출하는 메서드입니다.
+	 *
+	 * @param jwtToken JWT 토큰
+	 * @return 추출된 클레임
+	 * @throws ExpiredTokenException 토큰의 유효 기간이 지난 경우 예외 발생
+	 */
 	private Jws<Claims> parseJwtToken(String jwtToken) {
 		try {
 			return Jwts.parser()
@@ -52,6 +74,13 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 	}
 
+	/**
+	 * 클레임에서 사용자 키를 추출하는 메서드입니다.
+	 *
+	 * @param claims 클레임
+	 * @return 추출된 사용자 키
+	 * @throws NullUserKeyFromJwtTokenException JWT 토큰에서 사용자 키를 찾을 수 없는 경우 예외 발생
+	 */
 	private String extractUserKey(Jws<Claims> claims) {
 		String userKey = claims.getBody().get("userKey", String.class);
 		if (userKey == null) {
@@ -59,5 +88,4 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		return userKey;
 	}
-
 }

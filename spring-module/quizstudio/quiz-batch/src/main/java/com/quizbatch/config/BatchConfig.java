@@ -1,6 +1,5 @@
 package com.quizbatch.config;
 
-
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDataStructureRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDatabaseRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiJavaRequestTasklet;
@@ -18,93 +17,88 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 @RequiredArgsConstructor
 public class BatchConfig {
-
 
 	private final JobBuilderFactory jobBuilderFactory;
 	private final StepBuilderFactory stepBuilderFactory;
 
 	private final ApiJavaRequestTasklet apiJavaRequestTasklet;
-
 	private final ApiDataStructureRequestTasklet apiDataStructureRequestTasklet;
-
 	private final ApiDatabaseRequestTasklet apiDatabaseRequestTasklet;
-
 	private final SaveQuizAtRDBMSTasklet saveQuizAtRDBMSTasklet;
-
 	private final DatabaseCategoryMapperTasklet databaseCategoryMapperTasklet;
-
 	private final JavaCategoryMapperTasklet javaCategoryMapperTasklet;
-
 	private final DataStructureCategoryMapperTasklet dataStructureCategoryMapperTasklet;
-
 	private final SaveQuizAtRedisTasklet saveQuizAtRedisTasklet;
-
 	private final ConverterTasklet converterTasklet;
 
+	/**
+	 * Java Quiz 생성 작업을 수행하는 Batch Job을 생성합니다.
+	 *
+	 * @return Java Quiz 생성 Job
+	 */
 	@Bean(name = "makeJavaQuizJob")
 	public Job makeJavaQuizJob() {
 		return jobBuilderFactory.get("makeJavaQuizJob")
 			.start(apiJavaRequestStep())
-			.on("FAILED")
-			.end()
+			.on("FAILED").end()
 			.from(apiJavaRequestStep())
-			.on("*")
-			.to(converterFromResponseStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*")
-			.to(javaCategoryMapperStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(javaCategoryMapperStep())
+			.on("FAILED").end()
 			.end()
 			.build();
 	}
 
+	/**
+	 * Data Structure Quiz 생성 작업을 수행하는 Batch Job을 생성합니다.
+	 *
+	 * @return Data Structure Quiz 생성 Job
+	 */
 	@Bean(name = "makeDataStructureQuizJob")
 	public Job makeDataStructureQuizJob() {
 		return jobBuilderFactory.get("makeDataStructureQuizJob")
 			.start(apiDataStructureRequestStep())
-			.on("FAILED")
-			.end()
+			.on("FAILED").end()
 			.from(apiDataStructureRequestStep())
-			.on("*")
-			.to(converterFromResponseStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*")
-			.to(dataStructureCategoryMapperStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(dataStructureCategoryMapperStep())
+			.on("FAILED").end()
 			.end()
 			.build();
 	}
 
+	/**
+	 * Database Quiz 생성 작업을 수행하는 Batch Job을 생성합니다.
+	 *
+	 * @return Database Quiz 생성 Job
+	 */
 	@Bean(name = "makeDatabaseQuizJob")
 	public Job makeDatabaseQuizJob() {
 		return jobBuilderFactory.get("makeDatabaseQuizJob")
 			.start(apiDatabaseRequestStep())
-			.on("FAILED")
-			.end()
+			.on("FAILED").end()
 			.from(apiDatabaseRequestStep())
-			.on("*")
-			.to(converterFromResponseStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*")
-			.to(databaseCategoryMapperStep())
-			.on("FAILED")
-			.end()
+			.on("*").to(databaseCategoryMapperStep())
+			.on("FAILED").end()
 			.end()
 			.build();
 	}
 
+	/**
+	 * RDBMS에 Quiz를 저장하는 Batch Job을 생성합니다.
+	 *
+	 * @return RDBMS에 Quiz 저장 Job
+	 */
 	@Bean(name = "saveQuizAtRDBMSJob")
 	public Job saveQuizAtRDBMSJob() {
 		return jobBuilderFactory.get("saveQuizAtRDBMSJob")
@@ -112,7 +106,11 @@ public class BatchConfig {
 			.build();
 	}
 
-
+	/**
+	 * Redis에 Quiz를 저장하는 Batch Job을 생성합니다.
+	 *
+	 * @return Redis에 Quiz 저장 Job
+	 */
 	@Bean(name = "saveQuizAtRedisJob")
 	public Job saveQuizAtRedisJob() {
 		return jobBuilderFactory.get("saveQuizAtRedisJob")
@@ -134,7 +132,6 @@ public class BatchConfig {
 			.build();
 	}
 
-
 	@Bean
 	public Step javaCategoryMapperStep() {
 		return stepBuilderFactory.get("javaCategoryMapperStep")
@@ -151,7 +148,7 @@ public class BatchConfig {
 
 	@Bean
 	public Step databaseCategoryMapperStep() {
-		return stepBuilderFactory.get(" databaseCategoryMapperStep")
+		return stepBuilderFactory.get("databaseCategoryMapperStep")
 			.tasklet(databaseCategoryMapperTasklet)
 			.build();
 	}
@@ -183,6 +180,4 @@ public class BatchConfig {
 			.tasklet(converterTasklet)
 			.build();
 	}
-
-
 }

@@ -20,6 +20,9 @@ public class DataStructureCategoryMapperTasklet implements Tasklet {
 
 	private final CategoryRepository categoryQueryRepository;
 
+	/**
+	 * 자료구조 퀴즈 구조의 JSON을 퀴즈 스키마 리스트로 변환하는 메서드입니다.
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {

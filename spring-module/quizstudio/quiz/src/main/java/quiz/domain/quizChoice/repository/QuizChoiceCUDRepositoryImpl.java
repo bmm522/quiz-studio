@@ -12,21 +12,25 @@ public class QuizChoiceCUDRepositoryImpl implements QuizChoiceCUDRepository {
 
 	private final EntityManager entityManager;
 
+	/**
+	 * 커스텀 퀴즈 선택지 DTO 리스트를 사용하여 모든 선택지의 내용과 정답 여부를 업데이트하는 메서드입니다.
+	 *
+	 * @param quizChoices 커스텀 퀴즈 선택지 DTO 리스트
+	 * @return 업데이트된 선택지의 개수
+	 */
 	@Override
-	public int updateAllContentAndIsAnswer(List<Choice> quizChoices) {
+	public int updateAllContentAndIsAnswer(final List<Choice> quizChoices) {
 		StringBuilder sb = new StringBuilder("UPDATE quiz_choice c JOIN (");
 
 		for (int i = 0; i < quizChoices.size(); i++) {
-
 			CustomQuizDto.Choice quizChoice = quizChoices.get(i);
-			System.out.println(quizChoice.getChoiceId());
 			sb.append("SELECT ")
 				.append(quizChoice.getChoiceId())
 				.append(" AS new_choice_id, '")
 				.append(quizChoice.getContent())
 				.append("' AS new_choice_content, ")
 				.append(quizChoice.getIsAnswer())
-				.append(" as new_is_answer");
+				.append(" AS new_is_answer");
 
 			if (i != quizChoices.size() - 1) {
 				sb.append(" UNION ALL ");
@@ -35,9 +39,7 @@ public class QuizChoiceCUDRepositoryImpl implements QuizChoiceCUDRepository {
 
 		sb.append(") n ON c.choice_id = n.new_choice_id ")
 			.append("SET c.choice_content = n.new_choice_content, c.is_answer = n.new_is_answer");
-		System.out.println(sb.toString());
 		Query query = entityManager.createNativeQuery(sb.toString());
 		return query.executeUpdate();
-
 	}
 }

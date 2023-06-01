@@ -12,6 +12,11 @@ public class OpenAIRestTemplateConfig {
 	@Value("${openai.api.key}")
 	private String openaiApiKey;
 
+	/**
+	 * OpenAI API에 접근하기 위한 RestTemplate을 생성합니다.
+	 *
+	 * @return OpenAI RestTemplate 객체
+	 */
 	@Bean
 	@Qualifier("openaiRestTemplate")
 	public RestTemplate openaiRestTemplate() {

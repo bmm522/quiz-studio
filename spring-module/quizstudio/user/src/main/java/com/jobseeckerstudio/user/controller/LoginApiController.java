@@ -1,19 +1,19 @@
 package com.jobseeckerstudio.user.controller;
 
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
+import com.jobseeckerstudio.user.controller.dto.ResponseHandler;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
-
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequestMapping("/api/v1")
 @Controller
@@ -24,28 +24,43 @@ public class LoginApiController {
 
 	private final JwtExpiredChecker jwtExpiredChecker;
 
+
+	/**
+	 * 소셜 로그인 페이지로 이동하는 메서드입니다.
+	 *
+	 * @param social 소셜 미디어 타입
+	 * @return 소셜 로그인 페이지로의 리다이렉트 URL
+	 */
 	@GetMapping("social/login/{social}")
-	public String moveSocialLoginForm (@PathVariable("social") String social) {
+	public String moveSocialLoginForm(@PathVariable("social") String social) {
 		return "redirect:/oauth2/authorization/" + social;
 	}
 
+	/**
+	 * JWT 토큰을 이용하여 이메일을 가져오는 메서드입니다.
+	 *
+	 * @param request HTTP 요청 객체
+	 * @return 이메일 정보와 함께 CommonResponse 객체
+	 */
 	@GetMapping("/email")
-	public @ResponseBody CommonResponse<?> getEmail (HttpServletRequest request) {
-		JwtToken jwtToken = JwtMapper.toJwtToken(request);
-		GetEmailResponse dto = readUserService.getEmail(jwtToken);
-		return responseHandler(200, "이메일 불러오기 성공", dto);
+	public @ResponseBody CommonResponse<?> getEmail(HttpServletRequest request) {
+		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
+		final GetEmailResponse dto = readUserService.getEmail(jwtToken);
+		return ResponseHandler.handle(200, "이메일 불러오기 성공", dto);
 	}
 
+	/**
+	 * 만료된 JWT 토큰을 체크하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청 객체
+	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
+	 */
 	@GetMapping("/check-expired-jwt")
-	public @ResponseBody CommonResponse<?> checkExpiredJwt (HttpServletRequest request) {
-		JwtToken jwtToken = JwtMapper.toJwtToken(request);
-		JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
+	public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request) {
+		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
+		final JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
 
-		return responseHandler(200, "jwt 체크완료", checkedToken);
-	}
-
-	private CommonResponse<?> responseHandler (Integer status, String msg, Object data) {
-		return CommonResponse.builder().status(status).msg(msg).data(data).build();
+		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
 	}
 
 }

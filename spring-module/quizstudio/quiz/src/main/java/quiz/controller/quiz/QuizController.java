@@ -29,50 +29,76 @@ public class QuizController {
 
 	private final QuizService quizService;
 
+	/**
+	 * 퀴즈 저장 메서드
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @param body       퀴즈 저장 요청 정보
+	 * @return CommonResponse 객체
+	 */
 	@PostMapping("/category/{categoryId}/quiz")
 	public CommonResponse<?> saveQuiz(
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId,
 		@RequestBody final QuizSaveBody body) {
-		QuizSaveParam.Request request = QuizConverter.toSaveParam(
-			userKey,
-			categoryId,
+		final QuizSaveParam.Request request = QuizConverter.toSaveParam(userKey, categoryId,
 			body.getQuizzes());
-		QuizSaveParam.Response response = quizService.saveAll(request);
-
+		final QuizSaveParam.Response response = quizService.saveAll(request);
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공", response);
 	}
 
+	/**
+	 * 페이징을 적용한 퀴즈 조회 메서드
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @param page       페이지 번호
+	 * @return CommonResponse 객체
+	 */
 	@GetMapping("/category/{categoryId}/quiz")
 	public CommonResponse<?> getQuizzesWithPaging(
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId,
 		@RequestParam("page") final int page) {
-		QuizGetResponse response = quizService.getQuizzesWithPaging(userKey, categoryId, page);
+		final QuizGetResponse response = quizService.getQuizzesWithPaging(userKey, categoryId,
+			page);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
 	}
 
+	/**
+	 * 퀴즈 조회(퀴즈 풀기용) 메서드
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @return CommonResponse 객체
+	 */
 	@GetMapping("/category/{categoryId}/take-quiz")
 	public CommonResponse<?> getQuizzesWhenTakeQuiz(
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId) {
-		QuizGetWithoutPagingResponse response = quizService.getQuizzesWhenTakeQuiz(userKey,
+		final QuizGetWithoutPagingResponse response = quizService.getQuizzesWhenTakeQuiz(userKey,
 			categoryId);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
 	}
 
+	/**
+	 * 퀴즈 업데이트 메서드
+	 *
+	 * @param userKey    사용자 키
+	 * @param categoryId 카테고리 ID
+	 * @param body       퀴즈 업데이트 요청 정보
+	 * @return CommonResponse 객체
+	 */
 	@PatchMapping("/category/{categoryId}/quiz")
 	public CommonResponse<?> updateQuiz(
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final Long categoryId,
 		@RequestBody final QuizUpdateBody body) {
-		QuizUpdateParam.Request request = QuizConverter.toUpdateParam(
-			userKey,
-			categoryId,
-			body.getQuizzes()
-		);
-		int updateCnt = quizService.update(request);
-
+		final QuizUpdateParam.Request request = QuizConverter.toUpdateParam(userKey, categoryId,
+			body.getQuizzes());
+		final int updateCnt = quizService.update(request);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 업데이트 성공", updateCnt);
 	}
+
 }

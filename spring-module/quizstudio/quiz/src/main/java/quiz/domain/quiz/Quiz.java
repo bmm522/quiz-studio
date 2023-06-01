@@ -88,7 +88,6 @@ public class Quiz extends BaseTimeEntity {
 	}
 
 	public CustomQuizDto toCustomQuizDto() {
-		System.out.println(quizChoices.size());
 		List<Choice> choices = quizChoices.stream()
 			.map(choice -> Choice.builder()
 				.content(choice.getChoiceContent())
@@ -100,9 +99,5 @@ public class Quiz extends BaseTimeEntity {
 			.title(quizTitle)
 			.choices(choices)
 			.build();
-	}
-
-	public void updateQuizTitle(final String updateTitle) {
-		this.quizTitle = updateTitle;
 	}
 }

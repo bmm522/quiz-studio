@@ -14,6 +14,12 @@ public class QuizCUDRepositoryImpl implements QuizCUDRepository {
 
 	private final EntityManager entityManager;
 
+	/**
+	 * 커스텀 퀴즈 DTO 리스트를 사용하여 모든 퀴즈의 제목을 업데이트하는 메서드입니다.
+	 *
+	 * @param quizzes 커스텀 퀴즈 DTO 리스트
+	 * @return 업데이트된 퀴즈의 개수
+	 */
 	@Override
 	public int updateAllTitleByCustomQuizDto(final List<CustomQuizDto> quizzes) {
 		StringBuilder sb = new StringBuilder("UPDATE quiz q JOIN (");
@@ -32,7 +38,6 @@ public class QuizCUDRepositoryImpl implements QuizCUDRepository {
 
 		sb.append(") n ON q.quiz_id = n.new_quiz_id ")
 			.append("SET q.quiz_title = n.new_quiz_title;");
-		System.out.println(sb.toString());
 		Query query = entityManager.createNativeQuery(sb.toString());
 		return query.executeUpdate();
 	}

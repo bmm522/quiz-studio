@@ -25,6 +25,9 @@ public class ApiDataStructureRequestTasklet implements Tasklet {
 	@Value("${openai.api.url}")
 	private String apiUrl;
 
+	/**
+	 * API를 호출하여 자료구조 관련 퀴즈를 요청하고 응답을 처리하는 메서드입니다.
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {
