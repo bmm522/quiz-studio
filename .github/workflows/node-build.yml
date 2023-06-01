@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Generate Environment Variables File for Production
         run: |
-          cd api-node
+          cd node-module
           mkdir env
           cd env
           echo "SECRET_KEY=$SECRET_KEY" >> .env
