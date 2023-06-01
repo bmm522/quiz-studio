@@ -5,7 +5,7 @@ on:
     branches: 
       - main
     paths:
-      - 'spring-module/jobseeckerstudio/quiz/**'
+      - 'spring-module/quizstudio/quiz/**'
 
 jobs:
   build:
@@ -65,7 +65,7 @@ jobs:
           REDIS_HOST: ${{ env.REDIS_HOST }}
           REDIS_PORT: ${{ env.REDIS_PORT }}
         run: |
-          cd ../JobSeeckerStudio/spring-module/jobseeckerstudio/quiz
+          cd ../quiz-studio/spring-module/quizstudio/quiz
           mvn clean package
 #       - name: Test
 #         run: |
