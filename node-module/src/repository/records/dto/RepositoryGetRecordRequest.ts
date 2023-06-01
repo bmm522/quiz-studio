@@ -1,6 +1,5 @@
 import { IsEnum, IsOptional } from 'class-validator';
 
-
 export class RepositoryGetRecordRequest {
   private readonly _userKey: string;
   private readonly _page: number;

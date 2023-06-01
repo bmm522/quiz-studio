@@ -9,6 +9,13 @@ import Response from 'express';
 export class QuizController {
   constructor(private quizService: QuizService) {}
 
+  /**
+   * 퀴즈 목록 조회 메서드
+   *
+   * @param params 컨트롤러에서 사용하는 퀴즈 조회 요청 DTO
+   * @param res Express 응답 객체
+   * @returns 퀴즈 목록 조회 결과를 담은 ResponseDto 객체
+   */
   @HttpCode(200)
   @Get('')
   async getQuizList(@QueryParams() params: ControllerGetQuizRequest, @Res() res: Response) {

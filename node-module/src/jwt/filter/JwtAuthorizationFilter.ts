@@ -3,6 +3,13 @@ import { NextFunction, Response, Request } from 'express';
 import { JwtMapper } from '../mapper/JwtMapper';
 import { UnauthorizedError } from '../../error/UnauthorizedError';
 
+/**
+ * JWT 인증 필터 미들웨어
+ *
+ * @param req 요청 객체
+ * @param res 응답 객체
+ * @param next 다음 미들웨어 함수
+ */
 export const JwtAuthorizationFilter = async (
   req: UserKeyRequest,
   res: Response,

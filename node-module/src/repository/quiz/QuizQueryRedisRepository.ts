@@ -7,10 +7,14 @@ import { QuizQueryRepository } from './QuizQueryRepository';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 @Service()
 export class QuizQueryRedisRepository implements QuizQueryRepository {
-  async findByCategoryNameAndDifficulty(
-    categoryName: string,
-    // difficulty: string,
-  ): Promise<ServiceGetQuizResponse[]> {
+  /**
+   * 카테고리 이름과 난이도에 해당하는 퀴즈 목록을 조회하는 메서드
+   *
+   * @param categoryName 카테고리 이름
+   * @returns 퀴즈 목록 배열 (Promise)
+   * @throws NotFoundEntityError - 해당 퀴즈 랜덤 리스트를 찾을 수 없는 경우 예외 발생
+   */
+  async findByCategoryNameAndDifficulty(categoryName: string): Promise<ServiceGetQuizResponse[]> {
     const redisClient = this.createRedisClient();
 
     try {
@@ -36,6 +40,13 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     });
   }
 
+  /**
+   * Redis에서 퀴즈 데이터를 조회하는 메서드
+   *
+   * @param redisClient Redis 클라이언트
+   * @param categoryName 카테고리 이름
+   * @returns 퀴즈 데이터 배열 (Promise)
+   */
   public async getQuizData(
     redisClient: Redis,
     categoryName: string,
@@ -57,6 +68,12 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     return await Promise.all(quizDataPromises);
   }
 
+  /**
+   * 랜덤한 퀴즈 응답을 생성하는 메서드
+   *
+   * @param quizDatas 퀴즈 데이터 배열
+   * @returns 랜덤한 퀴즈 응답 배열
+   */
   public createRandomQuizResponses(quizDatas: Record<string, string>[]): ServiceGetQuizResponse[] {
     const randomQuizResponses: ServiceGetQuizResponse[] = [];
     const randomIndices = new Set<number>();
@@ -76,6 +93,12 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     return randomQuizResponses;
   }
 
+  /**
+   * 퀴즈 선택지 배열을 생성하는 메서드
+   *
+   * @param quizData 퀴즈 데이터 객체
+   * @returns 퀴즈 선택지 배열
+   */
   public createQuizChoices(quizData: Record<string, string>): any[] {
     const quizChoices = [];
 

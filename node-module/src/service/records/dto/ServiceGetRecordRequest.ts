@@ -1,4 +1,3 @@
-
 import { IsEnum, IsOptional } from 'class-validator';
 
 export class ServiceGetRecordRequest {
@@ -16,7 +15,7 @@ export class ServiceGetRecordRequest {
     userKey: string,
     page: number,
     unresolved: boolean,
-    category:string,
+    category: string,
     // level: Level,
   ) {
     this._userKey = userKey;
@@ -30,7 +29,7 @@ export class ServiceGetRecordRequest {
     userKey: string,
     page: number,
     unresolved: boolean,
-    category:string,
+    category: string,
     // level: Level,
   ) {
     return new ServiceGetRecordRequest(userKey, page, unresolved, category);

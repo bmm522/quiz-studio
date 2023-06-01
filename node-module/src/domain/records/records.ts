@@ -1,4 +1,3 @@
-
 import { Category } from '../category/Category';
 
 export class Records {
@@ -40,7 +39,7 @@ export class Records {
       userKey: this.userKey,
       quizTitle: this.quizTitle,
       quizIsAnswer: this.quizIsAnswer,
-      category: this.category ,
+      category: this.category,
       quizChoiceContent: this.quizChoiceContent,
       quizChoiceIsAnswer: this.quizChoiceIsAnswer,
     };

@@ -7,6 +7,12 @@ import { RepositoryDeleteRecordRequest } from './dto/RepositoryDeleteRecordReque
 
 @Service()
 export class RecordsMongoDbRepository implements RecordsRepository {
+  /**
+   * 데이터를 저장하는 메서드
+   *
+   * @param dataArray 저장할 데이터 배열
+   * @returns 저장된 데이터 배열 (Promise)
+   */
   async save(dataArray: Records[]): Promise<Records[]> {
     const operations = dataArray.map(data => ({
       updateOne: {
@@ -20,6 +26,12 @@ export class RecordsMongoDbRepository implements RecordsRepository {
     return dataArray;
   }
 
+  /**
+   * 선택적으로 데이터를 삭제하는 메서드
+   *
+   * @param dto 삭제 요청 DTO
+   * @returns 없음 (Promise)
+   */
   async deleteByOptional(dto: RepositoryDeleteRecordRequest): Promise<void> {
     const filter: any = {
       userKey: dto.userKey,

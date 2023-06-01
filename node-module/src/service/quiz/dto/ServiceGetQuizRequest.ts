@@ -1,7 +1,5 @@
-
-
 export class ServiceGetQuizRequest {
-  private readonly _category: string
+  private readonly _category: string;
   // private readonly _level: Level;
 
   private constructor(category: string) {

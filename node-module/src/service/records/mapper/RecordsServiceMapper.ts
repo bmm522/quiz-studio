@@ -10,6 +10,12 @@ import { RepositoryGetRecordResponse } from '../../../repository/records/dto/Rep
 import { RecordDto } from '../../../global/dto/RecordDto';
 
 export class RecordsServiceMapper {
+  /**
+   * DTO를 엔티티 배열로 변환하는 메서드
+   *
+   * @param dto 서비스 저장 요청 DTO
+   * @returns 레코드 엔티티 배열 (Promise)
+   */
   static async toEntities(dto: ServiceSaveRecordRequest): Promise<Records[]> {
     const userKey = dto.userKey;
     const quizRecordArray = dto.quizRecordArray;
@@ -32,7 +38,12 @@ export class RecordsServiceMapper {
       );
     });
   }
-
+  /**
+   * 조회 응답을 생성하는 메서드
+   *
+   * @param response 레포지토리 조회 응답 객체
+   * @returns 서비스 조회 응답 객체 (Promise)
+   */
   static async toGetResponse(
     response: RepositoryGetRecordResponse,
   ): Promise<ServiceGetRecordsResponse> {
@@ -46,11 +57,25 @@ export class RecordsServiceMapper {
     return ServiceGetRecordsResponse.create(records, response.totalPage);
   }
 
-  static toDeleteRequest(dto: ServiceDeleteRecordRequest) {
+  /**
+   * 삭제 요청 객체로 변환하는 메서드
+   *
+   * @param dto 서비스 삭제 요청 DTO
+   * @returns 레포지토리 삭제 요청 객체
+   */
+  static async toDeleteRequest(
+    dto: ServiceDeleteRecordRequest,
+  ): Promise<RepositoryDeleteRecordRequest> {
     return RepositoryDeleteRecordRequest.create(dto.userKey, dto.deleteOption);
   }
 
-  static async toGetRequest(dto: ServiceGetRecordRequest) {
+  /**
+   * 조회 요청 객체로 변환하는 메서드
+   *
+   * @param dto 서비스 조회 요청 DTO
+   * @returns 레포지토리 조회 요청 객체
+   */
+  static async toGetRequest(dto: ServiceGetRecordRequest): Promise<RepositoryGetRecordRequest> {
     if (dto.category) {
     }
     return RepositoryGetRecordRequest.create(

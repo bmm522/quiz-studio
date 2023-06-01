@@ -1,5 +1,3 @@
-
-
 export class RecordDto {
   constructor(
     public quizTitle: string,
@@ -14,14 +12,14 @@ export class RecordDto {
 
   setCategory() {
     switch (this.category) {
-      case "java":
+      case 'java':
         this.category = '자바';
         break;
-      case "datastructure":
+      case 'datastructure':
         this.category = '자료구조';
         break;
-      case  "database":
-        this.category='데이터베이스';
+      case 'database':
+        this.category = '데이터베이스';
         break;
     }
   }

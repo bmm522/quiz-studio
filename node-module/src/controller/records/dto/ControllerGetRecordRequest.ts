@@ -1,11 +1,8 @@
-
 import { IsEnum, IsOptional } from 'class-validator';
-
 
 export class ControllerGetRecordRequest {
   page: number;
   unresolved: string;
-
 
   category: string;
 

@@ -9,6 +9,12 @@ import { RecordDto } from '../../global/dto/RecordDto';
 
 @Service()
 export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
+  /**
+   * 사용자 키에 해당하는 레코드를 조회하는 메서드
+   *
+   * @param dto 조회 요청 객체
+   * @returns 조회 응답 객체 (Promise)
+   */
   async findByUserKey(dto: RepositoryGetRecordRequest): Promise<RepositoryGetRecordResponse> {
     let userKey = dto.userKey;
     let unresolved = dto.unresolved;

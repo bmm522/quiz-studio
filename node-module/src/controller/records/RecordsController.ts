@@ -23,6 +23,13 @@ import { Request } from 'express';
 export class RecordsController {
   constructor(private recordsService: RecordsService) {}
 
+  /**
+   * 문제풀기 기록 저장 API
+   *
+   * @param dto 컨트롤러에서 사용하는 문제풀기 기록 저장 요청 DTO
+   * @param req 사용자 키 요청 객체
+   * @returns 문제풀기 기록 저장 결과를 담은 ResponseDto 객체
+   */
   @HttpCode(201)
   @Post('')
   async saveRecords(@Body() dto: ControllerSaveRecordRequest, @Req() req: UserKeyRequest) {
@@ -39,6 +46,13 @@ export class RecordsController {
     }
   }
 
+  /**
+   * 문제풀기 기록 조회 API
+   *
+   * @param params 컨트롤러에서 사용하는 문제풀기 기록 조회 요청 DTO
+   * @param req 사용자 키 요청 객체
+   * @returns 문제풀기 기록 조회 결과를 담은 ResponseDto 객체
+   */
   @HttpCode(200)
   @Get('')
   async getRecords(@QueryParams() params: ControllerGetRecordRequest, @Req() req: UserKeyRequest) {
@@ -55,6 +69,13 @@ export class RecordsController {
     }
   }
 
+  /**
+   * 문제풀기 기록 삭제 API
+   *
+   * @param params 컨트롤러에서 사용하는 문제풀기 기록 삭제 요청 DTO
+   * @param req 사용자 키 요청 객체
+   * @returns 문제풀기 기록 삭제 결과를 담은 ResponseDto 객체
+   */
   @HttpCode(200)
   @Delete('')
   async deleteRecords(
