@@ -18,7 +18,7 @@ export class ServiceGetRecordRequest {
     userKey: string,
     page: number,
     unresolved: boolean,
-    category: CategoryEnum
+    category: CategoryEnum,
     // level: Level,
   ) {
     this._userKey = userKey;

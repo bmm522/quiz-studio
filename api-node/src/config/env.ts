@@ -18,7 +18,7 @@ export const env = {
 
   openAI: {
     secretKey: process.env.OPEN_API_KEY,
-    organization:process.env.OPEN_ORGANIZATION,
+    organization: process.env.OPEN_ORGANIZATION,
   },
   // mysqlDatabase: {
   //   host: process.env.TYPEORM_MYSQL_HOST,

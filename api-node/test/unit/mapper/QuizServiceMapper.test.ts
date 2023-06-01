@@ -18,6 +18,5 @@ describe('QuizServiceMapperTest', () => {
     // Assert
     expect(serviceRequest).toBeInstanceOf(ServiceGetQuizRequest);
     expect(serviceRequest.category).toEqual(category);
-    expect(serviceRequest.level).toEqual(level);
   });
 });

@@ -14,10 +14,7 @@ describe('QuizQueryRedisRepository Test', () => {
   });
   if (env.nodeEnv.testEnv === 'development') {
     it('정상적인 요청', async () => {
-      const result = await queryRedisRepository.findByCategoryNameAndDifficulty(
-        CategoryEnum.JAVA,
-        Level.EASY,
-      );
+      const result = await queryRedisRepository.findByCategoryNameAndDifficulty(CategoryEnum.JAVA);
 
       expect(result.length).toBeGreaterThan(0);
 
@@ -31,10 +28,7 @@ describe('QuizQueryRedisRepository Test', () => {
 
       // 3. 주어진 카테고리 이름과 난이도에 해당하는 퀴즈가 없을 경우 에러를 발생시키는지 확인
       await expect(
-        queryRedisRepository.findByCategoryNameAndDifficulty(
-          invalidCategoryName,
-          invalidDifficulty,
-        ),
+        queryRedisRepository.findByCategoryNameAndDifficulty(invalidCategoryName),
       ).rejects.toThrow(NotFoundEntityError);
     });
 
@@ -56,7 +50,6 @@ describe('QuizQueryRedisRepository Test', () => {
           const result = await queryRedisRepository.getQuizData(
             redisClient,
             CategoryEnum.JAVA as string,
-            Level.EASY as string,
           );
 
           expect(result.length).toBeGreaterThanOrEqual(1);
@@ -66,7 +59,7 @@ describe('QuizQueryRedisRepository Test', () => {
           });
 
           result.forEach(quizData => {
-            expect(quizData.id).toContain(`${CategoryEnum.JAVA}_${Level.EASY}`);
+            expect(quizData.id).toContain(`${CategoryEnum.JAVA}_`);
           });
         });
       });
@@ -76,7 +69,6 @@ describe('QuizQueryRedisRepository Test', () => {
           const quizDatas = await queryRedisRepository.getQuizData(
             redisClient,
             CategoryEnum.JAVA as string,
-            Level.EASY as string,
           );
 
           const result = queryRedisRepository.createRandomQuizResponses(quizDatas);
@@ -100,7 +92,6 @@ describe('QuizQueryRedisRepository Test', () => {
           const quizDatas = await queryRedisRepository.getQuizData(
             redisClient,
             CategoryEnum.JAVA as string,
-            Level.EASY as string,
           );
 
           const result = queryRedisRepository.createQuizChoices(quizDatas[0]);

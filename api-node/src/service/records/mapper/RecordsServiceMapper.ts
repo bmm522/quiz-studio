@@ -38,7 +38,6 @@ export class RecordsServiceMapper {
   static async toGetResponse(
     response: RepositoryGetRecordResponse,
   ): Promise<ServiceGetRecordsResponse> {
-
     const records = await Promise.all(
       response.records.map(async record => {
         await record.setCategory();

@@ -9,7 +9,6 @@ export class RecordDto {
 
     public category: string,
 
-
     public quizChoiceContent: string[],
     public quizChoiceIsAnswer: boolean[],
   ) {}
