@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'api-spring/jobseeckerstudio/user/**'
+      - 'spring-module/jobseeckerstudio/user/**'
 
 jobs:
   build:
@@ -55,26 +55,26 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: |
-          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/spring-module/jobseeckerstudio/user
           mvn clean package
       - name: Run tests
         run: |
-          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
+          cd ../JobSeeckerStudio/spring-module/jobseeckerstudio/user
           mvn -B test
-      - name: Build Docker image
-        run: |
-          cd ../JobSeeckerStudio/api-spring/jobseeckerstudio/user
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }} \
-            --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
-            --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
-            --build-arg MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
-            --build-arg MYSQL_HOST=${{secrets.MYSQL_HOST}} \
-            --build-arg MYSQL_PORT=${{secrets.MYSQL_PORT}} \
-            --build-arg MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
-            .
-      - name: Push Docker image
-        run: |
-          docker images
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
+#       - name: Build Docker image
+#         run: |
+#           cd ../JobSeeckerStudio/spring-module/jobseeckerstudio/user
+#           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }} \
+#             --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
+#             --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
+#             --build-arg MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
+#             --build-arg MYSQL_HOST=${{secrets.MYSQL_HOST}} \
+#             --build-arg MYSQL_PORT=${{secrets.MYSQL_PORT}} \
+#             --build-arg MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
+#             .
+#       - name: Push Docker image
+#         run: |
+#           docker images
+#           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
 
       
