@@ -9,6 +9,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import com.jobseeckerstudio.user.auth.principal.PrincipalDetails;
 import com.jobseeckerstudio.user.domain.user.User;
+import com.jobseeckerstudio.user.jwt.JwtMaker;
+import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.oauth.handler.SocialLoginSuccessHandler;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
 import java.util.Optional;
@@ -77,6 +79,8 @@ public class SocialLoginSuccessHandlerTest {
 	@DisplayName("기존 유저 로그인 시에 핸들러")
 	public void onAuthenticationSuccessTestWhenExistUser() throws Exception {
 		User user = User.builder().userKey("test").email("test@test.com").build();
+		JwtToken jwtToken = JwtMaker.create(user);
+		user.setSalt(jwtToken.getRefreshToken());
 		// Arrange
 		when(authentication.getPrincipal()).thenReturn(principalDetails);
 		when(principalDetails.getUser()).thenReturn(user);
