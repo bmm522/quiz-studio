@@ -7,10 +7,10 @@ window.onload = async function () {
     await getEmail();
     await loadQuiz();
 }
-async function getQuizData(level, category) {
+async function getQuizData(category) {
     console.log("실행됨");
     const url = new URL(`${nodeHost}/v1/quiz`);
-    url.searchParams.set("level", level);
+    // url.searchParams.set("level", level);
     url.searchParams.set("category", category);
     const headers = new Headers();
     headers.append("authorization", localStorage.getItem("authorization"));
@@ -23,7 +23,7 @@ async function getQuizData(level, category) {
 }
 
 async function loadQuiz() {
-    getQuizData(level, category).then((quizData) => {
+    getQuizData(category).then((quizData) => {
         const quizElements = createQuizElements(quizData);
         quizContainer.append(...quizElements);
     });

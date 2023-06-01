@@ -2,8 +2,6 @@ import { RecordsQueryRepository } from './RecordsQueryRepository';
 import { Service } from 'typedi';
 import { Records } from '../../domain/records/records';
 import { RecordsModel } from '../../domain/records/schema/recordsSchema';
-import { CategoryEnum } from '../../global/enum/CategoryEnum';
-import { Level } from '../../global/enum/Level';
 import { RepositoryGetRecordRequest } from './dto/RepositoryGetRecordRequest';
 import { RecordsRepositoryMapper } from './mapper/RecordsRepositoryMapper';
 import { RepositoryGetRecordResponse } from './dto/RepositoryGetRecordResponse';
@@ -51,7 +49,7 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
         new RecordDto(
           record.quizTitle,
           record.quizIsAnswer,
-          record.category as CategoryEnum,
+          record.category,
           record.quizChoiceContent,
           record.quizChoiceIsAnswer,
         ),
@@ -64,5 +62,5 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
 interface QueryObject {
   userKey: string;
   quizIsAnswer?: boolean;
-  category?: CategoryEnum;
+  category?: string;
 }

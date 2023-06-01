@@ -1,5 +1,4 @@
-import { CategoryEnum } from '../../global/enum/CategoryEnum';
-import { Level } from '../../global/enum/Level';
+
 import { Category } from '../category/Category';
 
 export class Records {
@@ -8,7 +7,7 @@ export class Records {
 
   quizIsAnswer: boolean;
 
-  category: CategoryEnum;
+  category: string;
 
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
@@ -17,7 +16,7 @@ export class Records {
     userKey: string,
     quizTitle: string,
     quizIsAnswer: boolean,
-    category: CategoryEnum,
+    category: string,
     quizChoiceContent: string[],
     quizChoiceIsAnswer: boolean[],
   ) {
@@ -41,7 +40,7 @@ export class Records {
       userKey: this.userKey,
       quizTitle: this.quizTitle,
       quizIsAnswer: this.quizIsAnswer,
-      category: this.category as CategoryEnum,
+      category: this.category ,
       quizChoiceContent: this.quizChoiceContent,
       quizChoiceIsAnswer: this.quizChoiceIsAnswer,
     };

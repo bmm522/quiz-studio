@@ -50,6 +50,10 @@ public class CategoryService {
 
 	}
 
+	public List<CategoryQueryDto> getCategoriesWhenSelectOption(final String userKey) {
+		return categoryRepository.findCategoryDtosByUserKeyWhenSelectOption(userKey);
+	}
+
 	@Transactional
 	public CategoryUpdateParam.Response update(final CategoryUpdateParam.Request request) {
 		Category category = getCategoryFromCategoryId
@@ -67,5 +71,6 @@ public class CategoryService {
 			categoryId).orElseThrow(() -> new NotFoundEntityException(
 			"userKey로 해당 Category 객체를 찾을 수 없습니다."));
 	}
+
 
 }

@@ -1,5 +1,4 @@
-import { CategoryEnum } from '../enum/CategoryEnum';
-import { Level } from '../enum/Level';
+
 
 export class RecordDto {
   constructor(
@@ -15,11 +14,14 @@ export class RecordDto {
 
   setCategory() {
     switch (this.category) {
-      case CategoryEnum.JAVA:
+      case "java":
         this.category = '자바';
         break;
-      case CategoryEnum.DATASTRUCTURE:
+      case "datastructure":
         this.category = '자료구조';
+        break;
+      case  "database":
+        this.category='데이터베이스';
         break;
     }
   }

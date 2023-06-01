@@ -69,7 +69,7 @@ async function getCategories(page) {
 }
 
 async function moveQuizPage(category) {
-    localStorage.setItem("level", "easy");
+    // localStorage.setItem("level", "easy");
     location.href = `${frontHost}/custom-quiz`;
 }
 
@@ -117,14 +117,20 @@ const getCookieValue = (key) => {
     return result;
 };
 
-document.getElementById("java-easy").addEventListener("click", function () {
-    localStorage.setItem("level", "easy");
+document.getElementById("java-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
     localStorage.setItem("category", "java");
     location.href = `${frontHost}/quiz`;
 });
-document.getElementById("data-structure-easy").addEventListener("click", function () {
-    localStorage.setItem("level", "easy");
+document.getElementById("data-structure-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
     localStorage.setItem("category", "datastructure");
+    location.href = `${frontHost}/quiz`;
+});
+
+document.getElementById("database-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
+    localStorage.setItem("category", "database");
     location.href = `${frontHost}/quiz`;
 });
 

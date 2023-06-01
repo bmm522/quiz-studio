@@ -41,6 +41,12 @@ document.querySelector(".record-button").addEventListener("click", function(even
       window.location.href = `${frontHost}/record`;
 });
 
+document.querySelector("#title-div").addEventListener("click", function(event) {
+    event.stopPropagation(); 
+      event.preventDefault(); 
+      window.location.href = `${frontHost}/main`;
+});
+
 
 async function checkToken() {
 

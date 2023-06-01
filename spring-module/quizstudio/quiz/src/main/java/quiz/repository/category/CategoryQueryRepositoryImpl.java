@@ -33,6 +33,16 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 	}
 
 	@Override
+	public List<CategoryQueryDto> findCategoryDtosByUserKeyWhenSelectOption(final String userKey) {
+		final List<Category> categories = queryFactory
+			.selectFrom(category)
+			.where(category.userKey.eq(userKey))
+			.fetch();
+
+		return CategoryQueryMapper.toDto(categories);
+	}
+
+	@Override
 	public Long getCategoryTotalCount(String userKey) {
 		return queryFactory.select(category.count())
 			.from(category)
@@ -46,6 +56,7 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
 			.where(category.categoryTitle.eq(categoryTitle))
 			.fetchOne();
 	}
+
 
 	@Override
 	public Optional<Category> findCategoryByCategoryId(final Long categoryId) {

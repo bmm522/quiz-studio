@@ -1,5 +1,4 @@
-import { CategoryEnum } from '../../../src/global/enum/CategoryEnum';
-import { Level } from '../../../src/global/enum/Level';
+
 import { ControllerGetQuizRequest } from '../../../src/controller/quiz/dto/ControllerGetQuizRequest';
 import { QuizServiceMapper } from '../../../src/service/quiz/mapper/QuizServiceMapper';
 import { ServiceGetQuizRequest } from '../../../src/service/quiz/dto/ServiceGetQuizRequest';
@@ -7,10 +6,10 @@ import { ServiceGetQuizRequest } from '../../../src/service/quiz/dto/ServiceGetQ
 describe('QuizServiceMapperTest', () => {
   it('toGetRequest Test', () => {
     // Arrange
-    const category: CategoryEnum = CategoryEnum.JAVA;
-    const level: Level = Level.EASY;
+    const category: string = "java";
+    // const level: Level = Level.EASY;
 
-    const controllerRequest = new ControllerGetQuizRequest(category, level);
+    const controllerRequest = new ControllerGetQuizRequest(category);
 
     // Act
     const serviceRequest = QuizServiceMapper.toGetRequest(controllerRequest);

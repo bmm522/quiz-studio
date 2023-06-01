@@ -38,8 +38,18 @@ public class CategoryController {
 	public CommonResponse<?> getCategories(
 		@RequestAttribute("userKey") String userKey,
 		@RequestParam("page") int page) {
+		System.out.println("여기는들어오면안돼ㅑ");
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공",
 			categoryService.get(userKey, page));
+	}
+
+	@GetMapping("/category-option")
+	public CommonResponse<?> getCategoriesWhenOption(
+		@RequestAttribute("userKey") String userKey
+	) {
+		System.out.println("여기로들어옴?");
+		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 불러오기 성공(옵션)",
+			categoryService.getCategoriesWhenSelectOption(userKey));
 	}
 
 	@PatchMapping("/category")

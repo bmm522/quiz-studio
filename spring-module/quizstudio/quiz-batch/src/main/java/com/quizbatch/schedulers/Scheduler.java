@@ -101,7 +101,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 42 0 * * *")
+	@Scheduled(cron = "0 31 13 * * *")
 	public void saveQuizAtRedisJobSchedule() {
 		try {
 			jobLauncher.run(

@@ -15,8 +15,6 @@ public class JwtExpiredChecker {
 	private final UserRepository userRepository;
 
 	public JwtToken check(JwtToken jwtToken) {
-		System.out.println(jwtToken.getRefreshToken());
-
 		User user = userRepository.findBySalt(jwtToken.getRefreshToken())
 			.orElseThrow(() -> new NotFoundSaltException("refreshToken에 해당되는 유저 정보가 없습니다."));
 

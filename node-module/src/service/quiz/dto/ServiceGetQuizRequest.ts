@@ -1,20 +1,19 @@
-import { CategoryEnum } from '../../../global/enum/CategoryEnum';
-import { Level } from '../../../global/enum/Level';
+
 
 export class ServiceGetQuizRequest {
-  private readonly _category: CategoryEnum;
+  private readonly _category: string
   // private readonly _level: Level;
 
-  private constructor(category: CategoryEnum) {
+  private constructor(category: string) {
     this._category = category;
     // this._level = level;
   }
 
-  static create(category: CategoryEnum) {
+  static create(category: string) {
     return new ServiceGetQuizRequest(category);
   }
 
-  get category(): CategoryEnum {
+  get category(): string {
     return this._category;
   }
 

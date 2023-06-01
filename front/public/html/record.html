@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>JobSeekerStudio</title>
+    <title>QuizStudio</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -72,12 +72,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand d-flex align-items-center justify-content-center" id="title-div" style="cursor: pointer;">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">JobSeekerStudio</div>
-            </a>
+                <div class="sidebar-brand-text mx-3">QuizStudio</div>
+              </div>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -88,6 +88,11 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span id="main-page">문제풀기</span></div>
             </li>
+            <li class="nav-item">
+              <div class="nav-link edit-quiz-button" style="cursor: pointer;">
+                  <i class="fas fa-fw fa-edit"></i>
+                  <span id="edit-quiz-page">문제 만들기</span></div>
+          </li>
 
             <li class="nav-item active">
               <div class="nav-link record-button" style="cursor: pointer;">
@@ -203,12 +208,33 @@
                           <tr>
                             <th>제목</th>
                             <th>카테고리</th>
-                            <th>레벨</th>
                             <th>상태</th>
                           </tr>
                           <tr>
                             <th>
                               
+                         
+                          
+                            </th>
+                            <th>
+                            
+                              <select class="form-control" id="categorySelect" style="width: 130px;" onchange="checkSolved()">
+                                <option value="all">전체</option>
+                                <option value="java">자바</option>
+                                <option value="datastructure">자료구조</option>
+                                <option value="database">데이터베이스</option>
+                                <!-- 다른 카테고리 옵션 추가 -->
+                              </select>
+                          
+                            </th>
+                            <th>
+                            
+                              <!-- <select class="form-control" id="levelSelect" style="width: 100px;" onchange="checkSolved()">
+                                <option value="all">전체</option>
+                                <option value="easy">쉬움</option>
+                                <option value="hard">어려움</option>
+
+                              </select> -->
                               <div class="form-check form-check-inline">
                                 <div>
                                   <input class="form-check-input" type="checkbox" id="checkUnresolved" onchange="checkSolved()">
@@ -220,27 +246,6 @@
                               <div class="form-group row">
                                
                               </div>
-                          
-                            </th>
-                            <th>
-                            
-                              <select class="form-control" id="categorySelect" style="width: 130px;" onchange="checkSolved()">
-                                <option value="all">전체</option>
-                                <option value="java">자바</option>
-                                <option value="datastructure">자료구조</option>
-                                <!-- 다른 카테고리 옵션 추가 -->
-                              </select>
-                          
-                            </th>
-                            <th>
-                            
-                              <select class="form-control" id="levelSelect" style="width: 100px;" onchange="checkSolved()">
-                                <option value="all">전체</option>
-                                <option value="easy">쉬움</option>
-                                <option value="hard">어려움</option>
-                                <!-- 다른 카테고리 옵션 추가 -->
-                              </select>
-                          
                             </th>
                           </tr>
                           

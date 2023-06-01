@@ -2,8 +2,6 @@ import { ServiceSaveRecordRequest } from '../dto/ServiceSaveRecordRequest';
 
 import { ServiceGetRecordsResponse } from '../dto/ServiceGetRecordsResponse';
 import { Records } from '../../../domain/records/records';
-import { CategoryEnum } from '../../../global/enum/CategoryEnum';
-import { Level } from '../../../global/enum/Level';
 import { ServiceDeleteRecordRequest } from '../dto/ServiceDeleteRecordRequest';
 import { RepositoryDeleteRecordRequest } from '../../../domain/records/repository/dto/RepositoryDeleteRecordRequest';
 import { ServiceGetRecordRequest } from '../dto/ServiceGetRecordRequest';
@@ -28,7 +26,7 @@ export class RecordsServiceMapper {
         userKey,
         quizTitle,
         quizIsAnswer,
-        category as CategoryEnum,
+        category,
         quizChoiceContent,
         quizChoiceIsAnswer,
       );

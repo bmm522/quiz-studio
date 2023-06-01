@@ -1,8 +1,6 @@
-import { CategoryEnum } from '../../../src/global/enum/CategoryEnum';
 import Redis from 'ioredis';
 import { env } from '../../../src/config/env';
 import { QuizQueryRedisRepository } from '../../../src/repository/quiz/QuizQueryRedisRepository';
-import { Level } from '../../../src/global/enum/Level';
 import { Records } from '../../../src/domain/records/records';
 import { ServiceGetQuizResponse } from '../../../src/service/quiz/dto/ServiceGetQuizResponse';
 import { NotFoundEntityError } from '../../../src/error/NotFoundEntityError';
@@ -14,7 +12,7 @@ describe('QuizQueryRedisRepository Test', () => {
   });
   if (env.nodeEnv.testEnv === 'development') {
     it('정상적인 요청', async () => {
-      const result = await queryRedisRepository.findByCategoryNameAndDifficulty(CategoryEnum.JAVA);
+      const result = await queryRedisRepository.findByCategoryNameAndDifficulty("java");
 
       expect(result.length).toBeGreaterThan(0);
 
@@ -49,7 +47,7 @@ describe('QuizQueryRedisRepository Test', () => {
         it('성공 케이스', async () => {
           const result = await queryRedisRepository.getQuizData(
             redisClient,
-            CategoryEnum.JAVA as string,
+            "java",
           );
 
           expect(result.length).toBeGreaterThanOrEqual(1);
@@ -59,7 +57,7 @@ describe('QuizQueryRedisRepository Test', () => {
           });
 
           result.forEach(quizData => {
-            expect(quizData.id).toContain(`${CategoryEnum.JAVA}_`);
+            expect(quizData.id).toContain(`java_`);
           });
         });
       });
@@ -68,7 +66,7 @@ describe('QuizQueryRedisRepository Test', () => {
         it('성공 케이스', async () => {
           const quizDatas = await queryRedisRepository.getQuizData(
             redisClient,
-            CategoryEnum.JAVA as string,
+            "java",
           );
 
           const result = queryRedisRepository.createRandomQuizResponses(quizDatas);
@@ -91,7 +89,7 @@ describe('QuizQueryRedisRepository Test', () => {
         it('성공 케이스', async () => {
           const quizDatas = await queryRedisRepository.getQuizData(
             redisClient,
-            CategoryEnum.JAVA as string,
+            "java",
           );
 
           const result = queryRedisRepository.createQuizChoices(quizDatas[0]);

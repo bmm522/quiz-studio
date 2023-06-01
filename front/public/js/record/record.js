@@ -5,13 +5,15 @@ window.onload = async function () {
 await checkToken();
   await getEmail();
   await getRecords(currentPage);
-  console.log(localStorage.getItem("category"));
+  await getCategories();
+  // console.log(localStorage.getItem("category"));
 
 }
 
 async function checkSolved() {
   await checkToken();
   await getRecords(currentPage);
+  // await getCategories();
 }
 
 async function getRecords(page) {
@@ -22,14 +24,16 @@ async function getRecords(page) {
 async function getRecordsAction(page) {
   const chkUnresolved =document.getElementById('checkUnresolved').checked;
   const categorySelect = document.getElementById('categorySelect').value;
-  const levelSelect = document.getElementById('levelSelect').value;
+  console.log(categorySelect);
+  // const levelSelect = document.getElementById('levelSelect').value;
   const problemList = document.querySelector('#problemList');
   const url = new URL(`${nodeHost}/v1/records`);
+
   url.searchParams.set("page", page);
   url.searchParams.set("unresolved", chkUnresolved);
 
   if (categorySelect !== "all")   url.searchParams.set("category", categorySelect);
-  if (levelSelect !== "all") url.searchParams.set("level", levelSelect);
+  // if (levelSelect !== "all") url.searchParams.set("level", levelSelect);
   const headers = new Headers();
   headers.append("authorization", localStorage.getItem("authorization"));
   headers.append("refreshToken", localStorage.getItem("refreshToken"));
@@ -39,16 +43,15 @@ async function getRecordsAction(page) {
       .then(data => {
       
           let html = '';
-          console.log(data.data);
+          // console.log(data.data);
           data.data._quizRecords.forEach((problem, index) => {
              
-              const { quizTitle, category, level, quizChoiceContent, quizIsAnswer, quizChoiceIsAnswer } = problem;
+              const { quizTitle, category, quizChoiceContent, quizIsAnswer, quizChoiceIsAnswer } = problem;
               const id = index;
               html += `
-                  <tr class= "title-tr" data-status="${quizIsAnswer !== false ? 'resolved' : 'unresolved'}">
-                      <td><div onclick="toggleProblemDescription(${id})">${quizTitle}</div></td>
+                  <tr class= "title-tr" data-status="${quizIsAnswer !== false ? 'resolved' : 'unresolved'}" onclick="toggleProblemDescription(${id})">
+                      <td><div >${quizTitle}</div></td>
                       <td>${category}</td>
-                      <td>${level}</td>
                       <td><span class="badge badge-${quizIsAnswer !== false ? 'success' : 'warning'}">${quizIsAnswer !== false ? '해결됨' : '해결 못함'}</span></td>
                   </tr>
                   <tr class="problem-description" id="problemDescription${id}" style="display:none;">
@@ -68,13 +71,39 @@ async function getRecordsAction(page) {
               `;
            
           });
-          console.log(data.data._totalPage);
+          // console.log(data.data._totalPage);
           updatePagination(data.data._totalPage, page);
           problemList.innerHTML = html;
       })
       .catch(error => console.error(error));
 
+     
 }
+
+
+async function getCategories() {
+  const url2 = new URL(`${quizSpringHost}/api/v1/category-option`);
+  const headers = new Headers();
+  headers.append("authorization", localStorage.getItem("authorization"));
+  headers.append("refreshToken", localStorage.getItem("refreshToken"));
+
+  await fetch(url2, {headers})
+  .then(response => response.json())
+  .then(data => {
+      // console.log(data.data);
+      const categorySelect = document.getElementById('categorySelect');
+      data.data.forEach((category) => {
+        const categoryOption = document.createElement('option');
+        categoryOption.value = category.title;
+        categoryOption.innerHTML = category.title;
+        categorySelect.appendChild(categoryOption);
+      })
+      
+
+
+  });
+}
+
 function updatePagination(totalPages, currentPage) {
 
  

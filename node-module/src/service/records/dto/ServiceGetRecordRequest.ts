@@ -1,14 +1,12 @@
-import { CategoryEnum } from '../../../global/enum/CategoryEnum';
-import { Level } from '../../../global/enum/Level';
+
 import { IsEnum, IsOptional } from 'class-validator';
 
 export class ServiceGetRecordRequest {
   private readonly _userKey: string;
   private readonly _page: number;
   private readonly _unresolved: boolean;
-  @IsOptional()
-  @IsEnum(CategoryEnum)
-  private readonly _category: CategoryEnum;
+
+  private readonly _category: string;
 
   // @IsOptional()
   // @IsEnum(Level)
@@ -18,7 +16,7 @@ export class ServiceGetRecordRequest {
     userKey: string,
     page: number,
     unresolved: boolean,
-    category: CategoryEnum,
+    category:string,
     // level: Level,
   ) {
     this._userKey = userKey;
@@ -32,7 +30,7 @@ export class ServiceGetRecordRequest {
     userKey: string,
     page: number,
     unresolved: boolean,
-    category: CategoryEnum,
+    category:string,
     // level: Level,
   ) {
     return new ServiceGetRecordRequest(userKey, page, unresolved, category);
@@ -50,7 +48,7 @@ export class ServiceGetRecordRequest {
     return this._unresolved;
   }
 
-  get category(): CategoryEnum {
+  get category(): string {
     return this._category;
   }
 

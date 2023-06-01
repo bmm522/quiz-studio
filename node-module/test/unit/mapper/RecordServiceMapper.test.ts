@@ -1,6 +1,4 @@
 import { RecordDto } from '../../../src/global/dto/RecordDto';
-import { CategoryEnum } from '../../../src/global/enum/CategoryEnum';
-import { Level } from '../../../src/global/enum/Level';
 import { Records } from '../../../src/domain/records/records';
 import { ServiceSaveRecordRequest } from '../../../src/service/records/dto/ServiceSaveRecordRequest';
 import { RecordsServiceMapper } from '../../../src/service/records/mapper/RecordsServiceMapper';
@@ -20,7 +18,7 @@ describe('RecordServiceMapperTest', () => {
       new RecordDto(
         '퀴즈 1',
         true,
-        CategoryEnum.JAVA,
+       "java",
 
         ['선택1', '선택2', '선택3', '선택4'],
         [true, false, false, false],
@@ -28,7 +26,7 @@ describe('RecordServiceMapperTest', () => {
       new RecordDto(
         '퀴즈 2',
         false,
-        CategoryEnum.DATASTRUCTURE,
+       "datastructure",
 
         ['선택1', '선택2', '선택3', '선택4'],
         [false, true, false, false],
@@ -61,7 +59,7 @@ describe('RecordServiceMapperTest', () => {
       new RecordDto(
         '퀴즈 1',
         true,
-        CategoryEnum.JAVA,
+        "java",
 
         ['선택1', '선택2', '선택3', '선택4'],
         [true, false, false, false],
@@ -69,7 +67,7 @@ describe('RecordServiceMapperTest', () => {
       new RecordDto(
         '퀴즈 2',
         false,
-        CategoryEnum.DATASTRUCTURE,
+        "datastructure",
 
         ['선택1', '선택2', '선택3', '선택4'],
         [false, true, false, false],
@@ -100,7 +98,7 @@ describe('RecordServiceMapperTest', () => {
     const userKey = 'user-key';
     const page = 1;
     const unresolved = true;
-    const category = CategoryEnum.JAVA;
+    const category = "java";
 
     const serviceRequest = ServiceGetRecordRequest.create(userKey, page, unresolved, category);
 
