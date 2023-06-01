@@ -10,14 +10,14 @@ export class ControllerGetRecordRequest {
   @IsEnum(CategoryEnum)
   category: CategoryEnum;
 
-  @IsOptional()
-  @IsEnum(Level)
-  level: Level;
+  // @IsOptional()
+  // @IsEnum(Level)
+  // level: Level;
 
-  constructor(page: number, unresolved: string, category: string, level: string) {
+  constructor(page: number, unresolved: string, category: string) {
     this.page = page;
     this.unresolved = unresolved;
     this.category = category as CategoryEnum;
-    this.level = level as Level;
+    // this.level = level as Level;
   }
 }

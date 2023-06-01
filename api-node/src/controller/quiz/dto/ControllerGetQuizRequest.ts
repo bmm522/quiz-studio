@@ -7,11 +7,11 @@ export class ControllerGetQuizRequest {
   @IsEnum(CategoryEnum)
   category: CategoryEnum;
 
-  @IsEnum(Level)
-  level: Level;
+  // @IsEnum(Level)
+  // level: Level;
 
   constructor(category: string, level: string) {
     this.category = category as CategoryEnum;
-    this.level = level as Level;
+    // this.level = level as Level;
   }
 }

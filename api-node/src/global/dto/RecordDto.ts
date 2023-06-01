@@ -9,7 +9,7 @@ export class RecordDto {
 
     public category: string,
 
-    public level: string,
+
     public quizChoiceContent: string[],
     public quizChoiceIsAnswer: boolean[],
   ) {}
@@ -22,21 +22,17 @@ export class RecordDto {
       case CategoryEnum.DATASTRUCTURE:
         this.category = '자료구조';
         break;
-      default:
-        this.category = '';
     }
   }
 
-  setLevel() {
-    switch (this.level) {
-      case Level.EASY:
-        this.level = '쉬움';
-        break;
-      case Level.HARD:
-        this.level = '어려움';
-        break;
-      default:
-        this.level = '';
-    }
-  }
+  // setLevel() {
+  //   switch (this.level) {
+  //     case Level.EASY:
+  //       this.level = '쉬움';
+  //       break;
+  //     case Level.HARD:
+  //       this.level = '어려움';
+  //       break;
+  //   }
+  // }
 }

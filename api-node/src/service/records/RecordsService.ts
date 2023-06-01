@@ -29,6 +29,7 @@ export class RecordsService {
   async getRecords(dto: ServiceGetRecordRequest): Promise<ServiceGetRecordsResponse> {
     const item = await RecordsServiceMapper.toGetRequest(dto);
     const response = await this.recordsQueryRepository.findByUserKey(item);
+
     return await RecordsServiceMapper.toGetResponse(response);
   }
 

@@ -16,6 +16,10 @@ export const env = {
     testEnv: process.env.TEST_ENV,
   },
 
+  openAI: {
+    secretKey: process.env.OPEN_API_KEY,
+    organization:process.env.OPEN_ORGANIZATION,
+  },
   // mysqlDatabase: {
   //   host: process.env.TYPEORM_MYSQL_HOST,
   //   port: Number(process.env.TYPEORM_MYSQL_PORT),

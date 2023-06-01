@@ -15,7 +15,7 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
     let userKey = dto.userKey;
     let unresolved = dto.unresolved;
     let category = dto.category;
-    let level = dto.level;
+    // let level = dto.level;
     let page = dto.page;
     let pageSize = 10; // 페이지당 레코드 수
     // 쿼리 객체 생성
@@ -31,9 +31,9 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
       query['category'] = category;
     }
 
-    if (level) {
-      query['level'] = level;
-    }
+    // if (level) {
+    //   query['level'] = level;
+    // }
 
     if (!page) {
       page = 1;
@@ -52,7 +52,6 @@ export class RecordsQueryMongoDbRepository implements RecordsQueryRepository {
           record.quizTitle,
           record.quizIsAnswer,
           record.category as CategoryEnum,
-          record.level as Level,
           record.quizChoiceContent,
           record.quizChoiceIsAnswer,
         ),
@@ -66,5 +65,4 @@ interface QueryObject {
   userKey: string;
   quizIsAnswer?: boolean;
   category?: CategoryEnum;
-  level?: Level;
 }

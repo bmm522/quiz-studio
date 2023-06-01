@@ -3,6 +3,6 @@ import { ServiceGetQuizRequest } from '../dto/ServiceGetQuizRequest';
 
 export class QuizServiceMapper {
   static toGetRequest(params: ControllerGetQuizRequest): ServiceGetQuizRequest {
-    return ServiceGetQuizRequest.create(params.category, params.level);
+    return ServiceGetQuizRequest.create(params.category);
   }
 }

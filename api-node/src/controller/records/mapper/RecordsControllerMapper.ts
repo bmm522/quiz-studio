@@ -38,7 +38,7 @@ export class RecordsControllerMapper {
       params.page,
       unresolved,
       params.category,
-      params.level,
+      // params.level,
     );
   }
 }

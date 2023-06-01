@@ -9,12 +9,12 @@ import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 export class QuizQueryRedisRepository implements QuizQueryRepository {
   async findByCategoryNameAndDifficulty(
     categoryName: string,
-    difficulty: string,
+    // difficulty: string,
   ): Promise<ServiceGetQuizResponse[]> {
     const redisClient = this.createRedisClient();
 
     try {
-      const quizDatas = await this.getQuizData(redisClient, categoryName, difficulty);
+      const quizDatas = await this.getQuizData(redisClient, categoryName);
       const randomQuizResponses = this.createRandomQuizResponses(quizDatas);
 
       if (randomQuizResponses.length === 0) {
@@ -39,9 +39,8 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
   public async getQuizData(
     redisClient: Redis,
     categoryName: string,
-    difficulty: string,
   ): Promise<Record<string, string>[]> {
-    const redisKeyPattern = `quiz:${categoryName}_${difficulty}*`;
+    const redisKeyPattern = `quiz:${categoryName}_*`;
     const stream = redisClient.scanStream({
       match: redisKeyPattern,
     });

@@ -3,6 +3,6 @@ import { ServiceGetQuizResponse } from '../../service/quiz/dto/ServiceGetQuizRes
 export interface QuizQueryRepository {
   findByCategoryNameAndDifficulty(
     categoryName: string,
-    difficulty: string,
+    // difficulty: string,
   ): Promise<ServiceGetQuizResponse[]>;
 }

@@ -10,22 +10,22 @@ export class ServiceGetRecordRequest {
   @IsEnum(CategoryEnum)
   private readonly _category: CategoryEnum;
 
-  @IsOptional()
-  @IsEnum(Level)
-  private readonly _level: Level;
+  // @IsOptional()
+  // @IsEnum(Level)
+  // private readonly _level: Level;
 
   private constructor(
     userKey: string,
     page: number,
     unresolved: boolean,
-    category: CategoryEnum,
-    level: Level,
+    category: CategoryEnum
+    // level: Level,
   ) {
     this._userKey = userKey;
     this._page = page;
     this._unresolved = unresolved;
     this._category = category;
-    this._level = level;
+    // this._level = level;
   }
 
   static create(
@@ -33,9 +33,9 @@ export class ServiceGetRecordRequest {
     page: number,
     unresolved: boolean,
     category: CategoryEnum,
-    level: Level,
+    // level: Level,
   ) {
-    return new ServiceGetRecordRequest(userKey, page, unresolved, category, level);
+    return new ServiceGetRecordRequest(userKey, page, unresolved, category);
   }
 
   get userKey(): string {
@@ -54,7 +54,7 @@ export class ServiceGetRecordRequest {
     return this._category;
   }
 
-  get level(): Level {
-    return this._level;
-  }
+  // get level(): Level {
+  //   return this._level;
+  // }
 }

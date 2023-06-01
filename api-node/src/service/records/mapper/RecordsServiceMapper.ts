@@ -21,7 +21,6 @@ export class RecordsServiceMapper {
         quizTitle,
         quizIsAnswer,
         category,
-        level,
         quizChoiceContent,
         quizChoiceIsAnswer,
       } = quizRecord;
@@ -30,7 +29,6 @@ export class RecordsServiceMapper {
         quizTitle,
         quizIsAnswer,
         category as CategoryEnum,
-        level as Level,
         quizChoiceContent,
         quizChoiceIsAnswer,
       );
@@ -40,10 +38,10 @@ export class RecordsServiceMapper {
   static async toGetResponse(
     response: RepositoryGetRecordResponse,
   ): Promise<ServiceGetRecordsResponse> {
+
     const records = await Promise.all(
       response.records.map(async record => {
         await record.setCategory();
-        await record.setLevel();
         return record;
       }),
     );
@@ -63,7 +61,7 @@ export class RecordsServiceMapper {
       dto.page,
       dto.unresolved,
       dto.category,
-      dto.level,
+      // dto.level,
     );
   }
 }

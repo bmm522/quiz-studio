@@ -10,17 +10,14 @@ export class Records {
 
   category: CategoryEnum;
 
-  level: Level;
   quizChoiceContent: string[];
   quizChoiceIsAnswer: boolean[];
 
   constructor(
     userKey: string,
     quizTitle: string,
-
     quizIsAnswer: boolean,
     category: CategoryEnum,
-    level: Level,
     quizChoiceContent: string[],
     quizChoiceIsAnswer: boolean[],
   ) {
@@ -28,7 +25,6 @@ export class Records {
     this.quizTitle = quizTitle;
     this.quizIsAnswer = quizIsAnswer;
     this.category = category;
-    this.level = level;
     this.quizChoiceContent = quizChoiceContent;
     this.quizChoiceIsAnswer = quizChoiceIsAnswer;
   }
@@ -38,7 +34,6 @@ export class Records {
     quizTitle: string;
     quizIsAnswer: boolean;
     category: string;
-    level: string;
     quizChoiceContent: string[];
     quizChoiceIsAnswer: boolean[];
   } {
@@ -47,7 +42,6 @@ export class Records {
       quizTitle: this.quizTitle,
       quizIsAnswer: this.quizIsAnswer,
       category: this.category as CategoryEnum,
-      level: this.level as Level,
       quizChoiceContent: this.quizChoiceContent,
       quizChoiceIsAnswer: this.quizChoiceIsAnswer,
     };

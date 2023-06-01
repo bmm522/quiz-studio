@@ -18,7 +18,7 @@ export class QuizService {
     const item = await QuizServiceMapper.toGetRequest(dto);
     return await this.quizQueryRepository.findByCategoryNameAndDifficulty(
       item.category as string,
-      item.level as string,
+      // item.level as string,
     );
   }
 }
