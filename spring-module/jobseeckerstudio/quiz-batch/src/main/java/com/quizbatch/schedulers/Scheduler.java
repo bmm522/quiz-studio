@@ -37,7 +37,7 @@ public class Scheduler {
 	private Job saveQuizAtRedisJob;
 
 
-	@Scheduled(cron = "0 8 0 * * *")
+	@Scheduled(cron = "0 28 0 * * *")
 	public void makeJavaQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -53,7 +53,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 12 0 * * *")
+	@Scheduled(cron = "0 32 0 * * *")
 	public void makeDataStructureQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -69,7 +69,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 16 0 * * *")
+	@Scheduled(cron = "0 36 0 * * *")
 	public void makeDatabaseQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -85,7 +85,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 20 0 * * *")
+	@Scheduled(cron = "0 40 0 * * *")
 	public void saveQuizAtRDBMSJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -101,7 +101,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 22 0 * * *")
+	@Scheduled(cron = "0 42 0 * * *")
 	public void saveQuizAtRedisJobSchedule() {
 		try {
 			jobLauncher.run(

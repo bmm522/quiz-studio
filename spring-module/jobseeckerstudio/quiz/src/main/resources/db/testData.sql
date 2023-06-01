@@ -1,7 +1,7 @@
 insert into category(category_id, category_title)
 values (1, 'java');
 insert into category(category_id, category_title)
-values (2, 'data_structure');
+values (2, 'datastructure');
 
 INSERT INTO quiz (quiz_title, category_id)
 VALUES ('다음 중 연결리스트에 대한 설명으로 옳지 않은 것은?', 2),
