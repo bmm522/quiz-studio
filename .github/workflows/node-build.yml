@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'api-node/**'
+      - 'node-module/**'
 
 jobs:
   build:
@@ -54,11 +54,11 @@ jobs:
           MONGO_URL: ${{ secrets.MONGO_URL }}
       - name: Install Dependencies and Surge
         run: |
-          cd api-node
+          cd node-module
           npm install
       - name: Run Test
         run: |
-          cd api-node
+          cd node-module
           npm run test
 #       - name: Build Docker image
 #         run: |
