@@ -1,5 +1,5 @@
 import { ControllerGetQuizRequest } from '../../controller/quiz/dto/ControllerGetQuizRequest';
-import { QuizServiceMapper } from './mapper/QuizServiceMapper';
+import { ServiceQuizMapper } from './mapper/ServiceQuizMapper';
 import { ServiceGetQuizRequest } from './dto/ServiceGetQuizRequest';
 import { NotFoundEntityError } from '../../error/NotFoundEntityError';
 import { ServiceGetQuizResponse } from './dto/ServiceGetQuizResponse';
@@ -22,7 +22,7 @@ export class QuizService {
    * @throws NotFoundEntityError - 해당 퀴즈 랜덤 리스트를 찾을 수 없는 경우 예외 발생
    */
   async getQuizList(dto: ControllerGetQuizRequest): Promise<ServiceGetQuizResponse[]> {
-    const item = await QuizServiceMapper.toGetRequest(dto);
+    const item = await ServiceQuizMapper.toGetRequest(dto);
     return await this.quizQueryRepository.findByCategoryNameAndDifficulty(
       item.category as string,
       // item.level as string,

@@ -6,7 +6,7 @@ import { ControllerDeleteRecordRequest } from '../dto/ControllerDeleteRecordRequ
 import { ServiceDeleteRecordRequest } from '../../../service/records/dto/ServiceDeleteRecordRequest';
 import { ControllerGetRecordRequest } from '../dto/ControllerGetRecordRequest';
 import { ServiceGetRecordRequest } from '../../../service/records/dto/ServiceGetRecordRequest';
-export class RecordsControllerMapper {
+export class ControllerRecordsMapper {
   /**
    * 서비스에 전달할 저장 요청 객체로 변환하는 메서드
    *

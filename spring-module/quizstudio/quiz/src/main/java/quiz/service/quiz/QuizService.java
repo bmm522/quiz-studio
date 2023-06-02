@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import quiz.controller.quiz.dto.QuizGetCondition;
-import quiz.controller.quiz.util.QuizConverter;
+import quiz.controller.quiz.mapper.ControllerQuizMapper;
 import quiz.domain.category.Category;
 import quiz.domain.category.repository.CategoryRepository;
 import quiz.domain.quiz.Quiz;
@@ -68,7 +68,8 @@ public class QuizService {
 	@Transactional(readOnly = true)
 	public QuizGetResponse getQuizzesWithPaging(final String userKey, final Long categoryId,
 		final int page) {
-		final QuizGetCondition item = QuizConverter.toGetCondition(userKey, categoryId, page);
+		final QuizGetCondition item = ControllerQuizMapper.toGetCondition(userKey, categoryId,
+			page);
 		final List<QuizQueryDto> quizQueryDtoList = quizRepository.findQuizQueryDtoListByIdAndUserKey(
 			item.getUserKey(),
 			item.getCategoryId(),

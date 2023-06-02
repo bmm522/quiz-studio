@@ -7,11 +7,11 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import quiz.controller.quiz.dto.QuizSaveBody;
-import quiz.controller.quiz.util.QuizConverter;
+import quiz.controller.quiz.mapper.ControllerQuizMapper;
 import quiz.global.dto.CustomQuizDto;
 import quiz.service.quiz.dto.QuizSaveParam;
 
-public class QuizConverterTest {
+public class ControllerQuizMapperTest {
 
 	@Test
 	@DisplayName("userKey와 CustomQuizDto리스트와 categoryId를 넣으면 QuizSaveParam을 반환한다")
@@ -31,10 +31,9 @@ public class QuizConverterTest {
 			.quizzes(quizDtoList)
 			.build();
 
-		QuizSaveParam.Request result = QuizConverter.toSaveParam("testUser",
+		QuizSaveParam.Request result = ControllerQuizMapper.toSaveParam("testUser",
 			1000L,
 			requestDto.getQuizzes());
-
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);
@@ -61,7 +60,7 @@ public class QuizConverterTest {
 //		);
 //
 //		Exception exception = assertThrows(NotCorrectAnswerException.class, () -> {
-//			QuizConverter.checkCorrectAnswer(quizDtoList);
+//			ControllerQuizMapper.checkCorrectAnswer(quizDtoList);
 //		});
 //
 //		assertThat(exception.getMessage()).isEqualTo("정확히 하나의 답만 선택해야 합니다. 퀴즈의 현재 선택된 답안 수 : 0");

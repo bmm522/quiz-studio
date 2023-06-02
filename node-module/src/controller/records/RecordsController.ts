@@ -14,7 +14,7 @@ import { UserKeyRequest } from '../../jwt/dto/UserKeyRequest';
 import { ResponseDto } from '../common/dto/ResponseDto';
 import { RecordsService } from '../../service/records/RecordsService';
 import { ServiceSaveRecordRequest } from '../../service/records/dto/ServiceSaveRecordRequest';
-import { RecordsControllerMapper } from './mapper/RecordsControllerMapper';
+import { ControllerRecordsMapper } from './mapper/ControllerRecordsMapper';
 import { ControllerDeleteRecordRequest } from './dto/ControllerDeleteRecordRequest';
 import { ControllerGetRecordRequest } from './dto/ControllerGetRecordRequest';
 import { Request } from 'express';
@@ -34,7 +34,7 @@ export class RecordsController {
   @Post('')
   async saveRecords(@Body() dto: ControllerSaveRecordRequest, @Req() req: UserKeyRequest) {
     try {
-      const items = await RecordsControllerMapper.toServiceSaveRequest(dto, req);
+      const items = await ControllerRecordsMapper.toServiceSaveRequest(dto, req);
 
       const result = await this.recordsService.saveRecords(items);
       return ResponseDto.builder()
@@ -57,7 +57,7 @@ export class RecordsController {
   @Get('')
   async getRecords(@QueryParams() params: ControllerGetRecordRequest, @Req() req: UserKeyRequest) {
     try {
-      const dto = await RecordsControllerMapper.toServiceGetRequest(params, req);
+      const dto = await ControllerRecordsMapper.toServiceGetRequest(params, req);
       const result = await this.recordsService.getRecords(dto);
       return ResponseDto.builder()
         .withStatus(200)
@@ -83,7 +83,7 @@ export class RecordsController {
     @Req() req: UserKeyRequest,
   ) {
     try {
-      const dto = await RecordsControllerMapper.toServiceDeleteRequest(params, req);
+      const dto = await ControllerRecordsMapper.toServiceDeleteRequest(params, req);
       const result = await this.recordsService.deleteRecords(dto);
       return ResponseDto.builder()
         .withStatus(200)
@@ -97,10 +97,10 @@ export class RecordsController {
   //   dto: ControllerSaveRecordRequest,
   //   req: UserKeyRequest,
   // ): Promise<ServiceSaveRecordRequest> {
-  //   return RecordsControllerMapper.toSaveServiceDto(dto, req);
+  //   return ControllerRecordsMapper.toSaveServiceDto(dto, req);
   // }
   //
   // private async toDeleteRecordItems(params: ControllerDeleteRecordRequest, req: UserKeyRequest) {
-  //   return RecordsControllerMapper.toDeleteServoceDto(params, req);
+  //   return ControllerRecordsMapper.toDeleteServoceDto(params, req);
   // }
 }

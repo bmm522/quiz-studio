@@ -1,7 +1,7 @@
 import { RecordDto } from '../../../src/global/dto/RecordDto';
 import { Records } from '../../../src/domain/records/records';
 import { ServiceSaveRecordRequest } from '../../../src/service/records/dto/ServiceSaveRecordRequest';
-import { RecordsServiceMapper } from '../../../src/service/records/mapper/RecordsServiceMapper';
+import { ServiceRecordsMapper } from '../../../src/service/records/mapper/ServiceRecordsMapper';
 import { RepositoryGetRecordResponse } from '../../../src/repository/records/dto/RepositoryGetRecordResponse';
 import { ServiceGetRecordsResponse } from '../../../src/service/records/dto/ServiceGetRecordsResponse';
 import { ServiceDeleteRecordRequest } from '../../../src/service/records/dto/ServiceDeleteRecordRequest';
@@ -40,7 +40,7 @@ describe('RecordServiceMapperTest', () => {
     const serviceSaveRecordRequest = ServiceSaveRecordRequest.create(userKey, quizRecordArray);
 
     // when
-    const result = await RecordsServiceMapper.toEntities(serviceSaveRecordRequest);
+    const result = await ServiceRecordsMapper.toEntities(serviceSaveRecordRequest);
 
     // then
     expect(result.length).toEqual(2);
@@ -81,7 +81,7 @@ describe('RecordServiceMapperTest', () => {
       totalPage,
     );
 
-    const result = await RecordsServiceMapper.toGetResponse(repositoryGetRecordResponse);
+    const result = await ServiceRecordsMapper.toGetResponse(repositoryGetRecordResponse);
 
     expect(result).toBeInstanceOf(ServiceGetRecordsResponse);
   });
@@ -89,7 +89,7 @@ describe('RecordServiceMapperTest', () => {
   it('toDeleteRequest Test', async () => {
     const request = ServiceDeleteRecordRequest.create('all', 'test');
 
-    const result = await RecordsServiceMapper.toDeleteRequest(request);
+    const result = await ServiceRecordsMapper.toDeleteRequest(request);
 
     expect(result).toBeInstanceOf(RepositoryDeleteRecordRequest);
     expect(result.isAnswerOption).toEqual(undefined);
@@ -102,7 +102,7 @@ describe('RecordServiceMapperTest', () => {
 
     const serviceRequest = ServiceGetRecordRequest.create(userKey, page, unresolved, category);
 
-    const repositoryRequest = await RecordsServiceMapper.toGetRequest(serviceRequest);
+    const repositoryRequest = await ServiceRecordsMapper.toGetRequest(serviceRequest);
 
     expect(repositoryRequest).toBeInstanceOf(RepositoryGetRecordRequest);
     expect(repositoryRequest.userKey).toEqual(userKey);

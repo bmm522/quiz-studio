@@ -1,4 +1,4 @@
-package quiz.controller.category.util;
+package quiz.controller.category.mapper;
 
 import quiz.controller.category.dto.CategorySaveBody;
 import quiz.controller.category.dto.CategoryUpdateBody;
@@ -10,7 +10,7 @@ import quiz.service.category.dto.CategoryUpdateParam;
 /**
  * 해당 클래스는 컨트롤러의 DTO를 서비스의 DTO로 변환해주는 기능을 제공합니다.
  */
-public class CategoryConverter {
+public class ControllerCategoryMapper {
 
 	/**
 	 * CategorySaveParam.Request 객체를 생성하여 반환하는 메서드입니다.

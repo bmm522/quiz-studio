@@ -1,6 +1,6 @@
 
 import { ControllerGetQuizRequest } from '../../../src/controller/quiz/dto/ControllerGetQuizRequest';
-import { QuizServiceMapper } from '../../../src/service/quiz/mapper/QuizServiceMapper';
+import { ServiceQuizMapper } from '../../../src/service/quiz/mapper/ServiceQuizMapper';
 import { ServiceGetQuizRequest } from '../../../src/service/quiz/dto/ServiceGetQuizRequest';
 
 describe('QuizServiceMapperTest', () => {
@@ -12,7 +12,7 @@ describe('QuizServiceMapperTest', () => {
     const controllerRequest = new ControllerGetQuizRequest(category);
 
     // Act
-    const serviceRequest = QuizServiceMapper.toGetRequest(controllerRequest);
+    const serviceRequest = ServiceQuizMapper.toGetRequest(controllerRequest);
 
     // Assert
     expect(serviceRequest).toBeInstanceOf(ServiceGetQuizRequest);

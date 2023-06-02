@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi';
 import { ServiceSaveRecordRequest } from './dto/ServiceSaveRecordRequest';
 import { RecordsQueryMongoDbRepository } from '../../repository/records/RecordsQueryMongoDbRepository';
-import { RecordsServiceMapper } from './mapper/RecordsServiceMapper';
+import { ServiceRecordsMapper } from './mapper/ServiceRecordsMapper';
 import { RecordsMongoDbRepository } from '../../domain/records/repository/RecordsMongoDbRepository';
 import { RecordsQueryRepository } from '../../repository/records/RecordsQueryRepository';
 import { RecordsRepository } from '../../domain/records/repository/RecordsRepository';
@@ -26,7 +26,7 @@ export class RecordsService {
    * @returns 저장된 기록 엔티티 배열 (Promise)
    */
   async saveRecords(dto: ServiceSaveRecordRequest): Promise<Records[]> {
-    const item = await RecordsServiceMapper.toEntities(dto);
+    const item = await ServiceRecordsMapper.toEntities(dto);
     return await this.recordsRepository.save(item);
   }
 
@@ -37,10 +37,10 @@ export class RecordsService {
    * @returns 조회 응답 객체 (Promise)
    */
   async getRecords(dto: ServiceGetRecordRequest): Promise<ServiceGetRecordsResponse> {
-    const item = await RecordsServiceMapper.toGetRequest(dto);
+    const item = await ServiceRecordsMapper.toGetRequest(dto);
     const response = await this.recordsQueryRepository.findByUserKey(item);
 
-    return await RecordsServiceMapper.toGetResponse(response);
+    return await ServiceRecordsMapper.toGetResponse(response);
   }
 
   /**
@@ -50,7 +50,7 @@ export class RecordsService {
    * @returns 없음 (Promise)
    */
   async deleteRecords(dto: ServiceDeleteRecordRequest): Promise<void> {
-    const item = await RecordsServiceMapper.toDeleteRequest(dto);
+    const item = await ServiceRecordsMapper.toDeleteRequest(dto);
     await this.recordsRepository.deleteByOptional(item);
   }
 }

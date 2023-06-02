@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.category.dto.CategorySaveBody;
 import quiz.controller.category.dto.CategoryUpdateBody;
-import quiz.controller.category.util.CategoryConverter;
+import quiz.controller.category.mapper.ControllerCategoryMapper;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
 import quiz.service.category.CategoryService;
@@ -36,7 +36,7 @@ public class CategoryController {
 		@RequestAttribute("userKey") final String userKey,
 		@RequestBody final CategorySaveBody request) {
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "카테고리 저장 성공",
-			categoryService.save(CategoryConverter.toSaveRequest(userKey, request)));
+			categoryService.save(ControllerCategoryMapper.toSaveRequest(userKey, request)));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class CategoryController {
 		@RequestAttribute("userKey") final String userKey,
 		@RequestBody final CategoryUpdateBody request) {
 		return ResponseHandler.handle(HttpStatus.OK.value(), "카테고리 업데이트 성공",
-			categoryService.update(CategoryConverter.toUpdateRequest(userKey, request)));
+			categoryService.update(ControllerCategoryMapper.toUpdateRequest(userKey, request)));
 	}
 
 }

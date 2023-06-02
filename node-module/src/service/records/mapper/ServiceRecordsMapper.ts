@@ -9,7 +9,7 @@ import { RepositoryGetRecordRequest } from '../../../repository/records/dto/Repo
 import { RepositoryGetRecordResponse } from '../../../repository/records/dto/RepositoryGetRecordResponse';
 import { RecordDto } from '../../../global/dto/RecordDto';
 
-export class RecordsServiceMapper {
+export class ServiceRecordsMapper {
   /**
    * DTO를 엔티티 배열로 변환하는 메서드
    *

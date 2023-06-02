@@ -1,4 +1,4 @@
-package quiz.controller.quiz.util;
+package quiz.controller.quiz.mapper;
 
 import java.util.List;
 import quiz.controller.quiz.dto.QuizGetCondition;
@@ -9,7 +9,7 @@ import quiz.service.quiz.dto.QuizUpdateParam;
 /**
  * 해당 클래스는 컨트롤러의 DTO를 서비스의 DTO로 변환해주는 기능을 제공합니다.
  */
-public class QuizConverter {
+public class ControllerQuizMapper {
 
 	/**
 	 * 퀴즈 저장 요청 데이터를 변환합니다.

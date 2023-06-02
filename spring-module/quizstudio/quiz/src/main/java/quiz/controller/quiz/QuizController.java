@@ -15,7 +15,7 @@ import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
 import quiz.controller.quiz.dto.QuizSaveBody;
 import quiz.controller.quiz.dto.QuizUpdateBody;
-import quiz.controller.quiz.util.QuizConverter;
+import quiz.controller.quiz.mapper.ControllerQuizMapper;
 import quiz.service.quiz.QuizService;
 import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizGetWithoutPagingResponse;
@@ -42,7 +42,7 @@ public class QuizController {
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId,
 		@RequestBody final QuizSaveBody body) {
-		final QuizSaveParam.Request request = QuizConverter.toSaveParam(userKey, categoryId,
+		final QuizSaveParam.Request request = ControllerQuizMapper.toSaveParam(userKey, categoryId,
 			body.getQuizzes());
 		final QuizSaveParam.Response response = quizService.saveAll(request);
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공", response);
@@ -95,7 +95,8 @@ public class QuizController {
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final Long categoryId,
 		@RequestBody final QuizUpdateBody body) {
-		final QuizUpdateParam.Request request = QuizConverter.toUpdateParam(userKey, categoryId,
+		final QuizUpdateParam.Request request = ControllerQuizMapper.toUpdateParam(userKey,
+			categoryId,
 			body.getQuizzes());
 		final int updateCnt = quizService.update(request);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 업데이트 성공", updateCnt);
