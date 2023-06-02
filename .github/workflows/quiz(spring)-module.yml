@@ -4,8 +4,8 @@ on:
   push:
     branches: 
       - main
-#     paths:
-#       - 'spring-module/quizstudio/quiz/**'
+    paths:
+      - 'spring-module/quizstudio/quiz/**'
 
 jobs:
   build:
