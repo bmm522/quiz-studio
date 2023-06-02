@@ -62,17 +62,18 @@ jobs:
       #     npm run test
       - name: Build Docker image
         run: |
-          cd ../quiz-studio/node-module
+          cd node-module
           ls
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest \
-            --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
-            --build-arg TOKEN_PREFIX=${{ secrets.TOKEN_PREFIX }} \
-            --build-arg REFRESH_PREFIX=${{ secrets.REFRESH_PREFIX }} \
-            --build-arg REDIS_HOST=${{ secrets.REDIS_HOST }} \
-            --build-arg REDIS_PORT=${{ secrets.REDIS_PORT }} \
-            --build-arg REDIS_USERNAME= ${{ secrets.REDIS_USERNAME }} \
-            --build-arg REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
-            --build-arg MONGO_URL=${{ secrets.MONGO_URL }} .
+            --build-arg SECRET_KEY=$SECRET_KEY \
+            --build-arg TOKEN_PREFIX=$TOKEN_PREFIX \
+            --build-arg REFRESH_PREFIX=$REFRESH_PREFIX \
+            --build-arg REDIS_HOST=$REDIS_HOST\
+            --build-arg REDIS_PORT=$REDIS_PORT \
+            --build-arg REDIS_USERNAME= $REDIS_USERNAME \
+            --build-arg REDIS_PASSWORD=$REDIS_PASSWORD \
+            --build-arg MONGO_URL=$MONGO_URL \
+            .
       - name: Push Docker image
         run: |
           docker images
