@@ -8,8 +8,8 @@ ARG REDIS_USERNAME
 ARG REDIS_PASSWORD
 ARG MONGO_URL
 
-# WORKDIR /app
-# COPY . /app
+WORKDIR /app
+COPY . /app
 RUN npm install
 RUN mkdir -p env
 

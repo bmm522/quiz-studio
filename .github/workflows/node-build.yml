@@ -72,8 +72,7 @@ jobs:
             --build-arg REDIS_PORT=${{ secrets.REDIS_PORT }} \
             --build-arg REDIS_USERNAME= ${{ secrets.REDIS_USERNAME }} \
             --build-arg REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
-            --build-arg MONGO_URL=${{ secrets.MONGO_URL }} \
-            .
+            --build-arg MONGO_URL=${{ secrets.MONGO_URL }} .
       - name: Push Docker image
         run: |
           docker images
