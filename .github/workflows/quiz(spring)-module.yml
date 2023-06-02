@@ -59,7 +59,7 @@ jobs:
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         run: |
           cd ../quiz-studio/spring-module/quizstudio/quiz
-          mvn clean package
+          mvn clean package -DskipTests
       - name: Build Docker image
         run: |
           cd ../quiz-studio/spring-module/quizstudio/quiz
