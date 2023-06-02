@@ -8,7 +8,6 @@ window.onload = async function () {
     await loadQuiz();
 }
 async function getQuizData() {
-    console.log("실행됨");
     const url = new URL(`${quizSpringHost}/api/v1/category/${localStorage.getItem("categoryId")}/take-quiz`);
     const headers = new Headers();
     headers.append("authorization", localStorage.getItem("authorization"));

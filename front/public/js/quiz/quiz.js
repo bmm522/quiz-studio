@@ -8,7 +8,6 @@ window.onload = async function () {
     await loadQuiz();
 }
 async function getQuizData(category) {
-    console.log("실행됨");
     const url = new URL(`${nodeHost}/v1/quiz`);
     // url.searchParams.set("level", level);
     url.searchParams.set("category", category);

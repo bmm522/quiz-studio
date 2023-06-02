@@ -38,7 +38,6 @@ window.onload = async function () {
             editButton.textContent = "편집";
             editButton.setAttribute("id", categoryId);
             editButton.addEventListener("click", () => {
-              console.log(`클릭한 카테고리: ${title}`);
               showModal(category);
             });
 
@@ -78,7 +77,6 @@ window.onload = async function () {
       }
   }
   function showModal(category) {
-      console.log('편집창');
       const editDiv = document.getElementById('editModal');
       // 모달 요소 생성
       const modal = document.createElement("div");
@@ -144,7 +142,6 @@ window.onload = async function () {
           }),
       });
       const data = await response.json();
-      console.log(data);
       alert('카테고리가 성공적으로 수정되었습니다.');
       window.location.reload();
   }
@@ -175,7 +172,6 @@ window.onload = async function () {
           }),
       });
       const data = await response.json();
-      console.log(data);
       alert('카테고리가 성공적으로 저장되었습니다.');
       window.location.reload();
   }

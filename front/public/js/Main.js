@@ -1,5 +1,4 @@
 window.onload = async function () {
-    console.log(getCookieValue("Authorization"));
     if(getCookieValue("Authorization") !== ''){
         await setToken();
     }
@@ -46,7 +45,6 @@ async function getCategories(page) {
       paginationContainer.innerHTML = "";
   
     for (let i = 1; i <= totalPages; i++) {
-        console.log(i);
           const button = document.createElement('button');
           button.className = 'btn btn-primary btn-sm mr-2';
           button.textContent = i;

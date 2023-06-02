@@ -59,8 +59,6 @@ async function checkToken() {
     })
     .then((res) => res.json())
     .then((res) => {
-        console.log( res.data.jwtToken);
-        console.log(res.data.refreshToken);
         localStorage.setItem("authorization", res.data.jwtToken);
         localStorage.setItem("refreshToken", res.data.refreshToken);
         

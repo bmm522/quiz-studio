@@ -75,7 +75,6 @@ function handleSubmitQuiz() {
 }
 
 function submitRecordWithFailQuiz(quizRecordArray) {
-    console.log(quizRecordArray);
     fetch(`${nodeHost}/v1/records`, {
         method: "POST",
         headers: {
@@ -89,7 +88,7 @@ function submitRecordWithFailQuiz(quizRecordArray) {
     })
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
+
         });
 }
 

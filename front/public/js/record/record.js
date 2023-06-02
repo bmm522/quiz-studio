@@ -24,7 +24,6 @@ async function getRecords(page) {
 async function getRecordsAction(page) {
   const chkUnresolved =document.getElementById('checkUnresolved').checked;
   const categorySelect = document.getElementById('categorySelect').value;
-  console.log(categorySelect);
   // const levelSelect = document.getElementById('levelSelect').value;
   const problemList = document.querySelector('#problemList');
   const url = new URL(`${nodeHost}/v1/records`);
@@ -71,7 +70,6 @@ async function getRecordsAction(page) {
               `;
            
           });
-          // console.log(data.data._totalPage);
           updatePagination(data.data._totalPage, page);
           problemList.innerHTML = html;
       })

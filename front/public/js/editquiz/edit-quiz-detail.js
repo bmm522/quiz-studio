@@ -75,8 +75,6 @@ let questionCounter = 1;
       paginationContainer.appendChild(button);
     }
   
-    console.log(page);
-    console.log(res.data.totalPage);
     // 이전/다음 버튼 표시 및 이벤트 설정
     prevButton.disabled = page === 1;
     nextButton.disabled = page === res.data.totalPage || res.data.totalPage === 0;
@@ -102,7 +100,6 @@ let questionCounter = 1;
   
   function toggleQuizQuestions(quizId) {
     const questionsElement = document.getElementById("choice" + quizId);
-    console.log(questionsElement.style.display);
     if (questionsElement.style.display === "none") {
       questionsElement.style.display = "block";
     } else {
@@ -168,7 +165,6 @@ let questionCounter = 1;
         isAnswer: index === correctAnswerIndex,
       };
     });
-    console.log(updatedChoices);
     const updatedQuizData = {
       ...quiz,
       title: editTitle,
@@ -416,9 +412,7 @@ function updateQuiz(updatedQuizData) {
     const quizForm = document.getElementById("quizForm");
     const formData = new FormData(quizForm);
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+
   }
 
   function checkSubmitButtonVisibility() {

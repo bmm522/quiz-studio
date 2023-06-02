@@ -4,8 +4,6 @@ function createQuizElements(quizData) {
     localStorage.setItem("category",quizData[0].categoryTitle );
     localStorage.setItem("level", "custom");
     return quizData.map((quiz, i) => {
-        console.log(quiz.title);
-        console.log(quiz);
         const cardDiv = document.createElement("div");
         cardDiv.className = "card shadow mb-4";
 
