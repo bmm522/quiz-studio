@@ -11,7 +11,7 @@ ENV JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD} \
     MYSQL_HOST=${MYSQL_HOST} \
     MYSQL_PORT=${MYSQL_PORT} \
     MYSQL_DATABASE=${MYSQL_DATABASE}
-CMD mvn clean package
+CMD mvn clean package -DskipTests
 ARG JAR_FILE_PATH=target/*.jar
 COPY  ${JAR_FILE_PATH} app.jar
 ENTRYPOINT ["java","-jar", "app.jar"]

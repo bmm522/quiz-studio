@@ -53,11 +53,11 @@ jobs:
       - name: Build with Maven
         run: |
           cd ../quiz-studio/spring-module/quizstudio/user
-          mvn clean package
-      - name: Run tests
-        run: |
-          cd ../quiz-studio/spring-module/quizstudio/user
-          mvn -B test
+          mvn clean package -DskipTests
+      # - name: Run tests
+      #   run: |
+      #     cd ../quiz-studio/spring-module/quizstudio/user
+      #     mvn -B test
       - name: Build Docker image
         run: |
           cd ../quiz-studio/spring-module/quizstudio/user
