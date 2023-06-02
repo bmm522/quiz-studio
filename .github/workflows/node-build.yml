@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'node-module/**'
+    # paths:
+    #   - 'node-module/**'
 
 jobs:
   build:
@@ -63,6 +63,7 @@ jobs:
       - name: Build Docker image
         run: |
           cd ../quiz-studio/node-module
+          ls
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest \
             --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
             --build-arg TOKEN_PREFIX=${{ secrets.TOKEN_PREFIX }} \
