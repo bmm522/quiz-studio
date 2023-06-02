@@ -110,9 +110,9 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           timeout: 60s
           script: |
-            sudo docker rm -f $(sudo docker ps -aq --filter ancestor=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:latest)
-            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:latest
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:latest
+            sudo docker rm -f $(sudo docker ps -aq --filter ancestor=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest)
+            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest
             sudo docker run -it -d --network {secrets.REDIS_HOST} -p 8080:8080 \
             -e JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             -e MYSQL_USER=${{secrets.MYSQL_USER}} \
@@ -122,7 +122,7 @@ jobs:
             -e MYSQL_DATABASE=${{secrets.MYSQL_DATABASE}} \
             -e REDIS_HOST=${{secrets.REDIS_HOST}} \
             -e REDIS_PORT=${{secrets.REDIS_PORT}} \
-            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest
 
       # REMOVE Github IP FROM security group (9)
       - name: Remove IP FROM security group
