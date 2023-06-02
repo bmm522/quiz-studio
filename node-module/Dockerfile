@@ -12,6 +12,7 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 RUN mkdir -p env
+
 RUN echo "SECRET_KEY=${SECRET_KEY}" >> /app/env/.env
 RUN echo "TOKEN_PREFIX=${TOKEN_PREFIX}" >> /app/env/.env
 RUN echo "REFRESH_PREFIX=${REFRESH_PREFIX}" >> /app/env/.env

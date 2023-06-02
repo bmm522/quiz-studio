@@ -62,7 +62,7 @@ jobs:
       #     npm run test
       - name: Build Docker image
         run: |
-          cd node-module
+          cd ../quiz-studio/node-module
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest \
             --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
             --build-arg TOKEN_PREFIX=${{ secrets.TOKEN_PREFIX }} \
