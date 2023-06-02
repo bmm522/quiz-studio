@@ -100,7 +100,7 @@ jobs:
           timeout: 60s
           script: |
             sudo docker rmi -f ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
-            sudo docker run -it -d -p 8080:8080 --name ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
+            sudo docker run -it -d -p 8081:8081 --name ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:${{ github.sha }}
 
       # REMOVE Github IP FROM security group (9)
       - name: Remove IP FROM security group
