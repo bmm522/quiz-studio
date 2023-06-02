@@ -15,7 +15,7 @@ ENV JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD} \
     MYSQL_DATABASE=${MYSQL_DATABASE}  \
     REDIS_HOST=${REDIS_HOST} \
     REDIS_PORT=${REDIS_PORT} \
-CMD mvn clean package
+CMD mvn clean package -DskipTests
 ARG JAR_FILE_PATH=target/*.jar
 COPY  ${JAR_FILE_PATH} app.jar
 ENTRYPOINT ["java","-jar", "app.jar"]

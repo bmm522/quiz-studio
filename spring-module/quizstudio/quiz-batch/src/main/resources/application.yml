@@ -12,7 +12,7 @@ spring:
     jpa:
       open-in-view: true
       hibernate:
-        ddl-auto: update
+        ddl-auto: none
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
