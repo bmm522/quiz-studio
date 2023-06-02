@@ -3,8 +3,8 @@ name: user-module
 on:
   push:
     branches: [ "main" ]
-#     paths:
-#       - 'spring-module/quizstudio/user/**'
+    paths:
+      - 'spring-module/quizstudio/user/**'
 
 jobs:
   build:

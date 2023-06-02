@@ -4,8 +4,8 @@ on:
   push:
     branches: 
       - main
-    paths:
-      - 'spring-module/quizstudio/quiz/**'
+    # paths:
+    #   - 'spring-module/quizstudio/quiz/**'
 
 jobs:
   build:
@@ -63,7 +63,7 @@ jobs:
       - name: Build Docker image
         run: |
           cd ../quiz-studio/spring-module/quizstudio/quiz
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:${{ github.sha }} \
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_SPRING_IMAGE_NAME }}:latest \
             --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
             --build-arg MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
