@@ -11,16 +11,16 @@ spring:
       client:
         registration:
           google:
-            client-id: ENC(DYrT/IAFmx5mTdSt5OtED+ljt7QFXYGDkBhQeDskxDQlIOKkIn6JgiPlpcaKBzRTg9VTYXVnX0q+xquxlxXseoSagVDvc8R/vKuygHSOnUMQockGxYlu8w==)
-            client-secret: ENC(5dgsSyAUPMUolBTIqkW14WFTm/e2TJGHQSkikD9hSLMcQbc+eeQWKI1yoocYzHGm)
+            client-id: ENC(lvsfZVjGKrGfwhf6K9I64Tx7WIjMvGTDwEv3WR7HmSc4+2bTZ09YpnyCqXFfhsdsL0/6Pvo0GSakXicyoP4s+mWlXR320Rx+Ivf/A9T3OHt6c7/OMb6jgA==)
+            client-secret: ENC(H/os4FOIOPMpDvmYqwmdoSZ+Rr7KhKNMMR+d8lVwoaTX2w7cmQYxd897tIaSDPmv)
             scope:
               - email
               - profile
-            redirect-uri: ENC(+IpZhB5MGa4Mf3ZJGJIY65kVWOi7LGRG5kFfxJyucj9TNUy5JEPmieUj7y2DWSNnijNx80WNiGc=)
+            redirect-uri: ENC(QsV/+bDh5vVKHIgIFj1/6MNm9bBmi/qPEggURgIlAQeiP2J+2vkgwSpAVa5LoTSoYoN8CCOrDGZ9BxOE6RLpnTWoE//VnwBBTQaCFRmsrsNljZzK1mcB8nonGzXENY2kXPRrD7gQ9UY=)
 
           kakao:
             client-id: ENC(BuDvOtYmCk1LbabP42SKUsqjfH8HbYR/a9kun+TdCRFRpAKjWOMyVEQ5G/XfryKl)
-            redirect-uri: ENC(SAEVudHVavQl7Y3+Z2/wDXlXHzOr8wL+05IioN7Tpz5saEqKLTf9Hig4EWViWb57jpiy5SR75Nw=)
+            redirect-uri: ENC(28TkS2A8gTrvLx+04pmIV8XgGM8WBm+P8vHQcqa2ta/5kAbtWfPHS3Abxl4BGR+F8CRiz6Yglchj0VbBxCW7ils1rqQHnmxuuMK4CHPqMsDI3wwQFyWJIwCkM+OfgegpQ7ogv32MHzA=)
             authorization-grant-type: ENC(9nVPmWOsNxVZmjE86lq/qnfnKNJuiyRsgSWkvKMPAtc=)
             client-authentication-method: POST
             client-name: Kakao
