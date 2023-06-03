@@ -39,7 +39,7 @@ public class Scheduler {
 	/**
 	 * 매일 1시부터 10분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 0/10 1 * * *")
+	@Scheduled(cron = "0 0/10 16 * * *")
 	public void makeJavaQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -58,7 +58,7 @@ public class Scheduler {
 	/**
 	 * 매일 2시부터 10분마다 자료구조 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/10 2 * * *")
+	@Scheduled(cron = "0 1/10 17 * * *")
 	public void makeDataStructureQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -77,7 +77,7 @@ public class Scheduler {
 	/**
 	 * 매일 3시부터 10분마다 데이터 베이스 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/10 3 * * *")
+	@Scheduled(cron = "0 32/10 18 * * *")
 	public void makeDatabaseQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -96,7 +96,7 @@ public class Scheduler {
 	/**
 	 * 매일 5시에 Queue에 담긴 데이터를 db에 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 0 5 * * *")
+	@Scheduled(cron = "0 0 20 * * *")
 	public void saveQuizAtRDBMSJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -115,7 +115,7 @@ public class Scheduler {
 	/**
 	 * 매일 5시 30분에 db에 저장된 데이터를 레디스로 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 0 12 * * *")
+	@Scheduled(cron = "0 10 6 * * *")
 	public void saveQuizAtRedisJobSchedule() {
 		try {
 			jobLauncher.run(
