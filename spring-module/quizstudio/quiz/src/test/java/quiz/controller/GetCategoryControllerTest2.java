@@ -35,7 +35,7 @@ public class GetCategoryControllerTest2 {
 
 	@Test
 	@DisplayName("getQuizzesWithPaging 정상적인 요청")
-	void getCategoryTest() {
+	void 페이징이_된_퀴즈목록을_가져온다() {
 		String userKey = "testUser1";
 		CategoryQueryDto category = CategoryQueryDto.builder()
 			.userKey(userKey)
