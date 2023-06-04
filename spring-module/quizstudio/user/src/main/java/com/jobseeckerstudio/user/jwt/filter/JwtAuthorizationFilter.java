@@ -67,7 +67,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		String requestURI = request.getRequestURI();
 		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
-			requestURI);
+			requestURI) || "favicon.ico".equals(requestURI);
 	}
 
 
