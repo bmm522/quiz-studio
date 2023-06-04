@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	private final UserRepository userRepository;
@@ -27,6 +29,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 		Authentication authentication) throws IOException, ServletException {
+		log.debug("social login processing");
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		User user = principalDetails.getUser();
 		JwtToken jwtToken = JwtMaker.create(user);
