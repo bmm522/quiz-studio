@@ -29,7 +29,9 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 		Authentication authentication) throws IOException, ServletException {
-		log.debug("social login processing");
+		log.info("login processing ");
+		log.info(request.getRequestURI());
+
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		User user = principalDetails.getUser();
 		JwtToken jwtToken = JwtMaker.create(user);

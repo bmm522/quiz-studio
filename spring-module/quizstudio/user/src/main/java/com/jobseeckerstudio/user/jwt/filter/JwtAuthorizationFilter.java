@@ -8,11 +8,13 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 
+@Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private final String googleUrl = "/api/v1/social/login/google";
@@ -63,6 +65,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	 */
 	public boolean shouldSkipFilter(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
+		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
 			requestURI);
 	}
