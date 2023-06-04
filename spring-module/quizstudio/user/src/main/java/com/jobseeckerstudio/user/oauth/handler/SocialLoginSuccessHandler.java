@@ -33,7 +33,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		settingUserAndGetRefreshToken(user, jwtToken);
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 		addCookie(response, tokenCookie);
-		response.sendRedirect("http://localhost:3001/main");
+		response.sendRedirect("https://www.quizstudio.site/main");
 	}
 
 
