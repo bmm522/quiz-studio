@@ -20,7 +20,7 @@ spring:
 
           kakao:
             client-id: ENC(BuDvOtYmCk1LbabP42SKUsqjfH8HbYR/a9kun+TdCRFRpAKjWOMyVEQ5G/XfryKl)
-            redirect-uri: http://ec2-52-78-106-93.ap-northeast-2.compute.amazonaws.com:8081/login/oauth2/authorization/kakao
+            redirect-uri: ENC(Vbu+i3Y1ceoq+bh4IuPFys424sYaohxYJZmp/2KfiR92tkD1tCxZQRvUjT7qi035M0AYQcgFTnLpb27a9qqYLNN3znCs1XkFZiQQ+iByZEbMU1lQUtcHtV2EC+ZtD9MC3MCS5qxcHtg=)
             authorization-grant-type: ENC(9nVPmWOsNxVZmjE86lq/qnfnKNJuiyRsgSWkvKMPAtc=)
             client-authentication-method: client_secret_post
             client-name: Kakao
