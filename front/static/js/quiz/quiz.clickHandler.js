@@ -38,7 +38,7 @@ function handleSubmitQuiz() {
                 record = {
                     quizTitle: quizTitle.outerText,
                     quizIsAnswer: true,
-                    category: localStorage.getItem('category'),
+                    category: localStorage.getItem("category"),
                     level: localStorage.getItem("level"),
                     quizChoiceContent: Array.from(choicelabels).map(
                         (label) => label.outerText,
@@ -53,7 +53,7 @@ function handleSubmitQuiz() {
                 record = {
                     quizTitle: quizTitle.outerText,
                     quizIsAnswer: false,
-                    category: localStorage.getItem('category'),
+                    category: localStorage.getItem("category"),
                     level: localStorage.getItem("level"),
                     quizChoiceContent: Array.from(choicelabels).map(
                         (label) => label.outerText,
@@ -87,9 +87,7 @@ function submitRecordWithFailQuiz(quizRecordArray) {
         }),
     })
         .then((res) => res.json())
-        .then((res) => {
-
-        });
+        .then((res) => {});
 }
 
 function createResultElement(numCorrect) {

@@ -5,6 +5,7 @@
     },
     "scripts": {
         "dev": "nodemon app.ts",
+        "deploy": "aws s3 sync . s3://quizstudio --profile=mztalk",
         "build": "tsc -p ."
     },
     "devDependencies": {

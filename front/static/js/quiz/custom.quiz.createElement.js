@@ -1,7 +1,7 @@
 const quizContainer = document.getElementById("quiz-container");
 
 function createQuizElements(quizData) {
-    localStorage.setItem("category",quizData[0].categoryTitle );
+    localStorage.setItem("category", quizData[0].categoryTitle);
     localStorage.setItem("level", "custom");
     return quizData.map((quiz, i) => {
         const cardDiv = document.createElement("div");

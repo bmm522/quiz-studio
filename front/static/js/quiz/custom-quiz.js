@@ -1,16 +1,17 @@
 const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
-
 window.onload = async function () {
     await checkToken();
     await getEmail();
     await loadQuiz();
-}
-async function getQuizData(category) {
-    const url = new URL(`${nodeHost}/v1/quiz`);
-    // url.searchParams.set("level", level);
-    url.searchParams.set("category", category);
+};
+async function getQuizData() {
+    const url = new URL(
+        `${quizSpringHost}/api/v1/category/${localStorage.getItem(
+            "categoryId",
+        )}/take-quiz`,
+    );
     const headers = new Headers();
     headers.append("authorization", localStorage.getItem("authorization"));
     headers.append("refreshToken", localStorage.getItem("refreshToken"));
@@ -22,13 +23,11 @@ async function getQuizData(category) {
 }
 
 async function loadQuiz() {
-    getQuizData(category).then((quizData) => {
-        const quizElements = createQuizElements(quizData);
+    getQuizData().then((quizData) => {
+        const quizElements = createQuizElements(quizData.quizzes);
         quizContainer.append(...quizElements);
     });
 }
-
-
 
 document
     .getElementById("submit-btn")

@@ -6,23 +6,61 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>QuizStudio</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://www.quizstudio.site/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/quiz.css" rel="stylesheet">
+    <link href="https://www.quizstudio.site/static/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<style>
+  .question-container {
+        display: inline-block;
+        width: calc(50% - 10px);
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
 
+
+    @media (max-width: 992px) {
+        .question-container {
+            width: 100%;
+        }
+    }
+    .quiz-title:hover {
+        cursor:pointer;
+        color: black;
+    }
+
+
+    .quiz-list {
+    display: none;
+}
+.correct-answer {
+      background-color: lightgreen;
+    }
+
+    .edit-quiz-button {
+      margin-top: 10px;
+      /* display: none; */
+    }
+    #submitQuizBtn{
+        display: none;
+    }
+
+    .choice-list {
+        display: none;
+    }
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -43,12 +81,12 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <div class="nav-link main-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span id="main-page">문제풀기</span></div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <div class="nav-link edit-quiz-button" style="cursor: pointer;">
                     <i class="fas fa-fw fa-edit"></i>
                     <span id="edit-quiz-page">문제 만들기</span></div>
@@ -72,21 +110,19 @@
 
             <!-- Main Content -->
             <div id="content">
-                
-
+           
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <div style="display: inline-block; text-align: left;" id="after"></div>
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-         
+                    <button type="button" class="btn btn-primary mb-3" id="addQuestionBtn">퀴즈 추가</button>
+                    <!-- <button type="button" class="btn btn-primary mb-3" id="addQuestionBtn">퀴즈 생성 하기</button> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        
+
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -109,55 +145,117 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>                
+                        </li>
+                      
+                       
+                  
+
+                    
+
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><div id="email-div"></div></span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="../img/undraw_profile.svg">
                             </a>
                     
-                        </li>  
+                        </li>
+                        
+
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid" id="quiz-container">
-                  
-
+          
+              
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Quiz Creation Tab -->
+            
+                
+                        <!-- Quiz List Tab -->
+                        <div class="col-lg-6">
+                         
+                            <h1 class="h3 mb-4 text-gray-800">Quiz List</h1>
+                            <div id="quizNavigation" class="quiz-navigation d-flex justify-content-between">
+                                <button id="prevButton" class="d-flex justify-content-center mt-3" disabled>&lt;</button>
+                                <div id="pagination" class="d-flex justify-content-center mt-3">
+                                  asdfasdfasdf
+                                </div>
+                                <button id="nextButton" class="d-flex justify-content-center mt-3">></button>
+                              </div>
+                      
+                            <ul id="quizList">
+                      
+                                <!-- Dummy Quiz List -->
                         
-
+                            </ul>
                         </div>
-                        
-                          
-                          <!-- 제출 버튼 -->
-                          <div class="text-center mt-3">
-                            <button type="button" class="btn btn-primary btn-lg" id="submit-btn">
-                              <span class="spinner-border spinner-border-sm d-none" role="status"></span>
-                              제출하기
-                            </button>
-                          </div>
-                          
-                        
+                        <div class="col-lg-6">
+                            <div>
+                              
+                            </div>
+                            
+                            <form id="quizForm">
+                                <button type="submit" class="btn btn-primary mb-3" id="submitQuizBtn" >만들기</button>
+                                <!-- Dynamic Questions and Options -->
+                                <div id="questionsContainer"></div>
+                
+                                <!-- Add Question Button -->
+                
+                                <!-- Submit Button -->
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+          
+                    
+                 
+                
+                    
+                </div>
+
+              
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
+      
 
             </div>
-            <!-- End of Main Content -->
-            <!-- End of Footer -->
+     
 
         </div>
+        
         <!-- End of Content Wrapper -->
 
     </div>
+    <div id ="quiz-edit-modal-div"></div>
+    <!-- <div class="modal fade" id="quizModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quizModalLabel">Edit Quiz</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editQuizForm">
+                        <div id="editQuestionsContainer"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveQuizBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
@@ -166,7 +264,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -183,32 +281,24 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+    <script src="https://www.quizstudio.site/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://www.quizstudio.site/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
+    <script src="https://www.quizstudio.site/static/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="https://www.quizstudio.site/static/vendor/chart.js/Chart.min.js"></script>
+    <script src="https://www.quizstudio.site/static/js/global.js"></script>
+    <script src="https://www.quizstudio.site/static/js/editquiz/edit-quiz-detail.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script>
-    <script src="../js/global.js"></script>
 
-    <script src="../js/quiz/quiz.clickHandler.js"></script>
-    <script src="../js/quiz/quiz.createElement.js"></script>
-    <script src="../js/quiz/quiz.js"></script>
-   
-    
-    <!-- <script src="js/Main.js"></script> -->
     
 
 </body>
