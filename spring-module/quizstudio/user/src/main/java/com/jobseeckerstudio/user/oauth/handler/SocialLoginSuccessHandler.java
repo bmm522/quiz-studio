@@ -38,8 +38,8 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		settingUserAndGetRefreshToken(user, jwtToken);
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 		addCookie(response, tokenCookie);
-//		response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getJwtToken());
-//		response.setHeader("RefreshToken", jwtToken.getRefreshToken());
+		response.addHeader("Set-Cookie", tokenCookie.getAuthorizationCookie().toString());
+		response.addHeader("Set-Cookie", tokenCookie.getRefreshTokenCookie().toString());
 		response.sendRedirect("https://www.quizstudio.site/main");
 	}
 
