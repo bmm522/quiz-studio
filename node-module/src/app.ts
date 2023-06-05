@@ -25,7 +25,7 @@ export class App {
       routingUseContainer(Container);
 
       useExpressServer(this.app, {
-        routePrefix: '/api/v1',
+        routePrefix: 'quiz-node/api/v1',
         controllers: [QuizController, RecordsController],
       });
     } catch (error) {
