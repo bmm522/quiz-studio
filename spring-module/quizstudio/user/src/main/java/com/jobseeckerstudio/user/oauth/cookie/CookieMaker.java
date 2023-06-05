@@ -44,7 +44,7 @@ public enum CookieMaker {
 		cookie.setMaxAge(60 * 3); // 3분
 		cookie.setDomain(".quizstudio.site");
 //		cookie.setHttpOnly(false);
-//		cookie.setSecure(true);
+		cookie.setSecure(true);
 		return cookie;
 	}
 }
