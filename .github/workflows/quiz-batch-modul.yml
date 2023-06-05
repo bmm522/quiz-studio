@@ -113,7 +113,7 @@ jobs:
             sudo docker rm -f $(sudo docker ps -aq --filter ancestor=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest)
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_BATCH_IMAGE_NAME }}:latest
-            sudo docker run -it -d --net quizstudio-redis -p 8080:8080 \
+            sudo docker run -it -d --net redis-bridge -p 8080:8080 \
             -e JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             -e MYSQL_USER=${{secrets.MYSQL_USER}} \
             -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
