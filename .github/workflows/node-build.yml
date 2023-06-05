@@ -107,7 +107,7 @@ jobs:
             sudo docker rm -f $(sudo docker ps -aq --filter ancestor=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest)
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
-            sudo docker --name quiz-node --net redis-bridge --link quizstudio-mongodb run -it -d -p 3000:3000 \
+            sudo docker run --net redis-bridge --link quizstudio-mongodb  -it -d -p 3000:3000 \
             -e SECRET_KEY: ${{ secrets.SECRET_KEY }}
             -e TOKEN_PREFIX: ${{ secrets.TOKEN_PREFIX }}
             -e REFRESH_PREFIX: ${{ secrets.REFRESH_PREFIX }}
