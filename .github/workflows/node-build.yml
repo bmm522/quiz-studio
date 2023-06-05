@@ -108,15 +108,17 @@ jobs:
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
             sudo docker run -it -d --name quiz-node --network redis-bridge --link quizstudio-mongodb -p 3000:3000 \
-            -e SECRET_KEY: ${{ secrets.SECRET_KEY }} \
-            -e TOKEN_PREFIX: ${{ secrets.TOKEN_PREFIX }} \
-            -e REFRESH_PREFIX: ${{ secrets.REFRESH_PREFIX }} \
-            -e REDIS_HOST: ${{ secrets.REDIS_HOST }} \
-            -e REDIS_PORT: ${{ secrets.REDIS_PORT }} \
-            -e REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }} \
-            -e REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }} \
-            -e MONGO_URL: ${{ secrets.MONGO_URL }} \
+            -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
+            -e TOKEN_PREFIX=${{ secrets.TOKEN_PREFIX }} \
+            -e REFRESH_PREFIX=${{ secrets.REFRESH_PREFIX }} \
+            -e REDIS_HOST=${{ secrets.REDIS_HOST }} \
+            -e REDIS_PORT=${{ secrets.REDIS_PORT }} \
+            -e REDIS_USERNAME=${{ secrets.REDIS_USERNAME }} \
+            -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
+            -e MONGO_URL=${{ secrets.MONGO_URL }} \
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
+    
+
 
       # REMOVE Github IP FROM security group (9)
       - name: Remove IP FROM security group
