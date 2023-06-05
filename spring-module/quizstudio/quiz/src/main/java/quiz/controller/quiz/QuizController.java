@@ -23,7 +23,7 @@ import quiz.service.quiz.dto.QuizSaveParam;
 import quiz.service.quiz.dto.QuizUpdateParam;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/quiz-spring/api/v1")
 @RequiredArgsConstructor
 public class QuizController {
 

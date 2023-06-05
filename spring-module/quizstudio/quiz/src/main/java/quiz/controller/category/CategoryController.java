@@ -18,7 +18,7 @@ import quiz.controller.dto.ResponseHandler;
 import quiz.service.category.CategoryService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/quiz-spring/api/v1")
 @RequiredArgsConstructor
 public class CategoryController {
 
