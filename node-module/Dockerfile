@@ -8,14 +8,10 @@ ARG REDIS_USERNAME
 ARG REDIS_PASSWORD
 ARG MONGO_URL
 
-
 WORKDIR /app
 COPY . /app
 RUN npm install
 RUN mkdir -p env
-
-
-
 
 RUN echo "SECRET_KEY=${SECRET_KEY}" >> /app/env/.env
 RUN echo "TOKEN_PREFIX=${TOKEN_PREFIX}" >> /app/env/.env
