@@ -17,10 +17,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-	private final String googleUrl = "/api/v1/social/login/google";
-	private final String kakaoUrl = "/api/v1/social/login/kakao";
+	private final String googleUrl = "/user/api/v1/social/login/google";
+	private final String kakaoUrl = "/user/api/v1/social/login/kakao";
 
-	private final String newToken = "/api/v1/check-expired-jwt";
+	private final String newToken = "/user/api/v1/check-expired-jwt";
 
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
