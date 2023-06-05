@@ -8,7 +8,6 @@ import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
 import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,11 +39,11 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		settingUserAndGetRefreshToken(user, jwtToken);
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 		addCookie(response, tokenCookie);
-		Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
-		for (String header : headers) {
-			response.setHeader(HttpHeaders.SET_COOKIE,
-				header + "; " + "SameSite=None; Secure=true; domain=.quizstudio.site");
-		}
+//		Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
+//		for (String header : headers) {
+//			response.setHeader(HttpHeaders.SET_COOKIE,
+//				header + "; " + "SameSite=None; Secure=true; domain=.quizstudio.site");
+//		}
 		response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getJwtToken());
 		response.setHeader("RefreshToken", jwtToken.getRefreshToken());
 		response.sendRedirect("https://www.quizstudio.site/main");
