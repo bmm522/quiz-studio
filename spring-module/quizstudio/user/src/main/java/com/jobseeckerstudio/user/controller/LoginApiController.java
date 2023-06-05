@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@RequestMapping("/api/v1")
+@RequestMapping("user/api/v1")
 @Controller
 @RequiredArgsConstructor
 public class LoginApiController {
