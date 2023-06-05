@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -39,13 +38,8 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		settingUserAndGetRefreshToken(user, jwtToken);
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookie(jwtToken);
 		addCookie(response, tokenCookie);
-//		Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
-//		for (String header : headers) {
-//			response.setHeader(HttpHeaders.SET_COOKIE,
-//				header + "; " + "SameSite=None; Secure=true; domain=.quizstudio.site");
-//		}
-		response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getJwtToken());
-		response.setHeader("RefreshToken", jwtToken.getRefreshToken());
+//		response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getJwtToken());
+//		response.setHeader("RefreshToken", jwtToken.getRefreshToken());
 		response.sendRedirect("https://www.quizstudio.site/main");
 	}
 
