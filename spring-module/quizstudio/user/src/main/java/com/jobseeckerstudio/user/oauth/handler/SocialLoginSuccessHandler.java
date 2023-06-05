@@ -42,7 +42,8 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 		addCookie(response, tokenCookie);
 		Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
 		for (String header : headers) {
-			response.setHeader(HttpHeaders.SET_COOKIE, header + "; " + "SameSite=None; Secure");
+			response.setHeader(HttpHeaders.SET_COOKIE,
+				header + "; " + "SameSite=None; Secure=true; domain=.quizstudio.site");
 		}
 		response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getJwtToken());
 		response.setHeader("RefreshToken", jwtToken.getRefreshToken());
