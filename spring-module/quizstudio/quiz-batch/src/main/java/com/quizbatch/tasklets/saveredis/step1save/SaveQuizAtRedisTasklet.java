@@ -38,7 +38,6 @@ public class SaveQuizAtRedisTasklet implements Tasklet {
 		throws Exception {
 		List<QuizQueryDto> quizzes = quizRepository.getQuizzesForRedisBy();
 		List<QuizSchema> quizSchemas = QuizSchemaMapper.toQuizSchemas(quizzes);
-		log.info("size : " + quizSchemas.size());
 		quizRedisRepository.deleteAll();
 		quizRedisRepository.saveAll(quizSchemas);
 		return RepeatStatus.FINISHED;
