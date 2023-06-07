@@ -11,10 +11,11 @@ public class CorsConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOriginPatterns("*")
+			.allowedOrigins("https://www.quizstudio.site")
 			.allowedMethods("GET", "POST", "PUT", "DELETE")
 			.allowedHeaders("*")
-			.allowCredentials(false)
-			.exposedHeaders("Authorization").exposedHeaders("RefreshToken");
+			.allowCredentials(true)
+			.exposedHeaders("Authorization")
+			.exposedHeaders("RefreshToken");
 	}
 }
