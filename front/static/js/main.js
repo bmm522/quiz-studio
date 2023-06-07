@@ -58,14 +58,14 @@ async function getCategories(page) {
         );
         getCategoryDivCell.addEventListener("click", async function () {
             await checkToken();
-            await moveQuizPage(categoryList[i]);
+            await moveQuizPage(categoryList[i].categoryId);
         });
     }
 }
 
-async function moveQuizPage(category) {
+async function moveQuizPage(categoryId) {
     // localStorage.setItem("level", "easy");
-    location.href = `${frontHost}/custom-quiz`;
+    location.href = `${frontHost}/custom-quiz?categoryId=${categoryId}`;
 }
 
 async function setToken() {
