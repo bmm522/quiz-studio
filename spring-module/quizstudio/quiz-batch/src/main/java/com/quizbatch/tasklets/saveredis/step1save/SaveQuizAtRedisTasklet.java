@@ -7,6 +7,7 @@ import com.quizbatch.domain.quizschema.QuizSchema;
 import com.quizbatch.domain.quizschema.QuizSchemaMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SaveQuizAtRedisTasklet implements Tasklet {
 
 
@@ -36,6 +38,7 @@ public class SaveQuizAtRedisTasklet implements Tasklet {
 		throws Exception {
 		List<QuizQueryDto> quizzes = quizRepository.getQuizzesForRedisBy();
 		List<QuizSchema> quizSchemas = QuizSchemaMapper.toQuizSchemas(quizzes);
+		log.info("size : " + quizSchemas.size());
 		quizRedisRepository.deleteAll();
 		quizRedisRepository.saveAll(quizSchemas);
 		return RepeatStatus.FINISHED;
