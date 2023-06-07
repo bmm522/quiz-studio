@@ -70,7 +70,7 @@ export async function createMongoDBConnection(uri?: string): Promise<void> {
   //   await mongoose.disconnect();
   // }
   mongoose
-    .connect(uri || env.mongoDatabase.url, { useNewUrlParser: true, user:env.mongoDatabase.user, pass:env.mongoDatabase.pass })
+    .connect(uri || env.mongoDatabase.url, { dbName:"records" })
     .then(() => console.log('connected to DB.'))
     .catch((err: any) => console.log(err));
 }
