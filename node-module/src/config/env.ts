@@ -32,6 +32,8 @@ export const env = {
   // },
   mongoDatabase: {
     url: process.env.MONGO_URL,
+    user:process.env.MONGO_USER,
+    pass:process.env.MONGO_PASS
   },
   redis: {
     host: process.env.REDIS_HOST,

@@ -2,7 +2,9 @@ name: user-module
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: 
+#      - main
+      - release/v1.0.2
     paths:
       - 'spring-module/quizstudio/user/**'
 
