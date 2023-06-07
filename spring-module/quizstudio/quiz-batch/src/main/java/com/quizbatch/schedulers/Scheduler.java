@@ -115,7 +115,7 @@ public class Scheduler {
 	/**
 	 * 매일 5시 30분에 db에 저장된 데이터를 레디스로 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 56 8 * * *")
+	@Scheduled(cron = "0 30 20 * * *")
 	public void saveQuizAtRedisJobSchedule() {
 		try {
 			jobLauncher.run(
