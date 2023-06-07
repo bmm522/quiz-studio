@@ -7,10 +7,10 @@ window.onload = async function () {
     await loadQuiz();
 };
 async function getQuizData() {
+    const urlParams = new URL(location.href).searchParams;
+    const categoryId = urlParams.get('categoryId');
     const url = new URL(
-        `${quizSpringHost}/api/v1/category/${localStorage.getItem(
-            "categoryId",
-        )}/take-quiz`,
+        `${quizSpringHost}/api/v1/category/${categoryId}/take-quiz`,
     );
     const headers = new Headers();
     headers.append("authorization", localStorage.getItem("authorization"));
