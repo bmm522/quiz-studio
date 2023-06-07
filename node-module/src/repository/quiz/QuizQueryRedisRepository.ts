@@ -63,8 +63,7 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
         quizDataPromises.push(redisClient.hgetall(key));
       }
     });
-
-    console.log(quizDataPromises);
+    
     await once(stream, 'end');
     return await Promise.all(quizDataPromises);
   }
