@@ -2,7 +2,8 @@ name: node-build
 on:
   pull_request:
     branches:
-      - main
+#      - main
+      - release/v1.0.2
     paths:
       - 'node-module/**'
 
@@ -43,6 +44,8 @@ jobs:
           echo "REDIS_USERNAME=$REDIS_USERNAME" >> .env
           echo "REDIS_PASSWORD=$REDIS_PASSWORD " >> .env
           echo "MONGO_URL=$MONGO_URL " >> .env
+          echo "MONGO_USER=$MONGO_USER" >> .env
+          echo "MONGO_PASS=$MONGO_PASS" >> .env
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           TOKEN_PREFIX: ${{ secrets.TOKEN_PREFIX }}
@@ -52,6 +55,8 @@ jobs:
           REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }}
           REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
           MONGO_URL: ${{ secrets.MONGO_URL }}
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASS: ${{ secrets.MONGO_PASS }}
       - name: Install Dependencies and Surge
         run: |
           cd node-module
@@ -73,6 +78,8 @@ jobs:
             --build-arg REDIS_USERNAME= $REDIS_USERNAME \
             --build-arg REDIS_PASSWORD=$REDIS_PASSWORD \
             --build-arg MONGO_URL=$MONGO_URL \
+            --build-arg MONGO_USER=$MONGO_USER \
+            --build-arg MONGO_PASS=$MONGO_PASS \
             .
       - name: Push Docker image
         run: |
@@ -116,6 +123,8 @@ jobs:
             -e REDIS_USERNAME=${{ secrets.REDIS_USERNAME }} \
             -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
             -e MONGO_URL=${{ secrets.MONGO_URL }} \
+            -e MONGO_USER=${{ secrets.MONGO_USER }} \
+            -e MONGO_PASS=${{ secrets.MONGO_PASS }} \                        
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_QUIZ_NODE_IMAGE_NAME }}:latest
     
 
