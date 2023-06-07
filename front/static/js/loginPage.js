@@ -1,3 +1,5 @@
+const host = "https://api.quizstudio.site/user";
+
 document
     .getElementById("google-connect")
     .addEventListener("click", function () {
