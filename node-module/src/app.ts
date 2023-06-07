@@ -25,7 +25,7 @@ export class App {
       routingUseContainer(Container);
 
       useExpressServer(this.app, {
-        routePrefix: 'quiz-node/api/v1',
+        routePrefix: '/quiz-node/api/v1',
         controllers: [QuizController, RecordsController],
       });
     } catch (error) {
@@ -42,9 +42,12 @@ export class App {
   }
 
   private setMiddlewares(): void {
+    const corsOptions = {
+      origin: 'https://www.quizstudio.site'
+    };
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
-    this.app.use(cors());
+    this.app.use(cors(corsOptions));
     this.app.use(JwtAuthorizationFilter);
     this.app.use(ErrorHandler);
   }

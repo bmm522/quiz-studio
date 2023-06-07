@@ -1,3 +1,8 @@
+const loginHost = "https://api.quizstudio.site/user";
+const nodeHost = "https://api.quizstudio.site/quiz-node/api";
+const frontHost = "https://www.quizstudio.site";
+const quizSpringHost = "https://api.quizstudio.site/quiz-spring";
+
 async function getName() {
     await checkToken();
     await getEmail();
