@@ -51,10 +51,9 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     redisClient: Redis,
     categoryName: string,
   ): Promise<Record<string, string>[]> {
-    const redisKeyPattern = `quiz:${categoryName}*`;
-    const testKeyPattern = `quiz:*`;
+    const redisKeyPattern = `quiz:${categoryName}_*`;
     const stream = redisClient.scanStream({
-      match: testKeyPattern,
+      match: redisKeyPattern,
     });
 
     const quizDataPromises: Promise<Record<string, string>>[] = [];
