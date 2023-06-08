@@ -8,7 +8,8 @@ import com.quizbatch.tasklets.makequiz.step3mapper.DataStructureCategoryMapperTa
 import com.quizbatch.tasklets.makequiz.step3mapper.DatabaseCategoryMapperTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.JavaCategoryMapperTasklet;
 import com.quizbatch.tasklets.saverdbms.step1save.SaveQuizAtRDBMSTasklet;
-import com.quizbatch.tasklets.saveredis.step1save.SaveQuizAtRedisTasklet;
+import com.quizbatch.tasklets.saveredis.step1clearAll.ClearQuizAtRedisTasklet;
+import com.quizbatch.tasklets.saveredis.step2save.SaveQuizAtRedisTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -31,6 +32,8 @@ public class BatchConfig {
 	private final DatabaseCategoryMapperTasklet databaseCategoryMapperTasklet;
 	private final JavaCategoryMapperTasklet javaCategoryMapperTasklet;
 	private final DataStructureCategoryMapperTasklet dataStructureCategoryMapperTasklet;
+
+	private final ClearQuizAtRedisTasklet clearQuizAtRedisTasklet;
 	private final SaveQuizAtRedisTasklet saveQuizAtRedisTasklet;
 	private final ConverterTasklet converterTasklet;
 
@@ -94,6 +97,7 @@ public class BatchConfig {
 			.build();
 	}
 
+
 	/**
 	 * RDBMS에 Quiz를 저장하는 Batch Job을 생성합니다.
 	 *
@@ -114,14 +118,26 @@ public class BatchConfig {
 	@Bean(name = "saveQuizAtRedisJob")
 	public Job saveQuizAtRedisJob() {
 		return jobBuilderFactory.get("saveQuizAtRedisJob")
-			.start(saveQuizAtRedisStep())
+			.start(clearQuizAtRedisStep())
+			.on("FAILED").end()
+			.from(clearQuizAtRedisStep())
+			.on("*").to(saveQuizAtRedisStep())
+			.on("FAILED").end().end()
 			.build();
 	}
+
 
 	@Bean
 	public Step saveQuizAtRDBMSStep() {
 		return stepBuilderFactory.get("saveQuizAtRDBMSStep")
 			.tasklet(saveQuizAtRDBMSTasklet)
+			.build();
+	}
+
+	@Bean
+	public Step clearQuizAtRedisStep() {
+		return stepBuilderFactory.get("clearQuizAtRedisStep")
+			.tasklet(clearQuizAtRedisTasklet)
 			.build();
 	}
 
