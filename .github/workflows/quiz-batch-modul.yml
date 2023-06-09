@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: 
  #     - main
-      - release/v1.0.3
+      - release/v1.0.4
     paths:
       - 'spring-module/quizstudio/quiz-batch/**'
 
