@@ -37,6 +37,7 @@ export class QuizQueryRedisRepository implements QuizQueryRepository {
     return new Redis({
       host: env.redis.host as string,
       port: parseInt(env.redis.port as string),
+      password: env.redis.password
     });
   }
 
