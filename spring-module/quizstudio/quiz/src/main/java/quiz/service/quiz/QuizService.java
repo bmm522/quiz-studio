@@ -3,7 +3,6 @@ package quiz.service.quiz;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import quiz.controller.quiz.dto.QuizGetCondition;
 import quiz.domain.category.Category;
 import quiz.domain.quiz.Quiz;
@@ -27,7 +26,6 @@ public class QuizService {
 	 * @param request 퀴즈 저장 요청 정보
 	 * @return 퀴즈 저장 결과
 	 */
-	@Transactional
 	public QuizSaveParam.Response saveAll(final QuizSaveParam.Request request,
 		final Category category) {
 		List<Quiz> quizzes = quiz.domain.quiz.mapper.QuizMapper.toEntitiesWhenSave(
