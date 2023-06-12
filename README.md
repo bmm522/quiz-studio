@@ -68,9 +68,9 @@
   - [OPENAI API 와 batch scheduler](#openai-api-와-batch-scheduler)
   - [AWS ELB 와 nginx](#aws-elb-와-nginx)
   - [한정적인 리소스 해결과 node module 도입 이유](#한정적인-리소스-해결과-node-module-도입-이유)
-  - [개인정보 문제와 SSO(Single Sign-On)](#개인정보-문제와-sso(single-sign-on))
+  - [개인정보 문제와 SSO(Single Sign-On)](#개인정보-문제와-ssosingle-sign-on)
   - [Test](#test)
-  - [CI/CD](#ci/cd)
+  - [CI/CD](#cicd)
   - [Mapper](#mapper)
   - [CQRS 패턴](#cqrs-패턴)
   - [Facade 패턴](#facade-패턴)
@@ -226,7 +226,7 @@
 > 해당 구조 개선에 대한 issue 입니다. https://github.com/bmm522/quiz-studio/issues/23
 ---
 
-## Validation
+## Validation 
 
 -   Validation 체크의 경우를 두가지로 정했습니다.
 
