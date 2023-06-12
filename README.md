@@ -67,6 +67,7 @@
   - OPENAI API 와 batch scheduler
   - AWS ELB 와 nginx
   - 한정적인 리소스 해결과 node module 도입 이유
+  - 개인정보 문제와 SSO(Single Sign-On)
   - Test
   - CI/CD
   - Mapper
@@ -127,6 +128,27 @@
 > 하지만 모듈에 선택한 기술 orm인 JPA 는 blocking query이기 때문에 사용하지 않았습니다.
 
 ---
+
+### 개인정보 문제와 SSO(Single Sign-On)
+
+- 개인정보 문제
+
+  - 사용자에게 회원가입 프로세스는 접근성을 저하한다고 생각하여, 소셜로그인으로만 간편하게 로그인 할 수 있도록 하였습니다.
+  - 사용자에게 받는 개인정보는 email이 있습니다. 해당 email을 암호화 후 저장하여, 추후에 db 해킹이 되었을 때도 타격이 없도록 하였습니다.
+
+<img width="60%" height="40%" src="https://github.com/bmm522/quiz-studio/assets/102157839/f8cbb0b6-491a-44a1-a125-f3bf8de6a01a">
+
+- SSO(Single Sign-On)
+
+  - 멀티 모듈 기반이므로 JWT토큰을 이용하여 SSO을 구현했습니다.
+  - Flow는 다음과 같습니다.
+
+<img width="60%" height="40%" src="https://github.com/bmm522/quiz-studio/assets/102157839/466e16aa-335e-415e-a510-1e281ae6a3c7">
+
+
+
+---
+
 
 ### Test
 
