@@ -5,7 +5,6 @@
 
 ---
 - 🔗링크 : https://www.quizstudio.site
-
 - 🔊프로젝트 소개
   - gpt한테 문제를 뽑아서 풀 수 있는 퀴즈 사이트
   - 프론트(Vanilla js) + 4개의 모듈(REST API)기반으로 구성된 프로젝트
@@ -18,6 +17,9 @@
   - MySQL, Redis, MongoDB
   - Junit, JEST, supertest
   - AWS EC2, AWS RDS, AWS Certificate Manager, AWS Route 53, AWS ELB, AWS CloudFront, AWS S3, Docker
+
+ - <details><summary>📖ersion 업데이트 내역 보기</summary></details>
+
 ---
 
 ## Architecture
