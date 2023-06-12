@@ -15,6 +15,7 @@
   - Java11, JavaScript, Typescript
   - Spring Boot, Spring Security, Spring Data JPA, Spring Batch, Node 
   - MySQL, Redis, MongoDB
+  - Junit, JEST, supertest
   - AWS EC2, AWS RDS, AWS Certificate Manager, AWS Route 53, AWS ELB, AWS CloudFront, AWS S3, Docker
 ---
 
@@ -29,6 +30,10 @@
 
 ## 프로젝트 구조
 
+- 목차
+  - 각 계층과 객체의 확실한 책임 분리
+  - Test
+  - CI/CD
 ---
 
 ### 1. 각 계층과 객체의 확실한 책임 분리
@@ -54,9 +59,43 @@
 
 > 각각의 매퍼(mapper) 객체는 변환되는 시점에서의 역할을 수행하는 객체와 밀접한 관계를 가지므로, 메서드를 정적 메서드로 구성했습니다
 
+---
+
+### CQRS 패턴
+
+- 단순 조회의 영역은 기능에 더 가까이 종속되고, 수정, 삭제, 삽입과 같은 작업은 도메인에 더 가까이 종속된다고 생각하여, 조회와 데이터조작 레포지토리를 분리하여, 복잡도와 책임 분리를 개선하고자 했습니다.
+
+ <img src="https://github.com/bmm522/quiz-studio/assets/102157839/10794f76-5c5a-4ded-a569-1a9ca0457dfb" width="50%" height="20%"></img>
+
+---
+
+### Facade 패턴
+
+- 하나의 도메인 서비스에서 다른 도메인의 레포지토리를 DI 하는 것은 추후에 서비스의 사이즈가 커질 수록 의존관계의 복잡도가 높아질 수 있기 때문에, 여러개의 도메인의 레포지토리를 DI해서 비즈니스 로직을 처리해야 하는 경우에는 Facade 패턴을 이용해 해결했습니다.
+
+ <img src="https://github.com/bmm522/quiz-studio/assets/102157839/80e58bf4-4ed9-4d57-b8fd-d95dd3b06994" width="40%" height="15%"></img>
+
+---
+
+### Validation
+
+-   Validation 체크의 경우를 두가지로 정했습니다.
+
+    -   Client로 부터 오는 Validation 체크
+
+        -   클라이언트로부터 오는 Validation에 대한 책임은 Request로부터 생성되는 DTO에 있으며, 이를 위해 DTO가 생성되는 시점인 Presentation 계층의 Mapper에서 체크하도록 설계했습니다.
+
+        -   이를 통해, 컨트롤러는 검증된 데이터를 서비스레이어에 전달 할 수 있게 되었습니다.
+
+        <img src="https://github.com/bmm522/quiz-studio/assets/102157839/e0e76ead-cb79-4847-9c7b-1aee6e35cd88" width="60%" height="50%"></img>
 
 
+    -   Db의 데이터를 확인해야 하는 Validation 체크
 
+        -   데이터베이스의 데이터를 확인해서 해야하는 Validation 체크는 서비스 레이어에서 이루어져야 한다고 판단했습니다.
 
+        -   이에 대표적으로 권한 체크가 있었습니다. 앞서 설명한 대로, 해당 역할만 수행하는 Validator를 통해 이를 구현하였습니다.
+
+        <img src="https://github.com/bmm522/quiz-studio/assets/102157839/35a7eb12-5dd9-42bf-b987-0a7b866fa71d" width="60%" height="50%"></img>
 
 
