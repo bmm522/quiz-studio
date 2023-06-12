@@ -226,7 +226,7 @@
 > 해당 구조 개선에 대한 issue 입니다. https://github.com/bmm522/quiz-studio/issues/23
 ---
 
-## Validation 
+## Validation 체크
 
 -   Validation 체크의 경우를 두가지로 정했습니다.
 
