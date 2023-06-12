@@ -66,6 +66,7 @@
 - 목차
   - OPENAI API 와 batch scheduler
   - AWS ELB 와 nginx
+  - 한정적인 리소스 해결과 node module 도입 이유
   - Test
   - CI/CD
   - Mapper
@@ -104,12 +105,35 @@
 
 ---
 
+### 한정적인 리소스 해결과 node module 도입 이유
+
+- 한정적인 리소스 해결
+
+  - 학습용으로 제작한 프로젝트 이므로, 좋은 성능의 서버가 아닌 프리티어 서버(t2.micro)를 이용해야 했습니다.
+  - 계속되는 메모리 릭 현상을 해결하기 위해 swap file을 통해 메모리를 늘리고, 각 서버의 커넥션 수를 명시적으로 제한하여 해결하였습니다.
+   
+ <img  width="60%" height="40%" alt="스왑" src="https://github.com/bmm522/quiz-studio/assets/102157839/16b931d3-29d8-43e4-af2b-f3e8229355cc">
+  
+  
+- node module 도입 이유
+  - 주 서비스인 ai한테서 문제를 빠른 속도로 사용자에게 응답하기 위해 event non-blocking 기반인 node를 채택했습니다. 
+  - 이를 통해 다수의 요청을 동시에 처리하고 병렬적으로 작업을 수행할 수 있어서 사용자에게 신속한 응답을 제공할 수 있습니다.
+  - 문제 요청 시에는 직접적인 AWS RDS 요청이 리소스를 크게 사용할 것으로 판단하여, AI 문제 데이터를 저장하는 장소로 인메모리 DB인 Redis를 선택하였습니다. 
+
+ <img  width="60%" height="40%"  src="https://github.com/bmm522/quiz-studio/assets/102157839/15b01892-6b0a-4ee1-b19f-0fa57acf9bbc">
+
+> 스프링 모듈에서 @Async 키워드와 같은 것으로 non-blocking을 구현할 수 있습니다. 
+>
+> 하지만 모듈에 선택한 기술 orm인 JPA 는 blocking query이기 때문에 사용하지 않았습니다.
+
+---
+
 ### Test
 
 - 코드를 검증하고, 개발자가 의도한 논리적 방향대로 잘 작동하는지를 확인할 수 있는 가장 좋은방법은 테스트라고 생각합니다. 
-- 각각의 모듈에 e2e 테스트와 unit 테스트를 작성했습니다. (스프링 + junit , 노드 + JEST(unit) + supertest(e2e))
+- 각각의 모듈에 총 100여개의 e2e 테스트와 unit 테스트를 작성했습니다. (스프링 + junit , 노드 + JEST(unit) + supertest(e2e))
     
-<img src="https://github.com/bmm522/quiz-studio/assets/102157839/e01daedb-d3f5-4839-be4a-a2a6c72bb056" width="50%" height="40%"></img>
+<img src="https://github.com/bmm522/quiz-studio/assets/102157839/e01daedb-d3f5-4839-be4a-a2a6c72bb056"></img>
 
 ---
 
