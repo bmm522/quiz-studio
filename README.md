@@ -64,7 +64,9 @@
 ## 프로젝트 구조
 
 - 목차
-  - OPENAI API 와 batch scheduler
+
+  - [OPENAI API와 batch scheduler](#openai-api와-batch-scheduler)
+  - [AWS ELB 와 nginx](#aws-elb-와-nginx)
   - AWS ELB 와 nginx
   - 한정적인 리소스 해결과 node module 도입 이유
   - 개인정보 문제와 SSO(Single Sign-On)
@@ -77,7 +79,7 @@
 
 ---
 
-### OPENAI API 와 batch scheduler
+## OPENAI API 와 batch scheduler
 
 - Spring batch 도입 이유
   - 주 서비스는 AI로부터 퀴즈를 받아와 사용자가 푸는 서비스입니다. 사용자에게 빠른 서비스를 제공하기 위해 매번 API 요청하는 대신 미리 데이터를 인메모리 DB에 저장해두고 보여줍니다. 
