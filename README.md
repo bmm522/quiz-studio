@@ -22,22 +22,31 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
-### v1.0.4 Release [latest] [23.06.09]
+  
+### _v1.0.4 Release [latest] [23.06.09]_
   - 퀴즈 데이터 안불러와지는 오류 수정 [#17](https://github.com/bmm522/quiz-studio/issues/17)
 
-### v1.0.3 Release [23.06.08]
+---
+  
+### _v1.0.3 Release [23.06.08]_
   - 문제 기록 제대로 안불러와지는 에러 수정 [#17](https://github.com/bmm522/quiz-studio/issues/17)
 
-### v1.0.2 Release [Pre-release] [23.06.07]
+--- 
+  
+### _v1.0.2 Release [Pre-release] [23.06.07]_
   - 문제 기록 제대로 안불러와지는 에러 수정 [#10](https://github.com/bmm522/quiz-studio/issues/10)
   - quiz-batch module 재배포 시에 레디스 데이터 사라지는 에러 수정 [#10](https://github.com/bmm522/quiz-studio/issues/10)
   - 커스텀 문제 목록으로 넘어갈 시에 카테고리 아이디 null로 넘어가는 에러 수정 [#10](https://github.com/bmm522/quiz-studio/issues/10)
 
-### v1.0.1 Release [Pre-release] [23.06.07]
+--- 
+  
+### _v1.0.1 Release [Pre-release] [23.06.07]_
   - css 경로 설정 잘못되어 있던 오류 해결 [#6](https://github.com/bmm522/quiz-studio/issues/6)
   - api 호출 제대로 안되던 오류 해결 [#6](https://github.com/bmm522/quiz-studio/issues/6)
 
-### v1.0.0 Release [Pre-release] [23.06.06]
+--- 
+  
+### _v1.0.0 Release [Pre-release] [23.06.06]_
   - 첫 릴리즈
 </details>
 
