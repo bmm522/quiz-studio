@@ -31,19 +31,13 @@
 ## 프로젝트 구조
 
 - 목차
-  - 각 계층과 객체의 확실한 책임 분리
+  - Mapper
+  - CQRS 패턴
+  - Facade 패턴
+  - Validation 체크
   - Test
   - CI/CD
----
-
-### 1. 각 계층과 객체의 확실한 책임 분리
-
-> 각 계층과 객체의 확실한 책임 분리는 코드의 유지보수성, 확장성, 테스트 용이성을 향상시키기 위한 중요한 설계 원칙 중 하나라고 생각합니다.
->
-> 따라서 이번 프로젝트에서도 각 계층과 객체의 책임을 분리하여 객체지향적인 설계를 추구했습니다.
->
-> 다음 항목들은 각 계층과 객체의 확실한 책임 분리를 위해 고려했던 것들입니다.
-
+  - OPENAI API 와 batch scheduler
 ---
 
 ### Mapper
@@ -75,6 +69,7 @@
 
  <img src="https://github.com/bmm522/quiz-studio/assets/102157839/80e58bf4-4ed9-4d57-b8fd-d95dd3b06994" width="40%" height="15%"></img>
 
+> 해당 구조 개선에 대한 issue 입니다. https://github.com/bmm522/quiz-studio/issues/23
 ---
 
 ### Validation
@@ -98,4 +93,21 @@
 
         <img src="https://github.com/bmm522/quiz-studio/assets/102157839/35a7eb12-5dd9-42bf-b987-0a7b866fa71d" width="60%" height="50%"></img>
 
+---
+
+### Test
+
+- 코드를 검증하고, 개발자가 의도한 논리적 방향대로 잘 작동하는지를 확인할 수 있는 가장 좋은방법은 테스트라고 생각합니다. 
+- 각각의 모듈에 e2e 테스트와 unit 테스트를 작성했습니다. (스프링 + junit , 노드 + JEST(unit) + supertest(e2e))
+    
+<img src="https://github.com/bmm522/quiz-studio/assets/102157839/e01daedb-d3f5-4839-be4a-a2a6c72bb056" width="50%" height="40%"></img>
+
+---
+
+### CI/CD
+
+- github action을 통해 CI/CD를 구축했습니다. 
+- 모듈들이 독립적으로 빌드되도록 각각의 CI/CD를 구축했습니다.
+
+<img src="https://github.com/bmm522/quiz-studio/assets/102157839/8bbf8a01-c5a2-4b0d-a167-23b30056cbd8" width="50%" height="40%"></img>
 
