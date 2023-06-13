@@ -13,11 +13,11 @@ async function getName() {
         ).innerHTML = `GUEST 로그인`;
 
         document.getElementById('userDropdown-div').innerHTML = ` <a style="height: 40px;" class="dropdown-item" href="https://api.quizstudio.site/user/api/v1/social/login/google">
-        <i >    <img width="15px" src="../front/static/image/google.png" alt="google"></i>
+        <i >    <img width="15px" src="https://www.quizstudio.site/static/image/google.png" alt="google"></i>
         구글 로그인
     </a>
     <a class="dropdown-item" href="https://api.quizstudio.site/user/api/v1/social/login/kakao">
-        <i >    <img width="15px" src="../front/static/image/kakao.png" alt="kakao"></i>
+        <i >    <img width="15px" src="https://www.quizstudio.site/static/image/kakao.png" alt="kakao"></i>
         카카오 로그인
     </a>`
     }
@@ -56,7 +56,7 @@ async function getEmail() {
                 ).innerHTML = `${res.data.email}`;
 
                 document.getElementById('userDropdown-div').innerHTML =`<div  class="dropdown-item" style="cursor: pointer;" id="logout-div" onclick="logoutEvent();">
-                <i >    <img width="15px" src="../front/static/image/logout.png" alt="logout"></i>
+                <i >    <img width="15px" src="https://www.quizstudio.site/static/image/logout.png" alt="logout"></i>
                    로그아웃
           </div>`;
 

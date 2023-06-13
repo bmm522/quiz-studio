@@ -3,7 +3,6 @@ const category = localStorage.getItem("category");
 
 window.onload = async function () {
     await getName();
-    await checkToken();
     await loadQuiz();
 };
 async function getQuizData(category) {
