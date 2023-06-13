@@ -75,19 +75,22 @@ function handleSubmitQuiz() {
 }
 
 function submitRecordWithFailQuiz(quizRecordArray) {
-    fetch(`${nodeHost}/v1/records`, {
-        method: "POST",
-        headers: {
-            authorization: localStorage.getItem("authorization"),
-            refreshToken: localStorage.getItem("refreshToken"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            quizRecordArray: quizRecordArray,
-        }),
-    })
-        .then((res) => res.json())
-        .then((res) => {});
+    if(localStorage.getItem("authorization")!==null) {
+        fetch(`${nodeHost}/v1/records`, {
+            method: "POST",
+            headers: {
+                authorization: localStorage.getItem("authorization"),
+                refreshToken: localStorage.getItem("refreshToken"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                quizRecordArray: quizRecordArray,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {});
+    }
+  
 }
 
 function createResultElement(numCorrect) {

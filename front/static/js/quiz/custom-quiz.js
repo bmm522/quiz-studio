@@ -2,9 +2,14 @@ const level = localStorage.getItem("level");
 const category = localStorage.getItem("category");
 
 window.onload = async function () {
-    await checkToken();
-    await getEmail();
-    await loadQuiz();
+    await getName();
+    if(localStorage.getItem("authorization")!==null) {
+        await loadQuiz();
+    } else {
+        alert('잘못된 접근입니다.');
+        window.location.href = `${frontHost}/main`;
+    }
+    
 };
 async function getQuizData() {
     const urlParams = new URL(location.href).searchParams;

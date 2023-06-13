@@ -1,9 +1,12 @@
 window.onload = async function () {
-    if (getCookieValue("Authorization") !== "") {
-        await setToken();
-    }
-    await getName();
-    await getCategories(1);
+        if (getCookieValue("Authorization") !== "") {
+            await setToken();
+        }
+        await getName();
+        if(localStorage.getItem("authorization")!==null) {
+            await getCategories(1);
+        }
+      
 };
 
 async function getCategories(page) {
