@@ -20,7 +20,7 @@ import quiz.global.dto.CustomQuizDto;
 
 public class QuizE2ETest extends E2ETest {
 
-	String url = "/api/v1";
+	String url;
 	long categoryId;
 
 	@BeforeAll
@@ -33,7 +33,7 @@ public class QuizE2ETest extends E2ETest {
 			.build();
 
 		categoryId = categoryRepository.save(category).getId();
-		url = "/api/v1/category/" + categoryId + "/quiz";
+		url = "/quiz-spring/api/v1/category/" + categoryId + "/quiz";
 	}
 
 	@AfterAll

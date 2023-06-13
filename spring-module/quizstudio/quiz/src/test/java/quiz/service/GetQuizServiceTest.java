@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import quiz.controller.quiz.dto.QuizGetCondition;
+import quiz.controller.quiz.mapper.ControllerQuizMapper;
 import quiz.repository.quiz.dto.QuizQueryDto;
 import quiz.service.quiz.dto.QuizGetResponse;
 
@@ -35,7 +37,8 @@ public class GetQuizServiceTest extends ServiceTest {
 		when(quizRepository.findQuizQueryDtoListByIdAndUserKey(anyString(),
 			anyLong(), anyInt(), anyInt())).thenReturn(quizQeuryDtoList);
 
-		QuizGetResponse result = quizService.getQuizzesWithPaging("testUser", 1000L, 1);
+		QuizGetCondition condition = ControllerQuizMapper.toGetCondition("testUser", 1000L, 1);
+		QuizGetResponse result = quizService.getQuizzesWithPaging(condition);
 
 		assertThat(result.getQuizzes().size()).isEqualTo(4);
 	}

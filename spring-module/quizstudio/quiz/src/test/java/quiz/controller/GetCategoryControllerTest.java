@@ -57,7 +57,7 @@ public class GetCategoryControllerTest extends ControllerTest {
 			responseFromService);
 
 		ResultActions perform = mockMvc.perform(
-			get("/api/v1/category?page=1")
+			get("/quiz-spring/api/v1/category?page=1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 		);

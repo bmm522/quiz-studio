@@ -26,7 +26,7 @@ public class CategoryE2ETest extends E2ETest {
 
 
 	private final String saveTestUser = "saveTestUser";
-	private final String url = "/api/v1/category";
+	private final String url = "/quiz-spring/api/v1/category";
 
 
 	@BeforeAll

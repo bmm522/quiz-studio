@@ -2,8 +2,8 @@ name: node-build
 on:
   pull_request:
     branches:
-#      - main
-      - release/v1.0.4
+      - main
+      - release/v1.1.0
     paths:
       - 'node-module/**'
 

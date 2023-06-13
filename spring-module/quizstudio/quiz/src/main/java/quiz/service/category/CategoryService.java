@@ -89,7 +89,7 @@ public class CategoryService {
 		return ServiceCategoryMapper.toUpdateResponse(category);
 	}
 
-	private Category getCategoryFromCategoryId(final Long categoryId) {
+	public Category getCategoryFromCategoryId(final Long categoryId) {
 		return categoryRepository.findCategoryByCategoryId(categoryId)
 			.orElseThrow(() -> new NotFoundEntityException("userKey로 해당 Category 객체를 찾을 수 없습니다."));
 	}

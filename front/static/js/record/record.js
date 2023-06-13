@@ -2,10 +2,14 @@ const ITEMS_PER_PAGE = 5; // 한 페이지당 표시할 문제 수
 let currentPage = 1; // 현재 페이지 번호
 
 window.onload = async function () {
-    await checkToken();
-    await getEmail();
-    await getRecords(currentPage);
-    await getCategories();
+    await getName();
+    if(localStorage.getItem("authorization")!==null) { 
+        await getRecords(currentPage);
+        await getCategories();
+    } else {
+        alert('잘못된 접근입니다.');
+        window.location.href = `${frontHost}/main`;
+    }
     // console.log(localStorage.getItem("category"));
 };
 

@@ -39,7 +39,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 		when(categoryService.save(any())).thenReturn(response);
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
@@ -69,7 +69,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.build();
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
@@ -96,7 +96,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.build();
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
@@ -123,7 +123,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.description("testDescription")
 			.build();
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
@@ -151,7 +151,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.build();
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
@@ -179,7 +179,7 @@ public class SaveCategoryControllerTest extends ControllerTest {
 			.build();
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category")
+			post("/quiz-spring/api/v1/category")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(request))
