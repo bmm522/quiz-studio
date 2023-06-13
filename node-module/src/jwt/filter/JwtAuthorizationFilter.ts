@@ -16,6 +16,10 @@ export const JwtAuthorizationFilter = async (
   next: NextFunction,
 ) => {
   try {
+    if(req.headers.authorization === 'guest') {
+      next();
+      return;
+    }
     const jwtToken = await JwtMapper.toJwtToken(req);
     const [isJwtTokenValid, isRefreshTokenValid] = await Promise.all([
       jwtToken.checkValidateJwtToken(),

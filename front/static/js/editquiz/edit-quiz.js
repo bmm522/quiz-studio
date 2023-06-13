@@ -1,6 +1,19 @@
 window.onload = async function () {
     await getName();
-    await getCategories(1);
+    if(localStorage.getItem("authorization")!==null) {
+        await getCategories(1);
+    } else {
+        alert('잘못된 접근입니다.');
+        window.location.href = `${frontHost}/main`;
+    }
+
+    if(localStorage.getItem("authorization")!==null) { 
+
+    } else {
+        alert('잘못된 접근입니다.');
+        window.location.href = `${frontHost}/main`;
+    }
+
 };
 
 async function getCategories(page) {

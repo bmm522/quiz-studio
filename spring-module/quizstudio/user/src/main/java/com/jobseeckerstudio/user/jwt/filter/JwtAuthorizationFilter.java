@@ -22,6 +22,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private final String newToken = "/user/api/v1/check-expired-jwt";
 
+	private final String GUEST_LOGIN = "guest";
+
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
 	}
@@ -30,7 +32,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain chain) throws IOException, ServletException {
 		try {
-			if (shouldSkipFilter(request)) {
+			if (shouldSkipFilterWhenSocilaLogin(request)) {
+				chain.doFilter(request, response);
+				return;
+			}
+
+			if (shouldSkipFilterWhenGuestLogin(request)) {
 				chain.doFilter(request, response);
 				return;
 			}
@@ -41,6 +48,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		} catch (Exception e) {
 			handleException(response, e, 401);
 		}
+	}
+
+	/**
+	 * guest 로그인을 확인하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청
+	 * @return 필터를 건너뛸지 여부 (true: 건너뛰기, false: 필터 실행)
+	 */
+	private boolean shouldSkipFilterWhenGuestLogin(HttpServletRequest request) {
+		String header = request.getHeader("authorization");
+		return GUEST_LOGIN.equals(header);
 	}
 
 	private void handleException(HttpServletResponse response, Exception e, Integer status)
@@ -58,12 +76,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	}
 
 	/**
-	 * 필터를 건너뛸지 여부를 확인하는 메서드입니다.
+	 * (소셜로그인의 경우)필터를 건너뛸지 여부를 확인하는 메서드입니다.
 	 *
 	 * @param request HTTP 요청
 	 * @return 필터를 건너뛸지 여부 (true: 건너뛰기, false: 필터 실행)
 	 */
-	public boolean shouldSkipFilter(HttpServletRequest request) {
+	public boolean shouldSkipFilterWhenSocilaLogin(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
 		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
