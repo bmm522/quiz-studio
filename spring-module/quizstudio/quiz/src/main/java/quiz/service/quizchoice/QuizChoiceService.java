@@ -22,14 +22,19 @@ public class QuizChoiceService {
 	 * @return 업데이트된 선택지의 개수
 	 */
 	public int updateWhenQuizUpdate(final QuizUpdateParam.Request request) {
+		List<Choice> quizChoices = settingQuizChoice(request.getQuizzes());
+		return quizChoiceRepository.updateAllContentAndIsAnswer(
+			quizChoices);
+	}
+
+	public List<Choice> settingQuizChoice(List<CustomQuizDto> customQuizDtoList) {
 		List<Choice> quizChoices = new ArrayList<>();
-		for (int i = 0; i < request.getQuizzes().size(); i++) {
-			List<CustomQuizDto.Choice> temp = request.getQuizChoiceFromIndex(i);
+		for (int i = 0; i < customQuizDtoList.size(); i++) {
+			List<CustomQuizDto.Choice> temp = customQuizDtoList.get(i).getChoices();
 			for (int z = 0; z < 4; z++) {
 				quizChoices.add(temp.get(z));
 			}
 		}
-		return quizChoiceRepository.updateAllContentAndIsAnswer(
-			quizChoices);
+		return quizChoices;
 	}
 }

@@ -39,10 +39,10 @@ public class JwtFilterTest {
 		HttpServletRequest newTokenRequest = mock(HttpServletRequest.class);
 		HttpServletRequest otherRequest = mock(HttpServletRequest.class);
 
-		when(googleRequest.getRequestURI()).thenReturn("/api/v1/social/login/google");
-		when(kakaoRequest.getRequestURI()).thenReturn("/api/v1/social/login/kakao");
-		when(newTokenRequest.getRequestURI()).thenReturn("/api/v1/check-expired-jwt");
-		when(otherRequest.getRequestURI()).thenReturn("/api/v1/some/other/endpoint");
+		when(googleRequest.getRequestURI()).thenReturn("/user/api/v1/social/login/google");
+		when(kakaoRequest.getRequestURI()).thenReturn("/user/api/v1/social/login/kakao");
+		when(newTokenRequest.getRequestURI()).thenReturn("/user/api/v1/check-expired-jwt");
+		when(otherRequest.getRequestURI()).thenReturn("/user/api/v1/some/other/endpoint");
 
 		Method shouldSkipFilterMethod = JwtAuthorizationFilter.class.getDeclaredMethod(
 			"shouldSkipFilter", HttpServletRequest.class);

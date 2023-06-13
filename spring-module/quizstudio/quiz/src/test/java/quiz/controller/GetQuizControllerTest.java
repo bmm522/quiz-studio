@@ -2,9 +2,7 @@ package quiz.controller;
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -48,11 +46,11 @@ public class GetQuizControllerTest extends ControllerTest {
 
 		QuizGetResponse returnDto = QuizGetResponse.builder().quizzes(quizQeuryDtoList).build();
 
-		when(quizService.getQuizzesWithPaging(anyString(), anyLong(), anyInt())).thenReturn(
+		when(quizFacade.getQuizzesWithPaging(any())).thenReturn(
 			returnDto);
 
 		ResultActions perform = mockMvc.perform(
-			get("/api/v1/category/1000/quiz?page=1")
+			get("/quiz-spring/api/v1/category/1000/quiz?page=1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 		);

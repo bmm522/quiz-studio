@@ -1,20 +1,15 @@
 spring:
-    redis:
-        password: ENC(Oe1NIOl40z6c6Ft4+xNx0B80IL7jrEaXUjM9nLTR99/3MLws6HqIhMPWfruNyPM6)
-        client-name: ENC(nSJH7sHUNWUX0BzORh0R/Q==)
-        host: ${REDIS_HOST}
-        port: ${REDIS_PORT}
-    profiles:
-        active:
-            - prod
-        include:
-            - jwt
-            - env
+  profiles:
+    active:
+      - ${RUN_ENV}
+    include:
+      - jwt
+      - env
 jasypt:
-    encryptor:
-        bean: jasyptStringEncryptor
-        property:
-            prefix: ENC(
-            suffix: )
-        password: ${jasypt_encryptor_password}
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
+    password: ${jasypt_encryptor_password}
 

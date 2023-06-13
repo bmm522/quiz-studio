@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      RUN_ENV: dev
       jasypt_encryptor_password: ${{secrets.JASYPT_ENCRYPTOR_PASSWORD}}
       MYSQL_HOST: 127.0.0.1
       MYSQL_PORT: 3306
@@ -64,6 +65,7 @@ jobs:
         run: |
           cd ../quiz-studio/spring-module/quizstudio/user
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }} \
+            --build-arg RUN_ENV=${{secrets.RUN_ENV}}
             --build-arg JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             --build-arg MYSQL_USER=${{secrets.MYSQL_USER}} \
             --build-arg MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \
@@ -106,6 +108,7 @@ jobs:
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_USER_IMAGE_NAME }}:latest
             sudo docker run -it -d -p 8081:8081 \
+            -e RUN_ENV=${{secrets.RUN_ENV}} \
             -e JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} \
             -e MYSQL_USER=${{secrets.MYSQL_USER}} \
             -e MYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}} \

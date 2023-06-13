@@ -20,7 +20,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -35,18 +35,16 @@ spring:
   sql:
     init:
       mode: always
-  profiles:
-    include: jwt
 
 logging:
   level:
     '[org.springframework.web]': DEBUG
     '[org.hibernate]': DEBUG
 
-jwt:
-  secret: test
-  token_prefix: 'Bearer '
-  refresh_prefix: 'RefreshToken '
-  header_jwt: test
-  header_refresh: test
-  iss: test
+#jwt:
+#  secret: test
+#  token_prefix: 'Bearer '
+#  refresh_prefix: 'RefreshToken '
+#  header_jwt: test
+#  header_refresh: test
+#  iss: test

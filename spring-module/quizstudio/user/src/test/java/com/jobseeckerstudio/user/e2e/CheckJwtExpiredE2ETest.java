@@ -12,23 +12,20 @@ import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.properties.JwtProperties;
 import com.jobseeckerstudio.user.repository.user.UserRepository;
 import java.util.Date;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations = "classpath:application-dev.yml")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestPropertySource(locations = "classpath:application-dev.yml")
 @DisplayName("jwt토큰 유효시간 체크 e2e 테스트")
 public class CheckJwtExpiredE2ETest {
 
@@ -47,22 +44,24 @@ public class CheckJwtExpiredE2ETest {
 
 	}
 
-	@AfterAll
-	public void deleteAll() {
-		userRepository.deleteByUserKey("test_user");
-		userRepository.deleteByUserKey("test2");
-		userRepository.deleteByUserKey("test3");
-	}
+//	@AfterAll
+//	public void deleteAll() {
+//		userRepository.deleteByUserKey("test_user");
+//		userRepository.deleteByUserKey("test2");
+//		userRepository.deleteByUserKey("test3");
+//	}
 
 	private HttpHeaders createHeaders(String jwtToken, String refreshToken) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(JwtProperties.HEADER_JWT, jwtToken);
 		headers.set(JwtProperties.HEADER_REFRESH, refreshToken);
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		return headers;
 	}
 
 	private ResponseEntity<String> getResponse(HttpHeaders headers) {
-		return rt.exchange("/api/v1/check-expired-jwt", HttpMethod.GET, new HttpEntity<>(headers),
+		return rt.exchange("/user/api/v1/check-expired-jwt", HttpMethod.GET,
+			new HttpEntity<>(headers),
 			String.class);
 
 	}

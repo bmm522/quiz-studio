@@ -6,11 +6,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quiz.domain.category.Category;
 import quiz.domain.quiz.Quiz;
@@ -57,12 +55,12 @@ public class SaveQuizServiceTest extends ServiceTest {
 		quiz3.addChoices(quiz3Choices);
 
 		List<Quiz> quizList = List.of(quiz, quiz2, quiz3);
-		when(categoryRepository.findCategoryByCategoryId(
-			ArgumentMatchers.anyLong())).thenReturn(
-			Optional.of(category));
+//		when(categoryRepository.findCategoryByCategoryId(
+//			ArgumentMatchers.anyLong())).thenReturn(
+//			Optional.of(category));
 		when(quizRepository.saveAll(any())).thenReturn(quizList);
 
-		QuizSaveParam.Response result = quizService.saveAll(request);
+		QuizSaveParam.Response result = quizService.saveAll(request, category);
 
 		assertThat(result.getUserKey()).isEqualTo("testUser");
 		assertThat(result.getQuizzes().size()).isEqualTo(3);
