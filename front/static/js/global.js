@@ -55,10 +55,12 @@ async function getEmail() {
                     "email-div",
                 ).innerHTML = `${res.data.email}`;
 
-                document.getElementById('userDropdown-div').innerHTML =`<div  class="dropdown-item" style="cursor: pointer;" id="logout-div">
+                document.getElementById('userDropdown-div').innerHTML =`<div  class="dropdown-item" style="cursor: pointer;" id="logout-div" onclick="logoutEvent();">
                 <i >    <img width="15px" src="../front/static/image/logout.png" alt="logout"></i>
                    로그아웃
           </div>`;
+
+                    
             });
  
 }
@@ -111,7 +113,16 @@ document
     });
 
 
+function logoutEvent() {
+    const result = confirm("로그아웃을 하시겠습니까?");
+    if(result) {
+        localStorage.removeItem("authorization");
+        localStorage.removeItem("refreshToken");
+        alert('로그아웃 되었습니다.')
+        window.location.href = `${frontHost}/main`;
+    }
 
+}
 // document.getElementById("record-page").addEventListener("click", async function (event) {
 //      location.href = `${frontHost}/record`;
 // });
