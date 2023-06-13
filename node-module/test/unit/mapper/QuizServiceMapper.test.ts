@@ -4,7 +4,7 @@ import { ServiceQuizMapper } from '../../../src/service/quiz/mapper/ServiceQuizM
 import { ServiceGetQuizRequest } from '../../../src/service/quiz/dto/ServiceGetQuizRequest';
 
 describe('QuizServiceMapperTest', () => {
-  it('toGetRequest Test', () => {
+  it('toGetRequest Test', async () => {
     // Arrange
     const category: string = "java";
     // const level: Level = Level.EASY;
@@ -12,7 +12,7 @@ describe('QuizServiceMapperTest', () => {
     const controllerRequest = new ControllerGetQuizRequest(category);
 
     // Act
-    const serviceRequest = ServiceQuizMapper.toGetRequest(controllerRequest);
+    const serviceRequest = await ServiceQuizMapper.toGetRequest(controllerRequest);
 
     // Assert
     expect(serviceRequest).toBeInstanceOf(ServiceGetQuizRequest);

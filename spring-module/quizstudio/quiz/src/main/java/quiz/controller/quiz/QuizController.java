@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import quiz.controller.dto.CommonResponse;
 import quiz.controller.dto.ResponseHandler;
+import quiz.controller.quiz.dto.QuizGetCondition;
 import quiz.controller.quiz.dto.QuizSaveBody;
 import quiz.controller.quiz.dto.QuizUpdateBody;
 import quiz.controller.quiz.mapper.ControllerQuizMapper;
-import quiz.service.quiz.QuizService;
+import quiz.service.quiz.QuizFacade;
 import quiz.service.quiz.dto.QuizGetResponse;
 import quiz.service.quiz.dto.QuizGetWithoutPagingResponse;
 import quiz.service.quiz.dto.QuizSaveParam;
@@ -27,7 +28,7 @@ import quiz.service.quiz.dto.QuizUpdateParam;
 @RequiredArgsConstructor
 public class QuizController {
 
-	private final QuizService quizService;
+	private final QuizFacade quizFacade;
 
 	/**
 	 * 퀴즈 저장 메서드
@@ -44,7 +45,7 @@ public class QuizController {
 		@RequestBody final QuizSaveBody body) {
 		final QuizSaveParam.Request request = ControllerQuizMapper.toSaveParam(userKey, categoryId,
 			body.getQuizzes());
-		final QuizSaveParam.Response response = quizService.saveAll(request);
+		final QuizSaveParam.Response response = quizFacade.saveAll(request);
 		return ResponseHandler.handle(HttpStatus.CREATED.value(), "퀴즈 저장 성공", response);
 	}
 
@@ -61,8 +62,9 @@ public class QuizController {
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId,
 		@RequestParam("page") final int page) {
-		final QuizGetResponse response = quizService.getQuizzesWithPaging(userKey, categoryId,
+		final QuizGetCondition condition = ControllerQuizMapper.toGetCondition(userKey, categoryId,
 			page);
+		final QuizGetResponse response = quizFacade.getQuizzesWithPaging(condition);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
 	}
 
@@ -77,7 +79,7 @@ public class QuizController {
 	public CommonResponse<?> getQuizzesWhenTakeQuiz(
 		@RequestAttribute("userKey") final String userKey,
 		@PathVariable("categoryId") final long categoryId) {
-		final QuizGetWithoutPagingResponse response = quizService.getQuizzesWhenTakeQuiz(userKey,
+		final QuizGetWithoutPagingResponse response = quizFacade.getQuizzesWhenTakeQuiz(userKey,
 			categoryId);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 불러오기 성공", response);
 	}
@@ -98,7 +100,7 @@ public class QuizController {
 		final QuizUpdateParam.Request request = ControllerQuizMapper.toUpdateParam(userKey,
 			categoryId,
 			body.getQuizzes());
-		final int updateCnt = quizService.update(request);
+		final int updateCnt = quizFacade.update(request);
 		return ResponseHandler.handle(HttpStatus.OK.value(), "퀴즈 업데이트 성공", updateCnt);
 	}
 

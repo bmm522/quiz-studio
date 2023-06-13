@@ -90,7 +90,7 @@ describe('RecordsController', () => {
     };
 
     const response = await request(app)
-      .post('/api/v1/records')
+      .post('/quiz-node/api/v1/records')
       .send(recordDtos);
 
     expect(response.status).toBe(201);
@@ -100,7 +100,7 @@ describe('RecordsController', () => {
 
   it('get test', async () => {
     const response = await request(app)
-      .get('/api/v1/records')
+      .get('/quiz-node/api/v1/records')
       .query({ page: 1, unresolved: false, category: 'java', level: 'easy' });
 
     expect(response.body.data._quizRecords).toHaveLength(5);
@@ -109,7 +109,7 @@ describe('RecordsController', () => {
 
   it('delete test', async () => {
     const response = await request(app)
-      .delete('/api/v1/records')
+      .delete('/quiz-node/api/v1/records')
       .query({ page: 1, deleteOption: 'all' });
 
     expect(response.status).toBe(200);

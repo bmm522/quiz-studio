@@ -65,7 +65,7 @@ public class GetEmailE2ETest {
 	}
 
 	private DocumentContext executeGetEmailRequest(HttpHeaders headers) {
-		ResponseEntity<String> response = rt.exchange("/api/v1/email", HttpMethod.GET,
+		ResponseEntity<String> response = rt.exchange("/user/api/v1/email", HttpMethod.GET,
 			new HttpEntity<>(headers), String.class);
 		return JsonPath.parse(response.getBody());
 	}

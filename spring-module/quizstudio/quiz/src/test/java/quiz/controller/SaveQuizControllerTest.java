@@ -54,11 +54,11 @@ public class SaveQuizControllerTest extends ControllerTest {
 			.quizzes(quizDtoList)
 			.build();
 
-		when(quizService.saveAll(any())).thenReturn(returnDto);
+		when(quizFacade.saveAll(any())).thenReturn(returnDto);
 //		when(userCategoryRepository.saveAll(any())).thenReturn(returnDto);
 
 		ResultActions perform = mockMvc.perform(
-			post("/api/v1/category/1000/quiz")
+			post("/quiz-spring/api/v1/category/1000/quiz")
 				.contentType(MediaType.APPLICATION_JSON)
 				.headers(headers)
 				.content(om.writeValueAsString(requestDto))

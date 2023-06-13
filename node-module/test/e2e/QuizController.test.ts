@@ -32,8 +32,8 @@ describe('QuizController', () => {
 
     it('get test', async () => {
       const response = await request(app)
-        .get('/api/v1/quiz')
-        .query({ category: 'java', level: 'easy' });
+        .get('/quiz-node/api/v1/quiz')
+        .query({ category: 'java'});
 
       expect(response.body.data).toHaveLength(10);
       expect(response.body.status).toBe(200);

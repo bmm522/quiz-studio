@@ -33,12 +33,28 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
+		if (guestLogin(request)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 		String jwtToken = extractJwtToken(request);
 		Jws<Claims> claims = parseJwtToken(jwtToken);
 		String userKey = extractUserKey(claims);
 		request.setAttribute("userKey", userKey);
 
 		filterChain.doFilter(request, response);
+	}
+
+	/**
+	 * guest 로그인을 확인하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청
+	 * @return 필터를 건너뛸지 여부 (true: 건너뛰기, false: 필터 실행)
+	 */
+	private boolean guestLogin(HttpServletRequest request) {
+		String header = request.getHeader("authorization");
+		String GUEST_LOGIN = "guest";
+		return GUEST_LOGIN.equals(header);
 	}
 
 	/**
