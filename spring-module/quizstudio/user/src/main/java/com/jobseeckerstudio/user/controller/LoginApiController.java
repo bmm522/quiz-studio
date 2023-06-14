@@ -72,7 +72,7 @@ public class LoginApiController {
 	 * @param request HTTP 요청 객체
 	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
 	 */
-	@GetMapping
+	@GetMapping("/logout")
 	public @ResponseBody CommonResponse<?> logout(HttpServletRequest request,
 		HttpServletResponse response) {
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookieWhenLogout();
