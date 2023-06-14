@@ -28,9 +28,9 @@ async function getCategories(page) {
 
     await categoryList.forEach((category) => {
         categoryDiv.innerHTML += `     
-         <div class="col-lg-3 mb-4" id="category-div-${category.categoryId}">      
+         <div class="col-lg-3 mb-4" id="category-div-${category.categoryId}"  style="cursor: pointer;">      
         <div class="card bg-secondary text-white shadow">
-        <div class="card-body" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="card-body">
             ${category.title}
             <div class="text-white-50 small">${category.description}</div>
         </div>
