@@ -24,27 +24,28 @@ public enum CookieMaker {
 		String jwt = setEncode(jwtToken.getJwtToken());
 		String refresh = setEncode(jwtToken.getRefreshToken());
 
-		return TokenCookie.create(getCookie("Authorization", jwt),
-			getCookie("RefreshToken", refresh));
+		return TokenCookie.create(getCookie("Authorization", jwt, 60 * 3),
+			getCookie("RefreshToken", refresh, 60 * 3));
 
 	}
 
-	private String setEncode(String token) throws UnsupportedEncodingException {
+	public TokenCookie toCookieWhenLogout() {
+		return TokenCookie.create(getCookie("Authorization", "", 0),
+			getCookie("RefreshToken", "", 0));
+	}
+
+	public String setEncode(String token) throws UnsupportedEncodingException {
 		return URLEncoder.encode(token, StandardCharsets.UTF_8);
 	}
 
 
-	private Cookie getCookie(String cookieName, String cookieValue) {
+	public Cookie getCookie(String cookieName, String cookieValue, int expiredTime) {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
-		return setCookie(cookie);
-	}
-
-	private Cookie setCookie(Cookie cookie) {
 		cookie.setPath("/");
-		cookie.setMaxAge(60 * 3); // 3분
+		cookie.setMaxAge(expiredTime); // 3분
 		cookie.setDomain(".quizstudio.site");
-//		cookie.setHttpOnly(false);
 		cookie.setSecure(true);
 		return cookie;
 	}
+
 }

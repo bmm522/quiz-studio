@@ -23,7 +23,8 @@ public class QuizService {
 	/**
 	 * 퀴즈를 일괄 저장하고 저장된 퀴즈의 정보를 반환하는 메서드입니다.
 	 *
-	 * @param request 퀴즈 저장 요청 정보
+	 * @param request  퀴즈 저장 요청 정보
+	 * @param category 퀴즈의 카테고리 정보
 	 * @return 퀴즈 저장 결과
 	 */
 	public QuizSaveParam.Response saveAll(final QuizSaveParam.Request request,
