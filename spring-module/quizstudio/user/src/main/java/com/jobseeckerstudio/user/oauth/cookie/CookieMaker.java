@@ -24,8 +24,8 @@ public enum CookieMaker {
 		String jwt = setEncode(jwtToken.getJwtToken());
 		String refresh = setEncode(jwtToken.getRefreshToken());
 
-		return TokenCookie.create(getCookie("Authorization", jwt, 5),
-			getCookie("RefreshToken", refresh, 5));
+		return TokenCookie.create(getCookie("Authorization", jwt, 10),
+			getCookie("RefreshToken", refresh, 10));
 
 	}
 
