@@ -73,12 +73,11 @@ public class LoginApiController {
 	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
 	 */
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request,
+	public void logout(HttpServletRequest request,
 		HttpServletResponse response) {
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookieWhenLogout();
 		response.addCookie(tokenCookie.getAuthorizationCookie());
 		response.addCookie(tokenCookie.getRefreshTokenCookie());
-		return "redirect:https://www.quizstudio.site/main";
 	}
 
 
