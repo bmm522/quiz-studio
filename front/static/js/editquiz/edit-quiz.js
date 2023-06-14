@@ -7,12 +7,7 @@ window.onload = async function () {
         window.location.href = `${frontHost}/main`;
     }
 
-    if(localStorage.getItem("authorization")!==null) { 
-
-    } else {
-        alert('잘못된 접근입니다.');
-        window.location.href = `${frontHost}/main`;
-    }
+  
 
 };
 

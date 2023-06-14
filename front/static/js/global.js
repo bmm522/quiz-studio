@@ -4,11 +4,11 @@ const frontHost = "https://www.quizstudio.site";
 const quizSpringHost = "https://api.quizstudio.site/quiz-spring";
 
 async function getName() {
-    if (getCookieValue("Authorization") !== "") {
+     if (getCookieValue("Authorization") !== "") {
         console.log('들어오니? 쿠키?');
         await setToken();
     }
-    if(localStorage.getItem("authorization")!==null) {
+   if(localStorage.getItem("authorization")!==null) {
         await checkToken();
         await getEmail();
     }else {
@@ -116,26 +116,33 @@ document
         window.location.href = `${frontHost}/main`;
     });
  function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=quizstudio.site; path=/;';
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.quizstudio.site; path=/;';
 }
 
 function logoutEvent() {
     const result = confirm("로그아웃을 하시겠습니까?");
     if(result) {
-
-        fetch(`${loginHost}/api/v1/logout`, {
-            method: "GET",
-            headers: {
-                authorization: localStorage.getItem("authorization"),
-                refreshToken: localStorage.getItem("refreshToken"),
-            },
-        }).then((res) => {
             console.log('여기들어옴');
+            deleteCookie("Authorization");
+            deleteCookie("RefreshToken");
             localStorage.removeItem("authorization");
             localStorage.removeItem("refreshToken");
             alert('로그아웃 되었습니다.')
             window.location.href = `${frontHost}/main`;
-        })
+
+        // fetch(`${loginHost}/api/v1/logout`, {
+        //     method: "GET",
+        //     headers: {
+        //         authorization: localStorage.getItem("authorization"),
+        //         refreshToken: localStorage.getItem("refreshToken"),
+        //     },
+        // }).then((res) => {
+        //     console.log('여기들어옴');
+        //     localStorage.removeItem("authorization");
+        //     localStorage.removeItem("refreshToken");
+        //     alert('로그아웃 되었습니다.')
+        //     window.location.href = `${frontHost}/main`;
+        // })
 
     }
 
