@@ -1,7 +1,6 @@
 window.onload = async function () {
-        if (getCookieValue("Authorization") !== "") {
-            await setToken();
-        }
+    // console.log(getCookieValue("Authorization"));
+  
         await getName();
         if(localStorage.getItem("authorization")!==null) {
             await getCategories(1);
@@ -29,9 +28,9 @@ async function getCategories(page) {
 
     await categoryList.forEach((category) => {
         categoryDiv.innerHTML += `     
-         <div class="col-lg-3 mb-4" id="category-div-${category.categoryId}">      
+         <div class="col-lg-3 mb-4" id="category-div-${category.categoryId}"  style="cursor: pointer;">      
         <div class="card bg-secondary text-white shadow">
-        <div class="card-body" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="card-body">
             ${category.title}
             <div class="text-white-50 small">${category.description}</div>
         </div>
@@ -71,16 +70,7 @@ async function moveQuizPage(categoryId) {
     location.href = `${frontHost}/custom-quiz?categoryId=${categoryId}`;
 }
 
-async function setToken() {
-    localStorage.setItem(
-        "authorization",
-        getCookieValue("Authorization").replace("+", " "),
-    );
-    localStorage.setItem(
-        "refreshToken",
-        getCookieValue("RefreshToken").replace("+", " "),
-    );
-}
+
 // async function getName() {
 //     await fetch(`${loginHost}/api/v1/email`, {
 //         method: "GET",
@@ -97,23 +87,7 @@ async function setToken() {
 //         });
 // }
 
-const getCookieValue = (key) => {
-    let cookieKey = key + "=";
-    let result = "";
-    const cookieArr = document.cookie.split(";");
 
-    for (let i = 0; i < cookieArr.length; i++) {
-        if (cookieArr[i][0] === " ") {
-            cookieArr[i] = cookieArr[i].substring(1);
-        }
-
-        if (cookieArr[i].indexOf(cookieKey) === 0) {
-            result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-            return result;
-        }
-    }
-    return result;
-};
 
 document.getElementById("java-div").addEventListener("click", function () {
     // localStorage.setItem("level", "easy");
@@ -135,5 +109,6 @@ document.getElementById("database-div").addEventListener("click", function () {
 });
 
 function deleteCookie(name) {
+    console.log("쿠키삭제 : " +name);
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }

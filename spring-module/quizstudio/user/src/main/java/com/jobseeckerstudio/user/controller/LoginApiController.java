@@ -4,10 +4,13 @@ import com.jobseeckerstudio.user.controller.dto.CommonResponse;
 import com.jobseeckerstudio.user.controller.dto.ResponseHandler;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
+import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
+import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,5 +65,20 @@ public class LoginApiController {
 
 		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
 	}
+
+	/**
+	 * 만료된 JWT 토큰을 체크하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청 객체
+	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
+	 */
+	@GetMapping("/logout")
+	public void logout(HttpServletRequest request,
+		HttpServletResponse response) {
+		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookieWhenLogout();
+		response.addCookie(tokenCookie.getAuthorizationCookie());
+		response.addCookie(tokenCookie.getRefreshTokenCookie());
+	}
+
 
 }
