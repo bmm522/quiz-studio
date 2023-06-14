@@ -73,12 +73,13 @@ public class LoginApiController {
 	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
 	 */
 	@GetMapping("/logout")
-	public @ResponseBody CommonResponse<?> logout(HttpServletRequest request,
+	public void logout(HttpServletRequest request,
 		HttpServletResponse response) {
 		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookieWhenLogout();
 		response.addCookie(tokenCookie.getAuthorizationCookie());
 		response.addCookie(tokenCookie.getRefreshTokenCookie());
-		return ResponseHandler.handle(200, "로그아웃 완료", response);
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
 	}
 
 
