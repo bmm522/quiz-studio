@@ -42,7 +42,7 @@ public enum CookieMaker {
 	public Cookie getCookie(String cookieName, String cookieValue, int expiredTime) {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setPath("/");
-		cookie.setMaxAge(expiredTime); // 3분
+		cookie.setMaxAge(expiredTime);
 		cookie.setDomain(".quizstudio.site");
 		cookie.setSecure(true);
 		return cookie;
