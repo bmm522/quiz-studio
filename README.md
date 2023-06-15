@@ -1,4 +1,4 @@
-# quiz-studio
+# QuizStudio
 
 
 ## Description
@@ -22,8 +22,19 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
+### _v1.1.1Release [latest] [23.06.14]_
+  - 문제창에서 뒤로가 눌렀을 때 다시 문제풀기 클릭 안되는 에러 수정 [#34](https://github.com/bmm522/quiz-studio/issues/34)
+  - 로그아웃 제대로 안되던 에러 수정 [#24](https://github.com/bmm522/quiz-studio/issues/24)
+
+---
+
+### _v1.1.0 Release [23.06.13]_
+  - 홈페이지 접속하면 로그인 안해도 게스트로 문제 풀 수 있도록 수정 [#25](https://github.com/bmm522/quiz-studio/issues/25)
+  - 로그아웃 기능 추가 [#24](https://github.com/bmm522/quiz-studio/issues/24)
+
+---
   
-### _v1.0.4 Release [latest] [23.06.09]_
+### _v1.0.4 Release [23.06.09]_
   - 퀴즈 데이터 안불러와지는 오류 수정 [#17](https://github.com/bmm522/quiz-studio/issues/17)
 
 ---
