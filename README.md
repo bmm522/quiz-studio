@@ -14,7 +14,7 @@
 
 - 🛠️사용기술
   - Java11, JavaScript, Typescript
-  - Spring Boot, Spring Security, Spring Data JPA, Spring Batch, Node 
+  - Spring Boot, Spring Security, Spring Data JPA, Spring Batch, querydsl, Node 
   - MySQL, Redis, MongoDB
   - Junit, JEST, supertest
   - AWS EC2, AWS RDS, AWS Certificate Manager, AWS Route 53, AWS ELB, AWS CloudFront, AWS S3, Docker
