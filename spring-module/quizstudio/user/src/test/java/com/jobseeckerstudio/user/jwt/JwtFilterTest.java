@@ -44,14 +44,24 @@ public class JwtFilterTest {
 		when(newTokenRequest.getRequestURI()).thenReturn("/user/api/v1/check-expired-jwt");
 		when(otherRequest.getRequestURI()).thenReturn("/user/api/v1/some/other/endpoint");
 
-		Method shouldSkipFilterMethod = JwtAuthorizationFilter.class.getDeclaredMethod(
-			"shouldSkipFilter", HttpServletRequest.class);
-		shouldSkipFilterMethod.setAccessible(true);
+		Method shouldSkipFilterWhenSocilaLoginMethod = JwtAuthorizationFilter.class.getDeclaredMethod(
+			"shouldSkipFilterWhenSocilaLogin", HttpServletRequest.class);
+		shouldSkipFilterWhenSocilaLoginMethod.setAccessible(true);
 
-		assertTrue((boolean) shouldSkipFilterMethod.invoke(jwtAuthorizationFilter, googleRequest));
-		assertTrue((boolean) shouldSkipFilterMethod.invoke(jwtAuthorizationFilter, kakaoRequest));
+		Method shouldSkipFilterWhenGuestLoginMethod = JwtAuthorizationFilter.class.getDeclaredMethod(
+			"shouldSkipFilterWhenGuestLogin", HttpServletRequest.class);
+		shouldSkipFilterWhenGuestLoginMethod.setAccessible(true);
+
+		assertTrue((boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
+			googleRequest));
+		assertTrue((boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
+			kakaoRequest));
 		assertTrue(
-			(boolean) shouldSkipFilterMethod.invoke(jwtAuthorizationFilter, newTokenRequest));
-		assertFalse((boolean) shouldSkipFilterMethod.invoke(jwtAuthorizationFilter, otherRequest));
+			(boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
+				newTokenRequest));
+		assertTrue(
+			(boolean) shouldSkipFilterWhenGuestLoginMethod.invoke(jwtAuthorizationFilter, "guest"));
+		assertFalse((boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
+			otherRequest));
 	}
 }

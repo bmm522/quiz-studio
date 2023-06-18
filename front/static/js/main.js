@@ -1,5 +1,4 @@
 window.onload = async function () {
-    // console.log(getCookieValue("Authorization"));
   
         await getName();
         if(localStorage.getItem("authorization")!==null) {
@@ -109,6 +108,5 @@ document.getElementById("database-div").addEventListener("click", function () {
 });
 
 function deleteCookie(name) {
-    console.log("쿠키삭제 : " +name);
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }

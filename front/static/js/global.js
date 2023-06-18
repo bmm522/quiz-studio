@@ -5,7 +5,7 @@ const quizSpringHost = "https://api.quizstudio.site/quiz-spring";
 
 async function getName() {
      if (getCookieValue("Authorization") !== "") {
-        console.log('들어오니? 쿠키?');
+
         await setToken();
     }
    if(localStorage.getItem("authorization")!==null) {
@@ -92,6 +92,8 @@ document
 
     });
 
+
+
 document
     .querySelector(".record-button")
     .addEventListener("click", function (event) {
@@ -108,6 +110,15 @@ document
       
     });
 
+    document
+    .querySelector(".github-button")
+    .addEventListener("click", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            window.open("https://github.com/bmm522/quiz-studio", "_blank");
+    
+    });
+
 document
     .querySelector("#title-div")
     .addEventListener("click", function (event) {
@@ -122,7 +133,6 @@ document
 function logoutEvent() {
     const result = confirm("로그아웃을 하시겠습니까?");
     if(result) {
-            console.log('여기들어옴');
             deleteCookie("Authorization");
             deleteCookie("RefreshToken");
             localStorage.removeItem("authorization");
@@ -169,7 +179,7 @@ const getCookieValue = (key) => {
     let cookieKey = key + "=";
     let result = "";
     const cookieArr = document.cookie.split(";");
-    console.log(key);
+
     for (let i = 0; i < cookieArr.length; i++) {
        
         if (cookieArr[i][0] === " ") {
