@@ -168,7 +168,8 @@
   - 사용자에게 받는 개인정보는 email이 있습니다. 해당 email을 암호화 후 저장하여, 추후에 db 해킹이 되었을 때도 타격이 없도록 하였습니다.  
   
 
-<img width="60%" height="40%" src="https://github.com/bmm522/quiz-studio/assets/102157839/f8cbb0b6-491a-44a1-a125-f3bf8de6a01a">
+<img width="20%" height="10%" src="https://github.com/bmm522/quiz-studio/assets/102157839/71f0e3e0-6cc5-4634-84ff-01712e9e9edc">
+
 
 - SSO(Single Sign-On)
 
