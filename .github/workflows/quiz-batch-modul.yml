@@ -1,7 +1,7 @@
 name: quiz-batch-module
 
 on:
-  pull_request:
+  push:
     branches: 
  #     - main
       - develop/v1.2.1

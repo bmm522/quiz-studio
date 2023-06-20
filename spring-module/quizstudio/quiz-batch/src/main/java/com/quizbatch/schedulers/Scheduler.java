@@ -97,7 +97,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 25 8 * * *")
+	@Scheduled(cron = "0 27 8 * * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
