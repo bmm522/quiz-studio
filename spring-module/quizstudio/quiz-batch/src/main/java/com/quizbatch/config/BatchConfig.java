@@ -3,6 +3,7 @@ package com.quizbatch.config;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDataStructureRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDatabaseRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiJavaRequestTasklet;
+import com.quizbatch.tasklets.makequiz.step1apirequest.ApiSpringRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step2converter.ConverterTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.DataStructureCategoryMapperTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.DatabaseCategoryMapperTasklet;
@@ -28,6 +29,8 @@ public class BatchConfig {
 	private final ApiJavaRequestTasklet apiJavaRequestTasklet;
 	private final ApiDataStructureRequestTasklet apiDataStructureRequestTasklet;
 	private final ApiDatabaseRequestTasklet apiDatabaseRequestTasklet;
+
+	private final ApiSpringRequestTasklet apiSpringRequestTasklet;
 	private final SaveQuizAtRDBMSTasklet saveQuizAtRDBMSTasklet;
 	private final DatabaseCategoryMapperTasklet databaseCategoryMapperTasklet;
 	private final JavaCategoryMapperTasklet javaCategoryMapperTasklet;
@@ -88,6 +91,21 @@ public class BatchConfig {
 			.start(apiDatabaseRequestStep())
 			.on("FAILED").end()
 			.from(apiDatabaseRequestStep())
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
+			.from(converterFromResponseStep())
+			.on("*").to(databaseCategoryMapperStep())
+			.on("FAILED").end()
+			.end()
+			.build();
+	}
+
+	@Bean(name = "makeSpringQuizJob")
+	public Job makeSpringQuizJob() {
+		return jobBuilderFactory.get("makeSpringQuizJob")
+			.start(apiSpringRequestStep())
+			.on("FAILED").end()
+			.from(apiSpringRequestStep())
 			.on("*").to(converterFromResponseStep())
 			.on("FAILED").end()
 			.from(converterFromResponseStep())
@@ -180,6 +198,13 @@ public class BatchConfig {
 	public Step apiDataStructureRequestStep() {
 		return stepBuilderFactory.get("apiDataStructureRequestStep")
 			.tasklet(apiDataStructureRequestTasklet)
+			.build();
+	}
+
+	@Bean
+	public Step apiSpringRequestStep() {
+		return stepBuilderFactory.get("apiSpringRequestStep")
+			.tasklet(apiSpringRequestTasklet)
 			.build();
 	}
 

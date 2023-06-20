@@ -36,6 +36,10 @@ public class Scheduler {
 	@Qualifier("saveQuizAtRedisJob")
 	private Job saveQuizAtRedisJob;
 
+	@Autowired
+	@Qualifier("makeSpringQuizJob")
+	private Job makeSpringQuizJob;
+
 	/**
 	 * 매일 1시부터 25분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
 	 */
@@ -84,6 +88,22 @@ public class Scheduler {
 				makeDatabaseQuizJob,
 				new JobParametersBuilder()
 					.addString("jobName", "makeDatabaseQuizJob")
+					.addString("datetime", LocalDateTime.now().toString())
+					.toJobParameters()  // job parameter 설정
+			);
+		} catch (JobExecutionException ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+	@Scheduled(cron = "0 25 8 * * *")
+	public void makeSpringQuizJobSchedule() {
+		try {
+			jobLauncher.run(
+				makeSpringQuizJob,
+				new JobParametersBuilder()
+					.addString("jobName", "makeSpringQuizJob")
 					.addString("datetime", LocalDateTime.now().toString())
 					.toJobParameters()  // job parameter 설정
 			);
