@@ -97,7 +97,7 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 45 8 * * *")
+	@Scheduled(cron = "0 38 9 * * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -116,7 +116,7 @@ public class Scheduler {
 	/**
 	 * 매일 5시에 Queue에 담긴 데이터를 db에 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 52 8 * * *")
+	@Scheduled(cron = "0 43 9 * * *")
 	public void saveQuizAtRDBMSJobSchedule() {
 		try {
 			jobLauncher.run(

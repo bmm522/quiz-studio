@@ -63,6 +63,10 @@ public class ChatRequest {
 				this.messages.add(new Message("user",
 					"데이터베이스와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
 				break;
+			case SPRING:
+				this.messages.add(new Message("user",
+					"스프링 프레임워크와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
+				break;
 		}
 
 		this.temperature = 0.5f;
