@@ -5,6 +5,7 @@ import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDatabaseRequestTasklet
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiJavaRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiSpringRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step2converter.ConverterTasklet;
+import com.quizbatch.tasklets.makequiz.step3mapper.CategoryMapperTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.DataStructureCategoryMapperTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.DatabaseCategoryMapperTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.JavaCategoryMapperTasklet;
@@ -32,6 +33,8 @@ public class BatchConfig {
 
 	private final ApiSpringRequestTasklet apiSpringRequestTasklet;
 	private final SaveQuizAtRDBMSTasklet saveQuizAtRDBMSTasklet;
+
+	private final CategoryMapperTasklet categoryMapperTasklet;
 	private final DatabaseCategoryMapperTasklet databaseCategoryMapperTasklet;
 	private final JavaCategoryMapperTasklet javaCategoryMapperTasklet;
 	private final DataStructureCategoryMapperTasklet dataStructureCategoryMapperTasklet;
@@ -109,7 +112,7 @@ public class BatchConfig {
 			.on("*").to(converterFromResponseStep())
 			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*").to(databaseCategoryMapperStep())
+			.on("*").to(categoryMapperStep())
 			.on("FAILED").end()
 			.end()
 			.build();
@@ -184,6 +187,13 @@ public class BatchConfig {
 	public Step databaseCategoryMapperStep() {
 		return stepBuilderFactory.get("databaseCategoryMapperStep")
 			.tasklet(databaseCategoryMapperTasklet)
+			.build();
+	}
+
+	@Bean
+	public Step categoryMapperStep() {
+		return stepBuilderFactory.get("categoryMapperStep")
+			.tasklet(categoryMapperTasklet)
 			.build();
 	}
 
