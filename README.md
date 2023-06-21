@@ -23,7 +23,13 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
-### _v1.1.1Release [latest] [23.06.14]_
+### _v1.2.0 Release [latest] [23.06.18]_
+  - git repository로 가는 메뉴 추가
+
+---
+
+
+### _v1.1.1 Release [23.06.14]_
   - 문제창에서 뒤로가 눌렀을 때 다시 문제풀기 클릭 안되는 에러 수정 [#34](https://github.com/bmm522/quiz-studio/issues/34)
   - 로그아웃 제대로 안되던 에러 수정 [#24](https://github.com/bmm522/quiz-studio/issues/24)
 
