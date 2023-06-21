@@ -2,13 +2,12 @@ package com.quizbatch.config;
 
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDataStructureRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiDatabaseRequestTasklet;
+import com.quizbatch.tasklets.makequiz.step1apirequest.ApiInterviewRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiJavaRequestTasklet;
+import com.quizbatch.tasklets.makequiz.step1apirequest.ApiNetworkRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step1apirequest.ApiSpringRequestTasklet;
 import com.quizbatch.tasklets.makequiz.step2converter.ConverterTasklet;
 import com.quizbatch.tasklets.makequiz.step3mapper.CategoryMapperTasklet;
-import com.quizbatch.tasklets.makequiz.step3mapper.DataStructureCategoryMapperTasklet;
-import com.quizbatch.tasklets.makequiz.step3mapper.DatabaseCategoryMapperTasklet;
-import com.quizbatch.tasklets.makequiz.step3mapper.JavaCategoryMapperTasklet;
 import com.quizbatch.tasklets.saverdbms.step1save.SaveQuizAtRDBMSTasklet;
 import com.quizbatch.tasklets.saveredis.step1clearAll.ClearQuizAtRedisTasklet;
 import com.quizbatch.tasklets.saveredis.step2save.SaveQuizAtRedisTasklet;
@@ -32,12 +31,13 @@ public class BatchConfig {
 	private final ApiDatabaseRequestTasklet apiDatabaseRequestTasklet;
 
 	private final ApiSpringRequestTasklet apiSpringRequestTasklet;
+
+	private final ApiNetworkRequestTasklet apiNetworkRequestTasklet;
+
+	private final ApiInterviewRequestTasklet apiInterviewRequestTasklet;
 	private final SaveQuizAtRDBMSTasklet saveQuizAtRDBMSTasklet;
 
 	private final CategoryMapperTasklet categoryMapperTasklet;
-	private final DatabaseCategoryMapperTasklet databaseCategoryMapperTasklet;
-	private final JavaCategoryMapperTasklet javaCategoryMapperTasklet;
-	private final DataStructureCategoryMapperTasklet dataStructureCategoryMapperTasklet;
 
 	private final ClearQuizAtRedisTasklet clearQuizAtRedisTasklet;
 	private final SaveQuizAtRedisTasklet saveQuizAtRedisTasklet;
@@ -57,7 +57,7 @@ public class BatchConfig {
 			.on("*").to(converterFromResponseStep())
 			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*").to(javaCategoryMapperStep())
+			.on("*").to(categoryMapperStep())
 			.on("FAILED").end()
 			.end()
 			.build();
@@ -77,7 +77,7 @@ public class BatchConfig {
 			.on("*").to(converterFromResponseStep())
 			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*").to(dataStructureCategoryMapperStep())
+			.on("*").to(categoryMapperStep())
 			.on("FAILED").end()
 			.end()
 			.build();
@@ -97,7 +97,7 @@ public class BatchConfig {
 			.on("*").to(converterFromResponseStep())
 			.on("FAILED").end()
 			.from(converterFromResponseStep())
-			.on("*").to(databaseCategoryMapperStep())
+			.on("*").to(categoryMapperStep())
 			.on("FAILED").end()
 			.end()
 			.build();
@@ -106,6 +106,36 @@ public class BatchConfig {
 	@Bean(name = "makeSpringQuizJob")
 	public Job makeSpringQuizJob() {
 		return jobBuilderFactory.get("makeSpringQuizJob")
+			.start(apiSpringRequestStep())
+			.on("FAILED").end()
+			.from(apiSpringRequestStep())
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
+			.from(converterFromResponseStep())
+			.on("*").to(categoryMapperStep())
+			.on("FAILED").end()
+			.end()
+			.build();
+	}
+
+	@Bean(name = "makeNetworkQuizJob")
+	public Job makeNetworkQuizJob() {
+		return jobBuilderFactory.get("makeNetworkQuizJob")
+			.start(apiSpringRequestStep())
+			.on("FAILED").end()
+			.from(apiSpringRequestStep())
+			.on("*").to(converterFromResponseStep())
+			.on("FAILED").end()
+			.from(converterFromResponseStep())
+			.on("*").to(categoryMapperStep())
+			.on("FAILED").end()
+			.end()
+			.build();
+	}
+
+	@Bean(name = "makeInterviewQuizJob")
+	public Job makeInterviewQuizJob() {
+		return jobBuilderFactory.get("makeInterviewQuizJob")
 			.start(apiSpringRequestStep())
 			.on("FAILED").end()
 			.from(apiSpringRequestStep())
@@ -169,26 +199,6 @@ public class BatchConfig {
 			.build();
 	}
 
-	@Bean
-	public Step javaCategoryMapperStep() {
-		return stepBuilderFactory.get("javaCategoryMapperStep")
-			.tasklet(javaCategoryMapperTasklet)
-			.build();
-	}
-
-	@Bean
-	public Step dataStructureCategoryMapperStep() {
-		return stepBuilderFactory.get("dataStructureCategoryMapperStep")
-			.tasklet(dataStructureCategoryMapperTasklet)
-			.build();
-	}
-
-	@Bean
-	public Step databaseCategoryMapperStep() {
-		return stepBuilderFactory.get("databaseCategoryMapperStep")
-			.tasklet(databaseCategoryMapperTasklet)
-			.build();
-	}
 
 	@Bean
 	public Step categoryMapperStep() {
@@ -212,6 +222,13 @@ public class BatchConfig {
 	}
 
 	@Bean
+	public Step apiDatabaseRequestStep() {
+		return stepBuilderFactory.get("apiDatabaseRequestStep")
+			.tasklet(apiDatabaseRequestTasklet)
+			.build();
+	}
+
+	@Bean
 	public Step apiSpringRequestStep() {
 		return stepBuilderFactory.get("apiSpringRequestStep")
 			.tasklet(apiSpringRequestTasklet)
@@ -219,9 +236,16 @@ public class BatchConfig {
 	}
 
 	@Bean
-	public Step apiDatabaseRequestStep() {
-		return stepBuilderFactory.get("apiDatabaseRequestStep")
-			.tasklet(apiDatabaseRequestTasklet)
+	public Step apiNetworkRequestStep() {
+		return stepBuilderFactory.get("apiNetworkRequestStep")
+			.tasklet(apiNetworkRequestTasklet)
+			.build();
+	}
+
+	@Bean
+	public Step apiInterviewRequestStep() {
+		return stepBuilderFactory.get("apiInterviewRequestStep")
+			.tasklet(apiInterviewRequestTasklet)
 			.build();
 	}
 

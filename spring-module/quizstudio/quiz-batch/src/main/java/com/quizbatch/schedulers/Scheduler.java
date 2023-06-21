@@ -29,6 +29,17 @@ public class Scheduler {
 	private Job makeDatabaseQuizJob;
 
 	@Autowired
+	@Qualifier("makeSpringQuizJob")
+	private Job makeSpringQuizJob;
+
+	@Autowired
+	@Qualifier("makeNetworkQuizJob")
+	private Job makeNetworkQuizJob;
+
+	@Autowired
+	@Qualifier("makeInterviewQuizJob")
+	private Job makeInterviewQuizJob;
+	@Autowired
 	@Qualifier("saveQuizAtRDBMSJob")
 	private Job saveQuizAtRDBMSJob;
 
@@ -36,14 +47,11 @@ public class Scheduler {
 	@Qualifier("saveQuizAtRedisJob")
 	private Job saveQuizAtRedisJob;
 
-	@Autowired
-	@Qualifier("makeSpringQuizJob")
-	private Job makeSpringQuizJob;
 
 	/**
-	 * 매일 1시부터 25분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
+	 * 매일 오후 10시부터 25분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 16 * * *")
+	@Scheduled(cron = "0 1/25 13 * * *")
 	public void makeJavaQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -60,9 +68,9 @@ public class Scheduler {
 	}
 
 	/**
-	 * 매일 2시부터 25분마다 자료구조 문제를 생성하는 스케줄링 메서드입니다.
+	 * 매일 오후 11시부터 25분마다 자료구조 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 17 * * *")
+	@Scheduled(cron = "0 1/25 14 * * *")
 	public void makeDataStructureQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -79,9 +87,9 @@ public class Scheduler {
 	}
 
 	/**
-	 * 매일 3시부터 25분마다 데이터 베이스 문제를 생성하는 스케줄링 메서드입니다.
+	 * 매일 오후 12시부터 25분마다 데이터 베이스 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 18 * * *")
+	@Scheduled(cron = "0 1/25 15 * * *")
 	public void makeDatabaseQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -97,7 +105,10 @@ public class Scheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 45 10 * * *")
+	/**
+	 * 매일 오전  1시부터 15분마다 스프링 프레임워크 문제를 생성하는 스케줄링 메서드입니다.
+	 */
+	@Scheduled(cron = "0 1/15 16* * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -114,9 +125,47 @@ public class Scheduler {
 	}
 
 	/**
+	 * 매일 오후전 2시부터 15분마다 네트워크 문제를 생성하는 스케줄링 메서드입니다.
+	 */
+	@Scheduled(cron = "0 1/15 17 * * *")
+	public void makeNetworkQuizJobSchedule() {
+		try {
+			jobLauncher.run(
+				makeNetworkQuizJob,
+				new JobParametersBuilder()
+					.addString("jobName", "makeNetworkQuizJob")
+					.addString("datetime", LocalDateTime.now().toString())
+					.toJobParameters()  // job parameter 설정
+			);
+		} catch (JobExecutionException ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * 매일 오전 3시부터 15분마다 cs 면접 문제를 생성하는 스케줄링 메서드입니다.
+	 */
+	@Scheduled(cron = "0 1/15 18 * * *")
+	public void makeInterviewQuizJobSchedule() {
+		try {
+			jobLauncher.run(
+				makeInterviewQuizJob,
+				new JobParametersBuilder()
+					.addString("jobName", "makeInterviewQuizJob")
+					.addString("datetime", LocalDateTime.now().toString())
+					.toJobParameters()  // job parameter 설정
+			);
+		} catch (JobExecutionException ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+	/**
 	 * 매일 5시에 Queue에 담긴 데이터를 db에 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 52 10 * * *")
+	@Scheduled(cron = "0 0 20 * * *")
 	public void saveQuizAtRDBMSJobSchedule() {
 		try {
 			jobLauncher.run(

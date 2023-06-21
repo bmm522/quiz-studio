@@ -15,4 +15,5 @@ public class ApiSpringRequestTasklet extends ApiRequestAbstractTemplate {
 		return CategoryTitle.SPRING;
 	}
 
+
 }
