@@ -108,7 +108,7 @@ public class Scheduler {
 	/**
 	 * 매일 오전  1시부터 15분마다 스프링 프레임워크 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/15 16* * *")
+	@Scheduled(cron = "0 1/15 16 * * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
