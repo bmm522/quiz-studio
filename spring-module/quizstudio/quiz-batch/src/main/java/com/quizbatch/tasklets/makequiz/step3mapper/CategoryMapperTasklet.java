@@ -31,4 +31,5 @@ public class CategoryMapperTasklet implements Tasklet {
 		return RepeatStatus.FINISHED;
 	}
 
+
 }

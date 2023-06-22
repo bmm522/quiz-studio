@@ -1,4 +1,6 @@
 spring:
+  #  main:
+  #    allow-bean-definition-overriding: true
   batch:
     initalize-schema: always
     job:
@@ -24,8 +26,16 @@ spring:
         '[hibernate.format_sql]': true
     defer-datasource-initialization: true
 
+openai:
+  model: gpt-3.5-turbo
+  api:
+    url: https://api.openai.com/v1/chat/completions
+    key: abcd
+
   redis:
-    host: 127.0.0.1
+    password: asdf
+    client-name: asdf
+    host: localhost
     port: 6379
 
 jasypt:

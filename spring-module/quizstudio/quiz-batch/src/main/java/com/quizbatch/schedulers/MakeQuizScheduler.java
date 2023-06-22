@@ -2,51 +2,43 @@ package com.quizbatch.schedulers;
 
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class Scheduler {
+@Slf4j
+public class MakeQuizScheduler {
 
 	private final JobLauncher jobLauncher;
-	@Autowired
-	@Qualifier("makeJavaQuizJob")
-	private Job makeJavaQuizJob;
+	@Qualifier("makeJavaQuiz")
+	private final Job makeJavaQuizJob;
 
-	@Autowired
+
 	@Qualifier("makeDataStructureQuizJob")
-	private Job makeDataStructureQuizJob;
+	private final Job makeDataStructureQuizJob;
 
-	@Autowired
-	@Qualifier("makeDatabaseQuizJob")
-	private Job makeDatabaseQuizJob;
 
-	@Autowired
-	@Qualifier("makeSpringQuizJob")
-	private Job makeSpringQuizJob;
+	@Qualifier("makeDatabaseQuiz")
+	private final Job makeDatabaseQuizJob;
 
-	@Autowired
-	@Qualifier("makeNetworkQuizJob")
-	private Job makeNetworkQuizJob;
 
-	@Autowired
-	@Qualifier("makeInterviewQuizJob")
-	private Job makeInterviewQuizJob;
-	@Autowired
-	@Qualifier("saveQuizAtRDBMSJob")
-	private Job saveQuizAtRDBMSJob;
+	@Qualifier("makeSpringQuiz")
+	private final Job makeSpringQuizJob;
 
-	@Autowired
-	@Qualifier("saveQuizAtRedisJob")
-	private Job saveQuizAtRedisJob;
 
+	@Qualifier("makeNetworkQuiz")
+	private final Job makeNetworkQuizJob;
+
+
+	@Qualifier("makeInterviewQuiz")
+	private final Job makeInterviewQuizJob;
 
 	/**
 	 * 매일 오후 10시부터 25분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
@@ -62,7 +54,7 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -81,7 +73,7 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -100,7 +92,7 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -119,7 +111,7 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -138,7 +130,7 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -157,46 +149,10 @@ public class Scheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
 
-	/**
-	 * 매일 5시에 Queue에 담긴 데이터를 db에 저장하는 스케줄링 메서드입니다.
-	 */
-	@Scheduled(cron = "0 0 20 * * *")
-	public void saveQuizAtRDBMSJobSchedule() {
-		try {
-			jobLauncher.run(
-				saveQuizAtRDBMSJob,
-				new JobParametersBuilder()
-					.addString("jobName", "saveQuizAtRDBMSJob")
-					.addString("datetime", LocalDateTime.now().toString())
-					.toJobParameters()  // job parameter 설정
-			);
-		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
-			ex.printStackTrace();
-		}
-	}
 
-	/**
-	 * 매일 5시 30분에 db에 저장된 데이터를 레디스로 저장하는 스케줄링 메서드입니다.
-	 */
-	@Scheduled(cron = "0 30 20 * * *")
-	public void saveQuizAtRedisJobSchedule() {
-		try {
-			jobLauncher.run(
-				saveQuizAtRedisJob,
-				new JobParametersBuilder()
-					.addString("jobName", "saveQuizAtRedisJob")
-					.addString("datetime", LocalDateTime.now().toString())
-					.toJobParameters()  // job parameter 설정
-			);
-		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
-			ex.printStackTrace();
-		}
-	}
 }
