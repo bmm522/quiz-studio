@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    active:
+      - dev
+    include:
+      - jwt
+      - encryption
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: a
+            client-secret: b
+            scope:
+              - email
+              - profile
+            redirect-uri: c
+
+          kakao:
+            client-id: a
+            redirect-uri: b
+            authorization-grant-type: c
+            client-authentication-method: client_secret_post
+            client-name: Kakao
+            scope:
+              - profile_nickname
+              - account_email
+
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
+    password: 1234

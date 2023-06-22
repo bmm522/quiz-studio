@@ -77,7 +77,7 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void updateUserSaltAndRefreshTokenIfNotExpired(User savedUser, JwtToken jwtToken) {
 		String refreshTokenFromSavedUser = savedUser.getSalt();
 		jwtToken.setRefreshToken(refreshTokenFromSavedUser);
-		if (!jwtToken.checkExpiredRefreshToken()) {
+		if (!jwtToken.isRefreshTokenValid()) {
 			String newRefreshToken = JwtMaker.makeRefreshToken();
 			savedUser.setSalt(newRefreshToken);
 			jwtToken.setRefreshToken(newRefreshToken);

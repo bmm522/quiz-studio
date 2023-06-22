@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active:
+      - dev
+    include:
+      - jwt
+      - env
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
+    password: 1234
+

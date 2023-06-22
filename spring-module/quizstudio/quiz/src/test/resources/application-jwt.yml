@@ -1,0 +1,7 @@
+jwt:
+  secret: oingisprettyintheworld1234567890
+  token_prefix: 'Bearer '
+  refresh_prefix: 'RefreshToken '
+  header_jwt: Authorization
+  header_refresh: RefreshToken
+  iss: asdfasdf
