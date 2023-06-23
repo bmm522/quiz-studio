@@ -74,11 +74,12 @@ public class ControllerCategoryMapper {
 	 * @param title 카테고리 제목
 	 * @throws ExistCategorySaveException 기존의 카테고리 이름과 중복될 때 예외 발생
 	 */
-	private static void checkExistCategoryName(final String title) {
+	public static void checkExistCategoryName(final String title) {
 		String checkStr = title.toLowerCase().trim().replace(" ", "");
 
 		if ("java".equals(checkStr) || "datastructure".equals(checkStr) || "database".equals(
-			checkStr)) {
+			checkStr) || "spring".equals(checkStr) || "network".equals(checkStr)
+			|| "interview".equals(checkStr)) {
 			throw new ExistCategorySaveException("기존의 카테고리 이름은 사용할 수 없습니다.");
 		}
 	}
