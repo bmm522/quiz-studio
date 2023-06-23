@@ -5,6 +5,7 @@ spring:
     include:
       - jwt
       - env
+
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
