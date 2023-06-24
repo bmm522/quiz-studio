@@ -18,7 +18,7 @@ public class SaveRDBMSScheduler {
 
 	private final JobLauncher jobLauncher;
 
-	@Qualifier("saveQuizAtRDBMS")
+	@Qualifier("saveQuizAtRDBMSJob")
 	private final Job saveQuizAtRDBMSJob;
 
 	/**
