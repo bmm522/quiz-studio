@@ -1,10 +1,9 @@
 name: quiz-module
 
 on:
-  pull_request:
+  push:
     branches: 
-      - main
-      # - release/v1.1.0
+      - develop/v1.2.1
     paths:
       - 'spring-module/quizstudio/quiz/**'
 

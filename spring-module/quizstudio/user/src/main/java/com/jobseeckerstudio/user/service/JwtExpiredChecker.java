@@ -30,14 +30,14 @@ public class JwtExpiredChecker {
 		User user = userRepository.findBySalt(jwtToken.getRefreshToken())
 			.orElseThrow(() -> new NotFoundSaltException("refreshToken에 해당되는 유저 정보가 없습니다."));
 
-		if (!jwtToken.checkExpiredRefreshToken()) {
+		if (!jwtToken.isRefreshTokenValid()) {
 			String newRefreshToken = JwtMaker.makeRefreshToken();
 			user.setSalt(newRefreshToken);
 			jwtToken.setRefreshToken(newRefreshToken);
 			userRepository.save(user);
 		}
 
-		if (!jwtToken.checkExpiredToken()) {
+		if (!jwtToken.isAccessTokenValid()) {
 			String newAccessToken = JwtMaker.makeAccessToken(user);
 			jwtToken.setJwtToken(newAccessToken);
 			return jwtToken;

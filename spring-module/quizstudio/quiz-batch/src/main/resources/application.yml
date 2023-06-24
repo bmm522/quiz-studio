@@ -1,14 +1,17 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   batch:
     initalize-schema: always
     job:
       enabled: false
-      names: saveQuizAtRDBMSJob, saveQuizAtRedisJob, makeDataStructureQuizJob, makeDataBaseQuizJob, makeJavaQuizJob
+      names: saveQuizAtRDBMSJob, saveQuizAtRedisJob, makeDataStructureQuizJob, makeDataBaseQuizJob, makeJavaQuizJob, makeSpringQuizJob, makeNetworkQuizJob, makeInterviewQuizJob
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
+
     jpa:
       open-in-view: true
       hibernate:

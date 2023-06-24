@@ -50,22 +50,28 @@ public class ChatRequest {
 		this.messages.add(new Message
 			("assistant", secondAnswer));
 
-		switch (categoryTitle) {
-			case JAVA:
-				this.messages.add(new Message("user",
-					"자바와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
-				break;
-			case DATA_STRUCTURE:
-				this.messages.add(new Message("user",
-					"자료구조와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
-				break;
-			case DATABASE:
-				this.messages.add(new Message("user",
-					"데이터베이스와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘"));
-				break;
-		}
+		this.messages.add(new Message("user", addCategorySpecificMessage(categoryTitle)));
 
 		this.temperature = 0.5f;
 	}
 
+
+	public String addCategorySpecificMessage(CategoryTitle categoryTitle) {
+		switch (categoryTitle) {
+			case JAVA:
+				return "자바와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			case DATA_STRUCTURE:
+				return "자료구조와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			case DATABASE:
+				return "데이터베이스와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			case SPRING:
+				return "스프링 프레임워크와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			case NETWORK:
+				return "네트워크와 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			case INTERVIEW:
+				return "컴퓨터 전공 과목과 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘";
+			default:
+				return "없는 카테고리";
+		}
+	}
 }

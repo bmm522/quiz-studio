@@ -107,6 +107,24 @@ document.getElementById("database-div").addEventListener("click", function () {
     location.href = `${frontHost}/quiz`;
 });
 
+document.getElementById("spring-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
+    localStorage.setItem("category", "spring");
+    location.href = `${frontHost}/quiz`;
+});
+
+document.getElementById("network-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
+    localStorage.setItem("category", "network");
+    location.href = `${frontHost}/quiz`;
+});
+
+document.getElementById("interview-div").addEventListener("click", function () {
+    // localStorage.setItem("level", "easy");
+    localStorage.setItem("category", "interview");
+    location.href = `${frontHost}/quiz`;
+});
+
 function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }

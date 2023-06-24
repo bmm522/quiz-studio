@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QuizDtoFromResponseQueue {
 
+
 	private static final Queue<List<QuizDtoFromResponse>> quizDtoFromResponsesQueue = new LinkedList<>();
 
 	private QuizDtoFromResponseQueue() {

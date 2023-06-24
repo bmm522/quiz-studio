@@ -1,0 +1,50 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: test
+    password:
+  h2:
+    console:
+      embled: true
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        '[hibernate.format_sql]': true
+    defer-datasource-initialization: true
+
+  output:
+    ansi:
+      enabled: always
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    '[org.springframework.web]': DEBUG
+    '[org.hibernate]': DEBUG
+
+#jwt:
+#  secret: test
+#  token_prefix: 'Bearer '
+#  refresh_prefix: 'RefreshToken '
+#  header_jwt: test
+#  header_refresh: test
+#  iss: test

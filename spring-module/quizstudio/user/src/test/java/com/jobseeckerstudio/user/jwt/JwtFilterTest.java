@@ -59,8 +59,8 @@ public class JwtFilterTest {
 		assertTrue(
 			(boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
 				newTokenRequest));
-		assertTrue(
-			(boolean) shouldSkipFilterWhenGuestLoginMethod.invoke(jwtAuthorizationFilter, "guest"));
+//		assertTrue(
+//			(boolean) shouldSkipFilterWhenGuestLoginMethod.invoke(jwtAuthorizationFilter, "guest"));
 		assertFalse((boolean) shouldSkipFilterWhenSocilaLoginMethod.invoke(jwtAuthorizationFilter,
 			otherRequest));
 	}

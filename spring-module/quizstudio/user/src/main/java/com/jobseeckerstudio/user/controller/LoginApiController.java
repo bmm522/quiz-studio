@@ -67,10 +67,10 @@ public class LoginApiController {
 	}
 
 	/**
-	 * 만료된 JWT 토큰을 체크하는 메서드입니다.
+	 * 로그아웃을 하는 메서드입니다.
 	 *
 	 * @param request HTTP 요청 객체
-	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
+	 * @return 유효시간을 과거로 돌려 만료된 쿠키를 반환하는 HttpServletResponse 객체
 	 */
 	@GetMapping("/logout")
 	public void logout(HttpServletRequest request,

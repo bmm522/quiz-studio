@@ -27,7 +27,10 @@ public class QuizQueryRepositoryImpl implements QuizQueryRepository {
 		List<Quiz> quizzes = queryFactory.selectFrom(quiz)
 			.where(quiz.category.categoryTitle.eq(CategoryTitle.JAVA.get())
 				.or(quiz.category.categoryTitle.eq(CategoryTitle.DATA_STRUCTURE.get()))
-				.or(quiz.category.categoryTitle.eq(CategoryTitle.DATABASE.get())))
+				.or(quiz.category.categoryTitle.eq(CategoryTitle.DATABASE.get()))
+				.or(quiz.category.categoryTitle.eq(CategoryTitle.SPRING.get()))
+				.or(quiz.category.categoryTitle.eq(CategoryTitle.NETWORK.get()))
+				.or(quiz.category.categoryTitle.eq(CategoryTitle.INTERVIEW.get())))
 			.fetch();
 		return QuizMapper.toQuizQueryDtoListForRedis(quizzes);
 	}
