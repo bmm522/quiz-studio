@@ -13,23 +13,23 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @RequiredArgsConstructor
-public class DataStructureCategoryMapperTasklet implements Tasklet {
+public class CategoryMapperTasklet implements Tasklet {
 
-	private final CategoryRepository categoryQueryRepository;
+	private final CategoryRepository categoryRepository;
 
-	/**
-	 * 자료구조 퀴즈 구조의 JSON을 퀴즈 스키마 리스트로 변환하는 메서드입니다.
-	 */
+
 	@Override
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)
 		throws Exception {
 		List<QuizDtoFromResponse> quizDtoFromResponses = QuizDtoFromResponseQueue.getOne();
-		Category category = categoryQueryRepository.findCategoryByCategoryTitle("datastructure");
+		Category category = categoryRepository.findCategoryByCategoryTitle(
+			quizDtoFromResponses.get(0).getCategoryTitle().get());
 		List<Quiz> quizzes = QuizTransformer.toQuizzes(quizDtoFromResponses, category);
 		QuizQueue.add(quizzes);
 		return RepeatStatus.FINISHED;
 	}
+
+
 }

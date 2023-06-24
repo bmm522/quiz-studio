@@ -1,10 +1,10 @@
 name: quiz-batch-module
 
 on:
-  pull_request:
+  push:
     branches: 
  #     - main
-      - release/v1.0.4
+      - develop/v1.3.0
     paths:
       - 'spring-module/quizstudio/quiz-batch/**'
 

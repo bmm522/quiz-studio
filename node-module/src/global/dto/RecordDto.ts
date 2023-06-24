@@ -11,17 +11,31 @@ export class RecordDto {
   ) {}
 
   setCategory() {
+
     switch (this.category) {
+
+
       case 'java':
-        this.category = '자바';
+        this.category = 'Java';
         break;
       case 'datastructure':
-        this.category = '자료구조';
+        this.category = 'Data Structure';
         break;
       case 'database':
-        this.category = '데이터베이스';
+        this.category = 'Database';
+        break;
+      case 'spring':
+        this.category = 'Spring';
+        break;
+      case 'network':
+        this.category = 'Network';
+        break;
+      case 'interview':
+        this.category = 'Interview';
         break;
     }
+
+
   }
 
   // setLevel() {

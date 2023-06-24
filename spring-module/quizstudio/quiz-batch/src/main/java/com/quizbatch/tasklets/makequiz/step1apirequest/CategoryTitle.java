@@ -2,7 +2,8 @@ package com.quizbatch.tasklets.makequiz.step1apirequest;
 
 public enum CategoryTitle {
 
-	JAVA("java"), DATA_STRUCTURE("datastructure"), DATABASE("database");
+	JAVA("java"), DATA_STRUCTURE("datastructure"), DATABASE("database"), SPRING("spring"), NETWORK(
+		"network"), INTERVIEW("interview");
 
 	private final String categoryTitle;
 

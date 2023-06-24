@@ -103,9 +103,9 @@ public class JwtTokenTest {
 	@Test
 	@DisplayName("accessToken 유효시간 체크")
 	public void testCheckExpiredToken() {
-		assertTrue(jwtToken.checkExpiredToken());
+		assertTrue(jwtToken.isAccessTokenValid());
 
-		assertFalse(invalidJwtToken.checkExpiredToken());
+		assertFalse(invalidJwtToken.isAccessTokenValid());
 
 	}
 
@@ -113,9 +113,9 @@ public class JwtTokenTest {
 	@DisplayName("refreshToken 유효시간 체크")
 	public void testCheckExpiredRefreshToken() {
 
-		assertTrue(jwtToken.checkExpiredRefreshToken());
+		assertTrue(jwtToken.isRefreshTokenValid());
 
-		assertFalse(invalidJwtToken.checkExpiredToken());
+		assertFalse(invalidJwtToken.isAccessTokenValid());
 
 	}
 }

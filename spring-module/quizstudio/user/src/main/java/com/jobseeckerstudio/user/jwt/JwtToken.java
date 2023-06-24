@@ -11,9 +11,11 @@ import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+@Slf4j
 public class JwtToken {
 
 	private String jwtToken;
@@ -52,18 +54,19 @@ public class JwtToken {
 	/**
 	 * 액세스 토큰의 만료 여부를 확인합니다.
 	 *
-	 * @return 액세스 토큰이 만료되었으면 false, 그렇지 않으면 true를 반환합니다.
+	 * @return 액세스 토큰이 만료되거나 문제가 있으면 false, 그렇지 않으면 true를 반환합니다.
 	 */
-	public boolean checkExpiredToken() {
+	public boolean isAccessTokenValid() {
 		try {
 			Jws<Claims> claims = Jwts.parser()
 				.setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
 				.parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""));
-
+			System.out.println(claims.getBody().toString());
 			if (claims.getBody().getExpiration().before(new Date())) {
 				return false;
 			}
 		} catch (JwtException e) {
+			log.error(e.getMessage());
 			return false;
 		}
 		return true;
@@ -72,9 +75,9 @@ public class JwtToken {
 	/**
 	 * 리프레시 토큰의 만료 여부를 확인합니다.
 	 *
-	 * @return 리프레시 토큰이 만료되었으면 false, 그렇지 않으면 true를 반환합니다.
+	 * @return 리프레시 토큰이 만료되거나 문제가 있으면  false, 그렇지 않으면 true를 반환합니다.
 	 */
-	public boolean checkExpiredRefreshToken() {
+	public boolean isRefreshTokenValid() {
 		try {
 			Jws<Claims> claims = Jwts.parser()
 				.setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
@@ -84,6 +87,7 @@ public class JwtToken {
 				return false;
 			}
 		} catch (JwtException e) {
+			log.error(e.getMessage());
 			return false;
 		}
 
