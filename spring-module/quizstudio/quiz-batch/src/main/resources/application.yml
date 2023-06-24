@@ -11,6 +11,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
+
     jpa:
       open-in-view: true
       hibernate:

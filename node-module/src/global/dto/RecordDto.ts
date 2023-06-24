@@ -10,6 +10,8 @@ export class RecordDto {
     public quizChoiceIsAnswer: boolean[],
   ) {}
 
+
+
   setCategory() {
     switch (this.category) {
       case 'java':

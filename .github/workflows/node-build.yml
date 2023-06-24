@@ -1,8 +1,8 @@
 name: node-build
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      # - main
       - develop/v1.3.0
     paths:
       - 'node-module/**'
