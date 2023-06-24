@@ -13,6 +13,7 @@ export class RecordDto {
   setCategory() {
 
     switch (this.category) {
+
       case 'java':
         this.category = 'Java';
         break;
@@ -32,6 +33,7 @@ export class RecordDto {
         this.category = 'Interview';
         break;
     }
+
   }
 
   // setLevel() {
