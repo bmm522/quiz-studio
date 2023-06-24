@@ -99,7 +99,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오전  1시부터 15분마다 스프링 프레임워크 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 35 10 * * *")
+	@Scheduled(cron = "0 10 11 * * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -118,7 +118,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오후전 2시부터 15분마다 네트워크 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 40 10 * * *")
+	@Scheduled(cron = "0 15 11 * * *")
 	public void makeNetworkQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -137,7 +137,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오전 3시부터 15분마다 cs 면접 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 45 10 * * *")
+	@Scheduled(cron = "0 20 11 * * *")
 	public void makeInterviewQuizJobSchedule() {
 		try {
 			jobLauncher.run(

@@ -51,7 +51,7 @@ public class ChatRequestTest {
 	void 인터뷰_카테고리를_넣었을때_메세지_요청() {
 		String message = chatRequest.addCategorySpecificMessage(CategoryTitle.INTERVIEW);
 		assertThat(message).isEqualTo(
-			"너가 면접관이 되서 면접자에게  cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘");
+			"컴퓨터 전공 과목과 관련된 cs 면접 문제를 5개 만들어줘, 단 정답은 무조건 한개이어야 하고, 선택지는 4개이어야 해, JSON 형식으로 만들어줘");
 	}
 
 }
