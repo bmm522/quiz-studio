@@ -1,19 +1,15 @@
-package com.quizbatch.job.makequiz;
+package com.quizbatch.config.util;
 
 import com.quizbatch.tasklets.makequiz.step1apirequest.CategoryTitle;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
+
 public class MakeQuizJobFlow {
 
-	private final JobBuilderFactory jobBuilderFactory;
 
-	public Job makeQuizFlow(Step apiRequestStep,
+	public Job makeQuizFlow(JobBuilderFactory jobBuilderFactory, Step apiRequestStep,
 		Step converterFromResponseStep, Step categoryMapperStep, CategoryTitle categoryTitle) {
 		return jobBuilderFactory.get(getJobName(categoryTitle))
 			.start(apiRequestStep)

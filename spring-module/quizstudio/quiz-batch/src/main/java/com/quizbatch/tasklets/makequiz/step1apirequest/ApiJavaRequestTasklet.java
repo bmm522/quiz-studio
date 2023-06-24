@@ -16,4 +16,6 @@ public class ApiJavaRequestTasklet extends ApiRequestAbstractTemplate {
 	public CategoryTitle getCategoryTitle() {
 		return CategoryTitle.JAVA;
 	}
+
+
 }

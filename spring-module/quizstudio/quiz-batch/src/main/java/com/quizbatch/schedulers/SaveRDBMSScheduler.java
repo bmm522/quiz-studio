@@ -24,7 +24,7 @@ public class SaveRDBMSScheduler {
 	/**
 	 * 매일 5시에 Queue에 담긴 데이터를 db에 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 0 20 * * *")
+	@Scheduled(cron = "0 50 10 * * *")
 	public void saveQuizAtRDBMSJobSchedule() {
 		try {
 			jobLauncher.run(

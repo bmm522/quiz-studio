@@ -3,7 +3,7 @@ spring:
     initalize-schema: always
     job:
       enabled: false
-      names: saveQuizAtRDBMSJob, saveQuizAtRedisJob, makeDataStructureQuizJob, makeDataBaseQuizJob, makeJavaQuizJob
+      names: saveQuizAtRDBMSJob, saveQuizAtRedisJob, makeDataStructureQuizJob, makeDataBaseQuizJob, makeJavaQuizJob,makeSpringQuizJob, makeNetworkQuizJob, makeInterviewQuizJob
   datasource:
     url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
@@ -23,6 +23,11 @@ spring:
       hibernate:
         '[hibernate.format_sql]': true
     defer-datasource-initialization: true
+  redis:
+    password: asdf
+    client-name: asdf
+    host: 127.0.0.1
+    port: 6379
 
 openai:
   model: gpt-3.5-turbo
@@ -30,11 +35,6 @@ openai:
     url: https://api.openai.com/v1/chat/completions
     key: abcd
 
-  redis:
-    password: asdf
-    client-name: asdf
-    host: localhost
-    port: 6379
 
 jasypt:
   encryptor:
