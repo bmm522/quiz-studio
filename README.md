@@ -108,7 +108,8 @@
 
 
 
-<img src="https://github.com/bmm522/quiz-studio/assets/102157839/2caf8879-5534-439a-ab64-1829522c2804" width="50%" height="40%"></img>
+
+<img src="https://github.com/bmm522/quiz-studio/assets/102157839/e7e451bf-306b-4542-a14a-a2d9a209d2b8" width="50%" height="40%"></img>
 <img src="https://github.com/bmm522/quiz-studio/assets/102157839/6d039d96-8fbf-4e13-86e7-03e866b4875f" width="50%" height="40%"></img>
 
 > 시간대가 다른 작업에서 데이터를 공유하는 문제에 대해 고민하였습니다. 
