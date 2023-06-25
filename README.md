@@ -195,10 +195,16 @@
 
 - 코드를 검증하고, 개발자가 의도한 논리적 방향대로 잘 작동하는지를 확인할 수 있는 가장 좋은방법은 테스트라고 생각합니다.   
 
-- 각각의 모듈에 총 100여개의 e2e 테스트와 unit 테스트를 작성했습니다. (스프링 + junit , 노드 + JEST(unit) + supertest(e2e))  
+- 각각의 모듈에 총 155개의 e2e 테스트와 unit 테스트를 작성했습니다.
+  - quiz-spring module : 51 Tests (Junit)
+  - quiz-batch module : 36 Tests (Junit)
+  - quiz-node module : 35 Tests (JEST, supertest)
+  - user module : 33 Tests (Junit)
 
     
-<img src="https://github.com/bmm522/quiz-studio/assets/102157839/e01daedb-d3f5-4839-be4a-a2a6c72bb056" width="50%" height="40%"></img>
+<img src="https://github.com/bmm522/quiz-studio/assets/102157839/169c6856-54fa-49cf-ab9e-a54eec49b1fa" width="50%" height="40%"></img>
+
+
 
 ---
 
