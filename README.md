@@ -18,12 +18,23 @@
   - MySQL, Redis, MongoDB
   - Junit, JEST, supertest
   - AWS EC2, AWS RDS, AWS Certificate Manager, AWS Route 53, AWS ELB, AWS CloudFront, AWS S3, Docker
+- 💻구동화면
+
+  
+  <img width="800" alt="image" src="https://github.com/bmm522/quiz-studio/assets/102157839/b5984b61-782b-4816-a616-decade978e08">
+
 
 ---
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
-### _v1.2.0 Release [latest] [23.06.18]_
+### _v1.3.0 Release [latest] [23.06.25]_
+  - Spring, Network, Interview 총 3가지의 카테고리가 추가 https://github.com/bmm522/quiz-studio/issues/43
+  - batch-module 구조 개선 작업 https://github.com/bmm522/quiz-studio/issues/40 https://github.com/bmm522/quiz-studio/issues/41 https://github.com/bmm522/quiz-studio/issues/42
+
+---
+
+### _v1.2.0 Release  [23.06.18]_
   - git repository로 가는 메뉴 추가
 
 ---
