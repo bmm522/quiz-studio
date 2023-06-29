@@ -12,6 +12,7 @@ public class CheckLoginService {
 
 	private final String refreshTokenCookieName = "RefreshToken";
 
+	
 	public CheckLoginResponse checkLogin(Cookie[] cookies) {
 		int checkCnt = 0;
 
