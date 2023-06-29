@@ -3,11 +3,13 @@ package com.jobseeckerstudio.user.controller;
 import com.jobseeckerstudio.user.controller.dto.CommonResponse;
 import com.jobseeckerstudio.user.controller.dto.ResponseHandler;
 import com.jobseeckerstudio.user.jwt.JwtToken;
+import com.jobseeckerstudio.user.jwt.cookie.CookieMaker;
+import com.jobseeckerstudio.user.jwt.cookie.TokenCookie;
 import com.jobseeckerstudio.user.jwt.mapper.JwtMapper;
-import com.jobseeckerstudio.user.oauth.cookie.CookieMaker;
-import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
+import com.jobseeckerstudio.user.service.CheckLoginService;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
+import com.jobseeckerstudio.user.service.dto.CheckLoginResponse;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,8 @@ public class LoginApiController {
 
 	private final JwtExpiredChecker jwtExpiredChecker;
 
+	private final CheckLoginService checkLoginService;
+
 
 	/**
 	 * 소셜 로그인 페이지로 이동하는 메서드입니다.
@@ -40,6 +44,18 @@ public class LoginApiController {
 	@GetMapping("social/login/{social}")
 	public String moveSocialLoginForm(@PathVariable("social") String social) {
 		return "redirect:/oauth2/authorization/" + social;
+	}
+
+	/**
+	 * 로그인을 한 상태인지 아닌지를 판단하는 메서드입니다.
+	 *
+	 * @param request HTTP 요청 객체
+	 * @return 로그인한 유저인지 아닌지 체크값과 함께 CommonResponse 객체
+	 */
+	@GetMapping("/check-login")
+	public CommonResponse<?> checkLogin(HttpServletRequest request) {
+		CheckLoginResponse result = checkLoginService.checkLogin(request.getCookies());
+		return ResponseHandler.handle(200, "로그인 유저 확인 성공", result);
 	}
 
 	/**
@@ -68,7 +84,7 @@ public class LoginApiController {
 		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
 		log.info(jwtToken.getJwtToken());
 		log.info(jwtToken.getRefreshToken());
-		
+
 		final JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
 		addCookie(response, CookieMaker.INSTANCE.toCookie(checkedToken));
 		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
