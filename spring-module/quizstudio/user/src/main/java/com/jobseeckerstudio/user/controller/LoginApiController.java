@@ -54,7 +54,7 @@ public class LoginApiController {
 		final GetEmailResponse dto = readUserService.getEmail(jwtToken);
 		return ResponseHandler.handle(200, "이메일 불러오기 성공", dto);
 	}
-	
+
 	/**
 	 * 만료된 JWT 토큰을 체크하는 메서드입니다.
 	 *
@@ -68,6 +68,7 @@ public class LoginApiController {
 		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
 		log.info(jwtToken.getJwtToken());
 		log.info(jwtToken.getRefreshToken());
+		
 		final JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
 		addCookie(response, CookieMaker.INSTANCE.toCookie(checkedToken));
 		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
