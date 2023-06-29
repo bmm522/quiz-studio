@@ -34,6 +34,7 @@ describe('JwtAuthorizationFilter Test', () => {
     jwtToken.checkExpiredToken = jest.fn().mockResolvedValue(true);
     jwtToken.getUserKeyFromJwtToken = jest.fn().mockResolvedValue('user_key_example');
 
+
     await JwtAuthorizationFilter(req, res, next);
 
     expect(next).toHaveBeenCalledWith();
