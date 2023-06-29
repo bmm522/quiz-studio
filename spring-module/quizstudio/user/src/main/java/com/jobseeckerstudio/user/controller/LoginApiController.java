@@ -9,6 +9,7 @@ import com.jobseeckerstudio.user.oauth.cookie.TokenCookie;
 import com.jobseeckerstudio.user.service.JwtExpiredChecker;
 import com.jobseeckerstudio.user.service.ReadUserService;
 import com.jobseeckerstudio.user.service.dto.GetEmailResponse;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -59,10 +60,12 @@ public class LoginApiController {
 	 * @return 체크된 JWT 토큰과 함께 CommonResponse 객체
 	 */
 	@GetMapping("/check-expired-jwt")
-	public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request) {
+	public @ResponseBody CommonResponse<?> checkExpiredJwt(HttpServletRequest request,
+		HttpServletResponse response)
+		throws UnsupportedEncodingException {
 		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
 		final JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
-
+		addCookie(response, CookieMaker.INSTANCE.toCookie(checkedToken));
 		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
 	}
 
@@ -75,7 +78,11 @@ public class LoginApiController {
 	@GetMapping("/logout")
 	public void logout(HttpServletRequest request,
 		HttpServletResponse response) {
-		TokenCookie tokenCookie = CookieMaker.INSTANCE.toCookieWhenLogout();
+		addCookie(response, CookieMaker.INSTANCE.toCookieWhenLogout());
+	}
+	
+
+	private void addCookie(HttpServletResponse response, TokenCookie tokenCookie) {
 		response.addCookie(tokenCookie.getAuthorizationCookie());
 		response.addCookie(tokenCookie.getRefreshTokenCookie());
 	}
