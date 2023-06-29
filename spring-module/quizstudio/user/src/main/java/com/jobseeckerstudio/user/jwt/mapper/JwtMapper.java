@@ -33,6 +33,7 @@ public class JwtMapper {
 			.build();
 	}
 
+	
 	private static String getCookieValue(HttpServletRequest request, String cookieName) {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; i++) {
