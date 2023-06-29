@@ -4,7 +4,9 @@ import com.jobseeckerstudio.user.exception.NotFoundTokenFromHeaderException;
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JwtMapper {
 
 	// public static Optional<JwtToken> toJwtTokenOptional(HttpServletRequest request) {
@@ -33,11 +35,12 @@ public class JwtMapper {
 			.build();
 	}
 
-	
+
 	private static String getCookieValue(HttpServletRequest request, String cookieName) {
 		Cookie[] cookies = request.getCookies();
 		for (int i = 0; i < cookies.length; i++) {
 			if (cookieName.equals(cookies[i].getName())) {
+				log.info("cookie value : " + cookies[i].getValue());
 				return cookies[i].getValue();
 			}
 		}
