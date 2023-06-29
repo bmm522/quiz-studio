@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("user/api/v1")
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class LoginApiController {
 
 	private final ReadUserService readUserService;
@@ -64,6 +66,8 @@ public class LoginApiController {
 		HttpServletResponse response)
 		throws UnsupportedEncodingException {
 		final JwtToken jwtToken = JwtMapper.toJwtToken(request);
+		log.info(jwtToken.getJwtToken());
+		log.info(jwtToken.getRefreshToken());
 		final JwtToken checkedToken = jwtExpiredChecker.check(jwtToken);
 		addCookie(response, CookieMaker.INSTANCE.toCookie(checkedToken));
 		return ResponseHandler.handle(200, "jwt 체크완료", checkedToken);
@@ -80,7 +84,7 @@ public class LoginApiController {
 		HttpServletResponse response) {
 		addCookie(response, CookieMaker.INSTANCE.toCookieWhenLogout());
 	}
-	
+
 
 	private void addCookie(HttpServletResponse response, TokenCookie tokenCookie) {
 		response.addCookie(tokenCookie.getAuthorizationCookie());
