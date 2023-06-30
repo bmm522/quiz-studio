@@ -45,10 +45,10 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
-		if (guestLogin(request)) {
-			filterChain.doFilter(request, response);
-			return;
-		}
+//		if (guestLogin(request)) {
+//			filterChain.doFilter(request, response);
+//			return;
+//		}
 		String jwtToken = extractJwtToken(request);
 		Jws<Claims> claims = parseJwtToken(jwtToken);
 		String userKey = extractUserKey(claims);
