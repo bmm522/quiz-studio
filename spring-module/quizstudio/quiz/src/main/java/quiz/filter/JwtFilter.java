@@ -77,7 +77,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	 * @throws InvalidTokenException 토큰 정보가 잘못된 경우 예외 발생
 	 */
 	private String extractJwtToken(HttpServletRequest request) {
-		final String authorizationHeader = getCookieValue(request, JwtProperties.HEADER_JWT);
+		final String authorizationHeader = getCookieValue(request, "Authorization").replace("+",
+			" ");
 //		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
 		if (authorizationHeader == null || !authorizationHeader.startsWith(
 			JwtProperties.TOKEN_PREFIX)) {
