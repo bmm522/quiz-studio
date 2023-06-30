@@ -53,7 +53,7 @@ public class LoginApiController {
 	 * @return 로그인한 유저인지 아닌지 체크값과 함께 CommonResponse 객체
 	 */
 	@GetMapping("/check-login")
-	public CommonResponse<?> checkLogin(HttpServletRequest request) {
+	public @ResponseBody CommonResponse<?> checkLogin(HttpServletRequest request) {
 		CheckLoginResponse result = checkLoginService.checkLogin(request.getCookies());
 		return ResponseHandler.handle(200, "로그인 유저 확인 성공", result);
 	}
@@ -103,7 +103,7 @@ public class LoginApiController {
 	}
 
 
-	private void addCookie(HttpServletResponse response, TokenCookie tokenCookie) {
+	public void addCookie(HttpServletResponse response, TokenCookie tokenCookie) {
 		response.addCookie(tokenCookie.getAuthorizationCookie());
 		response.addCookie(tokenCookie.getRefreshTokenCookie());
 	}
