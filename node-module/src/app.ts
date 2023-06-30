@@ -43,7 +43,8 @@ export class App {
 
   private setMiddlewares(): void {
     const corsOptions = {
-      origin: 'https://www.quizstudio.site'
+      origin: 'https://www.quizstudio.site',
+      credentials: true
     };
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
