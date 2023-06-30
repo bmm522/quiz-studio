@@ -21,6 +21,8 @@ export const JwtAuthorizationFilter = async (
       return;
     }
     const jwtToken = await JwtMapper.toJwtToken(req);
+    console.log(jwtToken.getJwtToken());
+    console.log(jwtToken.getRefreshToken());
     const [isJwtTokenValid, isRefreshTokenValid] = await Promise.all([
       jwtToken.checkValidateJwtToken(),
       jwtToken.checkValidateRefreshToken(),
