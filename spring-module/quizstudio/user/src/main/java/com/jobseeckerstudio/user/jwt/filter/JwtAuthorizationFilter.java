@@ -35,6 +35,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		FilterChain chain) throws IOException, ServletException {
 		try {
 			if (shouldSkipFilterWhenSocilaLogin(request)) {
+				log.info(request.getRequestURI());
 				chain.doFilter(request, response);
 				return;
 			}
@@ -85,7 +86,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	 */
 	public boolean shouldSkipFilterWhenSocilaLogin(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
-		log.info("filter : " + requestURI);
+//		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
 			requestURI) || checkLogin.equals(requestURI) || "/favicon.ico".equals(requestURI);
 	}
