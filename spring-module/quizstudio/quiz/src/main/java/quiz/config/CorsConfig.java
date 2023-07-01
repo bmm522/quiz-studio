@@ -11,7 +11,8 @@ public class CorsConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins("https://api.quizstudio.site/quiz-spring")
+			.allowedOriginPatterns("*")
+			//	.allowedOrigins("https://api.quizstudio.site/quiz-spring")
 			.allowedMethods("*")
 			.allowedHeaders("*")
 			.allowCredentials(true)
