@@ -55,6 +55,7 @@ public class LoginApiController {
 	@GetMapping("/check-login")
 	public @ResponseBody CommonResponse<?> checkLogin(HttpServletRequest request) {
 		CheckLoginResponse result = checkLoginService.checkLogin(request.getCookies());
+		log.info(result.getResult());
 		return ResponseHandler.handle(200, "로그인 유저 확인 성공", result);
 	}
 
