@@ -24,8 +24,8 @@ public enum CookieMaker {
 		String jwt = setEncode(jwtToken.getJwtToken());
 		String refresh = setEncode(jwtToken.getRefreshToken());
 
-		return TokenCookie.create(getCookie("Authorization", jwt),
-			getCookie("RefreshToken", refresh));
+		return TokenCookie.create(getCookie("Authorization", jwt, 10),
+			getCookie("RefreshToken", refresh, 10));
 
 	}
 
@@ -45,17 +45,15 @@ public enum CookieMaker {
 		cookie.setMaxAge(expiredTime);
 		cookie.setDomain(".quizstudio.site");
 		cookie.setSecure(true);
-		cookie.setHttpOnly(true);
 		return cookie;
 	}
 
-	public Cookie getCookie(String cookieName, String cookieValue) {
-		Cookie cookie = new Cookie(cookieName, cookieValue);
-		cookie.setPath("/");
-		cookie.setDomain(".quizstudio.site");
-		cookie.setSecure(true);
-		cookie.setHttpOnly(true);
-		return cookie;
-	}
+//	public Cookie getCookie(String cookieName, String cookieValue) {
+//		Cookie cookie = new Cookie(cookieName, cookieValue);
+//		cookie.setPath("/");
+//		cookie.setDomain(".quizstudio.site");
+//		cookie.setSecure(true);
+//		return cookie;
+//	}
 
 }
