@@ -45,10 +45,10 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
-//		if (guestLogin(request)) {
-//			filterChain.doFilter(request, response);
-//			return;
-//		}
+		if (guestLogin(request)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 		String jwtToken = extractJwtToken(request);
 		Jws<Claims> claims = parseJwtToken(jwtToken);
 		String userKey = extractUserKey(claims);
@@ -77,9 +77,9 @@ public class JwtFilter extends OncePerRequestFilter {
 	 * @throws InvalidTokenException 토큰 정보가 잘못된 경우 예외 발생
 	 */
 	private String extractJwtToken(HttpServletRequest request) {
-		final String authorizationHeader = getCookieValue(request, "Authorization").replace("+",
-			" ");
-//		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
+//		final String authorizationHeader = getCookieValue(request, "Authorization").replace("+",
+//			" ");
+		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
 		if (authorizationHeader == null || !authorizationHeader.startsWith(
 			JwtProperties.TOKEN_PREFIX)) {
 			throw new InvalidTokenException("잘못된 토큰 정보입니다.");

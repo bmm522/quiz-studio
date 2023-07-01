@@ -22,7 +22,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private final String newToken = "/user/api/v1/check-expired-jwt";
 
-	private final String checkLogin = "/user/api/v1/check-login";
+//	private final String checkLogin = "/user/api/v1/check-login";
 
 	private final String GUEST_LOGIN = "guest";
 
@@ -40,10 +40,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				return;
 			}
 
-//			if (shouldSkipFilterWhenGuestLogin(request)) {
-//				chain.doFilter(request, response);
-//				return;
-//			}
+			if (shouldSkipFilterWhenGuestLogin(request)) {
+				chain.doFilter(request, response);
+				return;
+			}
 			JwtToken jwtToken = JwtMapper.toJwtToken(request);
 			jwtToken.checkValidateJwtToken();
 			jwtToken.checkValidateRefreshToken();
@@ -88,7 +88,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		String requestURI = request.getRequestURI();
 //		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
-			requestURI) || checkLogin.equals(requestURI) || "/favicon.ico".equals(requestURI);
+			requestURI) || "/favicon.ico".equals(requestURI);
 	}
 
 

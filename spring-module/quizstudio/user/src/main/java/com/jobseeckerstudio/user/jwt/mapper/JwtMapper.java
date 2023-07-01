@@ -24,11 +24,11 @@ public class JwtMapper {
 	 * @throws NotFoundTokenFromHeaderException JWT 토큰이 헤더에서 찾을 수 없는 경우 발생하는 예외
 	 */
 	public static JwtToken toJwtToken(HttpServletRequest request) {
-//		String jwtToken = getHeaderValue(request, "authorization");
-//		String refreshToken = getHeaderValue(request, "refreshToken");
+		String jwtToken = getHeaderValue(request, "authorization");
+		String refreshToken = getHeaderValue(request, "refreshToken");
 
-		String jwtToken = getCookieValue(request, "Authorization").replace("+", " ");
-		String refreshToken = getCookieValue(request, "RefreshToken").replace("+", " ");
+//		String jwtToken = getCookieValue(request, "Authorization").replace("+", " ");
+//		String refreshToken = getCookieValue(request, "RefreshToken").replace("+", " ");
 		return JwtToken.builder()
 			.jwtToken(jwtToken)
 			.refreshToken(refreshToken)

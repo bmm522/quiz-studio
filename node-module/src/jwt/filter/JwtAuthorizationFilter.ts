@@ -11,9 +11,9 @@ import { UnauthorizedError } from '../../error/UnauthorizedError';
  * @param next 다음 미들웨어 함수
  */
 export const JwtAuthorizationFilter = async (
-  req: UserKeyRequest,
-  res: Response,
-  next: NextFunction,
+    req: UserKeyRequest,
+    res: Response,
+    next: NextFunction,
 ) => {
   try {
     if(req.headers.authorization === 'guest') {
@@ -21,13 +21,6 @@ export const JwtAuthorizationFilter = async (
       return;
     }
     const jwtToken = await JwtMapper.toJwtToken(req);
-    console.log(jwtToken.getJwtToken());
-    console.log(jwtToken.getRefreshToken());
-
-    if(jwtToken.getJwtToken() === 'guest'){
-      next();
-      return;
-    }
     const [isJwtTokenValid, isRefreshTokenValid] = await Promise.all([
       jwtToken.checkValidateJwtToken(),
       jwtToken.checkValidateRefreshToken(),
