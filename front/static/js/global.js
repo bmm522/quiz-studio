@@ -32,10 +32,10 @@ async function getName() {
 async function checkToken() {
         await fetch(`${loginHost}/api/v1/check-expired-jwt`, {
             method: "GET",
-            // headers: {
-            //     authorization: localStorage.getItem("authorization"),
-            //     refreshToken: localStorage.getItem("refreshToken"),
-            // },
+            headers: {
+                authorization: localStorage.getItem("authorization"),
+                refreshToken: localStorage.getItem("refreshToken"),
+            },
         })
             .then((res) => res.json())
             .then((res) => {
@@ -48,10 +48,10 @@ async function checkToken() {
 async function getEmail() {
         await fetch(`${loginHost}/api/v1/email`, {
             method: "GET",
-            // headers: {
-            //     authorization: localStorage.getItem("authorization"),
-            //     refreshToken: localStorage.getItem("refreshToken"),
-            // },
+            headers: {
+                authorization: localStorage.getItem("authorization"),
+                refreshToken: localStorage.getItem("refreshToken"),
+            },
         })
             .then((res) => res.json())
             .then((res) => {

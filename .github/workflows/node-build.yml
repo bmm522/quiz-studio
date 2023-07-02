@@ -3,7 +3,7 @@ on:
   push:
     branches:
       # - main
-      - develop/v1.3.1
+      - develop/v1.3.2
     paths:
       - 'node-module/**'
 
