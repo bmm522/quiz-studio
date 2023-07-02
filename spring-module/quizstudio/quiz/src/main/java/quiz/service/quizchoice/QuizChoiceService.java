@@ -1,7 +1,7 @@
 package quiz.service.quizchoice;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import quiz.domain.quizChoice.repository.QuizChoiceRepository;
@@ -22,19 +22,15 @@ public class QuizChoiceService {
 	 * @return 업데이트된 선택지의 개수
 	 */
 	public int updateWhenQuizUpdate(final QuizUpdateParam.Request request) {
-		List<Choice> quizChoices = settingQuizChoice(request.getQuizzes());
+		List<Choice> quizChoices = converterQuizChoice(request.getQuizzes());
 		return quizChoiceRepository.updateAllContentAndIsAnswer(
 			quizChoices);
 	}
 
-	public List<Choice> settingQuizChoice(List<CustomQuizDto> customQuizDtoList) {
-		List<Choice> quizChoices = new ArrayList<>();
-		for (int i = 0; i < customQuizDtoList.size(); i++) {
-			List<CustomQuizDto.Choice> temp = customQuizDtoList.get(i).getChoices();
-			for (int z = 0; z < 4; z++) {
-				quizChoices.add(temp.get(z));
-			}
-		}
-		return quizChoices;
+	public List<Choice> converterQuizChoice(List<CustomQuizDto> customQuizDtoList) {
+		return customQuizDtoList.stream()
+			.flatMap(quizDto -> quizDto.getChoices().stream())
+			.limit(4L * customQuizDtoList.size())
+			.collect(Collectors.toList());
 	}
 }

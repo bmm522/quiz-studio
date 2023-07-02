@@ -1,7 +1,7 @@
 spring:
   profiles:
     active:
-      - ${RUN_ENV}
+      - prod
     include:
       - jwt
       - encryption
@@ -27,6 +27,7 @@ spring:
             scope:
               - profile_nickname
               - account_email
+
 
 
         provider:

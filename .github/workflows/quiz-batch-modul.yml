@@ -4,7 +4,7 @@ on:
   push:
     branches: 
  #     - main
-      - develop/v1.3.0
+      - develop/v1.3.2
     paths:
       - 'spring-module/quizstudio/quiz-batch/**'
 

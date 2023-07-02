@@ -47,12 +47,12 @@ describe('RecordServiceMapperTest', () => {
     expect(result[0]).toBeInstanceOf(Records);
     expect(result[0].userKey).toEqual(userKey);
     expect(result[0].quizTitle).toEqual(quizRecordArray[0].quizTitle);
-    expect(result[0].category).toEqual('자바');
+    expect(result[0].category).toEqual('Java');
 
     expect(result[1]).toBeInstanceOf(Records);
     expect(result[1].userKey).toEqual(userKey);
     expect(result[1].quizTitle).toEqual(quizRecordArray[1].quizTitle);
-    expect(result[1].category).toEqual('자료구조');
+    expect(result[1].category).toEqual('Data Structure');
   });
   it('toGetResponse Test', async () => {
     const quizRecordArray: RecordDto[] = [

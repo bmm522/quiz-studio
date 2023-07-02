@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import lombok.RequiredArgsConstructor;
-import quiz.global.dto.CustomQuizDto;
 import quiz.global.dto.CustomQuizDto.Choice;
 
 @RequiredArgsConstructor
@@ -21,9 +20,9 @@ public class QuizChoiceCUDRepositoryImpl implements QuizChoiceCUDRepository {
 	@Override
 	public int updateAllContentAndIsAnswer(final List<Choice> quizChoices) {
 		StringBuilder sb = new StringBuilder("UPDATE quiz_choice c JOIN (");
+		int i = 0;
 
-		for (int i = 0; i < quizChoices.size(); i++) {
-			CustomQuizDto.Choice quizChoice = quizChoices.get(i);
+		for (Choice quizChoice : quizChoices) {
 			sb.append("SELECT ")
 				.append(quizChoice.getChoiceId())
 				.append(" AS new_choice_id, '")
@@ -35,8 +34,8 @@ public class QuizChoiceCUDRepositoryImpl implements QuizChoiceCUDRepository {
 			if (i != quizChoices.size() - 1) {
 				sb.append(" UNION ALL ");
 			}
+			i++;
 		}
-
 		sb.append(") n ON c.choice_id = n.new_choice_id ")
 			.append("SET c.choice_content = n.new_choice_content, c.is_answer = n.new_is_answer");
 		Query query = entityManager.createNativeQuery(sb.toString());

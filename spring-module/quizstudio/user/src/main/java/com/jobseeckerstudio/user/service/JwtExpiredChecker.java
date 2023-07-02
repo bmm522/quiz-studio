@@ -25,8 +25,6 @@ public class JwtExpiredChecker {
 	 * @throws NotFoundSaltException refreshToken에 해당되는 유저 정보가 없는 경우 발생하는 예외
 	 */
 	public JwtToken check(JwtToken jwtToken) {
-		log.info(jwtToken.getJwtToken());
-		log.info(jwtToken.getRefreshToken());
 		User user = userRepository.findBySalt(jwtToken.getRefreshToken())
 			.orElseThrow(() -> new NotFoundSaltException("refreshToken에 해당되는 유저 정보가 없습니다."));
 

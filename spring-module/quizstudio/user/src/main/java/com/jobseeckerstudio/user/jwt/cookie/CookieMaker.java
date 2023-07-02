@@ -1,4 +1,4 @@
-package com.jobseeckerstudio.user.oauth.cookie;
+package com.jobseeckerstudio.user.jwt.cookie;
 
 import com.jobseeckerstudio.user.jwt.JwtToken;
 import java.io.UnsupportedEncodingException;
@@ -47,5 +47,13 @@ public enum CookieMaker {
 		cookie.setSecure(true);
 		return cookie;
 	}
+
+//	public Cookie getCookie(String cookieName, String cookieValue) {
+//		Cookie cookie = new Cookie(cookieName, cookieValue);
+//		cookie.setPath("/");
+//		cookie.setDomain(".quizstudio.site");
+//		cookie.setSecure(true);
+//		return cookie;
+//	}
 
 }

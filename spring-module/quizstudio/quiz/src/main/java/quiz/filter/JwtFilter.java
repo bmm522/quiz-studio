@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Base64;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,17 @@ import quiz.properties.JwtProperties;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
+
+	private static String getCookieValue(HttpServletRequest request, String cookieName) {
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; i++) {
+			if (cookieName.equals(cookies[i].getName())) {
+				return cookies[i].getValue();
+			}
+		}
+		return String.format("쿠키에서 %s 정보를 찾을 수 없습니다.", cookieName);
+	}
 
 	/**
 	 * 요청을 필터링하여 JWT 토큰을 추출하고 해석하여 사용자 키를 추출한 후, 요청에 userKey 속성을 설정하는 메서드입니다.
@@ -65,6 +77,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	 * @throws InvalidTokenException 토큰 정보가 잘못된 경우 예외 발생
 	 */
 	private String extractJwtToken(HttpServletRequest request) {
+//		final String authorizationHeader = getCookieValue(request, "Authorization").replace("+",
+//			" ");
 		final String authorizationHeader = request.getHeader(JwtProperties.HEADER_JWT);
 		if (authorizationHeader == null || !authorizationHeader.startsWith(
 			JwtProperties.TOKEN_PREFIX)) {

@@ -11,9 +11,9 @@ import { UnauthorizedError } from '../../error/UnauthorizedError';
  * @param next 다음 미들웨어 함수
  */
 export const JwtAuthorizationFilter = async (
-  req: UserKeyRequest,
-  res: Response,
-  next: NextFunction,
+    req: UserKeyRequest,
+    res: Response,
+    next: NextFunction,
 ) => {
   try {
     if(req.headers.authorization === 'guest') {

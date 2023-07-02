@@ -22,6 +22,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private final String newToken = "/user/api/v1/check-expired-jwt";
 
+//	private final String checkLogin = "/user/api/v1/check-login";
+
 	private final String GUEST_LOGIN = "guest";
 
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -33,6 +35,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		FilterChain chain) throws IOException, ServletException {
 		try {
 			if (shouldSkipFilterWhenSocilaLogin(request)) {
+				log.info(request.getRequestURI());
 				chain.doFilter(request, response);
 				return;
 			}
@@ -83,7 +86,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	 */
 	public boolean shouldSkipFilterWhenSocilaLogin(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
-		log.info("filter : " + requestURI);
+//		log.info("filter : " + requestURI);
 		return googleUrl.equals(requestURI) || kakaoUrl.equals(requestURI) || newToken.equals(
 			requestURI) || "/favicon.ico".equals(requestURI);
 	}
