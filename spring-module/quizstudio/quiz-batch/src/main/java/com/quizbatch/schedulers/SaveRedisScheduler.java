@@ -2,6 +2,7 @@ package com.quizbatch.schedulers;
 
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SaveRedisScheduler {
 
 	private final JobLauncher jobLauncher;
@@ -33,7 +35,7 @@ public class SaveRedisScheduler {
 					.toJobParameters()  // job parameter 설정
 			);
 		} catch (JobExecutionException ex) {
-			System.out.println(ex.getMessage());
+			log.error(ex.getMessage());
 			ex.printStackTrace();
 		}
 	}

@@ -61,7 +61,6 @@ public class JwtToken {
 			Jws<Claims> claims = Jwts.parser()
 				.setSigningKey(Base64.getEncoder().encodeToString(JwtProperties.SECRET.getBytes()))
 				.parseClaimsJws(jwtToken.replace(JwtProperties.TOKEN_PREFIX, ""));
-			System.out.println(claims.getBody().toString());
 			if (claims.getBody().getExpiration().before(new Date())) {
 				return false;
 			}
