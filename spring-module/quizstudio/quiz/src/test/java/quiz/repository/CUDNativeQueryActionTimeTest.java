@@ -64,4 +64,30 @@ public class CUDNativeQueryActionTimeTest {
 		int updateQueryCount = query.executeUpdate();
 		System.out.println("시간차이(m) : " + secDiffTime);
 	}
+
+	@Test
+	void 쌩쿼리_case_when_실행시간_측정() {
+		long beforeTime = System.currentTimeMillis();
+
+		StringBuilder sb = new StringBuilder("UPDATE quiz  SET quiz_title = CASE");
+
+		for (int i = 1; i < 101; i++) {
+			sb.append("WHEN quiz_id = ").append(i)
+				.append("' THEN ")
+				.append(updateMap.get(Long.valueOf(i)));
+
+			if (i == 100) {
+				sb.append(" ELSE " + updateMap.get(Long.valueOf(i)));
+			}
+		}
+
+		sb.append("END ");
+
+		Query query = entityManager.createNativeQuery(sb.toString());
+
+		long afterTime = System.currentTimeMillis();
+		long secDiffTime = (afterTime - beforeTime);
+		int updateQueryCount = query.executeUpdate();
+		System.out.println("시간차이(m) : " + secDiffTime);
+	}
 }
