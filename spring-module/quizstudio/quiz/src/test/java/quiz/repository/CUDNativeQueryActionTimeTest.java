@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @ActiveProfiles("prod")
@@ -29,7 +30,7 @@ public class CUDNativeQueryActionTimeTest {
 	void init() {
 		entityManager = testEntityManager.getEntityManager();
 		updateMap = new HashMap<>();
-		for (int i = 1; i < 101; i++) {
+		for (int i = 1; i < 1001; i++) {
 			updateMap.put(Long.valueOf(i), "updateTitle" + i);
 		}
 
@@ -37,19 +38,20 @@ public class CUDNativeQueryActionTimeTest {
 
 	//	@Sql("classpath:db/testData.sql")
 	@Test
+	@Sql("classpath:db/native-query-test-data.sql")
 	void 쌩쿼리_union_실행시간_측정() {
 
 		long beforeTime = System.currentTimeMillis();
 
 		StringBuilder sb = new StringBuilder("UPDATE quiz q JOIN (");
 
-		for (int i = 1; i < 101; i++) {
+		for (int i = 1; i < 1001; i++) {
 			sb.append("SELECT ").append(i)
 				.append(" AS new_quiz_id, '")
 				.append(updateMap.get(Long.valueOf(i)))
 				.append("' AS new_quiz_title");
 
-			if (i != 100) {
+			if (i != 1000) {
 				sb.append(" UNION ALL ");
 			}
 		}
@@ -66,18 +68,19 @@ public class CUDNativeQueryActionTimeTest {
 	}
 
 	@Test
+	@Sql("classpath:db/native-query-test-data.sql")
 	void 쌩쿼리_case_when_실행시간_측정() {
 		long beforeTime = System.currentTimeMillis();
 
-		StringBuilder sb = new StringBuilder("UPDATE quiz  SET quiz_title = CASE");
+		StringBuilder sb = new StringBuilder("UPDATE quiz  SET quiz_title = CASE ");
 
-		for (int i = 1; i < 101; i++) {
-			sb.append("WHEN quiz_id = ").append(i)
-				.append("' THEN ")
-				.append(updateMap.get(Long.valueOf(i)));
+		for (int i = 1; i < 1001; i++) {
+			sb.append(" WHEN quiz_id = " + i)
+				.append(" THEN ")
+				.append("'" + updateMap.get(Long.valueOf(i)) + "'");
 
-			if (i == 100) {
-				sb.append(" ELSE " + updateMap.get(Long.valueOf(i)));
+			if (i == 1000) {
+				sb.append(" ELSE quiz_title ");
 			}
 		}
 
