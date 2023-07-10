@@ -28,7 +28,15 @@
 
 <details><summary>📖 Version 업데이트 내역 보기</summary>
 
-### _v1.3.0 Release [latest] [23.06.25]_
+
+
+### _v1.3.1 Release [latest] [23.07.02]_
+  - 서비스 안정화 작업
+  - 약간의 코드 구조 수정 
+
+---
+
+### _v1.3.0 Release [23.06.25]_
   - Spring, Network, Interview 총 3가지의 카테고리가 추가 https://github.com/bmm522/quiz-studio/issues/43
   - batch-module 구조 개선 작업 https://github.com/bmm522/quiz-studio/issues/40 https://github.com/bmm522/quiz-studio/issues/41 https://github.com/bmm522/quiz-studio/issues/42
 
