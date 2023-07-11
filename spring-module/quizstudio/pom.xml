@@ -43,6 +43,13 @@
       <version>5.0.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-sql -->
+    <dependency>
+      <artifactId>querydsl-sql</artifactId>
+      <groupId>com.querydsl</groupId>
+      <version>5.0.0</version>
+    </dependency>
+
     <dependency>
       <artifactId>querydsl-apt</artifactId>
       <groupId>com.querydsl</groupId>
