@@ -76,7 +76,7 @@ public class QuizService {
 	 * @param request 퀴즈 업데이트 요청 정보
 	 * @return 업데이트된 퀴즈 개수
 	 */
-	public int update(final QuizUpdateParam.Request request) {
+	public int updateAllTitle(final QuizUpdateParam.Request request) {
 		return quizRepository.updateAllTitleByCustomQuizDto(
 			request.getQuizzes());
 

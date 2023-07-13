@@ -32,7 +32,7 @@ public class UpdateCategoryControllerTest {
 	}
 
 	@Test
-	@DisplayName("update 정상적인 요청")
+	@DisplayName("updateAllTitle 정상적인 요청")
 	void updateCategoryTest() {
 		CategoryUpdateBody request = CategoryUpdateBody.builder()
 			.categoryId(1L)

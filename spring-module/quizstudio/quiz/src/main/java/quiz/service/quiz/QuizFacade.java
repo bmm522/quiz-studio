@@ -76,7 +76,7 @@ public class QuizFacade {
 			request.getCategoryId());
 		PermissionValidator.validatePermissionFromUserKey(request.getUserKey(),
 			category.getUserKey());
-		final int quizUpdateCnt = quizService.update(request);
+		final int quizUpdateCnt = quizService.updateAllTitle(request);
 		final int quizChoiceUpdateCnt = quizChoiceService.updateWhenQuizUpdate(request);
 		return quizUpdateCnt + quizChoiceUpdateCnt;
 	}

@@ -16,7 +16,7 @@ public class QuizChoiceService {
 	private final QuizChoiceRepository quizChoiceRepository;
 
 	/**
-	 * 퀴즈 선택지의 정보를 업데이트하는 메서드입니다.
+	 * 퀴즈 선택지의 정보를 업데이트하는 메서드입니다. (@Transactional은 상위 클래스 QuizFacade에 있습니다.)
 	 *
 	 * @param request 퀴즈 업데이트 요청 정보
 	 * @return 업데이트된 선택지의 개수
