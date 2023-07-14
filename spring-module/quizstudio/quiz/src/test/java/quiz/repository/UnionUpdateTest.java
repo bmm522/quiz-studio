@@ -1,41 +1,28 @@
 package quiz.repository;
 
-import java.util.HashMap;
 import javax.persistence.Query;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.jdbc.Sql;
 
 
 public class UnionUpdateTest extends CUDNativeQueryActionTimeTest {
 
 
-	@BeforeEach
-	void init() {
-		entityManager = testEntityManager.getEntityManager();
-		updateMap = new HashMap<>();
-		for (int i = 1; i < 1001; i++) {
-			updateMap.put(Long.valueOf(i), "updateTitle" + i);
-		}
-
-	}
-
 	@Test
-	@Sql("classpath:db/native-query-test-data.sql")
+//	@Sql("classpath:db/native-query-test-data.sql")
 	void native_쿼리_union_실행시간_측정() {
-
-		long beforeTime = System.currentTimeMillis();
 
 		StringBuilder sb = new StringBuilder("UPDATE quiz q JOIN (");
 
-		for (int i = 1; i < 1001; i++) {
+		for (int i = iNum; i < iSize; i++) {
+
 			sb.append("SELECT ").append(i)
 				.append(" AS new_quiz_id, '")
 				.append(updateMap.get(Long.valueOf(i)))
 				.append("' AS new_quiz_title");
 
-			if (i != 1000) {
+			if (i != ifConditionNum) {
 				sb.append(" UNION ALL ");
+
 			}
 		}
 
@@ -44,9 +31,10 @@ public class UnionUpdateTest extends CUDNativeQueryActionTimeTest {
 
 		Query query = entityManager.createNativeQuery(sb.toString());
 
+		long beforeTime = System.currentTimeMillis();
+		int updateQueryCount = query.executeUpdate();
 		long afterTime = System.currentTimeMillis();
 		long secDiffTime = (afterTime - beforeTime);
-		int updateQueryCount = query.executeUpdate();
-		System.out.println("시간차이(m) : " + secDiffTime);
+		System.out.println("union update 소요 시간(ms) : " + secDiffTime);
 	}
 }
