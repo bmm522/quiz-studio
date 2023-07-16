@@ -8,7 +8,6 @@ import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +23,7 @@ public class SaveRedisScheduler {
 	/**
 	 * 매일 5시 30분에 db에 저장된 데이터를 레디스로 저장하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 30 20 * * *")
+	//@Scheduled(cron = "0 30 20 * * *")
 	public void saveQuizAtRedisJobSchedule() {
 		try {
 			jobLauncher.run(

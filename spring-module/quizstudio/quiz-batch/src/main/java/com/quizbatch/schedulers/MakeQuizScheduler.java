@@ -8,7 +8,6 @@ import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,7 +41,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오후 10시부터 25분마다 자바 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 13 * * *")
+	//@Scheduled(cron = "0 1/25 13 * * *")
 	public void makeJavaQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -61,7 +60,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오후 11시부터 25분마다 자료구조 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 14 * * *")
+	//@Scheduled(cron = "0 1/25 14 * * *")
 	public void makeDataStructureQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -80,7 +79,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오후 12시부터 25분마다 데이터 베이스 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/25 15 * * *")
+	//@Scheduled(cron = "0 1/25 15 * * *")
 	public void makeDatabaseQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -99,7 +98,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오전  1시부터 15분마다 스프링 프레임워크 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/15 16 * * *")
+	//@Scheduled(cron = "0 1/15 16 * * *")
 	public void makeSpringQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -118,7 +117,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오후전 2시부터 15분마다 네트워크 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/15 17 * * *")
+	//@Scheduled(cron = "0 1/15 17 * * *")
 	public void makeNetworkQuizJobSchedule() {
 		try {
 			jobLauncher.run(
@@ -137,7 +136,7 @@ public class MakeQuizScheduler {
 	/**
 	 * 매일 오전 3시부터 15분마다 cs 면접 문제를 생성하는 스케줄링 메서드입니다.
 	 */
-	@Scheduled(cron = "0 1/15 18 * * *")
+	//@Scheduled(cron = "0 1/15 18 * * *")
 	public void makeInterviewQuizJobSchedule() {
 		try {
 			jobLauncher.run(

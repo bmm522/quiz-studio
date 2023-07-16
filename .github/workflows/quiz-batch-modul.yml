@@ -3,8 +3,8 @@ name: quiz-batch-module
 on:
   push:
     branches: 
- #     - main
-      - develop/v1.3.2
+      - main
+ #     - develop/v1.3.2
     paths:
       - 'spring-module/quizstudio/quiz-batch/**'
 
