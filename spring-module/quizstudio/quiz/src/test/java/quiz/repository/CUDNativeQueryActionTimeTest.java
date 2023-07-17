@@ -23,9 +23,9 @@ public class CUDNativeQueryActionTimeTest {
 
 	final int iNum = 1000;
 
-	final int iSize = 10001;
+	final int iSize = 11001;
 
-	final int ifConditionNum = 10000;
+	final int ifConditionNum = 11000;
 
 	@Autowired
 	TestEntityManager testEntityManager;
