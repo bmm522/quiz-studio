@@ -20,7 +20,7 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
+		log.info("service 들어옴");
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 
 		SocialUserInfo socialUserInfo = getSocialUserInfo(userRequest, oAuth2User);
@@ -38,7 +38,7 @@ public class PrincipalSocialOAuth2UserService extends DefaultOAuth2UserService {
 	 * @throws NotFoundSocialInfoException 등록되지 않은 소셜 정보인 경우 발생하는 예외
 	 */
 	private SocialUserInfo getSocialUserInfo(OAuth2UserRequest userRequest, OAuth2User oAuth2User) {
-
+		log.info("service : " + userRequest.toString());
 		switch (userRequest.getClientRegistration().getRegistrationId()) {
 			case "google":
 				return new GoogleUserInfo(oAuth2User.getAttributes());

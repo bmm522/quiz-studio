@@ -50,13 +50,12 @@ public class QuizCUDRepositoryTest {
 		);
 
 		SubQueryExpression<Tuple> sq1 = sqlQueryFactory.query()
-			.select();
+			.select(quiz.id, quiz.quizTitle);
 		SubQueryExpression<Tuple> sq2 = sqlQueryFactory.query()
 			.select(quiz.id, quiz.quizTitle);
 		sqlQueryFactory.query().unionAll(sq1, sq2);
 
 		System.out.println(sqlQueryFactory.query().fetchCount());
 	}
-
 
 }

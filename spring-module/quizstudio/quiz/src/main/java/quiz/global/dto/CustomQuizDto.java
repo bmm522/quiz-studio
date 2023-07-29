@@ -34,23 +34,6 @@ public class CustomQuizDto {
 			.build();
 	}
 
-	// Test용 생성자 (퀴즈 번호 까지)
-	public static CustomQuizDto createForTest(Long quizId, String title, String choice1,
-		String choice2,
-		String choice3, String choice4, int answerIndex) {
-		List<Choice> choices = new ArrayList<>();
-		choices.add(Choice.builder().content(choice1).isAnswer(answerIndex == 1).build());
-		choices.add(Choice.builder().content(choice2).isAnswer(answerIndex == 2).build());
-		choices.add(Choice.builder().content(choice3).isAnswer(answerIndex == 3).build());
-		choices.add(Choice.builder().content(choice4).isAnswer(answerIndex == 4).build());
-
-		return CustomQuizDto.builder()
-			.quizId(quizId)
-			.title(title)
-			.choices(choices)
-			.build();
-	}
-
 	public void checkCorrectAnswer() {
 		long correctAnswerCount = this.choices.stream()
 			.filter(CustomQuizDto.Choice::getIsAnswer)
