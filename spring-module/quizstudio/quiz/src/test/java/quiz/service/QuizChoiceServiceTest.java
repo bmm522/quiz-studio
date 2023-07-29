@@ -32,7 +32,7 @@ public class QuizChoiceServiceTest {
 			CustomQuizDto.createForTest("예제 문제3", "예제 보기1", "예제 보기2", "예제 보기3", "예제 보기4", 3)
 		);
 
-		List<Choice> choices = quizChoiceService.settingQuizChoice(customQuizDtoList);
+		List<Choice> choices = quizChoiceService.converterQuizChoice(customQuizDtoList);
 
 		assertThat(choices.size()).isEqualTo(12);
 
